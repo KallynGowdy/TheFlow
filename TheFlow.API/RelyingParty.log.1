@@ -1,0 +1,901 @@
+2013-08-11 23:37:00,770 (GMT-4) [13] DEBUG DotNetOpenAuth.Yadis - Skipping HTML discovery because XRDS contained service endpoints.
+2013-08-11 23:37:00,777 (GMT-4) [13] INFO  DotNetOpenAuth.OpenId - Received identity assertion for https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo via https://www.google.com/accounts/o8/ud.
+2013-08-11 23:37:12,204 (GMT-4) [7] INFO  DotNetOpenAuth.Messaging.Channel - Scanning incoming request for messages: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2013-08-12T03%3A37%3A00Zm7YVGFTmMGrIZg&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.assoc_handle=1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=KOmV9tvKism7uTADzA0ZGmioCbnJR4jF2GOVIr7DtBk%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:37:12,204 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming HTTP request: GET http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2013-08-12T03%3A37%3A00Zm7YVGFTmMGrIZg&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.assoc_handle=1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=KOmV9tvKism7uTADzA0ZGmioCbnJR4jF2GOVIr7DtBk%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:37:12,205 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming request received: PositiveAssertionResponse
+2013-08-11 23:37:12,205 (GMT-4) [7] INFO  DotNetOpenAuth.Messaging.Channel - Processing incoming PositiveAssertionResponse (2.0) message:
+	openid.claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.sig: KOmV9tvKism7uTADzA0ZGmioCbnJR4jF2GOVIr7DtBk=
+	openid.signed: op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle
+	openid.assoc_handle: 1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ
+	openid.op_endpoint: https://www.google.com/accounts/o8/ud
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.response_nonce: 2013-08-12T03:37:00Zm7YVGFTmMGrIZg
+	openid.mode: id_res
+	openid.ns: http://specs.openid.net/auth/2.0
+	providerUrl: https://www.google.com/accounts/o8/id
+	dnoa.userSuppliedIdentifier: https://www.google.com/accounts/o8/id
+
+2013-08-11 23:37:12,205 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:37:12,205 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:37:12,205 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings - Verifying incoming PositiveAssertionResponse message signature of: KOmV9tvKism7uTADzA0ZGmioCbnJR4jF2GOVIr7DtBk=
+2013-08-11 23:37:12,205 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings.Signatures - Signing these message parts: 
+	op_endpoint: https://www.google.com/accounts/o8/ud
+	claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	response_nonce: 2013-08-12T03:37:00Zm7YVGFTmMGrIZg
+	assoc_handle: 1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ
+
+Base64 representation of signed data: b3BfZW5kcG9pbnQ6aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS9hY2NvdW50cy9vOC91ZApjbGFpbWVkX2lkOmh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vYWNjb3VudHMvbzgvaWQ/aWQ9QUl0T2F3bEZRZDNFMjhUWnRhblFNY1JrLTRacXJncHM4Q1VHb1dvCmlkZW50aXR5Omh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vYWNjb3VudHMvbzgvaWQ/aWQ9QUl0T2F3bEZRZDNFMjhUWnRhblFNY1JrLTRacXJncHM4Q1VHb1dvCnJldHVybl90bzpodHRwOi8vbG9jYWxob3N0OjUyMzE2L2FwaS91c2Vycz9wcm92aWRlclVybD1odHRwcyUzQSUyRiUyRnd3dy5nb29nbGUuY29tJTJGYWNjb3VudHMlMkZvOCUyRmlkJmRub2EudXNlclN1cHBsaWVkSWRlbnRpZmllcj1odHRwcyUzQSUyRiUyRnd3dy5nb29nbGUuY29tJTJGYWNjb3VudHMlMkZvOCUyRmlkCnJlc3BvbnNlX25vbmNlOjIwMTMtMDgtMTJUMDM6Mzc6MDBabTdZVkdGVG1NR3JJWmcKYXNzb2NfaGFuZGxlOjEuQU1sWUE5V25VaUF0cklVUkpFSWZTQ2ZsM1U1ZjZTZFF5ZTlPT2JhNlQ4N2d3LUNFYzhGUTB5VUMtNzVpcHNES1FRN1JUbUwxUzFESVdRCg==
+Signature: KOmV9tvKism7uTADzA0ZGmioCbnJR4jF2GOVIr7DtBk=
+2013-08-11 23:37:12,205 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement applied to message.
+2013-08-11 23:37:12,205 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement applied to message.
+2013-08-11 23:37:12,205 (GMT-4) [7] ERROR DotNetOpenAuth.OpenId - Replayed nonce detected (m7YVGFTmMGrIZg 08/12/2013 03:37:00).  Rejecting message.
+2013-08-11 23:37:13,649 (GMT-4) [7] DEBUG DotNetOpenAuth.Http - HTTP GET https://www.google.com/accounts/o8/id
+2013-08-11 23:37:14,371 (GMT-4) [7] DEBUG DotNetOpenAuth.Yadis - An XRDS response was received from GET at user-supplied identifier.
+2013-08-11 23:37:14,371 (GMT-4) [7] DEBUG DotNetOpenAuth.Yadis - Total services discovered in XRDS: 1
+2013-08-11 23:37:14,371 (GMT-4) [7] DEBUG DotNetOpenAuth.Yadis - [{
+	ClaimedIdentifier: http://specs.openid.net/auth/2.0/identifier_select
+	ProviderLocalIdentifier: http://specs.openid.net/auth/2.0/identifier_select
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/server
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+},]
+2013-08-11 23:37:14,371 (GMT-4) [7] DEBUG DotNetOpenAuth.Yadis - Skipping HTML discovery because XRDS contained service endpoints.
+2013-08-11 23:37:14,371 (GMT-4) [7] INFO  DotNetOpenAuth.Yadis - Performing discovery on user-supplied identifier: https://www.google.com/accounts/o8/id
+2013-08-11 23:37:14,371 (GMT-4) [7] DEBUG DotNetOpenAuth.Yadis - Filtering and sorting of endpoints did not affect the list.
+2013-08-11 23:37:14,371 (GMT-4) [7] DEBUG DotNetOpenAuth.OpenId - Creating authentication request for user supplied Identifier: https://www.google.com/accounts/o8/id
+2013-08-11 23:37:14,372 (GMT-4) [7] DEBUG DotNetOpenAuth.OpenId - Could not determine whether OP supported Sreg or AX.  Using both extensions.
+2013-08-11 23:37:14,372 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Channel - Preparing to send CheckIdRequest (2.0) message.
+2013-08-11 23:37:14,372 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ExtensionsBindingElementRelyingParty applied to message.
+2013-08-11 23:37:14,372 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySecurityOptions did not apply to message.
+2013-08-11 23:37:14,372 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:37:14,372 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToNonceBindingElement did not apply to message.
+2013-08-11 23:37:14,372 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:37:14,372 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardReplayProtectionBindingElement did not apply to message.
+2013-08-11 23:37:14,372 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement did not apply to message.
+2013-08-11 23:37:14,372 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement did not apply to message.
+2013-08-11 23:37:14,372 (GMT-4) [7] INFO  DotNetOpenAuth.Messaging.Channel - Prepared outgoing CheckIdRequest (2.0) message for https://www.google.com/accounts/o8/ud: 
+	openid.claimed_id: http://specs.openid.net/auth/2.0/identifier_select
+	openid.identity: http://specs.openid.net/auth/2.0/identifier_select
+	openid.assoc_handle: 1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.realm: http://localhost:52316/
+	openid.mode: checkid_setup
+	openid.ns: http://specs.openid.net/auth/2.0
+	openid.ns.sreg: http://openid.net/extensions/sreg/1.1
+	openid.sreg.required: 
+	openid.sreg.optional: email,timezone
+	openid.ns.alias3: http://openid.net/srv/ax/1.0
+	openid.alias3.if_available: alias1,alias2,alias3,alias4
+	openid.alias3.mode: fetch_request
+	openid.alias3.type.alias1: http://axschema.org/contact/email
+	openid.alias3.count.alias1: 1
+	openid.alias3.type.alias2: http://axschema.org/pref/timezone
+	openid.alias3.count.alias2: 1
+	openid.alias3.type.alias3: http://schema.openid.net/contact/email
+	openid.alias3.count.alias3: 1
+	openid.alias3.type.alias4: http://schema.openid.net/pref/timezone
+	openid.alias3.count.alias4: 1
+
+2013-08-11 23:37:14,372 (GMT-4) [7] DEBUG DotNetOpenAuth.Messaging.Channel - Sending message: CheckIdRequest
+2013-08-11 23:37:14,372 (GMT-4) [7] DEBUG DotNetOpenAuth.Http - Redirecting to https://www.google.com/accounts/o8/ud?openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.realm=http%3A%2F%2Flocalhost%3A52316%2F&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.sreg.required=&openid.sreg.optional=email%2Ctimezone&openid.ns.alias3=http%3A%2F%2Fopenid.net%2Fsrv%2Fax%2F1.0&openid.alias3.if_available=alias1%2Calias2%2Calias3%2Calias4&openid.alias3.mode=fetch_request&openid.alias3.type.alias1=http%3A%2F%2Faxschema.org%2Fcontact%2Femail&openid.alias3.count.alias1=1&openid.alias3.type.alias2=http%3A%2F%2Faxschema.org%2Fpref%2Ftimezone&openid.alias3.count.alias2=1&openid.alias3.type.alias3=http%3A%2F%2Fschema.openid.net%2Fcontact%2Femail&openid.alias3.count.alias3=1&openid.alias3.type.alias4=http%3A%2F%2Fschema.openid.net%2Fpref%2Ftimezone&openid.alias3.count.alias4=1
+2013-08-11 23:37:14,631 (GMT-4) [19] INFO  DotNetOpenAuth.Messaging.Channel - Scanning incoming request for messages: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2013-08-12T03%3A37%3A14Zixco9S0Zqdw8wQ&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.assoc_handle=1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=09i26JogG%2BX7kseCDY7DScX468c2Z9CG1ECFq0siomo%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:37:14,631 (GMT-4) [19] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming HTTP request: GET http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2013-08-12T03%3A37%3A14Zixco9S0Zqdw8wQ&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.assoc_handle=1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=09i26JogG%2BX7kseCDY7DScX468c2Z9CG1ECFq0siomo%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:37:14,632 (GMT-4) [19] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming request received: PositiveAssertionResponse
+2013-08-11 23:37:14,632 (GMT-4) [19] INFO  DotNetOpenAuth.Messaging.Channel - Processing incoming PositiveAssertionResponse (2.0) message:
+	openid.claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.sig: 09i26JogG+X7kseCDY7DScX468c2Z9CG1ECFq0siomo=
+	openid.signed: op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle
+	openid.assoc_handle: 1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ
+	openid.op_endpoint: https://www.google.com/accounts/o8/ud
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.response_nonce: 2013-08-12T03:37:14Zixco9S0Zqdw8wQ
+	openid.mode: id_res
+	openid.ns: http://specs.openid.net/auth/2.0
+	providerUrl: https://www.google.com/accounts/o8/id
+	dnoa.userSuppliedIdentifier: https://www.google.com/accounts/o8/id
+
+2013-08-11 23:37:14,632 (GMT-4) [19] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:37:14,632 (GMT-4) [19] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:37:14,632 (GMT-4) [19] DEBUG DotNetOpenAuth.Messaging.Bindings - Verifying incoming PositiveAssertionResponse message signature of: 09i26JogG+X7kseCDY7DScX468c2Z9CG1ECFq0siomo=
+2013-08-11 23:37:14,632 (GMT-4) [19] DEBUG DotNetOpenAuth.Messaging.Bindings.Signatures - Signing these message parts: 
+	op_endpoint: https://www.google.com/accounts/o8/ud
+	claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	response_nonce: 2013-08-12T03:37:14Zixco9S0Zqdw8wQ
+	assoc_handle: 1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ
+
+Base64 representation of signed data: b3BfZW5kcG9pbnQ6aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS9hY2NvdW50cy9vOC91ZApjbGFpbWVkX2lkOmh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vYWNjb3VudHMvbzgvaWQ/aWQ9QUl0T2F3bEZRZDNFMjhUWnRhblFNY1JrLTRacXJncHM4Q1VHb1dvCmlkZW50aXR5Omh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vYWNjb3VudHMvbzgvaWQ/aWQ9QUl0T2F3bEZRZDNFMjhUWnRhblFNY1JrLTRacXJncHM4Q1VHb1dvCnJldHVybl90bzpodHRwOi8vbG9jYWxob3N0OjUyMzE2L2FwaS91c2Vycz9wcm92aWRlclVybD1odHRwcyUzQSUyRiUyRnd3dy5nb29nbGUuY29tJTJGYWNjb3VudHMlMkZvOCUyRmlkJmRub2EudXNlclN1cHBsaWVkSWRlbnRpZmllcj1odHRwcyUzQSUyRiUyRnd3dy5nb29nbGUuY29tJTJGYWNjb3VudHMlMkZvOCUyRmlkCnJlc3BvbnNlX25vbmNlOjIwMTMtMDgtMTJUMDM6Mzc6MTRaaXhjbzlTMFpxZHc4d1EKYXNzb2NfaGFuZGxlOjEuQU1sWUE5V25VaUF0cklVUkpFSWZTQ2ZsM1U1ZjZTZFF5ZTlPT2JhNlQ4N2d3LUNFYzhGUTB5VUMtNzVpcHNES1FRN1JUbUwxUzFESVdRCg==
+Signature: 09i26JogG+X7kseCDY7DScX468c2Z9CG1ECFq0siomo=
+2013-08-11 23:37:14,632 (GMT-4) [19] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement applied to message.
+2013-08-11 23:37:14,632 (GMT-4) [19] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement applied to message.
+2013-08-11 23:37:14,632 (GMT-4) [19] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardReplayProtectionBindingElement applied to message.
+2013-08-11 23:37:14,632 (GMT-4) [19] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToNonceBindingElement did not apply to message.
+2013-08-11 23:37:14,632 (GMT-4) [19] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySecurityOptions applied to message.
+2013-08-11 23:37:14,632 (GMT-4) [19] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ExtensionsBindingElementRelyingParty applied to message.
+2013-08-11 23:37:14,632 (GMT-4) [19] DEBUG DotNetOpenAuth.Messaging.Channel - After binding element processing, the received PositiveAssertionResponse (2.0) message is: 
+	openid.claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.sig: 09i26JogG+X7kseCDY7DScX468c2Z9CG1ECFq0siomo=
+	openid.signed: op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle
+	openid.assoc_handle: 1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ
+	openid.op_endpoint: https://www.google.com/accounts/o8/ud
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.response_nonce: 2013-08-12T03:37:14Zixco9S0Zqdw8wQ
+	openid.mode: id_res
+	openid.ns: http://specs.openid.net/auth/2.0
+	providerUrl: https://www.google.com/accounts/o8/id
+	dnoa.userSuppliedIdentifier: https://www.google.com/accounts/o8/id
+
+2013-08-11 23:37:14,633 (GMT-4) [19] DEBUG DotNetOpenAuth.OpenId - Verifying assertion matches identifier discovery results...
+2013-08-11 23:37:14,633 (GMT-4) [19] DEBUG DotNetOpenAuth.Http - HTTP GET https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:37:14,807 (GMT-4) [19] DEBUG DotNetOpenAuth.Yadis - An XRDS response was received from GET at user-supplied identifier.
+2013-08-11 23:37:14,807 (GMT-4) [19] DEBUG DotNetOpenAuth.Yadis - Total services discovered in XRDS: 5
+2013-08-11 23:37:14,807 (GMT-4) [19] DEBUG DotNetOpenAuth.Yadis - [{
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=mail
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=gmail.com
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=googlemail.com
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=profiles
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+},]
+2013-08-11 23:37:14,807 (GMT-4) [19] DEBUG DotNetOpenAuth.Yadis - Skipping HTML discovery because XRDS contained service endpoints.
+2013-08-11 23:37:14,807 (GMT-4) [19] INFO  DotNetOpenAuth.OpenId - Received identity assertion for https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo via https://www.google.com/accounts/o8/ud.
+2013-08-11 23:40:05,436 (GMT-4) [15] INFO  DotNetOpenAuth.Messaging.Channel - Scanning incoming request for messages: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+2013-08-11 23:40:05,436 (GMT-4) [15] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming HTTP request: GET http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+2013-08-11 23:40:05,437 (GMT-4) [15] DEBUG DotNetOpenAuth.Http - HTTP GET https://www.google.com/accounts/o8/id
+2013-08-11 23:40:05,735 (GMT-4) [15] DEBUG DotNetOpenAuth.Yadis - An XRDS response was received from GET at user-supplied identifier.
+2013-08-11 23:40:05,735 (GMT-4) [15] DEBUG DotNetOpenAuth.Yadis - Total services discovered in XRDS: 1
+2013-08-11 23:40:05,735 (GMT-4) [15] DEBUG DotNetOpenAuth.Yadis - [{
+	ClaimedIdentifier: http://specs.openid.net/auth/2.0/identifier_select
+	ProviderLocalIdentifier: http://specs.openid.net/auth/2.0/identifier_select
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/server
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+},]
+2013-08-11 23:40:05,735 (GMT-4) [15] DEBUG DotNetOpenAuth.Yadis - Skipping HTML discovery because XRDS contained service endpoints.
+2013-08-11 23:40:05,735 (GMT-4) [15] INFO  DotNetOpenAuth.Yadis - Performing discovery on user-supplied identifier: https://www.google.com/accounts/o8/id
+2013-08-11 23:40:05,735 (GMT-4) [15] DEBUG DotNetOpenAuth.Yadis - Filtering and sorting of endpoints did not affect the list.
+2013-08-11 23:40:05,735 (GMT-4) [15] DEBUG DotNetOpenAuth.OpenId - Creating authentication request for user supplied Identifier: https://www.google.com/accounts/o8/id
+2013-08-11 23:40:05,735 (GMT-4) [15] DEBUG DotNetOpenAuth.OpenId - Could not determine whether OP supported Sreg or AX.  Using both extensions.
+2013-08-11 23:40:05,735 (GMT-4) [15] DEBUG DotNetOpenAuth.Messaging.Channel - Preparing to send CheckIdRequest (2.0) message.
+2013-08-11 23:40:05,736 (GMT-4) [15] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ExtensionsBindingElementRelyingParty applied to message.
+2013-08-11 23:40:05,736 (GMT-4) [15] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySecurityOptions did not apply to message.
+2013-08-11 23:40:05,736 (GMT-4) [15] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:40:05,736 (GMT-4) [15] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToNonceBindingElement did not apply to message.
+2013-08-11 23:40:05,736 (GMT-4) [15] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:40:05,736 (GMT-4) [15] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardReplayProtectionBindingElement did not apply to message.
+2013-08-11 23:40:05,736 (GMT-4) [15] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement did not apply to message.
+2013-08-11 23:40:05,736 (GMT-4) [15] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement did not apply to message.
+2013-08-11 23:40:05,736 (GMT-4) [15] INFO  DotNetOpenAuth.Messaging.Channel - Prepared outgoing CheckIdRequest (2.0) message for https://www.google.com/accounts/o8/ud: 
+	openid.claimed_id: http://specs.openid.net/auth/2.0/identifier_select
+	openid.identity: http://specs.openid.net/auth/2.0/identifier_select
+	openid.assoc_handle: 1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.realm: http://localhost:52316/
+	openid.mode: checkid_setup
+	openid.ns: http://specs.openid.net/auth/2.0
+	openid.ns.sreg: http://openid.net/extensions/sreg/1.1
+	openid.sreg.required: 
+	openid.sreg.optional: email,timezone
+	openid.ns.alias3: http://openid.net/srv/ax/1.0
+	openid.alias3.if_available: alias1,alias2,alias3,alias4
+	openid.alias3.mode: fetch_request
+	openid.alias3.type.alias1: http://axschema.org/contact/email
+	openid.alias3.count.alias1: 1
+	openid.alias3.type.alias2: http://axschema.org/pref/timezone
+	openid.alias3.count.alias2: 1
+	openid.alias3.type.alias3: http://schema.openid.net/contact/email
+	openid.alias3.count.alias3: 1
+	openid.alias3.type.alias4: http://schema.openid.net/pref/timezone
+	openid.alias3.count.alias4: 1
+
+2013-08-11 23:40:05,736 (GMT-4) [15] DEBUG DotNetOpenAuth.Messaging.Channel - Sending message: CheckIdRequest
+2013-08-11 23:40:05,736 (GMT-4) [15] DEBUG DotNetOpenAuth.Http - Redirecting to https://www.google.com/accounts/o8/ud?openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.realm=http%3A%2F%2Flocalhost%3A52316%2F&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.sreg.required=&openid.sreg.optional=email%2Ctimezone&openid.ns.alias3=http%3A%2F%2Fopenid.net%2Fsrv%2Fax%2F1.0&openid.alias3.if_available=alias1%2Calias2%2Calias3%2Calias4&openid.alias3.mode=fetch_request&openid.alias3.type.alias1=http%3A%2F%2Faxschema.org%2Fcontact%2Femail&openid.alias3.count.alias1=1&openid.alias3.type.alias2=http%3A%2F%2Faxschema.org%2Fpref%2Ftimezone&openid.alias3.count.alias2=1&openid.alias3.type.alias3=http%3A%2F%2Fschema.openid.net%2Fcontact%2Femail&openid.alias3.count.alias3=1&openid.alias3.type.alias4=http%3A%2F%2Fschema.openid.net%2Fpref%2Ftimezone&openid.alias3.count.alias4=1
+2013-08-11 23:40:06,532 (GMT-4) [5] INFO  DotNetOpenAuth.Messaging.Channel - Scanning incoming request for messages: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2013-08-12T03%3A40%3A06ZyB3NFZpL69fCfg&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.assoc_handle=1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=N4MCQFH0tjMzB8wsqcxB4ZeFZESLRsgeyyt8sAViBEc%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:40:06,533 (GMT-4) [5] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming HTTP request: GET http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2013-08-12T03%3A40%3A06ZyB3NFZpL69fCfg&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.assoc_handle=1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=N4MCQFH0tjMzB8wsqcxB4ZeFZESLRsgeyyt8sAViBEc%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:40:06,533 (GMT-4) [5] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming request received: PositiveAssertionResponse
+2013-08-11 23:40:06,533 (GMT-4) [5] INFO  DotNetOpenAuth.Messaging.Channel - Processing incoming PositiveAssertionResponse (2.0) message:
+	openid.claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.sig: N4MCQFH0tjMzB8wsqcxB4ZeFZESLRsgeyyt8sAViBEc=
+	openid.signed: op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle
+	openid.assoc_handle: 1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ
+	openid.op_endpoint: https://www.google.com/accounts/o8/ud
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.response_nonce: 2013-08-12T03:40:06ZyB3NFZpL69fCfg
+	openid.mode: id_res
+	openid.ns: http://specs.openid.net/auth/2.0
+	providerUrl: https://www.google.com/accounts/o8/id
+	dnoa.userSuppliedIdentifier: https://www.google.com/accounts/o8/id
+
+2013-08-11 23:40:06,533 (GMT-4) [5] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:40:06,533 (GMT-4) [5] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:40:06,533 (GMT-4) [5] DEBUG DotNetOpenAuth.Messaging.Bindings - Verifying incoming PositiveAssertionResponse message signature of: N4MCQFH0tjMzB8wsqcxB4ZeFZESLRsgeyyt8sAViBEc=
+2013-08-11 23:40:06,533 (GMT-4) [5] DEBUG DotNetOpenAuth.Messaging.Bindings.Signatures - Signing these message parts: 
+	op_endpoint: https://www.google.com/accounts/o8/ud
+	claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	response_nonce: 2013-08-12T03:40:06ZyB3NFZpL69fCfg
+	assoc_handle: 1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ
+
+Base64 representation of signed data: b3BfZW5kcG9pbnQ6aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS9hY2NvdW50cy9vOC91ZApjbGFpbWVkX2lkOmh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vYWNjb3VudHMvbzgvaWQ/aWQ9QUl0T2F3bEZRZDNFMjhUWnRhblFNY1JrLTRacXJncHM4Q1VHb1dvCmlkZW50aXR5Omh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vYWNjb3VudHMvbzgvaWQ/aWQ9QUl0T2F3bEZRZDNFMjhUWnRhblFNY1JrLTRacXJncHM4Q1VHb1dvCnJldHVybl90bzpodHRwOi8vbG9jYWxob3N0OjUyMzE2L2FwaS91c2Vycz9wcm92aWRlclVybD1odHRwcyUzQSUyRiUyRnd3dy5nb29nbGUuY29tJTJGYWNjb3VudHMlMkZvOCUyRmlkJmRub2EudXNlclN1cHBsaWVkSWRlbnRpZmllcj1odHRwcyUzQSUyRiUyRnd3dy5nb29nbGUuY29tJTJGYWNjb3VudHMlMkZvOCUyRmlkCnJlc3BvbnNlX25vbmNlOjIwMTMtMDgtMTJUMDM6NDA6MDZaeUIzTkZacEw2OWZDZmcKYXNzb2NfaGFuZGxlOjEuQU1sWUE5V25VaUF0cklVUkpFSWZTQ2ZsM1U1ZjZTZFF5ZTlPT2JhNlQ4N2d3LUNFYzhGUTB5VUMtNzVpcHNES1FRN1JUbUwxUzFESVdRCg==
+Signature: N4MCQFH0tjMzB8wsqcxB4ZeFZESLRsgeyyt8sAViBEc=
+2013-08-11 23:40:06,533 (GMT-4) [5] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement applied to message.
+2013-08-11 23:40:06,533 (GMT-4) [5] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement applied to message.
+2013-08-11 23:40:06,534 (GMT-4) [5] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardReplayProtectionBindingElement applied to message.
+2013-08-11 23:40:06,534 (GMT-4) [5] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToNonceBindingElement did not apply to message.
+2013-08-11 23:40:06,534 (GMT-4) [5] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySecurityOptions applied to message.
+2013-08-11 23:40:06,534 (GMT-4) [5] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ExtensionsBindingElementRelyingParty applied to message.
+2013-08-11 23:40:06,534 (GMT-4) [5] DEBUG DotNetOpenAuth.Messaging.Channel - After binding element processing, the received PositiveAssertionResponse (2.0) message is: 
+	openid.claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.sig: N4MCQFH0tjMzB8wsqcxB4ZeFZESLRsgeyyt8sAViBEc=
+	openid.signed: op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle
+	openid.assoc_handle: 1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ
+	openid.op_endpoint: https://www.google.com/accounts/o8/ud
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.response_nonce: 2013-08-12T03:40:06ZyB3NFZpL69fCfg
+	openid.mode: id_res
+	openid.ns: http://specs.openid.net/auth/2.0
+	providerUrl: https://www.google.com/accounts/o8/id
+	dnoa.userSuppliedIdentifier: https://www.google.com/accounts/o8/id
+
+2013-08-11 23:40:06,534 (GMT-4) [5] DEBUG DotNetOpenAuth.OpenId - Verifying assertion matches identifier discovery results...
+2013-08-11 23:40:06,534 (GMT-4) [5] DEBUG DotNetOpenAuth.Http - HTTP GET https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:40:06,787 (GMT-4) [5] DEBUG DotNetOpenAuth.Yadis - An XRDS response was received from GET at user-supplied identifier.
+2013-08-11 23:40:06,787 (GMT-4) [5] DEBUG DotNetOpenAuth.Yadis - Total services discovered in XRDS: 5
+2013-08-11 23:40:06,788 (GMT-4) [5] DEBUG DotNetOpenAuth.Yadis - [{
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=mail
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=gmail.com
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=googlemail.com
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=profiles
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+},]
+2013-08-11 23:40:06,788 (GMT-4) [5] DEBUG DotNetOpenAuth.Yadis - Skipping HTML discovery because XRDS contained service endpoints.
+2013-08-11 23:40:06,788 (GMT-4) [5] INFO  DotNetOpenAuth.OpenId - Received identity assertion for https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo via https://www.google.com/accounts/o8/ud.
+2013-08-11 23:42:10,939 (GMT-4) [24] INFO  DotNetOpenAuth.Messaging.Channel - Scanning incoming request for messages: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2013-08-12T03%3A40%3A06ZyB3NFZpL69fCfg&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.assoc_handle=1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=N4MCQFH0tjMzB8wsqcxB4ZeFZESLRsgeyyt8sAViBEc%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:42:10,939 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming HTTP request: GET http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2013-08-12T03%3A40%3A06ZyB3NFZpL69fCfg&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.assoc_handle=1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=N4MCQFH0tjMzB8wsqcxB4ZeFZESLRsgeyyt8sAViBEc%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:42:10,940 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming request received: PositiveAssertionResponse
+2013-08-11 23:42:10,940 (GMT-4) [24] INFO  DotNetOpenAuth.Messaging.Channel - Processing incoming PositiveAssertionResponse (2.0) message:
+	openid.claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.sig: N4MCQFH0tjMzB8wsqcxB4ZeFZESLRsgeyyt8sAViBEc=
+	openid.signed: op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle
+	openid.assoc_handle: 1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ
+	openid.op_endpoint: https://www.google.com/accounts/o8/ud
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.response_nonce: 2013-08-12T03:40:06ZyB3NFZpL69fCfg
+	openid.mode: id_res
+	openid.ns: http://specs.openid.net/auth/2.0
+	providerUrl: https://www.google.com/accounts/o8/id
+	dnoa.userSuppliedIdentifier: https://www.google.com/accounts/o8/id
+
+2013-08-11 23:42:10,940 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:42:10,940 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:42:10,940 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Verifying incoming PositiveAssertionResponse message signature of: N4MCQFH0tjMzB8wsqcxB4ZeFZESLRsgeyyt8sAViBEc=
+2013-08-11 23:42:10,940 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings.Signatures - Signing these message parts: 
+	op_endpoint: https://www.google.com/accounts/o8/ud
+	claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	response_nonce: 2013-08-12T03:40:06ZyB3NFZpL69fCfg
+	assoc_handle: 1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ
+
+Base64 representation of signed data: b3BfZW5kcG9pbnQ6aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS9hY2NvdW50cy9vOC91ZApjbGFpbWVkX2lkOmh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vYWNjb3VudHMvbzgvaWQ/aWQ9QUl0T2F3bEZRZDNFMjhUWnRhblFNY1JrLTRacXJncHM4Q1VHb1dvCmlkZW50aXR5Omh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vYWNjb3VudHMvbzgvaWQ/aWQ9QUl0T2F3bEZRZDNFMjhUWnRhblFNY1JrLTRacXJncHM4Q1VHb1dvCnJldHVybl90bzpodHRwOi8vbG9jYWxob3N0OjUyMzE2L2FwaS91c2Vycz9wcm92aWRlclVybD1odHRwcyUzQSUyRiUyRnd3dy5nb29nbGUuY29tJTJGYWNjb3VudHMlMkZvOCUyRmlkJmRub2EudXNlclN1cHBsaWVkSWRlbnRpZmllcj1odHRwcyUzQSUyRiUyRnd3dy5nb29nbGUuY29tJTJGYWNjb3VudHMlMkZvOCUyRmlkCnJlc3BvbnNlX25vbmNlOjIwMTMtMDgtMTJUMDM6NDA6MDZaeUIzTkZacEw2OWZDZmcKYXNzb2NfaGFuZGxlOjEuQU1sWUE5V25VaUF0cklVUkpFSWZTQ2ZsM1U1ZjZTZFF5ZTlPT2JhNlQ4N2d3LUNFYzhGUTB5VUMtNzVpcHNES1FRN1JUbUwxUzFESVdRCg==
+Signature: N4MCQFH0tjMzB8wsqcxB4ZeFZESLRsgeyyt8sAViBEc=
+2013-08-11 23:42:10,940 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement applied to message.
+2013-08-11 23:42:10,940 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement applied to message.
+2013-08-11 23:42:10,940 (GMT-4) [24] ERROR DotNetOpenAuth.OpenId - Replayed nonce detected (yB3NFZpL69fCfg 08/12/2013 03:40:06).  Rejecting message.
+2013-08-11 23:42:10,940 (GMT-4) [24] DEBUG DotNetOpenAuth.Http - HTTP GET https://www.google.com/accounts/o8/id
+2013-08-11 23:42:12,344 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - An XRDS response was received from GET at user-supplied identifier.
+2013-08-11 23:42:12,344 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - Total services discovered in XRDS: 1
+2013-08-11 23:42:12,344 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - [{
+	ClaimedIdentifier: http://specs.openid.net/auth/2.0/identifier_select
+	ProviderLocalIdentifier: http://specs.openid.net/auth/2.0/identifier_select
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/server
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+},]
+2013-08-11 23:42:12,344 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - Skipping HTML discovery because XRDS contained service endpoints.
+2013-08-11 23:42:12,344 (GMT-4) [24] INFO  DotNetOpenAuth.Yadis - Performing discovery on user-supplied identifier: https://www.google.com/accounts/o8/id
+2013-08-11 23:42:12,344 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - Filtering and sorting of endpoints did not affect the list.
+2013-08-11 23:42:12,344 (GMT-4) [24] DEBUG DotNetOpenAuth.OpenId - Creating authentication request for user supplied Identifier: https://www.google.com/accounts/o8/id
+2013-08-11 23:42:12,344 (GMT-4) [24] DEBUG DotNetOpenAuth.OpenId - Could not determine whether OP supported Sreg or AX.  Using both extensions.
+2013-08-11 23:42:12,344 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Preparing to send CheckIdRequest (2.0) message.
+2013-08-11 23:42:12,345 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ExtensionsBindingElementRelyingParty applied to message.
+2013-08-11 23:42:12,345 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySecurityOptions did not apply to message.
+2013-08-11 23:42:12,345 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:42:12,345 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToNonceBindingElement did not apply to message.
+2013-08-11 23:42:12,345 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:42:12,345 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardReplayProtectionBindingElement did not apply to message.
+2013-08-11 23:42:12,345 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement did not apply to message.
+2013-08-11 23:42:12,345 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement did not apply to message.
+2013-08-11 23:42:12,345 (GMT-4) [24] INFO  DotNetOpenAuth.Messaging.Channel - Prepared outgoing CheckIdRequest (2.0) message for https://www.google.com/accounts/o8/ud: 
+	openid.claimed_id: http://specs.openid.net/auth/2.0/identifier_select
+	openid.identity: http://specs.openid.net/auth/2.0/identifier_select
+	openid.assoc_handle: 1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.realm: http://localhost:52316/
+	openid.mode: checkid_setup
+	openid.ns: http://specs.openid.net/auth/2.0
+	openid.ns.sreg: http://openid.net/extensions/sreg/1.1
+	openid.sreg.required: 
+	openid.sreg.optional: email,timezone
+	openid.ns.alias3: http://openid.net/srv/ax/1.0
+	openid.alias3.if_available: alias1,alias2,alias3,alias4
+	openid.alias3.mode: fetch_request
+	openid.alias3.type.alias1: http://axschema.org/contact/email
+	openid.alias3.count.alias1: 1
+	openid.alias3.type.alias2: http://axschema.org/pref/timezone
+	openid.alias3.count.alias2: 1
+	openid.alias3.type.alias3: http://schema.openid.net/contact/email
+	openid.alias3.count.alias3: 1
+	openid.alias3.type.alias4: http://schema.openid.net/pref/timezone
+	openid.alias3.count.alias4: 1
+
+2013-08-11 23:42:12,345 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Sending message: CheckIdRequest
+2013-08-11 23:42:12,345 (GMT-4) [24] DEBUG DotNetOpenAuth.Http - Redirecting to https://www.google.com/accounts/o8/ud?openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=1.AMlYA9WnUiAtrIURJEIfSCfl3U5f6SdQye9OOba6T87gw-CEc8FQ0yUC-75ipsDKQQ7RTmL1S1DIWQ&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.realm=http%3A%2F%2Flocalhost%3A52316%2F&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.sreg.required=&openid.sreg.optional=email%2Ctimezone&openid.ns.alias3=http%3A%2F%2Fopenid.net%2Fsrv%2Fax%2F1.0&openid.alias3.if_available=alias1%2Calias2%2Calias3%2Calias4&openid.alias3.mode=fetch_request&openid.alias3.type.alias1=http%3A%2F%2Faxschema.org%2Fcontact%2Femail&openid.alias3.count.alias1=1&openid.alias3.type.alias2=http%3A%2F%2Faxschema.org%2Fpref%2Ftimezone&openid.alias3.count.alias2=1&openid.alias3.type.alias3=http%3A%2F%2Fschema.openid.net%2Fcontact%2Femail&openid.alias3.count.alias3=1&openid.alias3.type.alias4=http%3A%2F%2Fschema.openid.net%2Fpref%2Ftimezone&openid.alias3.count.alias4=1
+2013-08-11 23:42:53,334 (GMT-4) [24] INFO  DotNetOpenAuth - DotNetOpenAuth.Core, Version=4.3.1.13153, Culture=neutral, PublicKeyToken=2780ccd10d57b246 (official)
+2013-08-11 23:42:53,342 (GMT-4) [24] INFO  DotNetOpenAuth - Reporting will use isolated storage with scope: User, Domain, Assembly
+2013-08-11 23:42:53,367 (GMT-4) [24] INFO  DotNetOpenAuth.Messaging.Channel - Scanning incoming request for messages: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+2013-08-11 23:42:53,368 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming HTTP request: GET http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+2013-08-11 23:42:57,035 (GMT-4) [24] DEBUG DotNetOpenAuth.OpenId - .NET Uri class path compression overridden.
+2013-08-11 23:42:57,076 (GMT-4) [24] DEBUG DotNetOpenAuth.Http - HTTP GET https://www.google.com/accounts/o8/id
+2013-08-11 23:42:57,510 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - An XRDS response was received from GET at user-supplied identifier.
+2013-08-11 23:42:57,526 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - Total services discovered in XRDS: 1
+2013-08-11 23:42:57,527 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - [{
+	ClaimedIdentifier: http://specs.openid.net/auth/2.0/identifier_select
+	ProviderLocalIdentifier: http://specs.openid.net/auth/2.0/identifier_select
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/server
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+},]
+2013-08-11 23:42:57,528 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - Skipping HTML discovery because XRDS contained service endpoints.
+2013-08-11 23:42:57,534 (GMT-4) [24] INFO  DotNetOpenAuth.Yadis - Performing discovery on user-supplied identifier: https://www.google.com/accounts/o8/id
+2013-08-11 23:42:57,537 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - Filtering and sorting of endpoints did not affect the list.
+2013-08-11 23:42:57,537 (GMT-4) [24] DEBUG DotNetOpenAuth.OpenId - Creating authentication request for user supplied Identifier: https://www.google.com/accounts/o8/id
+2013-08-11 23:42:57,630 (GMT-4) [24] INFO  DotNetOpenAuth.OpenId - Diffie-Hellman supporting assemblies found and loaded.
+2013-08-11 23:42:57,634 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Preparing to send AssociateUnencryptedRequest (2.0) message.
+2013-08-11 23:42:57,635 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ExtensionsBindingElementRelyingParty did not apply to message.
+2013-08-11 23:42:57,636 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySecurityOptions did not apply to message.
+2013-08-11 23:42:57,636 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:42:57,636 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToNonceBindingElement did not apply to message.
+2013-08-11 23:42:57,636 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:42:57,637 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardReplayProtectionBindingElement did not apply to message.
+2013-08-11 23:42:57,637 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement did not apply to message.
+2013-08-11 23:42:57,637 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement did not apply to message.
+2013-08-11 23:42:57,661 (GMT-4) [24] INFO  DotNetOpenAuth.Messaging.Channel - Prepared outgoing AssociateUnencryptedRequest (2.0) message for https://www.google.com/accounts/o8/ud: 
+	openid.assoc_type: HMAC-SHA256
+	openid.session_type: no-encryption
+	openid.mode: associate
+	openid.ns: http://specs.openid.net/auth/2.0
+
+2013-08-11 23:42:57,663 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Sending AssociateUnencryptedRequest request.
+2013-08-11 23:42:58,216 (GMT-4) [24] DEBUG DotNetOpenAuth.Http - HTTP POST https://www.google.com/accounts/o8/ud
+2013-08-11 23:42:58,354 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Received AssociateUnencryptedResponseRelyingParty response.
+2013-08-11 23:42:58,355 (GMT-4) [24] INFO  DotNetOpenAuth.Messaging.Channel - Processing incoming AssociateUnencryptedResponseRelyingParty (2.0) message:
+	mac_key: /MyGDyKH5UeN74lRo3a4Z1AmOMvVtN/dUJKBoNPtaYg=
+	assoc_handle: 1.AMlYA9Wjyh718y811AhPsIRJTzv8gFq0fxxwNWAvGqs3ubTWif7u_IciGgCPu7XPrw2Clx_klFp-Vg
+	assoc_type: HMAC-SHA256
+	session_type: no-encryption
+	expires_in: 46800
+	ns: http://specs.openid.net/auth/2.0
+
+2013-08-11 23:42:58,356 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:42:58,356 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:42:58,356 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement did not apply to message.
+2013-08-11 23:42:58,357 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement did not apply to message.
+2013-08-11 23:42:58,357 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardReplayProtectionBindingElement did not apply to message.
+2013-08-11 23:42:58,357 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToNonceBindingElement did not apply to message.
+2013-08-11 23:42:58,358 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySecurityOptions did not apply to message.
+2013-08-11 23:42:58,358 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ExtensionsBindingElementRelyingParty did not apply to message.
+2013-08-11 23:42:58,358 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - After binding element processing, the received AssociateUnencryptedResponseRelyingParty (2.0) message is: 
+	mac_key: /MyGDyKH5UeN74lRo3a4Z1AmOMvVtN/dUJKBoNPtaYg=
+	assoc_handle: 1.AMlYA9Wjyh718y811AhPsIRJTzv8gFq0fxxwNWAvGqs3ubTWif7u_IciGgCPu7XPrw2Clx_klFp-Vg
+	assoc_type: HMAC-SHA256
+	session_type: no-encryption
+	expires_in: 46800
+	ns: http://specs.openid.net/auth/2.0
+
+2013-08-11 23:42:58,366 (GMT-4) [24] DEBUG DotNetOpenAuth.OpenId - Could not determine whether OP supported Sreg or AX.  Using both extensions.
+2013-08-11 23:42:58,374 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Preparing to send CheckIdRequest (2.0) message.
+2013-08-11 23:42:58,381 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ExtensionsBindingElementRelyingParty applied to message.
+2013-08-11 23:42:58,381 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySecurityOptions did not apply to message.
+2013-08-11 23:42:58,381 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:42:58,381 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToNonceBindingElement did not apply to message.
+2013-08-11 23:42:58,382 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:42:58,382 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardReplayProtectionBindingElement did not apply to message.
+2013-08-11 23:42:58,382 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement did not apply to message.
+2013-08-11 23:42:58,382 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement did not apply to message.
+2013-08-11 23:42:58,382 (GMT-4) [24] INFO  DotNetOpenAuth.Messaging.Channel - Prepared outgoing CheckIdRequest (2.0) message for https://www.google.com/accounts/o8/ud: 
+	openid.claimed_id: http://specs.openid.net/auth/2.0/identifier_select
+	openid.identity: http://specs.openid.net/auth/2.0/identifier_select
+	openid.assoc_handle: 1.AMlYA9Wjyh718y811AhPsIRJTzv8gFq0fxxwNWAvGqs3ubTWif7u_IciGgCPu7XPrw2Clx_klFp-Vg
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.realm: http://localhost:52316/
+	openid.mode: checkid_setup
+	openid.ns: http://specs.openid.net/auth/2.0
+	openid.ns.sreg: http://openid.net/extensions/sreg/1.1
+	openid.sreg.required: 
+	openid.sreg.optional: email,timezone
+	openid.ns.alias3: http://openid.net/srv/ax/1.0
+	openid.alias3.if_available: alias1,alias2,alias3,alias4
+	openid.alias3.mode: fetch_request
+	openid.alias3.type.alias1: http://axschema.org/contact/email
+	openid.alias3.count.alias1: 1
+	openid.alias3.type.alias2: http://axschema.org/pref/timezone
+	openid.alias3.count.alias2: 1
+	openid.alias3.type.alias3: http://schema.openid.net/contact/email
+	openid.alias3.count.alias3: 1
+	openid.alias3.type.alias4: http://schema.openid.net/pref/timezone
+	openid.alias3.count.alias4: 1
+
+2013-08-11 23:42:58,382 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Sending message: CheckIdRequest
+2013-08-11 23:42:58,383 (GMT-4) [24] DEBUG DotNetOpenAuth.Http - Redirecting to https://www.google.com/accounts/o8/ud?openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=1.AMlYA9Wjyh718y811AhPsIRJTzv8gFq0fxxwNWAvGqs3ubTWif7u_IciGgCPu7XPrw2Clx_klFp-Vg&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.realm=http%3A%2F%2Flocalhost%3A52316%2F&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.sreg.required=&openid.sreg.optional=email%2Ctimezone&openid.ns.alias3=http%3A%2F%2Fopenid.net%2Fsrv%2Fax%2F1.0&openid.alias3.if_available=alias1%2Calias2%2Calias3%2Calias4&openid.alias3.mode=fetch_request&openid.alias3.type.alias1=http%3A%2F%2Faxschema.org%2Fcontact%2Femail&openid.alias3.count.alias1=1&openid.alias3.type.alias2=http%3A%2F%2Faxschema.org%2Fpref%2Ftimezone&openid.alias3.count.alias2=1&openid.alias3.type.alias3=http%3A%2F%2Fschema.openid.net%2Fcontact%2Femail&openid.alias3.count.alias3=1&openid.alias3.type.alias4=http%3A%2F%2Fschema.openid.net%2Fpref%2Ftimezone&openid.alias3.count.alias4=1
+2013-08-11 23:43:04,451 (GMT-4) [24] INFO  DotNetOpenAuth.Messaging.Channel - Scanning incoming request for messages: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2013-08-12T03%3A43%3A04ZbOsGEedkWWjVQw&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.assoc_handle=1.AMlYA9Wjyh718y811AhPsIRJTzv8gFq0fxxwNWAvGqs3ubTWif7u_IciGgCPu7XPrw2Clx_klFp-Vg&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=0FH9oQUvFVNWayLXJhG0Rin5squ04M7TFroLUD82hhE%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:43:04,451 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming HTTP request: GET http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2013-08-12T03%3A43%3A04ZbOsGEedkWWjVQw&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.assoc_handle=1.AMlYA9Wjyh718y811AhPsIRJTzv8gFq0fxxwNWAvGqs3ubTWif7u_IciGgCPu7XPrw2Clx_klFp-Vg&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=0FH9oQUvFVNWayLXJhG0Rin5squ04M7TFroLUD82hhE%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:43:04,455 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming request received: PositiveAssertionResponse
+2013-08-11 23:43:04,455 (GMT-4) [24] INFO  DotNetOpenAuth.Messaging.Channel - Processing incoming PositiveAssertionResponse (2.0) message:
+	openid.claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.sig: 0FH9oQUvFVNWayLXJhG0Rin5squ04M7TFroLUD82hhE=
+	openid.signed: op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle
+	openid.assoc_handle: 1.AMlYA9Wjyh718y811AhPsIRJTzv8gFq0fxxwNWAvGqs3ubTWif7u_IciGgCPu7XPrw2Clx_klFp-Vg
+	openid.op_endpoint: https://www.google.com/accounts/o8/ud
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.response_nonce: 2013-08-12T03:43:04ZbOsGEedkWWjVQw
+	openid.mode: id_res
+	openid.ns: http://specs.openid.net/auth/2.0
+	providerUrl: https://www.google.com/accounts/o8/id
+	dnoa.userSuppliedIdentifier: https://www.google.com/accounts/o8/id
+
+2013-08-11 23:43:04,456 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:43:04,456 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:43:04,456 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Verifying incoming PositiveAssertionResponse message signature of: 0FH9oQUvFVNWayLXJhG0Rin5squ04M7TFroLUD82hhE=
+2013-08-11 23:43:04,461 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings.Signatures - Signing these message parts: 
+	op_endpoint: https://www.google.com/accounts/o8/ud
+	claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	response_nonce: 2013-08-12T03:43:04ZbOsGEedkWWjVQw
+	assoc_handle: 1.AMlYA9Wjyh718y811AhPsIRJTzv8gFq0fxxwNWAvGqs3ubTWif7u_IciGgCPu7XPrw2Clx_klFp-Vg
+
+Base64 representation of signed data: b3BfZW5kcG9pbnQ6aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS9hY2NvdW50cy9vOC91ZApjbGFpbWVkX2lkOmh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vYWNjb3VudHMvbzgvaWQ/aWQ9QUl0T2F3bEZRZDNFMjhUWnRhblFNY1JrLTRacXJncHM4Q1VHb1dvCmlkZW50aXR5Omh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vYWNjb3VudHMvbzgvaWQ/aWQ9QUl0T2F3bEZRZDNFMjhUWnRhblFNY1JrLTRacXJncHM4Q1VHb1dvCnJldHVybl90bzpodHRwOi8vbG9jYWxob3N0OjUyMzE2L2FwaS91c2Vycz9wcm92aWRlclVybD1odHRwcyUzQSUyRiUyRnd3dy5nb29nbGUuY29tJTJGYWNjb3VudHMlMkZvOCUyRmlkJmRub2EudXNlclN1cHBsaWVkSWRlbnRpZmllcj1odHRwcyUzQSUyRiUyRnd3dy5nb29nbGUuY29tJTJGYWNjb3VudHMlMkZvOCUyRmlkCnJlc3BvbnNlX25vbmNlOjIwMTMtMDgtMTJUMDM6NDM6MDRaYk9zR0VlZGtXV2pWUXcKYXNzb2NfaGFuZGxlOjEuQU1sWUE5V2p5aDcxOHk4MTFBaFBzSVJKVHp2OGdGcTBmeHh3TldBdkdxczN1YlRXaWY3dV9JY2lHZ0NQdTdYUHJ3MkNseF9rbEZwLVZnCg==
+Signature: 0FH9oQUvFVNWayLXJhG0Rin5squ04M7TFroLUD82hhE=
+2013-08-11 23:43:04,461 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement applied to message.
+2013-08-11 23:43:04,461 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement applied to message.
+2013-08-11 23:43:04,462 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardReplayProtectionBindingElement applied to message.
+2013-08-11 23:43:04,462 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToNonceBindingElement did not apply to message.
+2013-08-11 23:43:04,462 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySecurityOptions applied to message.
+2013-08-11 23:43:04,465 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ExtensionsBindingElementRelyingParty applied to message.
+2013-08-11 23:43:04,466 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - After binding element processing, the received PositiveAssertionResponse (2.0) message is: 
+	openid.claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.sig: 0FH9oQUvFVNWayLXJhG0Rin5squ04M7TFroLUD82hhE=
+	openid.signed: op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle
+	openid.assoc_handle: 1.AMlYA9Wjyh718y811AhPsIRJTzv8gFq0fxxwNWAvGqs3ubTWif7u_IciGgCPu7XPrw2Clx_klFp-Vg
+	openid.op_endpoint: https://www.google.com/accounts/o8/ud
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.response_nonce: 2013-08-12T03:43:04ZbOsGEedkWWjVQw
+	openid.mode: id_res
+	openid.ns: http://specs.openid.net/auth/2.0
+	providerUrl: https://www.google.com/accounts/o8/id
+	dnoa.userSuppliedIdentifier: https://www.google.com/accounts/o8/id
+
+2013-08-11 23:43:04,468 (GMT-4) [24] DEBUG DotNetOpenAuth.OpenId - Verifying assertion matches identifier discovery results...
+2013-08-11 23:43:04,468 (GMT-4) [24] DEBUG DotNetOpenAuth.Http - HTTP GET https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:43:04,904 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - An XRDS response was received from GET at user-supplied identifier.
+2013-08-11 23:43:04,906 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - Total services discovered in XRDS: 5
+2013-08-11 23:43:04,906 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - [{
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=mail
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=gmail.com
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=googlemail.com
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=profiles
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+},]
+2013-08-11 23:43:04,906 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - Skipping HTML discovery because XRDS contained service endpoints.
+2013-08-11 23:43:04,907 (GMT-4) [24] INFO  DotNetOpenAuth.OpenId - Received identity assertion for https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo via https://www.google.com/accounts/o8/ud.
+2013-08-11 23:44:28,575 (GMT-4) [24] INFO  DotNetOpenAuth - DotNetOpenAuth.Core, Version=4.3.1.13153, Culture=neutral, PublicKeyToken=2780ccd10d57b246 (official)
+2013-08-11 23:44:28,583 (GMT-4) [24] INFO  DotNetOpenAuth - Reporting will use isolated storage with scope: User, Domain, Assembly
+2013-08-11 23:44:28,608 (GMT-4) [24] INFO  DotNetOpenAuth.Messaging.Channel - Scanning incoming request for messages: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+2013-08-11 23:44:28,608 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming HTTP request: GET http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+2013-08-11 23:44:31,034 (GMT-4) [24] DEBUG DotNetOpenAuth.OpenId - .NET Uri class path compression overridden.
+2013-08-11 23:44:31,075 (GMT-4) [24] DEBUG DotNetOpenAuth.Http - HTTP GET https://www.google.com/accounts/o8/id
+2013-08-11 23:44:31,332 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - An XRDS response was received from GET at user-supplied identifier.
+2013-08-11 23:44:31,348 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - Total services discovered in XRDS: 1
+2013-08-11 23:44:31,349 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - [{
+	ClaimedIdentifier: http://specs.openid.net/auth/2.0/identifier_select
+	ProviderLocalIdentifier: http://specs.openid.net/auth/2.0/identifier_select
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/server
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+},]
+2013-08-11 23:44:31,350 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - Skipping HTML discovery because XRDS contained service endpoints.
+2013-08-11 23:44:31,356 (GMT-4) [24] INFO  DotNetOpenAuth.Yadis - Performing discovery on user-supplied identifier: https://www.google.com/accounts/o8/id
+2013-08-11 23:44:31,359 (GMT-4) [24] DEBUG DotNetOpenAuth.Yadis - Filtering and sorting of endpoints did not affect the list.
+2013-08-11 23:44:31,359 (GMT-4) [24] DEBUG DotNetOpenAuth.OpenId - Creating authentication request for user supplied Identifier: https://www.google.com/accounts/o8/id
+2013-08-11 23:44:31,451 (GMT-4) [24] INFO  DotNetOpenAuth.OpenId - Diffie-Hellman supporting assemblies found and loaded.
+2013-08-11 23:44:31,455 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Preparing to send AssociateUnencryptedRequest (2.0) message.
+2013-08-11 23:44:31,456 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ExtensionsBindingElementRelyingParty did not apply to message.
+2013-08-11 23:44:31,456 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySecurityOptions did not apply to message.
+2013-08-11 23:44:31,456 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:44:31,456 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToNonceBindingElement did not apply to message.
+2013-08-11 23:44:31,457 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:44:31,457 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardReplayProtectionBindingElement did not apply to message.
+2013-08-11 23:44:31,457 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement did not apply to message.
+2013-08-11 23:44:31,457 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement did not apply to message.
+2013-08-11 23:44:31,477 (GMT-4) [24] INFO  DotNetOpenAuth.Messaging.Channel - Prepared outgoing AssociateUnencryptedRequest (2.0) message for https://www.google.com/accounts/o8/ud: 
+	openid.assoc_type: HMAC-SHA256
+	openid.session_type: no-encryption
+	openid.mode: associate
+	openid.ns: http://specs.openid.net/auth/2.0
+
+2013-08-11 23:44:31,479 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Sending AssociateUnencryptedRequest request.
+2013-08-11 23:44:31,919 (GMT-4) [24] DEBUG DotNetOpenAuth.Http - HTTP POST https://www.google.com/accounts/o8/ud
+2013-08-11 23:44:31,994 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Received AssociateUnencryptedResponseRelyingParty response.
+2013-08-11 23:44:31,994 (GMT-4) [24] INFO  DotNetOpenAuth.Messaging.Channel - Processing incoming AssociateUnencryptedResponseRelyingParty (2.0) message:
+	mac_key: jJ1NHIelnaYVTVXWa1wlj1JrQtmcI1Cu4TSiTChhrk0=
+	assoc_handle: 1.AMlYA9VYEQJXUads6dKzCcytWN_rVt3J1KMNROXiLsugFx_Qcm64bEPBiFtjO7MjiBHjGInpgpD0og
+	assoc_type: HMAC-SHA256
+	session_type: no-encryption
+	expires_in: 46800
+	ns: http://specs.openid.net/auth/2.0
+
+2013-08-11 23:44:31,995 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:44:31,996 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:44:31,996 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement did not apply to message.
+2013-08-11 23:44:31,996 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement did not apply to message.
+2013-08-11 23:44:31,997 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardReplayProtectionBindingElement did not apply to message.
+2013-08-11 23:44:31,997 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToNonceBindingElement did not apply to message.
+2013-08-11 23:44:31,997 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySecurityOptions did not apply to message.
+2013-08-11 23:44:31,998 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ExtensionsBindingElementRelyingParty did not apply to message.
+2013-08-11 23:44:31,998 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - After binding element processing, the received AssociateUnencryptedResponseRelyingParty (2.0) message is: 
+	mac_key: jJ1NHIelnaYVTVXWa1wlj1JrQtmcI1Cu4TSiTChhrk0=
+	assoc_handle: 1.AMlYA9VYEQJXUads6dKzCcytWN_rVt3J1KMNROXiLsugFx_Qcm64bEPBiFtjO7MjiBHjGInpgpD0og
+	assoc_type: HMAC-SHA256
+	session_type: no-encryption
+	expires_in: 46800
+	ns: http://specs.openid.net/auth/2.0
+
+2013-08-11 23:44:32,006 (GMT-4) [24] DEBUG DotNetOpenAuth.OpenId - Could not determine whether OP supported Sreg or AX.  Using both extensions.
+2013-08-11 23:44:32,013 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Preparing to send CheckIdRequest (2.0) message.
+2013-08-11 23:44:32,021 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ExtensionsBindingElementRelyingParty applied to message.
+2013-08-11 23:44:32,021 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySecurityOptions did not apply to message.
+2013-08-11 23:44:32,021 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:44:32,021 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToNonceBindingElement did not apply to message.
+2013-08-11 23:44:32,021 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:44:32,021 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardReplayProtectionBindingElement did not apply to message.
+2013-08-11 23:44:32,021 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement did not apply to message.
+2013-08-11 23:44:32,021 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement did not apply to message.
+2013-08-11 23:44:32,022 (GMT-4) [24] INFO  DotNetOpenAuth.Messaging.Channel - Prepared outgoing CheckIdRequest (2.0) message for https://www.google.com/accounts/o8/ud: 
+	openid.claimed_id: http://specs.openid.net/auth/2.0/identifier_select
+	openid.identity: http://specs.openid.net/auth/2.0/identifier_select
+	openid.assoc_handle: 1.AMlYA9VYEQJXUads6dKzCcytWN_rVt3J1KMNROXiLsugFx_Qcm64bEPBiFtjO7MjiBHjGInpgpD0og
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.realm: http://localhost:52316/
+	openid.mode: checkid_setup
+	openid.ns: http://specs.openid.net/auth/2.0
+	openid.ns.sreg: http://openid.net/extensions/sreg/1.1
+	openid.sreg.required: email
+	openid.sreg.optional: fullname
+	openid.ns.alias3: http://openid.net/srv/ax/1.0
+	openid.alias3.if_available: alias2,alias4
+	openid.alias3.required: alias1,alias3
+	openid.alias3.mode: fetch_request
+	openid.alias3.type.alias1: http://axschema.org/contact/email
+	openid.alias3.count.alias1: 1
+	openid.alias3.type.alias2: http://axschema.org/namePerson
+	openid.alias3.count.alias2: 1
+	openid.alias3.type.alias3: http://schema.openid.net/contact/email
+	openid.alias3.count.alias3: 1
+	openid.alias3.type.alias4: http://schema.openid.net/namePerson
+	openid.alias3.count.alias4: 1
+
+2013-08-11 23:44:32,022 (GMT-4) [24] DEBUG DotNetOpenAuth.Messaging.Channel - Sending message: CheckIdRequest
+2013-08-11 23:44:32,023 (GMT-4) [24] DEBUG DotNetOpenAuth.Http - Redirecting to https://www.google.com/accounts/o8/ud?openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=1.AMlYA9VYEQJXUads6dKzCcytWN_rVt3J1KMNROXiLsugFx_Qcm64bEPBiFtjO7MjiBHjGInpgpD0og&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.realm=http%3A%2F%2Flocalhost%3A52316%2F&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.sreg.required=email&openid.sreg.optional=fullname&openid.ns.alias3=http%3A%2F%2Fopenid.net%2Fsrv%2Fax%2F1.0&openid.alias3.if_available=alias2%2Calias4&openid.alias3.required=alias1%2Calias3&openid.alias3.mode=fetch_request&openid.alias3.type.alias1=http%3A%2F%2Faxschema.org%2Fcontact%2Femail&openid.alias3.count.alias1=1&openid.alias3.type.alias2=http%3A%2F%2Faxschema.org%2FnamePerson&openid.alias3.count.alias2=1&openid.alias3.type.alias3=http%3A%2F%2Fschema.openid.net%2Fcontact%2Femail&openid.alias3.count.alias3=1&openid.alias3.type.alias4=http%3A%2F%2Fschema.openid.net%2FnamePerson&openid.alias3.count.alias4=1
+2013-08-11 23:44:40,824 (GMT-4) [26] INFO  DotNetOpenAuth.Messaging.Channel - Scanning incoming request for messages: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2013-08-12T03%3A44%3A40ZNfIkFIhtp9nyFw&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.assoc_handle=1.AMlYA9VYEQJXUads6dKzCcytWN_rVt3J1KMNROXiLsugFx_Qcm64bEPBiFtjO7MjiBHjGInpgpD0og&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle%2Cns.ext1%2Cext1.mode%2Cext1.type.alias3%2Cext1.value.alias3%2Cext1.type.alias1%2Cext1.value.alias1&openid.sig=ozRB0LwYuwA7kj1rThHHdZzfmDLAheVzvMGv8h2F%2Fps%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.ns.ext1=http%3A%2F%2Fopenid.net%2Fsrv%2Fax%2F1.0&openid.ext1.mode=fetch_response&openid.ext1.type.alias3=http%3A%2F%2Fschema.openid.net%2Fcontact%2Femail&openid.ext1.value.alias3=2risker%40gmail.com&openid.ext1.type.alias1=http%3A%2F%2Faxschema.org%2Fcontact%2Femail&openid.ext1.value.alias1=2risker%40gmail.com
+2013-08-11 23:44:40,824 (GMT-4) [26] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming HTTP request: GET http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2013-08-12T03%3A44%3A40ZNfIkFIhtp9nyFw&openid.return_to=http%3A%2F%2Flocalhost%3A52316%2Fapi%2Fusers%3FproviderUrl%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid%26dnoa.userSuppliedIdentifier%3Dhttps%253A%252F%252Fwww.google.com%252Faccounts%252Fo8%252Fid&openid.assoc_handle=1.AMlYA9VYEQJXUads6dKzCcytWN_rVt3J1KMNROXiLsugFx_Qcm64bEPBiFtjO7MjiBHjGInpgpD0og&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle%2Cns.ext1%2Cext1.mode%2Cext1.type.alias3%2Cext1.value.alias3%2Cext1.type.alias1%2Cext1.value.alias1&openid.sig=ozRB0LwYuwA7kj1rThHHdZzfmDLAheVzvMGv8h2F%2Fps%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo&openid.ns.ext1=http%3A%2F%2Fopenid.net%2Fsrv%2Fax%2F1.0&openid.ext1.mode=fetch_response&openid.ext1.type.alias3=http%3A%2F%2Fschema.openid.net%2Fcontact%2Femail&openid.ext1.value.alias3=2risker%40gmail.com&openid.ext1.type.alias1=http%3A%2F%2Faxschema.org%2Fcontact%2Femail&openid.ext1.value.alias1=2risker%40gmail.com
+2013-08-11 23:44:40,829 (GMT-4) [26] DEBUG DotNetOpenAuth.Messaging.Channel - Incoming request received: PositiveAssertionResponse
+2013-08-11 23:44:40,829 (GMT-4) [26] INFO  DotNetOpenAuth.Messaging.Channel - Processing incoming PositiveAssertionResponse (2.0) message:
+	openid.claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.sig: ozRB0LwYuwA7kj1rThHHdZzfmDLAheVzvMGv8h2F/ps=
+	openid.signed: op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle,ns.ext1,ext1.mode,ext1.type.alias3,ext1.value.alias3,ext1.type.alias1,ext1.value.alias1
+	openid.assoc_handle: 1.AMlYA9VYEQJXUads6dKzCcytWN_rVt3J1KMNROXiLsugFx_Qcm64bEPBiFtjO7MjiBHjGInpgpD0og
+	openid.op_endpoint: https://www.google.com/accounts/o8/ud
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.response_nonce: 2013-08-12T03:44:40ZNfIkFIhtp9nyFw
+	openid.mode: id_res
+	openid.ns: http://specs.openid.net/auth/2.0
+	providerUrl: https://www.google.com/accounts/o8/id
+	dnoa.userSuppliedIdentifier: https://www.google.com/accounts/o8/id
+	openid.ns.ext1: http://openid.net/srv/ax/1.0
+	openid.ext1.mode: fetch_response
+	openid.ext1.type.alias3: http://schema.openid.net/contact/email
+	openid.ext1.value.alias3: 2risker@gmail.com
+	openid.ext1.type.alias1: http://axschema.org/contact/email
+	openid.ext1.value.alias1: 2risker@gmail.com
+
+2013-08-11 23:44:40,830 (GMT-4) [26] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToSignatureBindingElement did not apply to message.
+2013-08-11 23:44:40,830 (GMT-4) [26] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.BackwardCompatibilityBindingElement did not apply to message.
+2013-08-11 23:44:40,830 (GMT-4) [26] DEBUG DotNetOpenAuth.Messaging.Bindings - Verifying incoming PositiveAssertionResponse message signature of: ozRB0LwYuwA7kj1rThHHdZzfmDLAheVzvMGv8h2F/ps=
+2013-08-11 23:44:40,834 (GMT-4) [26] DEBUG DotNetOpenAuth.Messaging.Bindings.Signatures - Signing these message parts: 
+	op_endpoint: https://www.google.com/accounts/o8/ud
+	claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	response_nonce: 2013-08-12T03:44:40ZNfIkFIhtp9nyFw
+	assoc_handle: 1.AMlYA9VYEQJXUads6dKzCcytWN_rVt3J1KMNROXiLsugFx_Qcm64bEPBiFtjO7MjiBHjGInpgpD0og
+	ns.ext1: http://openid.net/srv/ax/1.0
+	ext1.mode: fetch_response
+	ext1.type.alias3: http://schema.openid.net/contact/email
+	ext1.value.alias3: 2risker@gmail.com
+	ext1.type.alias1: http://axschema.org/contact/email
+	ext1.value.alias1: 2risker@gmail.com
+
+Base64 representation of signed data: b3BfZW5kcG9pbnQ6aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS9hY2NvdW50cy9vOC91ZApjbGFpbWVkX2lkOmh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vYWNjb3VudHMvbzgvaWQ/aWQ9QUl0T2F3bEZRZDNFMjhUWnRhblFNY1JrLTRacXJncHM4Q1VHb1dvCmlkZW50aXR5Omh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vYWNjb3VudHMvbzgvaWQ/aWQ9QUl0T2F3bEZRZDNFMjhUWnRhblFNY1JrLTRacXJncHM4Q1VHb1dvCnJldHVybl90bzpodHRwOi8vbG9jYWxob3N0OjUyMzE2L2FwaS91c2Vycz9wcm92aWRlclVybD1odHRwcyUzQSUyRiUyRnd3dy5nb29nbGUuY29tJTJGYWNjb3VudHMlMkZvOCUyRmlkJmRub2EudXNlclN1cHBsaWVkSWRlbnRpZmllcj1odHRwcyUzQSUyRiUyRnd3dy5nb29nbGUuY29tJTJGYWNjb3VudHMlMkZvOCUyRmlkCnJlc3BvbnNlX25vbmNlOjIwMTMtMDgtMTJUMDM6NDQ6NDBaTmZJa0ZJaHRwOW55RncKYXNzb2NfaGFuZGxlOjEuQU1sWUE5VllFUUpYVWFkczZkS3pDY3l0V05fclZ0M0oxS01OUk9YaUxzdWdGeF9RY202NGJFUEJpRnRqTzdNamlCSGpHSW5wZ3BEMG9nCm5zLmV4dDE6aHR0cDovL29wZW5pZC5uZXQvc3J2L2F4LzEuMApleHQxLm1vZGU6ZmV0Y2hfcmVzcG9uc2UKZXh0MS50eXBlLmFsaWFzMzpodHRwOi8vc2NoZW1hLm9wZW5pZC5uZXQvY29udGFjdC9lbWFpbApleHQxLnZhbHVlLmFsaWFzMzoycmlza2VyQGdtYWlsLmNvbQpleHQxLnR5cGUuYWxpYXMxOmh0dHA6Ly9heHNjaGVtYS5vcmcvY29udGFjdC9lbWFpbApleHQxLnZhbHVlLmFsaWFzMToycmlza2VyQGdtYWlsLmNvbQo=
+Signature: ozRB0LwYuwA7kj1rThHHdZzfmDLAheVzvMGv8h2F/ps=
+2013-08-11 23:44:40,835 (GMT-4) [26] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySigningBindingElement applied to message.
+2013-08-11 23:44:40,835 (GMT-4) [26] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardExpirationBindingElement applied to message.
+2013-08-11 23:44:40,836 (GMT-4) [26] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.Messaging.Bindings.StandardReplayProtectionBindingElement applied to message.
+2013-08-11 23:44:40,836 (GMT-4) [26] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ReturnToNonceBindingElement did not apply to message.
+2013-08-11 23:44:40,836 (GMT-4) [26] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.RelyingPartySecurityOptions applied to message.
+2013-08-11 23:44:40,843 (GMT-4) [26] DEBUG DotNetOpenAuth.Messaging.Bindings - Binding element DotNetOpenAuth.OpenId.ChannelElements.ExtensionsBindingElementRelyingParty applied to message.
+2013-08-11 23:44:40,844 (GMT-4) [26] DEBUG DotNetOpenAuth.Messaging.Channel - After binding element processing, the received PositiveAssertionResponse (2.0) message is: 
+	openid.claimed_id: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.identity: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	openid.sig: ozRB0LwYuwA7kj1rThHHdZzfmDLAheVzvMGv8h2F/ps=
+	openid.signed: op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle,ns.ext1,ext1.mode,ext1.type.alias3,ext1.value.alias3,ext1.type.alias1,ext1.value.alias1
+	openid.assoc_handle: 1.AMlYA9VYEQJXUads6dKzCcytWN_rVt3J1KMNROXiLsugFx_Qcm64bEPBiFtjO7MjiBHjGInpgpD0og
+	openid.op_endpoint: https://www.google.com/accounts/o8/ud
+	openid.return_to: http://localhost:52316/api/users?providerUrl=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid&dnoa.userSuppliedIdentifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid
+	openid.response_nonce: 2013-08-12T03:44:40ZNfIkFIhtp9nyFw
+	openid.mode: id_res
+	openid.ns: http://specs.openid.net/auth/2.0
+	providerUrl: https://www.google.com/accounts/o8/id
+	dnoa.userSuppliedIdentifier: https://www.google.com/accounts/o8/id
+	openid.ns.ext1: http://openid.net/srv/ax/1.0
+	openid.ext1.mode: fetch_response
+	openid.ext1.type.alias3: http://schema.openid.net/contact/email
+	openid.ext1.value.alias3: 2risker@gmail.com
+	openid.ext1.type.alias1: http://axschema.org/contact/email
+	openid.ext1.value.alias1: 2risker@gmail.com
+
+2013-08-11 23:44:40,846 (GMT-4) [26] DEBUG DotNetOpenAuth.OpenId - Verifying assertion matches identifier discovery results...
+2013-08-11 23:44:40,846 (GMT-4) [26] DEBUG DotNetOpenAuth.Http - HTTP GET https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+2013-08-11 23:44:41,008 (GMT-4) [26] DEBUG DotNetOpenAuth.Yadis - An XRDS response was received from GET at user-supplied identifier.
+2013-08-11 23:44:41,010 (GMT-4) [26] DEBUG DotNetOpenAuth.Yadis - Total services discovered in XRDS: 5
+2013-08-11 23:44:41,010 (GMT-4) [26] DEBUG DotNetOpenAuth.Yadis - [{
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=mail
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=gmail.com
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=googlemail.com
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+}, {
+	ClaimedIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderLocalIdentifier: https://www.google.com/accounts/o8/id?id=AItOawlFQd3E28TZtanQMcRk-4Zqrgps8CUGoWo
+	ProviderEndpoint: https://www.google.com/accounts/o8/ud?source=profiles
+	OpenID version: 2.0
+	Service Type URIs:
+		http://specs.openid.net/auth/2.0/signon
+		http://openid.net/srv/ax/1.0
+		http://specs.openid.net/extensions/ui/1.0/mode/popup
+		http://specs.openid.net/extensions/ui/1.0/icon
+		http://specs.openid.net/extensions/pape/1.0
+},]

@@ -10,6 +10,11 @@ namespace TheFlow.API.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
+    //using TheFlow.API.Authentication;
+    //using TheFlow.API.Membership;
+    using System.Web.Http;
+    using Ninject.Web.Mvc;
+    using System.Web.Mvc;
 
     public static class NinjectWebCommon 
     {
@@ -44,6 +49,9 @@ namespace TheFlow.API.App_Start
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
             
             RegisterServices(kernel);
+
+            GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
+
             return kernel;
         }
 
@@ -53,7 +61,8 @@ namespace TheFlow.API.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-
+            //kernel.Bind<IFormsAuthentication>().To<FormsAuthenticationService>();
+            //kernel.Bind<IMembershipProvider>().To<Membership.AccountMembershipService>();
         }        
     }
 }
