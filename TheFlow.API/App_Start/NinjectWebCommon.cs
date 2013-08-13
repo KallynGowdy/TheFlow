@@ -15,6 +15,7 @@ namespace TheFlow.API.App_Start
     using System.Web.Http;
     using Ninject.Web.Mvc;
     using System.Web.Mvc;
+    using TheFlow.API.Entities;
 
     public static class NinjectWebCommon 
     {
@@ -63,6 +64,8 @@ namespace TheFlow.API.App_Start
         {
             //kernel.Bind<IFormsAuthentication>().To<FormsAuthenticationService>();
             //kernel.Bind<IMembershipProvider>().To<Membership.AccountMembershipService>();
+            kernel.Bind<IDbContext>().To<DbContext>();
+            kernel.Bind<DbContext>().To<DbContext>();
         }        
     }
 }

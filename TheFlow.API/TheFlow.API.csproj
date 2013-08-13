@@ -243,13 +243,49 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Authentication\AuthenticationServer.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Entities\Answer.cs" />
+    <Compile Include="Entities\Comment.cs" />
+    <Compile Include="Entities\Context.cs" />
+    <Compile Include="Entities\Edit.cs" />
+    <Compile Include="Entities\IContext.cs" />
+    <Compile Include="Entities\Post.cs" />
+    <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\Star.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Filters\RequireHttpsAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\AuthenticateAttribute.cs" />
+    <Compile Include="Migrations\201308121909368_InitialCreate.cs" />
+    <Compile Include="Migrations\201308121909368_InitialCreate.Designer.cs">
+      <DependentUpon>201308121909368_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308121943288_AddFirstLastName.cs" />
+    <Compile Include="Migrations\201308121943288_AddFirstLastName.Designer.cs">
+      <DependentUpon>201308121943288_AddFirstLastName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308122018280_UpdateBodyTypeUser.cs" />
+    <Compile Include="Migrations\201308122018280_UpdateBodyTypeUser.Designer.cs">
+      <DependentUpon>201308122018280_UpdateBodyTypeUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308130233368_UserAddDateJoined.cs" />
+    <Compile Include="Migrations\201308130233368_UserAddDateJoined.Designer.cs">
+      <DependentUpon>201308130233368_UserAddDateJoined.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308130345166_AddEdits.cs" />
+    <Compile Include="Migrations\201308130345166_AddEdits.Designer.cs">
+      <DependentUpon>201308130345166_AddEdits.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308130352046_EditBodyColumnTypeToNText.cs" />
+    <Compile Include="Migrations\201308130352046_EditBodyColumnTypeToNText.Designer.cs">
+      <DependentUpon>201308130352046_EditBodyColumnTypeToNText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\QuestionModel.cs" />
@@ -259,6 +295,10 @@
     <Content Include="App_Data\database.mdf" />
     <Content Include="App_Data\database_log.ldf">
       <DependentUpon>database.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\TheFlow.API.Entities.DbContext.mdf" />
+    <Content Include="App_Data\TheFlow.API.Entities.DbContext_log.ldf">
+      <DependentUpon>TheFlow.API.Entities.DbContext.mdf</DependentUpon>
     </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -328,7 +368,6 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <Content Include="RelyingParty.log" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="LICENCE.txt" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -374,7 +413,26 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201308121909368_InitialCreate.resx">
+      <DependentUpon>201308121909368_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308121943288_AddFirstLastName.resx">
+      <DependentUpon>201308121943288_AddFirstLastName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308122018280_UpdateBodyTypeUser.resx">
+      <DependentUpon>201308122018280_UpdateBodyTypeUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308130233368_UserAddDateJoined.resx">
+      <DependentUpon>201308130233368_UserAddDateJoined.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308130345166_AddEdits.resx">
+      <DependentUpon>201308130345166_AddEdits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308130352046_EditBodyColumnTypeToNText.resx">
+      <DependentUpon>201308130352046_EditBodyColumnTypeToNText.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
