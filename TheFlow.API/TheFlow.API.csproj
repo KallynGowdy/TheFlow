@@ -289,6 +289,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\QuestionModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

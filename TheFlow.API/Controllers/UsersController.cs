@@ -12,6 +12,7 @@ using System.Web.Http;
 using System.Web.Security;
 using TheFlow.API.Authentication;
 using TheFlow.API.Entities;
+using TheFlow.API.Models;
 //using TheFlow.API.Authentication;
 //using TheFlow.API.Membership;
 
@@ -57,7 +58,54 @@ namespace TheFlow.API.Controllers
         public void LogIn(string providerUrl)
         {
             User user = AuthenticationServer.Authenticate(Request, providerUrl, DataContext);
-            
+            if (!DataContext.Users.Any(u => u.OpenId == user.OpenId))
+            {
+                if (user.DisplayName == null)
+                {
+                    user.DisplayName = generateDisplayName();
+                }
+                DataContext.Users.Add(user);
+                DataContext.SaveChanges();
+            }
+            throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.OK, user.EmailAddress));
+        }
+
+        /// <summary>
+        /// Updates the logged in user's information based on the given model.
+        /// </summary>
+        /// <param name="updatedModel">The user model that contains information that the user profile should be updated to.</param>
+        [HttpPut]
+        public void UpdateUser([FromBody]UserModel updatedModel)
+        {
+            User user = AuthenticationServer.Authenticate(Request, Request.Headers.GetValues("OpenIdProvider").First(), DataContext);
+            if (user != null)
+            {
+                if (updatedModel.DisplayName != null)
+                {
+                    user.DisplayName = updatedModel.DisplayName;
+                }
+                if (updatedModel.Age != null)
+                {
+                    user.Age = updatedModel.Age.Value;
+                }
+                if (updatedModel.EmailAddress != null)
+                {
+                    user.EmailAddress = updatedModel.EmailAddress;
+                }
+                if (updatedModel.FirstName != null)
+                {
+                    user.FirstName = updatedModel.FirstName;
+                }
+                if (updatedModel.LastName != null)
+                {
+                    user.LastName = updatedModel.LastName;
+                }
+                if (updatedModel.Location != null)
+                {
+                    user.Location = updatedModel.Location;
+                }
+                DataContext.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -66,17 +114,9 @@ namespace TheFlow.API.Controllers
         /// <param name="maxCount">The maximum number of users to return, default is 50.</param>
         /// <returns>A collection of users.</returns>
         [AllowAnonymous]
-        public IEnumerable<User> GetUsers(UserSortFilter sortBy = UserSortFilter.Reputation, [FromUri]int maxCount = 50)
+        public IEnumerable<User> GetUsers([FromUri]int maxCount = 50)
         {
-            //switch (sortBy)
-            //{
-            //    case UserSortFilter.Reputation:
-                    return DataContext.Users.Take(maxCount).OrderBy(u => u.Reputation);
-            //    case UserSortFilter.NewUsers:
-            //        return DataContext.Users.Take(maxCount).OrderBy(u => u.DateJoined);
-            //    case UserSortFilter.Editors:
-
-            //}
+            return DataContext.Users.Take(maxCount).OrderBy(u => u.Reputation);
         }
 
         /// <summary>
