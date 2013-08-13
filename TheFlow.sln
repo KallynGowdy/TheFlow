@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFlow.API", "TheFlow.API\TheFlow.API.csproj", "{06A226F7-E694-4F5F-BED0-3B6AFE93AFA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFlow.Site", "TheFlow.Site\TheFlow.Site.csproj", "{3221C31E-3BE2-47E4-9948-3EA03C9C61F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{06A226F7-E694-4F5F-BED0-3B6AFE93AFA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06A226F7-E694-4F5F-BED0-3B6AFE93AFA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06A226F7-E694-4F5F-BED0-3B6AFE93AFA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3221C31E-3BE2-47E4-9948-3EA03C9C61F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3221C31E-3BE2-47E4-9948-3EA03C9C61F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3221C31E-3BE2-47E4-9948-3EA03C9C61F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3221C31E-3BE2-47E4-9948-3EA03C9C61F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

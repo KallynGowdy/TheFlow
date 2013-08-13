@@ -1,0 +1,32 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "TheFlow";
+    Layout = "~/Views/shared/_BootstrapLayout.basic.cshtml";
+}
+
+     <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>Welcome to TheFlow!</h1>
+        <p>TheFlow is an Open Source Question And Answer site inspired by <a href="http://www.stackoverflow.com">StackOverflow</a>. Feel free to <a href="https://github.com/KallynGowdy/TheFlow">Fork Us</a> at Github!</p>
+        <p><a class="btn btn-primary btn-large" href="~/ExampleLayouts/Fluid">Learn more &raquo;</a></p>
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span4">
+          <h2>Questions</h2>
+          <p>Want to help? Support the community by answering questions.</p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div>
+        <div class="span4">
+          <h2>Develop</h2>
+          <p>Do you want to help us develop TheFlow? Just <a href="https://github.com/KallynGowdy/TheFlow/fork">fork TheFlow</a>, make changes, <a href="https://github.com/KallynGowdy/TheFlow/pulls">then submit a pull request</a> and we would <strong>love</strong> to review them. Be sure the read the <a href="#">Code Design</a> documents first!</p>
+          <p>@Html.ActionLink("Get Started »", "Index", "Develop", null, new { @class = "btn" })</p>
+       </div>
+        <div class="span4">
+          <h2>Bugs</h2>
+          <p>Found a Bug? <a href="https://github.com/KallynGowdy/TheFlow/issues">Submit an issue on our project page</a> and we'll get to it as quick as possible.</p>
+          <p><a class="btn" href="https://github.com/KallynGowdy/TheFlow/issues">Submit a bug &raquo;</a></p>
+        </div>
+      </div>
