@@ -13,6 +13,13 @@
     @* favicons and touch icons go here *@
 </head>
 <body>
+    <script type="text/javascript">
+        var start = new Date;
+
+        setInterval(function () {
+            $(".Time").text((new Date - start) / 1000);
+        }, 1000);
+    </script>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
@@ -37,8 +44,9 @@
         <hr>
         <footer>
             <div class="container">
-                <p class="pull-left">&copy; Your Company @System.DateTime.Now.ToString("yyyy")</p>
-                <p class="pull-right">@System.DateTime.Now.ToLongDateString()</p>
+                @{DateTime now = System.DateTime.Now;}
+                <p class="pull-left">&copy; Your Company @now.ToString("yyyy")</p>
+                <p class="pull-right">@now.ToLongDateString() <p class="pull-right Time"></p></p>
             </div>
         </footer>
     </div>
