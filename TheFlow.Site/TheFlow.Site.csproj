@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44301</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -42,12 +42,17 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Mvc">
       <HintPath>..\packages\Mvc4Futures.4.0.20710.0\lib\net40\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -127,9 +132,11 @@
     <Compile Include="BootstrapSupport\HtmlHelpers\Paging.cs" />
     <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
     <Compile Include="Controllers\BootstrapBaseController.cs" />
+    <Compile Include="Controllers\ControllerHelper.cs" />
     <Compile Include="Controllers\DevelopController.cs" />
     <Compile Include="Controllers\ExampleLayoutsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -147,29 +154,49 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\body.css" />
     <Content Include="Content\bootstrap-mvc-validation.css" />
-    <Content Include="Content\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap-responsive.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\images\glyphicons-halflings-white.png" />
-    <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\foundation\foundation.css" />
+    <Content Include="Content\foundation\foundation.min.css" />
+    <Content Include="Content\foundation\normalize.css" />
+    <Content Include="Content\Styles.css" />
     <Content Include="Global.asax" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\custom.modernizr.js" />
+    <Content Include="scripts\foundation.abide.js" />
+    <Content Include="scripts\foundation.alerts.js" />
+    <Content Include="scripts\foundation.clearing.js" />
+    <Content Include="scripts\foundation.cookie.js" />
+    <Content Include="scripts\foundation.dropdown.js" />
+    <Content Include="scripts\foundation.forms.js" />
+    <Content Include="scripts\foundation.interchange.js" />
+    <Content Include="scripts\foundation.joyride.js" />
+    <Content Include="scripts\foundation.js" />
+    <Content Include="scripts\foundation.magellan.js" />
+    <Content Include="scripts\foundation.min.js" />
+    <Content Include="scripts\foundation.orbit.js" />
+    <Content Include="scripts\foundation.placeholder.js" />
+    <Content Include="scripts\foundation.reveal.js" />
+    <Content Include="scripts\foundation.section.js" />
+    <Content Include="scripts\foundation.tooltips.js" />
+    <Content Include="scripts\foundation.topbar.js" />
     <Content Include="scripts\html5shiv.js" />
-    <None Include="scripts\jquery-1.9.1.intellisense.js" />
-    <Content Include="scripts\jquery-1.9.1.js" />
-    <Content Include="scripts\jquery-1.9.1.min.js" />
+    <None Include="scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="scripts\jquery-2.0.3.js" />
+    <Content Include="scripts\jquery-2.0.3.min.js" />
     <Content Include="scripts\jquery-migrate-1.1.1.js" />
     <Content Include="scripts\jquery-migrate-1.1.1.min.js" />
     <Content Include="scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="scripts\jquery-2.0.3.min.map" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.min.js" />
     <Content Include="scripts\jquery.validate.unobtrusive-custom-for-bootstrap.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="scripts\moment.js" />
+    <Content Include="scripts\moment.min.js" />
+    <Content Include="scripts\zepto.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -178,13 +205,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\shared\Details.cshtml" />
     <Content Include="Views\shared\Create.cshtml" />
     <Content Include="Views\shared\_validationSummary.cshtml" />
     <Content Include="Views\shared\_BootstrapLayout.narrow.cshtml" />
     <Content Include="Views\shared\_BootstrapLayout.empty.cshtml" />
-    <Content Include="Views\shared\_BootstrapLayout.basic.cshtml" />
+    <Content Include="Views\shared\_Layout.cshtml" />
     <Content Include="Views\shared\_alerts.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\ExampleLayouts\TBD.cshtml" />
@@ -192,8 +218,10 @@
     <Content Include="Views\ExampleLayouts\SignIn.cshtml" />
     <Content Include="Views\ExampleLayouts\Narrow.cshtml" />
     <Content Include="Views\shared\Index.cshtml" />
-    <Content Include="Views\ExampleLayouts\Fluid.cshtml" />
+    <Content Include="Views\Home\Learn.cshtml" />
     <Content Include="Views\Develop\Index.cshtml" />
+    <Content Include="Views\Users\LogIn.cshtml" />
+    <Content Include="Views\Users\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -203,6 +231,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\shared\_html5shiv.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TheFlow.API\TheFlow.API.csproj">
+      <Project>{06a226f7-e694-4f5f-bed0-3b6afe93afa9}</Project>
+      <Name>TheFlow.API</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -220,7 +254,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>51468</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:50846/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

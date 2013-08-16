@@ -1,0 +1,39 @@
+﻿@model TheFlow.API.Models.UserModel
+
+@{
+    ViewBag.Title = "Log In";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/Styles.css" />
+
+@section Scripts
+{
+    <script>
+        function signInGoogle() {
+            $.ajax({
+                type: "POST",
+                url: "/Users/CreateUser",
+                data: {
+                    'OpenIDProvider': "https://www.google.com/accounts/o8/id",
+                    'DisplayName': null,
+                    'Age': null
+                }
+            });
+        }
+    </script>
+
+}
+
+<h2>Create User</h2>
+<div class="container">
+    <p>Do you already have an account with one of these providers?</p>
+    <div class="row">
+        <div class="large-3 columns">
+            @using (Html.BeginForm("LogIn", "Users", FormMethod.Post))
+            {
+                @Html.Hidden("OpenIdProvider", "https://www.google.com/accounts/o8/id");
+                <button class="button success" type="submit">Sign in with Google.</button>
+            }
+        </div>
+    </div>
+</div>

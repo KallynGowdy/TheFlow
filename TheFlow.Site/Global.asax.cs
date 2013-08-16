@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
+using TheFlow.Site;
+
+[assembly: PreApplicationStartMethod(typeof(MvcApplication), "EnableForms")]
 
 namespace TheFlow.Site
 {
@@ -12,6 +16,11 @@ namespace TheFlow.Site
     // visit http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : System.Web.HttpApplication
     {
+        public static void EnableForms()
+        {
+            FormsAuthentication.EnableFormsAuthentication(null);
+        }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -21,6 +30,8 @@ namespace TheFlow.Site
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BootstrapSupport.BootstrapBundleConfig.RegisterBundles(System.Web.Optimization.BundleTable.Bundles);
             BootstrapMvcSample.ExampleLayoutsRouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            //TheFlow.API.WebApiConfig.Register(GlobalConfiguration.Configuration);
         }
     }
 }

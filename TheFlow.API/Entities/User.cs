@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using TheFlow.API.Models;
 
 namespace TheFlow.API.Entities
 {
@@ -71,14 +72,31 @@ namespace TheFlow.API.Entities
         public string Location { get; set; }
 
         /// <summary>
-        /// Gets or sets the age of the user.
+        /// Gets or sets the date of birth of the user (only used for calculating age).
         /// </summary>
-        public byte? Age { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+
+        /// <summary>
+        /// Gets the age of the user.
+        /// </summary>
+        [NotMapped]
+        public int? Age
+        {
+            get
+            {
+                if(DateOfBirth.HasValue)
+                {
+                    return (int)Math.Round((DateTime.Now - DateOfBirth.Value).Days / DateExtensions.YearInDays);
+                }
+                return null;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the reputation that the user has.
         /// </summary>
-        public uint Reputation { get; set; }
+        [Required]
+        public int Reputation { get; set; }
 
         /// <summary>
         /// Gets or sets the date that the user joined 'TheFlow'.
@@ -115,6 +133,22 @@ namespace TheFlow.API.Entities
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// Gets this user as a model.
+        /// </summary>
+        /// <returns></returns>
+        public UserModel ToModel()
+        {
+            return new UserModel
+            {
+                FirstName = this.FirstName,
+                LastName = this.LastName,
+                Age = this.Age,
+                Reputation = this.Reputation,
+                Location = this.Location
+            };
         }
     }
 }

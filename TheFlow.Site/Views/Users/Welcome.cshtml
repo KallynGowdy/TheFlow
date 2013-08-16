@@ -1,0 +1,12 @@
+﻿@model TheFlow.API.Entities.User
+
+@{
+    ViewBag.Title = "Account";
+    Layout = "~/Views/shared/_Layout.cshtml";
+}
+
+<h2>Welcome</h2>
+@if (Model != null)
+{
+    <p>Hello @Model.FirstName!</p>
+}

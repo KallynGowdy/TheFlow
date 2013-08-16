@@ -1,0 +1,116 @@
+﻿@using System.Web.Optimization
+@using BootstrapSupport
+@using NavigationRoutes
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="~/Content/foundation/normalize.css" />
+    <link rel="stylesheet" href="~/Content/foundation/foundation.css" />
+    <link href="~/Content/Styles.css" rel="stylesheet" />
+    @RenderSection("head", required: false)
+    @Html.Partial("_html5shiv")
+
+    @* favicons and touch icons go here *@
+    <script src="~/scripts/custom.modernizr.js"></script>
+    <script>
+        document.write('<script src=' +
+        ('__proto__' in {} ? '/scripts/zepto' : '/scripts/jquery-2.0.3') +
+        '.js><\/script>')
+    </script>
+</head>
+<body style="padding-top: 70px">
+    <div class="fixed">
+        <nav class="top-bar" role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h1>
+                        <a href="~/">TheFlow</a>
+                    </h1>
+                </li>
+                <li class="toggle-topbar menu-icon">
+                    <a href="#"><span>Menu</span></a>
+                </li>
+            </ul>
+            <section class="top-bar-section">
+                <ul class="left">
+                    <li><a href="~/">Home</a></li>
+                    <li><a href="~/Design">Design</a></li>
+                    @RenderSection("NavBarLeft", false)
+                    <li class="divider hide-for-small"></li>
+                </ul>
+                <ul class="right">
+                    <li class="divider"></li>
+                    @{TheFlow.API.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.authenticate(Request);}
+
+                    @if (user == null)
+                    {
+                        <li><a href="~/Users/LogIn">Create Account</a></li>
+                        <li>@Html.ActionLink("Log In", "LogIn", "Users")</li>
+                    }
+                    else
+                    {
+                        <li class="has-dropdown">
+                            <a href="#">↓</a>
+                            <ul class="dropdown">
+                                <li>
+                                    Hi!
+                                </li>
+                            </ul>
+                        </li>
+                        <li>@Html.ActionLink(user.DisplayName, "Index", "Account")</li>
+                        <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account")</li>
+                    }
+                    @RenderSection("NavBarRight", false)
+                </ul>
+            </section>
+        </nav>
+    </div>
+
+    <section class="main">
+        <div class="row">
+            <div class="small-9 small-centered large-12 large-centered columns">
+                @Html.Partial("_alerts")
+                @Html.Partial("_validationSummary")
+                @RenderBody()
+                <hr>
+                <footer>
+                    <div class="row">
+                        <div class="large-6 columns">
+                            <p class="text-left Copyright"></p>
+                        </div>
+                        <div class="large-6 columns">
+                            <p class="text-right Time"></p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </section>
+
+    <script src="/Scripts/jquery-migrate-1.1.1.js"></script>
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js"></script>
+    @*@Scripts.Render("~/js")*@
+    <script src="~/scripts/foundation.min.js"></script>
+    @RenderSection("Scripts", required: false)
+    <script>
+        $(function () {
+            $(document).foundation();
+        });
+    </script>
+    <script src="~/scripts/moment.js"></script>
+    <script type="text/javascript">
+        //$(document).foundation();
+        setInterval(function () {
+            $(".Time").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
+            $(".Copyright").text("© Your Company " + moment().format("YYYY"));
+        }, 1000);
+    </script>
+</body>
+</html>
+

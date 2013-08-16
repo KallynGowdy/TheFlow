@@ -2,6 +2,15 @@
     ViewBag.Title = "Develop-Index";
 }
 
-<div class="hero-unit">
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $(".nav li").removeClass("active");
+            $(".nav li:eq(1)").addClass("active");
+        });
+    </script>
+}
+
+<div class="jumbotron">
     <h2 class="text-center">Join the community, help develop TheFlow.</h2>
 </div>

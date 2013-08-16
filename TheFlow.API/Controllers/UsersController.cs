@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Security;
 using TheFlow.API.Authentication;
+using TheFlow.API.Authorization;
 using TheFlow.API.Entities;
 using TheFlow.API.Models;
 //using TheFlow.API.Authentication;
@@ -50,24 +51,73 @@ namespace TheFlow.API.Controllers
             private set;
         }
 
-        /// <summary>
-        /// Causes the OpenID redirect to the given OpenID provider URL.
-        /// </summary>
-        /// <param name="providerUrl">The URL of the OpenID provider to redirect to.</param>
-        [HttpGet]
-        public void LogIn(string providerUrl)
+        ///// <summary>
+        ///// Causes the OpenID redirect to the given OpenID provider URL.
+        ///// </summary>
+        ///// <param name="providerUrl">The URL of the OpenID provider to redirect to.</param>
+        //[HttpGet]
+        //public void LogIn(string providerUrl)
+        //{
+        //    User user = AuthenticationServer.Authenticate(Request, providerUrl, DataContext);
+        //    if (!DataContext.Users.Any(u => u.OpenId == user.OpenId))
+        //    {
+        //        if (user.DisplayName == null)
+        //        {
+        //            user.DisplayName = generateDisplayName();
+        //        }
+        //        DataContext.Users.Add(user);
+        //        DataContext.SaveChanges();
+        //    }
+        //    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.OK, user.EmailAddress));
+        //}
+
+        [AllowAnonymous]
+        public UserModel GetUser(string displayName)
         {
-            User user = AuthenticationServer.Authenticate(Request, providerUrl, DataContext);
-            if (!DataContext.Users.Any(u => u.OpenId == user.OpenId))
+            return DataContext.Users.FirstOrDefault(a => a.DisplayName.Equals(displayName, StringComparison.OrdinalIgnoreCase)).ToModel();
+        }
+
+        /// <summary>
+        /// Creates a new user by authenticating using OpenId and the given model to add information.
+        /// </summary>
+        /// <param name="newUser"></param>
+        [HttpPost]
+        [OpenIDAuthorize(false, true)]
+        public void CreateUser([FromBody]UserModel newUser)
+        {
+            User user = AuthenticationServer.GetAuthenticatedUser(DataContext);
+            if (!DataContext.Users.Contains(user))
             {
-                if (user.DisplayName == null)
-                {
-                    user.DisplayName = generateDisplayName();
-                }
                 DataContext.Users.Add(user);
-                DataContext.SaveChanges();
+                if (user != null && newUser != null)
+                {
+                    if (newUser.DisplayName != null)
+                    {
+                        user.DisplayName = newUser.DisplayName;
+                    }
+                    if (newUser.DateOfBirth != null)
+                    {
+                        user.DateOfBirth = newUser.DateOfBirth.Value;
+                    }
+                    if (newUser.EmailAddress != null)
+                    {
+                        user.EmailAddress = newUser.EmailAddress;
+                    }
+                    if (newUser.FirstName != null)
+                    {
+                        user.FirstName = newUser.FirstName;
+                    }
+                    if (newUser.LastName != null)
+                    {
+                        user.LastName = newUser.LastName;
+                    }
+                    if (newUser.Location != null)
+                    {
+                        user.Location = newUser.Location;
+                    }
+                    DataContext.SaveChanges();
+                }
             }
-            throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.OK, user.EmailAddress));
         }
 
         /// <summary>
@@ -75,18 +125,19 @@ namespace TheFlow.API.Controllers
         /// </summary>
         /// <param name="updatedModel">The user model that contains information that the user profile should be updated to.</param>
         [HttpPut]
+        [OpenIDAuthorize(true, true)]
         public void UpdateUser([FromBody]UserModel updatedModel)
         {
-            User user = AuthenticationServer.Authenticate(Request, Request.Headers.GetValues("OpenIdProvider").First(), DataContext);
+            User user = AuthenticationServer.GetAuthenticatedUser(DataContext);
             if (user != null)
             {
                 if (updatedModel.DisplayName != null)
                 {
                     user.DisplayName = updatedModel.DisplayName;
                 }
-                if (updatedModel.Age != null)
+                if (updatedModel.DateOfBirth != null)
                 {
-                    user.Age = updatedModel.Age.Value;
+                    user.DateOfBirth = updatedModel.DateOfBirth.Value;
                 }
                 if (updatedModel.EmailAddress != null)
                 {
@@ -113,10 +164,17 @@ namespace TheFlow.API.Controllers
         /// </summary>
         /// <param name="maxCount">The maximum number of users to return, default is 50.</param>
         /// <returns>A collection of users.</returns>
-        [AllowAnonymous]
-        public IEnumerable<User> GetUsers([FromUri]int maxCount = 50)
+        public IEnumerable<UserModel> GetUsers([FromUri]int maxCount = 50)
         {
-            return DataContext.Users.Take(maxCount).OrderBy(u => u.Reputation);
+            return DataContext.Users.Where(u => u != null).Take(maxCount).OrderBy(u => u.Reputation).Select(a =>
+                new UserModel
+                {
+                    FirstName = a.FirstName,
+                    LastName = a.LastName,
+                    Location = a.Location,
+                    DisplayName = a.DisplayName,
+                    DateOfBirth = a.DateOfBirth
+                });
         }
 
         /// <summary>

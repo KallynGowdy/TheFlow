@@ -244,9 +244,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Authentication\AuthenticationServer.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Authorization\OpenIDAuthorizeAttribute.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DateExtension.cs" />
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Context.cs" />
@@ -284,6 +285,14 @@
     <Compile Include="Migrations\201308130352046_EditBodyColumnTypeToNText.cs" />
     <Compile Include="Migrations\201308130352046_EditBodyColumnTypeToNText.Designer.cs">
       <DependentUpon>201308130352046_EditBodyColumnTypeToNText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308141729420_AddReputationToUsers.cs" />
+    <Compile Include="Migrations\201308141729420_AddReputationToUsers.Designer.cs">
+      <DependentUpon>201308141729420_AddReputationToUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308141828251_ChangedAgeToDOB.cs" />
+    <Compile Include="Migrations\201308141828251_ChangedAgeToDOB.Designer.cs">
+      <DependentUpon>201308141828251_ChangedAgeToDOB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -432,6 +441,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201308130352046_EditBodyColumnTypeToNText.resx">
       <DependentUpon>201308130352046_EditBodyColumnTypeToNText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308141729420_AddReputationToUsers.resx">
+      <DependentUpon>201308141729420_AddReputationToUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308141828251_ChangedAgeToDOB.resx">
+      <DependentUpon>201308141828251_ChangedAgeToDOB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

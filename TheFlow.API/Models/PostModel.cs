@@ -42,14 +42,5 @@ namespace TheFlow.API.Models
             get;
             set;
         }
-
-        /// <summary>
-        /// Gets or sets the tags used to mark the question.
-        /// </summary>
-        public IEnumerable<string> Tags
-        {
-            get;
-            set;
-        }
     }
 }
