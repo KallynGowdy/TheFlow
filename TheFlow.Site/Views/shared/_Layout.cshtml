@@ -1,6 +1,9 @@
 ﻿@using System.Web.Optimization
 @using BootstrapSupport
 @using NavigationRoutes
+
+@Html.AntiForgeryToken();
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,14 +57,19 @@
                     else
                     {
                         <li class="has-dropdown">
-                            <a href="#">↓</a>
+                            @Html.ActionLink(user.DisplayName, "Index", "Account")
                             <ul class="dropdown">
                                 <li>
-                                    Hi!
+                                    @using (Html.BeginForm("LogOut", "Users", FormMethod.Get))
+                                    {
+                                        @Html.AntiForgeryToken();
+                                        <a id="logOut" onclick="$(this).parent().submit()">Log Out</a>
+                                    }
+                                    @*Html.ActionLink("Log Out", "LogOut", "Users")*@
                                 </li>
                             </ul>
                         </li>
-                        <li>@Html.ActionLink(user.DisplayName, "Index", "Account")</li>
+                        
                         <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account")</li>
                     }
                     @RenderSection("NavBarRight", false)
@@ -105,6 +113,11 @@
     </script>
     <script src="~/scripts/moment.js"></script>
     <script type="text/javascript">
+
+        //$('#logOut').click(function () {
+        //    $(this).parent().submit();
+        //});
+
         //$(document).foundation();
         setInterval(function () {
             $(".Time").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));

@@ -74,8 +74,8 @@ namespace TheFlow.API.Authentication
                     fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Contact.Email, true));
                     fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.First, true));
                     fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.Last, true));
-
                     request.AddExtension(fr);
+
                     request.RedirectToProvider();
                 }
             }

@@ -78,5 +78,22 @@ namespace TheFlow.Site.Controllers
             }
             return null;
         }
+
+        /// <summary>
+        /// Removes the cookie with the given name from the users cookie collection.
+        /// </summary>
+        /// <param name="cookieName"></param>
+        /// <returns></returns>
+        public static bool RemoveCookie(HttpRequestBase request, HttpResponseBase response, string cookieName)
+        {
+            if (request.Cookies["TheFlow-OpenIdProvider"] != null)
+            {
+                HttpCookie newCookie = new HttpCookie("TheFlow-OpenIdProvider");
+                newCookie.Expires = DateTime.Now.AddDays(-1);
+                response.Cookies.Add(newCookie);
+                return true;
+            }
+            return false;
+        }
     }
 }
