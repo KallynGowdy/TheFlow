@@ -246,7 +246,6 @@
     <Compile Include="Authentication\AuthenticationServer.cs" />
     <Compile Include="Authorization\OpenIDAuthorizeAttribute.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DateExtension.cs" />
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Comment.cs" />
@@ -261,7 +260,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Handlers\AuthenticateAttribute.cs" />
     <Compile Include="Migrations\201308121909368_InitialCreate.cs" />
     <Compile Include="Migrations\201308121909368_InitialCreate.Designer.cs">
       <DependentUpon>201308121909368_InitialCreate.cs</DependentUpon>
@@ -378,6 +376,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="AppacheLicence.snippet" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="LICENCE.txt" />
     <Content Include="Scripts\jquery-1.8.2.js" />

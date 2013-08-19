@@ -126,11 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BootstrapBundleConfig.cs" />
-    <Compile Include="BootstrapSupport\ControlGroupExtensions.cs" />
-    <Compile Include="BootstrapSupport\HtmlHelpers\GlyphIcons.cs" />
-    <Compile Include="BootstrapSupport\HtmlHelpers\Paging.cs" />
-    <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
-    <Compile Include="Controllers\BootstrapBaseController.cs" />
     <Compile Include="Controllers\ControllerHelper.cs" />
     <Compile Include="Controllers\DevelopController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -152,14 +147,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\body.css" />
-    <Content Include="Content\bootstrap-mvc-validation.css" />
     <Content Include="Content\foundation\foundation.css" />
     <Content Include="Content\foundation\foundation.min.css" />
     <Content Include="Content\foundation\normalize.css" />
     <Content Include="Content\Styles.css" />
     <Content Include="Global.asax" />
-    <Content Include="scripts\bootstrap.js" />
-    <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\custom.modernizr.js" />
     <Content Include="scripts\foundation.abide.js" />
     <Content Include="scripts\foundation.alerts.js" />

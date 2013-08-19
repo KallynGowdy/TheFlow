@@ -1,0 +1,3 @@
+This Project uses binaries from the DotNetOpenAuth project (https://github.com/DotNetOpenAuth/DotNetOpenAuth)
+
+This Project contains source scripts and css from the Zurb Foundation project (https://github.com/zurb/foundation)
