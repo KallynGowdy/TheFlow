@@ -31,6 +31,7 @@ namespace TheFlow.API.Entities
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //Bind the 'Posts' table to the 'Questions' table and 'Answers' table as a parent
             modelBuilder.Entity<Post>().ToTable("Posts");
             modelBuilder.Entity<Question>().ToTable("Questions");
             modelBuilder.Entity<Answer>().ToTable("Answers");

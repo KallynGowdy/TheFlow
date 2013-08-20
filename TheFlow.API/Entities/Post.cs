@@ -24,7 +24,7 @@ namespace TheFlow.API.Entities
     /// <summary>
     /// Defines a post that contains text information.
     /// </summary>
-    public class Post
+    public abstract class Post
     {
         /// <summary>
         /// Gets or sets the ID number of this post.
