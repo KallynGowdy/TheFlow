@@ -21,7 +21,7 @@
     <script src="~/scripts/custom.modernizr.js"></script>
     <script>
         document.write('<script src=' +
-        ('__proto__' in {} ? '/scripts/zepto' : '/scripts/jquery-2.0.3') +
+        ('__proto__' in {} ? '/TheFlow/scripts/zepto' :  'TheFlow/scripts/jquery-2.0.3') +
         '.js><\/script>')
     </script>
 </head>
@@ -62,7 +62,7 @@
                                 <li>
                                     @using (Html.BeginForm("LogOut", "Users", FormMethod.Get))
                                     {
-                                        @Html.AntiForgeryToken();
+                                        @Html.AntiForgeryToken()
                                         <a id="logOut" onclick="$(this).parent().submit()">Log Out</a>
                                     }
                                     @*Html.ActionLink("Log Out", "LogOut", "Users")*@
@@ -81,7 +81,7 @@
     <section class="main">
         <div class="row">
             <div class="small-9 small-centered large-12 large-centered columns">
-               @* @Html.Partial("_alerts")*@
+                @* @Html.Partial("_alerts")*@
                 @Html.Partial("_validationSummary")
                 @RenderBody()
                 <hr>
