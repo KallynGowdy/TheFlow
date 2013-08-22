@@ -68,12 +68,13 @@ namespace TheFlow.API.Entities
         /// </summary>
         [EmailAddress]
         [Required]
+        [Key]
         public string EmailAddress { get; set; }
 
         /// <summary>
         /// Gets or sets the open id that this user owns.
         /// </summary>
-        [Key]
+        [Required(AllowEmptyStrings=false)]
         public string OpenId
         {
             get;

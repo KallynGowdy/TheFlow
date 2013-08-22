@@ -89,8 +89,8 @@ namespace TheFlow.API.Authentication
 
                     var fr = new FetchRequest();
                     fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Contact.Email, true));
-                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.First, true));
-                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.Last, true));
+                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.First, false));
+                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.Last, false));
                     request.AddExtension(fr);
 
                     request.RedirectToProvider();
@@ -154,8 +154,8 @@ namespace TheFlow.API.Authentication
 
                     var fr = new FetchRequest();
                     fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Contact.Email, true));
-                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.First, true));
-                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.Last, true));
+                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.First, false));
+                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.Last, false));
 
                     request.AddExtension(fr);
                     return request.RedirectingResponse.AsActionResult();
@@ -224,8 +224,8 @@ namespace TheFlow.API.Authentication
 
                     var fr = new FetchRequest();
                     fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Contact.Email, true));
-                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.First, true));
-                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.Last, true));
+                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.First, false));
+                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.Last, false));
 
                     request.AddExtension(fr);
                     request.RedirectToProvider();
@@ -294,8 +294,8 @@ namespace TheFlow.API.Authentication
 
                     var fr = new FetchRequest();
                     fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Contact.Email, true));
-                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.First, true));
-                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.Last, true));
+                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.First, false));
+                    fr.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.Last, false));
 
                     request.AddExtension(fr);
                     request.RedirectToProvider();
@@ -330,16 +330,20 @@ namespace TheFlow.API.Authentication
                     {
                         FetchResponse claims = response.GetExtension<FetchResponse>();
                         string claimedIdentifier = response.ClaimedIdentifier.ToString();
-                        if (dataContext.Users.All(u => u.OpenId != claimedIdentifier))
+                        string email = claims.Attributes.Contains(WellKnownAttributes.Contact.Email) ? claims.Attributes[WellKnownAttributes.Contact.Email].Values.First() : null;
+                        if (dataContext.Users.All(u => u.EmailAddress != email))
                         {
                             if (claims != null)
                             {
+                                string firstName = claims.Attributes.Contains(WellKnownAttributes.Name.First) ? claims.Attributes[WellKnownAttributes.Name.First].Values.First() : null;
+                                string lastName = claims.Attributes.Contains(WellKnownAttributes.Name.Last) ? claims.Attributes[WellKnownAttributes.Name.Last].Values.First() : null;
+
                                 user = new User
                                 {
                                     OpenId = claimedIdentifier,
-                                    EmailAddress = claims.Attributes[WellKnownAttributes.Contact.Email].Values.First(),
-                                    FirstName = claims.Attributes[WellKnownAttributes.Name.First].Values.First(),
-                                    LastName = claims.Attributes[WellKnownAttributes.Name.Last].Values.First()
+                                    EmailAddress = email,
+                                    FirstName = firstName,
+                                    LastName = lastName
                                 };
                             }
                             else
@@ -383,6 +387,60 @@ namespace TheFlow.API.Authentication
         }
 
         /// <summary>
+        /// Gets a user from the given FetchResponse claims using the given claimed Identifier.
+        /// </summary>
+        /// <param name="claims">The claims sent from OpenID provider.</param>
+        /// <param name="claimedIdentifier">The identifier claimed by the user given by the OpenID provider.</param>
+        /// <param name="dataContext">The current data context to the database.</param>
+        /// <returns></returns>
+        public static User GetUserFromClaims(FetchResponse claims, string claimedIdentifier, DbContext dataContext = null)
+        {
+            if (dataContext == null)
+            {
+                dataContext = new DbContext();
+            }
+
+            string email = claims.Attributes.Contains(WellKnownAttributes.Contact.Email) ? claims.Attributes[WellKnownAttributes.Contact.Email].Values.First() : null;
+            if (email != null)
+            {
+                if (dataContext.Users.All(u => !u.EmailAddress.Equals(email, StringComparison.OrdinalIgnoreCase)))
+                {
+                    if (claims != null)
+                    {
+                        string firstName = claims.Attributes.Contains(WellKnownAttributes.Name.First) ? claims.Attributes[WellKnownAttributes.Name.First].Values.First() : null;
+                        string lastName = claims.Attributes.Contains(WellKnownAttributes.Name.Last) ? claims.Attributes[WellKnownAttributes.Name.Last].Values.First() : null;
+
+                        return new User
+                        {
+                            OpenId = claimedIdentifier,
+                            EmailAddress = email,
+                            FirstName = firstName,
+                            LastName = lastName
+                        };
+                    }
+                    else
+                    {
+                        return new User
+                        {
+                            OpenId = claimedIdentifier
+                        };
+                    }
+                }
+                else
+                {
+                    return dataContext.Users.First(u => u.EmailAddress.Equals(claimedIdentifier, StringComparison.Ordinal));
+                }
+            }
+            else
+            {
+                return new User
+                {
+                    OpenId = claimedIdentifier
+                };
+            }
+        }
+
+        /// <summary>
         /// Gets the currently authenticated user, returns null if no user is authenticated.
         /// </summary>
         /// <returns></returns>
@@ -402,16 +460,20 @@ namespace TheFlow.API.Authentication
                     {
                         FetchResponse claims = response.GetExtension<FetchResponse>();
                         string claimedIdentifier = response.ClaimedIdentifier.ToString();
-                        if (dataContext.Users.All(u => !u.OpenId.Equals(claimedIdentifier, StringComparison.Ordinal)))
+                        string email = claims.Attributes.Contains(WellKnownAttributes.Contact.Email) ? claims.Attributes[WellKnownAttributes.Contact.Email].Values.First() : null;
+                        if (dataContext.Users.All(u => !u.EmailAddress.Equals(email, StringComparison.OrdinalIgnoreCase)))
                         {
                             if (claims != null)
                             {
+                                string firstName = claims.Attributes.Contains(WellKnownAttributes.Name.First) ? claims.Attributes[WellKnownAttributes.Name.First].Values.First() : null;
+                                string lastName = claims.Attributes.Contains(WellKnownAttributes.Name.Last) ? claims.Attributes[WellKnownAttributes.Name.Last].Values.First() : null;
+
                                 return new User
                                 {
                                     OpenId = claimedIdentifier,
-                                    EmailAddress = claims.Attributes[WellKnownAttributes.Contact.Email].Values.First(),
-                                    FirstName = claims.Attributes[WellKnownAttributes.Name.First].Values.First(),
-                                    LastName = claims.Attributes[WellKnownAttributes.Name.Last].Values.First()
+                                    EmailAddress = email,
+                                    FirstName = firstName,
+                                    LastName = lastName
                                 };
                             }
                             else
@@ -424,7 +486,7 @@ namespace TheFlow.API.Authentication
                         }
                         else
                         {
-                            return dataContext.Users.First(u => u.OpenId.Equals(claimedIdentifier, StringComparison.Ordinal));
+                            return dataContext.Users.First(u => u.EmailAddress.Equals(claimedIdentifier, StringComparison.Ordinal));
                         }
                     }
                 }

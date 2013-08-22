@@ -114,7 +114,7 @@ namespace TheFlow.Site.Controllers
             {
                 if (user != null)
                 {
-                    if (!dataContext.Users.Any(a => a.OpenId == user.OpenId))
+                    if (!dataContext.Users.Any(a => a.EmailAddress == user.EmailAddress))
                     {
                         if (user.DisplayName == null)
                         {
@@ -141,10 +141,10 @@ namespace TheFlow.Site.Controllers
                         }
                     }
                 }
-                string returnUrl = Request.Headers["ReturnUrl"];
+                string returnUrl = Request.Headers["TheFlow-ReturnUrl"];
                 if (returnUrl != null)
                 {
-                    Response.Headers.Remove("ReturnUrl");
+                    Response.Headers.Remove("TheFlow-ReturnUrl");
                     return Redirect(returnUrl);
                 }
             }

@@ -292,6 +292,10 @@
     <Compile Include="Migrations\201308141828251_ChangedAgeToDOB.Designer.cs">
       <DependentUpon>201308141828251_ChangedAgeToDOB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201308211707209_SwitchedUserKeyToEmail.cs" />
+    <Compile Include="Migrations\201308211707209_SwitchedUserKeyToEmail.Designer.cs">
+      <DependentUpon>201308211707209_SwitchedUserKeyToEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PostModel.cs" />
@@ -300,10 +304,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\database.mdf" />
-    <Content Include="App_Data\database_log.ldf">
-      <DependentUpon>database.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\TheFlow.API.Entities.DbContext.mdf" />
     <Content Include="App_Data\TheFlow.API.Entities.DbContext_log.ldf">
       <DependentUpon>TheFlow.API.Entities.DbContext.mdf</DependentUpon>
@@ -445,6 +445,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201308141828251_ChangedAgeToDOB.resx">
       <DependentUpon>201308141828251_ChangedAgeToDOB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308211707209_SwitchedUserKeyToEmail.resx">
+      <DependentUpon>201308211707209_SwitchedUserKeyToEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
