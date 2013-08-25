@@ -24,10 +24,21 @@ namespace TheFlow.API.Models
     public class QuestionModel : PostModel
     {
         /// <summary>
-        /// Gets or sets the tags used to mark the question.
+        /// Gets or sets the tags used to mark the question. Required.
         /// </summary>
         [Required]
         public IEnumerable<string> Tags
+        {
+            get;
+            set;
+        }
+
+
+        /// <summary>
+        /// Gets or sets the title of the question. Required.
+        /// </summary>
+        [Required]
+        public string Title
         {
             get;
             set;

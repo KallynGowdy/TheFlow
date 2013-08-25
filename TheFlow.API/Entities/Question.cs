@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TheFlow.API.Models;
 
 namespace TheFlow.API.Entities
 {
@@ -54,6 +55,21 @@ namespace TheFlow.API.Entities
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// Gets the model representation of this entity.
+        /// </summary>
+        /// <returns></returns>
+        public QuestionModel ToModel()
+        {
+            return new QuestionModel
+            {
+                Title = this.Title,
+                Author = this.Author.DisplayName,
+                Body = this.Body,
+                DateCreated = this.DatePosted
+            };
         }
     }
 }

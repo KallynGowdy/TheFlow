@@ -1,0 +1,22 @@
+﻿@model IEnumerable<TheFlow.Site.Controllers.MenuItem>
+
+@helper DrawItem(TheFlow.Site.Controllers.MenuItem item)
+{
+    <li>
+        <a href="@item.Link">@item.Content</a>
+        @if(item.Children.Count > 0)
+        {
+            <ul class="dropdown">
+                @foreach(TheFlow.Site.Controllers.MenuItem child in item.Children)
+                {
+                    DrawItem(child);
+                }
+            </ul>   
+        }
+    </li> 
+} 
+
+@foreach (TheFlow.Site.Controllers.MenuItem item in Model)
+{
+    DrawItem(item).ToHtmlString();
+}

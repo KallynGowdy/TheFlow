@@ -129,6 +129,7 @@
     <Compile Include="Controllers\ControllerHelper.cs" />
     <Compile Include="Controllers\DevelopController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -150,6 +151,7 @@
     <Content Include="Content\foundation\foundation.css" />
     <Content Include="Content\foundation\foundation.min.css" />
     <Content Include="Content\foundation\normalize.css" />
+    <Content Include="Content\prettyprint\prettify.css" />
     <Content Include="Content\Styles.css" />
     <Content Include="Global.asax" />
     <Content Include="scripts\custom.modernizr.js" />
@@ -187,6 +189,41 @@
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="scripts\moment.js" />
     <Content Include="scripts\moment.min.js" />
+    <Content Include="scripts\pagedown\LICENSE.txt" />
+    <Content Include="scripts\pagedown\Markdown.Converter.js" />
+    <Content Include="scripts\pagedown\Markdown.Editor.js" />
+    <Content Include="scripts\pagedown\Markdown.Sanitizer.js" />
+    <Content Include="scripts\pagedown\README.txt" />
+    <Content Include="scripts\prettyprint\lang-apollo.js" />
+    <Content Include="scripts\prettyprint\lang-basic.js" />
+    <Content Include="scripts\prettyprint\lang-clj.js" />
+    <Content Include="scripts\prettyprint\lang-css.js" />
+    <Content Include="scripts\prettyprint\lang-dart.js" />
+    <Content Include="scripts\prettyprint\lang-erlang.js" />
+    <Content Include="scripts\prettyprint\lang-go.js" />
+    <Content Include="scripts\prettyprint\lang-hs.js" />
+    <Content Include="scripts\prettyprint\lang-lisp.js" />
+    <Content Include="scripts\prettyprint\lang-llvm.js" />
+    <Content Include="scripts\prettyprint\lang-lua.js" />
+    <Content Include="scripts\prettyprint\lang-matlab.js" />
+    <Content Include="scripts\prettyprint\lang-ml.js" />
+    <Content Include="scripts\prettyprint\lang-mumps.js" />
+    <Content Include="scripts\prettyprint\lang-n.js" />
+    <Content Include="scripts\prettyprint\lang-pascal.js" />
+    <Content Include="scripts\prettyprint\lang-proto.js" />
+    <Content Include="scripts\prettyprint\lang-r.js" />
+    <Content Include="scripts\prettyprint\lang-rd.js" />
+    <Content Include="scripts\prettyprint\lang-scala.js" />
+    <Content Include="scripts\prettyprint\lang-sql.js" />
+    <Content Include="scripts\prettyprint\lang-tcl.js" />
+    <Content Include="scripts\prettyprint\lang-tex.js" />
+    <Content Include="scripts\prettyprint\lang-vb.js" />
+    <Content Include="scripts\prettyprint\lang-vhdl.js" />
+    <Content Include="scripts\prettyprint\lang-wiki.js" />
+    <Content Include="scripts\prettyprint\lang-xq.js" />
+    <Content Include="scripts\prettyprint\lang-yaml.js" />
+    <Content Include="scripts\prettyprint\prettify.js" />
+    <Content Include="scripts\prettyprint\run_prettify.js" />
     <Content Include="scripts\zepto.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -214,6 +251,10 @@
     <Content Include="Views\Users\LogIn.cshtml" />
     <Content Include="Views\Users\Welcome.cshtml" />
     <Content Include="Views\Users\Info.cshtml" />
+    <Content Include="Views\Questions\Index.cshtml" />
+    <Content Include="Views\Home\_Menu.cshtml" />
+    <Content Include="Views\Questions\Create.cshtml" />
+    <Content Include="Views\Questions\Question.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

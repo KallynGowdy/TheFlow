@@ -30,7 +30,7 @@ namespace TheFlow.API.Models
         /// <summary>
         /// Gets or sets the author of the post.
         /// </summary>
-        [Required]
+        [ReadOnly(true)]
         public string Author
         {
             get;

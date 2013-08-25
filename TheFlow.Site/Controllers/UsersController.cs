@@ -109,6 +109,7 @@ namespace TheFlow.Site.Controllers
         [System.Web.Mvc.AcceptVerbs(HttpVerbs.Get)]
         public ActionResult LogIn()
         {
+            string returnUrl = Request["ReturnUrl"];
             User user;
             if (AuthenticationServer.IsAuthenticated(out user))
             {
@@ -141,11 +142,18 @@ namespace TheFlow.Site.Controllers
                         }
                     }
                 }
-                string returnUrl = Request.Headers["ReturnUrl"];
+                returnUrl = Request.Cookies["TheFlow-ReturnUrl"].Value;
                 if (returnUrl != null)
                 {
-                    Response.Headers.Remove("ReturnUrl");
+                    ControllerHelper.RemoveCookie(Request, Response, "TheFlow-ReturnUrl");
                     return Redirect(returnUrl);
+                }
+            }
+            else
+            {
+                if (returnUrl != null)
+                {
+                    Response.Cookies.Add(new HttpCookie("TheFlow-ReturnUrl", returnUrl));
                 }
             }
             return View();
@@ -164,7 +172,7 @@ namespace TheFlow.Site.Controllers
             //DO NOT COMMENT OUT, OR REMOVE.
             AntiForgery.Validate();
 
-            Response.Cookies.Add(new HttpCookie("TheFlow-ReturnUrl", Request.UrlReferrer.AbsoluteUri));
+            //Response.Cookies.Add(new HttpCookie("TheFlow-ReturnUrl", Request.UrlReferrer.AbsoluteUri));
 
             //Authenticate the user based on their OpenID provider.
             if (OpenIdProvider != null)

@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+
+<link href="~/Content/prettyprint/prettify.css" type="text/css" rel="stylesheet" />
+
+@section Scripts
+{
+    <script src="~/scripts/pagedown/Markdown.Converter.js"></script>
+    <script src="~/scripts/pagedown/Markdown.Editor.js"></script>
+    <script src="~/scripts/pagedown/Markdown.Sanitizer.js"></script>
+    <script src="~/scripts/prettyprint/prettify.js"></script>
+    @*<script src="~/scripts/prettyprint/run_prettify.js"></script>*@
+    <script type="text/javascript">
+        var converter = new Markdown.getSanitizingConverter();
+
+        var editor = new Markdown.Editor(converter);
+
+        //refresh prettyprint when the preview is refreshed
+        editor.hooks.chain("onPreviewRefresh", function () {
+            $("code").addClass("prettyprint");
+            $("code").css("background-color", '#eee');
+            prettyPrint();
+        });
+
+        editor.run();
+    </script>
+}
+
+<h2>Ask a Question</h2>
+
+<div class="row">
+    <div class="columns large-12">
+        @using (Html.BeginForm("Create", "Questions", FormMethod.Post, new { data_abide = "" }))
+        {
+            @Html.AntiForgeryToken();
+            <input id="Title" type="text" placeholder="Title" name="Title" autocomplete="off" required />
+            <small class="error">Please provide a Title for your question.</small>
+            <textarea class="wmd-input" id="wmd-input" name="Body" style="max-width: 100%;"></textarea>
+            <div class="panel radius" style="background-color: white;">
+                <div id="wmd-preview"></div>
+            </div>
+            <button type="submit">Ask Question</button>
+        }
+    </div>
+</div>

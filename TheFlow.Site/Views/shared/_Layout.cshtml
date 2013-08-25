@@ -2,7 +2,7 @@
 @using BootstrapSupport
 @using NavigationRoutes
 
-@Html.AntiForgeryToken();
+@Html.AntiForgeryToken()
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,11 +42,16 @@
                 <ul class="left">
                     <li><a href="~/">Home</a></li>
                     <li><a href="~/Design">Design</a></li>
+                    <li><a href="~/Questions">Questions</a></li>
                     @RenderSection("NavBarLeft", false)
                     <li class="divider hide-for-small"></li>
                 </ul>
                 <ul class="right">
                     <li class="divider"></li>
+
+                    @*@Html.Action("_Menu", "Home")*@
+
+
                     @{TheFlow.API.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.authenticate(Request);}
 
                     @if (user == null)
@@ -60,12 +65,7 @@
                             @Html.ActionLink(user.DisplayName, "Index", "Account")
                             <ul class="dropdown">
                                 <li>
-                                    @using (Html.BeginForm("LogOut", "Users", FormMethod.Get))
-                                    {
-                                        @Html.AntiForgeryToken();
-                                        <a id="logOut" onclick="$(this).parent().submit()">Log Out</a>
-                                    }
-                                    @*Html.ActionLink("Log Out", "LogOut", "Users")*@
+                                    @Html.ActionLink("Log Out", "LogOut", "Users")
                                 </li>
                             </ul>
                         </li>
@@ -73,6 +73,7 @@
                         <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account")</li>
                     }
                     @RenderSection("NavBarRight", false)
+
                 </ul>
             </section>
         </nav>
@@ -81,7 +82,7 @@
     <section class="main">
         <div class="row">
             <div class="small-9 small-centered large-12 large-centered columns">
-               @* @Html.Partial("_alerts")*@
+                @* @Html.Partial("_alerts")*@
                 @Html.Partial("_validationSummary")
                 @RenderBody()
                 <hr>

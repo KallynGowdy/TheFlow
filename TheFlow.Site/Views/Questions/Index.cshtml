@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@model IEnumerable<TheFlow.API.Entities.Question>
+
+@*<ul class="small-block-grid-2 large-block-grid-2">
+    <li>
+        <h2>Questions</h2>
+    </li>
+    <li>
+        <a class="button round text-center">Ask a Question</a>
+    </li>
+</ul>*@
+
+<div class="row">
+    <div class="columns large-9 small-7">
+        <h2>Questions</h2>
+    </div>
+    <div class="columns large-3 small-5">
+        <div class="container text-center">
+            <a class="button round" style="margin-top: .45em;" href="~/Questions/Create">Ask a Question</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="columns large-9">
+
+        @if (Model.Count() > 0)
+        {
+            foreach (var question in Model)
+            {
+            <hr />
+            <div class="row">
+                <div class="columns large-12">
+                    <h3 class="text-left"><a href="~/Questions/Question/@question.Id" style="color: #f2b21b">@question.Title</a></h3>
+                    <p class="text-left"><small>@(question.Body.Length > 50 ? question.Body.Substring(0, 50) : question.Body)</small></p>
+                </div>
+            </div>
+            }
+        }
+        else
+        {
+            <hr />
+            <p class="text-center">There are no Questions, Sorry</p>
+        }
+    </div>
+    <div class="columns large-3 hide-for-medium-down">
+        <p class="success text-center">Showing @Model.Count() of @(string.Format("{0:n0}", new TheFlow.API.Entities.DbContext().Questions.Count())) Questions</p>
+    </div>
+</div>

@@ -18,14 +18,85 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Models;
+using TheFlow.API.Authentication;
 
-namespace BootstrapMvcSample.Controllers
+namespace TheFlow.Site.Controllers
 {
+    public class MenuItem
+    {
+        /// <summary>
+        /// Gets the content that this menu item should display.
+        /// </summary>
+        public string Content
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the link that this menu item goes to.
+        /// </summary>
+        public string Link
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Gets the children of this menu item.
+        /// </summary>
+        public IList<MenuItem> Children
+        {
+            get;
+            private set;
+        }
+
+        public MenuItem(string content, string link, IList<MenuItem> children = null)
+        {
+            this.Content = content;
+            this.Link = link;
+            if (children == null)
+            {
+                this.Children = new List<MenuItem>();
+            }
+            else
+            {
+                this.Children = children;
+            }
+        }
+    }
+
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Learn()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Returns
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult _Menu()
+        {
+            List<MenuItem> menu = new List<MenuItem>();
+            TheFlow.API.Entities.User user = ControllerHelper.authenticate(Request);
+            if (user == null)
+            {
+                menu.Add(new MenuItem("Create Account", "~/Users/LogIn"));
+                menu.Add(new MenuItem("Log In", "~/Users/LogIn"));
+            }
+            else
+            {
+                menu.Add(new MenuItem(user.DisplayName, "~/Account", new List<MenuItem>(new []{new MenuItem("Log Out", "~/Users/LogOut")})));
+                menu.Add(new MenuItem(user.Reputation.ToString(), "~/Account/Reputation"));
+            }
+            return PartialView(menu);
         }
     }
 }

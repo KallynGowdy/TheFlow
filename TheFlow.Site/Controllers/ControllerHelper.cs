@@ -61,7 +61,7 @@ namespace TheFlow.Site.Controllers
         /// If the user is not authenticated he/she will be redirected to their provider if the provider is supplied in the request.
         /// </summary>
         /// <returns>The currently authenticated user, or null if the user is not authenticated.</returns>
-        public static User authenticate(HttpRequestBase request, DbContext dataContext = null)
+        public static User authenticate(HttpRequestBase request, IDbContext dataContext = null)
         {
             if (dataContext == null)
             {
