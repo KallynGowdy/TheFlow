@@ -1,59 +1,104 @@
 ﻿/* Notice: This File is Licenced under the Appache 2.0 Licence (see http://google-code-prettify.googlecode.com/svn/trunk/COPYING) */
 /* desert scheme ported from vim to google prettify */
+
+/* Some modification has been made to provide the best colors for all situations */
+
 pre.prettyprint {
     display: block;
     background-color: #333;
+    padding: 8px;
 }
 
-pre .nocode {
+code.prettyprint {
+    display: inline-block;
+}
+
+.nocode {
     background-color: none;
     color: #000;
 }
 
-pre .str {
+.str {
     color: #ffa0a0;
 }
 /* string  - pink */
-pre .kwd {
+
+pre > code > .kwd {
     color: #f0e68c;
     font-weight: bold;
 }
 
-pre .com {
+.kwd {
+    color: #e1c233;
+    font-weight: bold;
+}
+/* keyword - warm yellow*/
+
+pre > code > .com {
     color: #87ceeb;
 }
+
+.com {
+    color: #46aed8;
+}
 /* comment - skyblue */
-pre .typ {
+
+pre > code > .typ {
     color: #98fb98;
 }
+
+.typ {
+    color: #4ee94e;
+}
 /* type    - lightgreen */
-pre .lit {
+
+.lit {
     color: #cd5c5c;
 }
 /* literal - darkred */
-pre .pun {
+
+pre > code > .pun {
     color: #fff;
 }
 /* punctuation */
-pre .pln {
+
+.pun {
+    color: black;
+}
+
+pre > code > .pln {
     color: #fff;
 }
 /* plaintext */
-pre .tag {
+
+.pln {
+    color: black;
+}
+
+pre > code > .tag {
     color: #f0e68c;
     font-weight: bold;
 }
+
+.tag {
+    color: #e9d268;
+    font-weight: bold;
+}
+
 /* html/xml tag    - lightyellow */
-pre .atn {
+
+.atn {
     color: #bdb76b;
     font-weight: bold;
 }
 /* attribute name  - khaki */
-pre .atv {
+
+.atv {
     color: #ffa0a0;
 }
 /* attribute value - pink */
-pre .dec {
+
+.dec {
     color: #98fb98;
 }
 /* decimal         - lightgreen */

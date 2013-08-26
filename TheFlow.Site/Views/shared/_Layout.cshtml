@@ -48,10 +48,6 @@
                 </ul>
                 <ul class="right">
                     <li class="divider"></li>
-
-                    @*@Html.Action("_Menu", "Home")*@
-
-
                     @{TheFlow.API.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.authenticate(Request);}
 
                     @if (user == null)
@@ -73,12 +69,10 @@
                         <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account")</li>
                     }
                     @RenderSection("NavBarRight", false)
-
                 </ul>
             </section>
         </nav>
     </div>
-
     <section class="main">
         <div class="row">
             <div class="small-12 small-centered large-12 large-centered columns">
@@ -113,11 +107,12 @@
 
             @RenderSection("OnPageLoadFunction", required: false)
 
-            setInterval(function () {
-                $(".Time").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
-                $(".Copyright").text("© Your Company " + moment().format("YYYY"));
-            }, 1000);
+
         });
+        setInterval(function () {
+            $(".Time").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
+            $(".Copyright").text("© Your Company " + moment().format("YYYY"));
+        }, 1000);
     </script>
 </body>
 </html>

@@ -70,7 +70,7 @@ namespace TheFlow.Site.Controllers
 
             if (HttpContext.Current.User != null && HttpContext.Current.User.Identity != null && HttpContext.Current.User.Identity.IsAuthenticated && HttpContext.Current.User.Identity is FormsIdentity)
             {
-                User user = dataContext.Users.First(a => a.OpenId == ((FormsIdentity)HttpContext.Current.User.Identity).Name);
+                User user = dataContext.Users.SingleOrDefault(a => a.OpenId == ((FormsIdentity)HttpContext.Current.User.Identity).Name);
                 return user;
             }
             else if (!FormsAuthentication.IsEnabled)
@@ -100,9 +100,9 @@ namespace TheFlow.Site.Controllers
         /// <returns></returns>
         public static bool RemoveCookie(HttpRequestBase request, HttpResponseBase response, string cookieName)
         {
-            if (request.Cookies["TheFlow-OpenIdProvider"] != null)
+            if (request.Cookies[cookieName] != null)
             {
-                HttpCookie newCookie = new HttpCookie("TheFlow-OpenIdProvider");
+                HttpCookie newCookie = new HttpCookie(cookieName);
                 newCookie.Expires = DateTime.Now.AddDays(-1);
                 response.Cookies.Add(newCookie);
                 return true;

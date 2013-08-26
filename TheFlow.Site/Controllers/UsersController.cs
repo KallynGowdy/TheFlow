@@ -110,6 +110,11 @@ namespace TheFlow.Site.Controllers
         public ActionResult LogIn()
         {
             string returnUrl = Request["ReturnUrl"];
+            if (returnUrl == null)
+            {
+                returnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.AbsoluteUri : null;
+            }
+
             User user;
             if (AuthenticationServer.IsAuthenticated(out user))
             {
