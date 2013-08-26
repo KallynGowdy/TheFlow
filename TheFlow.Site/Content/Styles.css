@@ -11,3 +11,7 @@ body {
 .main {
     padding-top: 30px;
 }
+
+.full-width {
+    width: 100%;
+}

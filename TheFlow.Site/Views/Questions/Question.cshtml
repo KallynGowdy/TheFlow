@@ -4,9 +4,10 @@
     ViewBag.Title = "Question";
 }
 
-
-
-<link href="@Helpers.GetCodeStylePath()" type="text/css" rel="stylesheet" />
+@section head
+{
+    <link href="@Helpers.GetCodeStylePath()" type="text/css" rel="stylesheet" />
+}
 
 @section Scripts
 {
@@ -14,9 +15,11 @@
     <script src="~/scripts/pagedown/Markdown.Sanitizer.js"></script>
     <script src="~/scripts/prettyprint/prettify.js"></script>
     <script src="~/scripts/prettyprint/run_prettify.js"></script>
+}
 
-    <script type="text/javascript">
-        function highlightCode() {
+@section OnPageLoadFunction
+{
+    function highlightCode() {
             $("pre").addClass("prettyprint");
             $("pre").css("background-color", "#eee");
             $("code").addClass("prettyprint");
@@ -31,12 +34,18 @@
         $(".text-body").html(converter.makeHtml(textBody));
 
         highlightCode();
-    </script>
 }
 
-<h2>Question</h2>
-<h2>@Model.Title</h2>
 
 <div class="panel" style="background-color: white">
+    <div class="row">
+        <div class="columns large-8">
+            <h2 style="color: #f2b21b">@Model.Title</h2>
+        </div>
+        <div class="columns large-offset-1 large-3 text-center">
+            <p>Posted by @Model.Author.DisplayName at @Model.DatePosted.Value.ToShortTimeString()</p>
+        </div>
+    </div>
+
     <div class="text-body"></div>
 </div>

@@ -5,12 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using TheFlow.API.Entities;
 using TheFlow.API.Models;
+using System.Data.Entity;
 
 namespace TheFlow.Site.Controllers
 {
     public class QuestionsController : Controller
     {
-        DbContext dataContext = new DbContext();
+        TheFlow.API.Entities.DbContext dataContext = new TheFlow.API.Entities.DbContext();
 
         /// <summary>
         /// Serves the index of the top 50 questions to the user.
@@ -28,12 +29,12 @@ namespace TheFlow.Site.Controllers
         /// <returns></returns>
         public ActionResult Question([Bind(Prefix = "id")] long questionId)
         {
-            Question question = dataContext.Questions.FirstOrDefault(q => q.Id == questionId);
+            Question question = dataContext.Questions.Include(a => a.Author).FirstOrDefault(q => q.Id == questionId);
             if (question != null)
             {
                 return View(question);
             }
-            return View("Index", dataContext.Questions.Take(50));
+            return View("Index", dataContext.Questions.Include(a => a.Author).Take(50));
         }
 
         /// <summary>

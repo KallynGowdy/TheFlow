@@ -19,7 +19,12 @@ namespace TheFlow.API.Entities
         TomorrowNightEighties,
         TomorrowNight,
         Tomorrow,
-        VibrantInk
+        VibrantInk,
+        SolarizedDark,
+        SonsOfObsidian,
+        Desert,
+        Doxy,
+        Sunburst
     };
 
     /// <summary>

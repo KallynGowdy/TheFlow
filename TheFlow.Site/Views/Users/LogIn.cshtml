@@ -15,42 +15,39 @@
                 <section class="section">
                     <p class="title" style="text-wrap: normal"><a href="#select" style="white-space: normal">Do you already have an account with one of these providers?</a></p>
                     <div class="content" data-slug="select">
+                        <p class="show-for-medium-up">Sign in with one of these providers:</p>
+                        <p class="show-for-small text-center">Sign in with one of these providers:</p>
                         <div class="row">
                             <div class="columns large-3">
-                                @*@{
-                                    var token = @Html.AntiForgeryToken().ToString().Substring(61);
-                                }
-                                <a class="button success" href="~/Users/LogIn?OpenIdProvider=https://www.google.com/accounts/o8/id&__RequestVerificationToken= @token">Sign in with Google</a>*@
-
-                                @using (Html.BeginForm("LogIn", "Users", FormMethod.Post))
+                                @using (Html.BeginForm("LogIn", "Users", FormMethod.Post, new { style = "width: 100%" }))
                                 {
                                     @Html.AntiForgeryToken();
                                     @Html.Hidden("OpenIdProvider", "https://www.google.com/accounts/o8/id")
-                                    <button class="button success" type="submit">Sign in with Google.</button>
+                                    <button data-tooltip="" data-options="disable-for-touch:true" class="button success has-tip" title="Sign in with Google" type="submit" style="width: 100%">Google</button>
                                 }
                             </div>
                             <div class="columns large-3">
-                                @using (Html.BeginForm("LogIn", "Users", FormMethod.Post))
+                                @using (Html.BeginForm("LogIn", "Users", FormMethod.Post, new { style = "width: 100%" }))
                                 {
                                     @Html.AntiForgeryToken();
                                     @Html.Hidden("OpenIdProvider", "https://me.yahoo.com")
-                                    <button class="button success" type="submit">Sign in with Yahoo.</button>
+                                    <button data-tooltip="" data-options="disable-for-touch:true" class="button success has-tip" title="Sign in with Yahoo" type="submit" style="width: 100%">Yahoo</button>
                                 }
                             </div>
                             <div class="columns large-3">
-                                @using (Html.BeginForm("LogIn", "Users", FormMethod.Post))
+                                @using (Html.BeginForm("LogIn", "Users", FormMethod.Post, new { style = "width: 100%" }))
                                 {
                                     @Html.AntiForgeryToken();
                                     @Html.Hidden("OpenIdProvider", "https://myopenid.com")
-                                    <button class="button success" type="submit">Sign in with myOpenID.</button>
+                                    <button data-tooltip="" data-options="disable-for-touch:true" class="button success has-tip" title="Sign in with myOpenID" type="submit" style="width: 100%">myOpenID</button>
                                 }
                             </div>
                             <div class="columns large-3">
-                                @using (Html.BeginForm("LogIn", "Users", FormMethod.Post))
+                                @using (Html.BeginForm("LogIn", "Users", FormMethod.Post, new { style = "width: 100%" }))
                                 {
                                     @Html.AntiForgeryToken();
                                     @Html.Hidden("OpenIdProvider", "https://openid.stackexchange.com/")
-                                    <button class="button success" type="submit">Sign in with Stack Exchange.</button>
+                                    <button data-tooltip="" data-options="disable-for-touch:true" class="button success has-tip" title="Sign in with Stack Exchange" type="submit" style="width: 100%">Stack Exchange</button>
                                 }
                             </div>
                         </div>
@@ -62,11 +59,14 @@
                         <form data-abide action="@Url.Action("LogIn", "Users")" method="post">
                             @Html.AntiForgeryToken()
                             <div class="email-field">
-                                <label for="OpenIdProvider">Url</label>
                                 <input type="url" id="OpenIdProvider" placeholder="Your OpenID provider URL here" required />
                                 <small class="error">Please provide a valid url.</small>
                             </div>
-                            <button class="button success" type="submit">Log In</button>
+                            <div class="row">
+                                <div class="columns large-3 small-12">
+                                    <button data-tooltip="" data-options="disable-for-touch:true" class="button success full-width has-tip" title="Sign in with your OpenID provider" type="submit">Log In</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </section>

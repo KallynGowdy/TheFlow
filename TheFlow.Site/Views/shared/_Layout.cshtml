@@ -81,7 +81,7 @@
 
     <section class="main">
         <div class="row">
-            <div class="small-9 small-centered large-12 large-centered columns">
+            <div class="small-12 small-centered large-12 large-centered columns">
                 @* @Html.Partial("_alerts")*@
                 @Html.Partial("_validationSummary")
                 @RenderBody()
@@ -104,20 +104,20 @@
     <script src="/Scripts/jquery.validate.js"></script>
     <script src="/scripts/jquery.validate.unobtrusive.js"></script>
     <script src="/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js"></script>
-    @*@Scripts.Render("~/js")*@
     <script src="~/scripts/foundation.min.js"></script>
+    <script src="~/scripts/moment.js"></script>
     @RenderSection("Scripts", required: false)
     <script>
         $(function () {
             $(document).foundation();
+
+            @RenderSection("OnPageLoadFunction", required: false)
+
+            setInterval(function () {
+                $(".Time").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
+                $(".Copyright").text("© Your Company " + moment().format("YYYY"));
+            }, 1000);
         });
-    </script>
-    <script src="~/scripts/moment.js"></script>
-    <script type="text/javascript">
-        setInterval(function () {
-            $(".Time").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
-            $(".Copyright").text("© Your Company " + moment().format("YYYY"));
-        }, 1000);
     </script>
 </body>
 </html>
