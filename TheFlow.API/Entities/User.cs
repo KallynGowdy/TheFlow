@@ -117,6 +117,11 @@ namespace TheFlow.API.Entities
         /// </summary>
         public DateTime DateJoined { get; set; }
 
+        /// <summary>
+        /// Gets or sets the preferences of the user.
+        /// </summary>
+        public Preferences Preferences { get; set; }
+
         public User()
         {
             DateJoined = DateTime.Now;

@@ -4,6 +4,10 @@
     ViewBag.Title = "Question";
 }
 
+
+
+<link href="@Helpers.GetCodeStylePath()" type="text/css" rel="stylesheet" />
+
 @section Scripts
 {
     <script src="~/scripts/pagedown/Markdown.Converter.js"></script>
@@ -20,7 +24,7 @@
             prettyPrint();
         }
 
-        var textBody = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Body)));
+        var textBody = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Body))) ;
 
         var converter = new Markdown.getSanitizingConverter();
 

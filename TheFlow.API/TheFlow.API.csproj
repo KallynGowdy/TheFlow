@@ -253,6 +253,7 @@
     <Compile Include="Entities\Edit.cs" />
     <Compile Include="Entities\IContext.cs" />
     <Compile Include="Entities\Post.cs" />
+    <Compile Include="Entities\Preferences.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\Star.cs" />
     <Compile Include="Entities\User.cs" />
@@ -291,6 +292,10 @@
     <Compile Include="Migrations\201308141828251_ChangedAgeToDOB.cs" />
     <Compile Include="Migrations\201308141828251_ChangedAgeToDOB.Designer.cs">
       <DependentUpon>201308141828251_ChangedAgeToDOB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308252343300_AddedUserPreferences.cs" />
+    <Compile Include="Migrations\201308252343300_AddedUserPreferences.Designer.cs">
+      <DependentUpon>201308252343300_AddedUserPreferences.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -378,7 +383,6 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="AppacheLicence.snippet" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
-    <Content Include="LICENCE.txt" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -446,6 +450,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201308141828251_ChangedAgeToDOB.resx">
       <DependentUpon>201308141828251_ChangedAgeToDOB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308252343300_AddedUserPreferences.resx">
+      <DependentUpon>201308252343300_AddedUserPreferences.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
