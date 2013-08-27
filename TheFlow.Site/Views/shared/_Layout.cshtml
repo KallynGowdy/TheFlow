@@ -48,7 +48,7 @@
                 </ul>
                 <ul class="right">
                     <li class="divider"></li>
-                    @{TheFlow.API.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.authenticate(Request);}
+                    @{TheFlow.API.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);}
 
                     @if (user == null)
                     {
@@ -58,10 +58,18 @@
                     else
                     {
                         <li class="has-dropdown">
-                            @Html.ActionLink(user.DisplayName, "Index", "Account")
+                            @Html.ActionLink(user.DisplayName, "Info", "Users", new { user = user.DisplayName }, null)
                             <ul class="dropdown">
                                 <li>
                                     @Html.ActionLink("Log Out", "LogOut", "Users")
+                                </li>
+                                <li class="has-dropdown">
+                                    @Html.ActionLink("Account", "Info", "Users")
+                                    <ul class="dropdown">
+                                        <li>
+                                            @Html.ActionLink("Edit", "Edit", "Users")
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
@@ -76,17 +84,18 @@
     <section class="main">
         <div class="row">
             <div class="small-12 small-centered large-12 large-centered columns">
-                @* @Html.Partial("_alerts")*@
                 @Html.Partial("_validationSummary")
                 @RenderBody()
                 <hr>
                 <footer>
                     <div class="row">
-                        <div class="large-6 columns">
-                            <p class="text-left Copyright"></p>
+                        <div class="large-6 small-12 small-centered large-uncentered columns">
+                            <p class="hide-for-small text-left Copyright"></p>
+                            <p class="show-for-small text-center Copyright"></p>
                         </div>
-                        <div class="large-6 columns">
-                            <p class="text-right Time"></p>
+                        <div class="large-6 small-12 small-centered large-uncentered columns">
+                            <p class="hide-for-small text-right Time"></p>
+                            <p class="show-for-small text-center Time"></p>
                         </div>
                     </div>
                 </footer>
@@ -104,10 +113,7 @@
     <script>
         $(function () {
             $(document).foundation();
-
             @RenderSection("OnPageLoadFunction", required: false)
-
-
         });
         setInterval(function () {
             $(".Time").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));

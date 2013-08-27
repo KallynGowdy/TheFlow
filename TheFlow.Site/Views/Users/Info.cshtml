@@ -4,5 +4,47 @@
     ViewBag.Title = "Info";
 }
 
-<h2>Info</h2>
-<p>Hi @Model.DisplayName!</p>
+@{bool authenticated = TheFlow.Site.Controllers.ControllerHelper.IsAuthenticated();}
+
+@section NavBarRight
+{
+    @if (authenticated)
+    {
+        <li class="show-for-small">
+            @Html.ActionLink("Edit", "Edit");
+        </li>   
+    }
+}
+
+<div class="row">
+    <div class="columns large-4">
+        <h2 class="show-for-medium-up">@Model.DisplayName</h2>
+        <h1 class="show-for-small text-center">@Model.DisplayName</h1>
+    </div>
+    <div class="columns large-offset-7 large-1">
+        @if (authenticated)
+        {
+            <div class="show-for-medium-up text-right" style="margin-top: 0.2em;">
+                @Html.ActionLink("edit", "Edit", null, new { @class = "button round" })
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="columns large-3">
+        @{string reputation = string.Format("{0:n0}", Model.Reputation);}
+
+        <div class="show-for-medium-up">
+            <h5>@reputation Reputation</h5>
+        </div>
+        <div class="show-for-small text-center">
+            <h5>@reputation Reputation</h5>
+        </div>
+    </div>
+    <div class="columns large-1">
+    </div>
+    <div class="columns large-4">
+    </div>
+</div>
+

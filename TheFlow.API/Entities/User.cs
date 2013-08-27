@@ -166,7 +166,8 @@ namespace TheFlow.API.Entities
                 LastName = this.LastName,
                 Age = this.Age,
                 Reputation = this.Reputation,
-                Location = this.Location
+                Location = this.Location,
+                DisplayName = this.DisplayName
             };
         }
     }

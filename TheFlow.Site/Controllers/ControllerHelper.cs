@@ -30,7 +30,7 @@ namespace TheFlow.Site.Controllers
         /// Returns null if the url could not be found.
         /// </summary>
         /// <returns></returns>
-        public static string getAuthProvider(HttpRequestBase request)
+        public static string GetAuthProvider(HttpRequestBase request)
         {
             //check the form
             string url = request.Form["OpenIdProvider"];
@@ -57,11 +57,20 @@ namespace TheFlow.Site.Controllers
         }
 
         /// <summary>
+        /// Determines if the current user is authenticated.
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsAuthenticated()
+        {
+            return HttpContext.Current.User != null && HttpContext.Current.User.Identity != null && HttpContext.Current.User.Identity.IsAuthenticated && HttpContext.Current.User.Identity is FormsIdentity;
+        }
+
+        /// <summary>
         /// Authenticates the current user by either using forms authentication or repeated OpenID requests.
         /// If the user is not authenticated he/she will be redirected to their provider if the provider is supplied in the request.
         /// </summary>
         /// <returns>The currently authenticated user, or null if the user is not authenticated.</returns>
-        public static User authenticate(HttpRequestBase request, IDbContext dataContext = null)
+        public static User Authenticate(HttpRequestBase request, IDbContext dataContext = null)
         {
             if (dataContext == null)
             {
@@ -82,7 +91,7 @@ namespace TheFlow.Site.Controllers
                 }
                 else
                 {
-                    string provider = getAuthProvider(request);
+                    string provider = GetAuthProvider(request);
                     if (provider != null)
                     {
                         AuthenticationServer.Authenticate(request, provider);

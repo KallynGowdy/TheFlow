@@ -12,18 +12,31 @@
     </li>
 </ul>*@
 
+@section NavBarRight
+{
+    <li class="divider" />
+    <li>
+        <a href="~/Questions/Create">Ask a Question</a>
+    </li>
+}
+
 <div class="row">
-    <div class="columns large-9 small-7">
-        <h2>Questions</h2>
+    <div class="columns large-9 small-centered large-uncentered">
+        <h2 class="hide-for-small">Questions</h2>
+        <h1 class="show-for-small text-center">Questions</h1>
     </div>
-    <div class="columns large-3 small-5">
-        <div class="container text-center">
+
+    <div class="columns large-3 hide-for-small">
+        <div class="container text-center hide-for-small">
             <a class="button round" style="margin-top: .45em;" href="~/Questions/Create">Ask a Question</a>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="columns large-9">
+    <div class="columns large-3 push-9">
+        <p class="success text-center">Showing @Model.Count() of @(string.Format("{0:n0}", new TheFlow.API.Entities.DbContext().Questions.Count())) Questions</p>
+    </div>
+    <div class="columns large-9 pull-3">
 
         @if (Model.Count() > 0)
         {
@@ -44,7 +57,5 @@
             <p class="text-center">There are no Questions, Sorry</p>
         }
     </div>
-    <div class="columns large-3 hide-for-medium-down">
-        <p class="success text-center">Showing @Model.Count() of @(string.Format("{0:n0}", new TheFlow.API.Entities.DbContext().Questions.Count())) Questions</p>
-    </div>
+
 </div>

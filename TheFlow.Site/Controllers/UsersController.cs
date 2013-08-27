@@ -22,7 +22,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
-using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Security;
 using TheFlow.API.Authentication;
@@ -40,12 +39,44 @@ namespace TheFlow.Site.Controllers
             base.Initialize(requestContext);
         }
 
+        /// <summary>
+        /// Gets the info on the requested user.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public ActionResult Info(string user)
         {
-            return View(dataContext.Users.First(a => a.DisplayName == user).ToModel());
+            User u = null;
+            if (user != null)
+            {
+                u = dataContext.Users.FirstOrDefault(a => a.DisplayName == user);
+            }
+            else
+            {
+                u = authenticate();
+            }
+            if (u == null)
+            {
+                return Redirect(Request.UrlReferrer.AbsoluteUri);
+            }
+            else
+            {
+                return View(u.ToModel());
+            }
         }
 
-        [System.Web.Mvc.AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        /// <summary>
+        /// Serves the edit view to the authenticated user.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize]
+        public ActionResult Edit()
+        {
+            return View(authenticate());
+        }
+
+        [System.Web.Mvc.AcceptVerbs(HttpVerbs.Post)]
         [ValidateAntiForgeryToken]
         [ValidateInput(true)]
         public ActionResult Edit(UserModel newInfo)
@@ -170,7 +201,7 @@ namespace TheFlow.Site.Controllers
         /// <returns></returns>
         [System.Web.Mvc.AcceptVerbs(HttpVerbs.Post)]
         [System.Web.Mvc.AllowAnonymous]
-        public ActionResult LogIn([FromUri] string OpenIdProvider)
+        public ActionResult LogIn([System.Web.Http.FromUri] string OpenIdProvider)
         {
             //Validate the request to make sure it is from our site.
             //This prevents Cross-Site Request Forgery.
@@ -194,7 +225,7 @@ namespace TheFlow.Site.Controllers
                     //return AuthenticationServer.AuthenticateActionResult(Request, OpenIdProvider);
                     return View();
                 }
-                catch (HttpResponseException)
+                catch (System.Web.Http.HttpResponseException)
                 {
                     return View();
                 }

@@ -2,13 +2,13 @@
 @helper GetCodeStylePath()
 {
     
-    TheFlow.API.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.authenticate(Request);
+    TheFlow.API.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);
     if (user != null && user.Preferences != null)
     {
         switch (user.Preferences.CodeStyle)
         {
             case TheFlow.API.Entities.CodeStyle.Default:
-@:/Content/prettyprint/DesertStyle.css
+@:/Content/prettyprint/TomorrowStyle.css
                 break;
             default:
                 String.Format("/Content/prettyprint/{0}Style.css", user.Preferences.CodeStyle.ToString());
@@ -17,6 +17,6 @@
     }
     else
     {
-@:/Content/prettyprint/HemisuLightStyle.css
+@:/Content/prettyprint/TomorrowStyle.css
     }
 }

@@ -59,7 +59,7 @@ namespace TheFlow.Site.Controllers
                 Body = question.Body,
                 Title = question.Title,
                 DatePosted = DateTime.Now,
-                Author = ControllerHelper.authenticate(Request, dataContext)
+                Author = ControllerHelper.Authenticate(Request, dataContext)
             };
 
             dataContext.Questions.Add(q);
