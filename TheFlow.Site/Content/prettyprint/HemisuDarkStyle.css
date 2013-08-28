@@ -47,7 +47,7 @@ pre > code > .pln {
     }
 
     /* punctuation */
-    pre > class > .pun {
+    pre > code > .pun {
         color: #eeeeee;
     }
 

@@ -118,6 +118,7 @@
         setInterval(function () {
             $(".Time").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
             $(".Copyright").text("© Your Company " + moment().format("YYYY"));
+            @RenderSection("TimeUpdateFunction", required: false)
         }, 1000);
     </script>
 </body>

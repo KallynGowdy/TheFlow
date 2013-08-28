@@ -1,0 +1,95 @@
+﻿@model TheFlow.API.Models.UserModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@section Scripts
+{
+    <script src="~/scripts/pagedown/Markdown.Converter.js"></script>
+    <script src="~/scripts/pagedown/Markdown.Editor.js"></script>
+    <script src="~/scripts/pagedown/Markdown.Sanitizer.js"></script>
+    <script src="/scripts/prettyprint/prettify.js"></script>
+    <script src="/scripts/editor.js"></script>
+    <script type="text/javascript">
+        function onThemeChanged(sel) {
+            $('#codeTheme').attr('href', '/Content/prettyprint/' + sel.options[sel.selectedIndex].value + "Style.css");
+            prettyPrint();
+        }
+    </script>
+}
+
+@section OnPageLoadFunction
+{
+    enableTab("wmd-input");
+
+var converter = new Markdown.getSanitizingConverter();
+
+            var editor = new Markdown.Editor(converter);
+
+            //refresh prettyprint when the preview is refreshed
+            editor.hooks.chain("onPreviewRefresh", function () {
+                $("pre").addClass("prettyprint");
+                $("code").addClass("prettyprint");
+                //$("code").css("background-color", '#eee');
+                prettyPrint();
+            });
+
+            editor.run();
+}
+
+
+@section head
+{
+    <link id="codeTheme" href="@String.Format("/Content/prettyprint/{0}Style.css", Model.Preferences.CodeTheme)" rel="stylesheet" />
+}
+
+<h2>Edit</h2>
+
+<div class="row panel radius">
+    <div class="columns large-6">
+        @using (Html.BeginForm("Edit", "Users", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken();
+    
+            @Html.LabelFor(a => a.DisplayName);
+            @Html.EditorFor(a => a.DisplayName);
+    
+            @Html.LabelFor(a => a.DateOfBirth);
+            @Html.EditorFor(a => a.DateOfBirth);
+
+            @Html.LabelFor(a => a.FirstName);
+            @Html.EditorFor(a => a.FirstName);
+
+            @Html.LabelFor(a => a.LastName);
+            @Html.EditorFor(a => a.LastName);
+
+            @Html.LabelFor(a => a.Location);
+            @Html.EditorFor(a => a.Location);
+
+            @Html.LabelFor(a => a.EmailAddress);
+            @Html.EditorFor(a => a.EmailAddress);
+                
+            @Html.LabelFor(a => a.Preferences.CodeTheme);
+@* @Html.DropDownListFor(a => a.Preferences.CodeTheme, Enum.GetValues(typeof(TheFlow.API.Entities.CodeStyle)).Cast<TheFlow.API.Entities.CodeStyle>().Select(a => new SelectListItem { Selected = false, Text = a.ToString(), Value = a.ToString() }));
+            *@
+            <select onchange="onThemeChanged(this)" name="Preferences.CodeTheme" id="preferences">
+                @foreach (TheFlow.API.Entities.CodeStyle style in Enum.GetValues(typeof(TheFlow.API.Entities.CodeStyle)))
+                {
+                    <option value="@style.ToString()" @if (Model.Preferences.CodeTheme == style)
+                                                                                      { <text>selected</text> }>@style.ToString()</option>
+                }
+            </select>
+                
+            <button type="submit">Save Changes</button>
+        }
+    </div>
+    <div class="columns large-6">
+        <small>Markdown preview</small>
+        <textarea class="wmd-input" id="wmd-input" name="Body" style="max-width: 100%; min-height: 16em;"></textarea>
+            <div class="panel radius" style="background-color: white;">
+                <h3 id="title-preview"></h3>
+                <div id="wmd-preview"></div>
+            </div>
+    </div>
+</div>

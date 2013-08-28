@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using TheFlow.API.Models;
@@ -51,7 +52,36 @@ namespace TheFlow.API.Entities
         /// <summary>
         /// Gets or sets the post that is the accepted answer.
         /// </summary>
-        public virtual Answer AcceptedAnswer
+        [NotMapped]
+        public Answer AcceptedAnswer
+        {
+            get
+            {
+                return Answers.FirstOrDefault(a => a.Accepted);
+            }
+            set
+            {
+                value.ThrowIfNull("value");
+                foreach (Answer a in Answers)
+                {
+                    a.Accepted = false;
+                }
+                if (Answers.Contains(value))
+                {
+                    value.Accepted = true;
+                }
+                else
+                {
+                    value.Accepted = true;
+                    Answers.Add(value);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the collection of answers to this question.
+        /// </summary>
+        public virtual ICollection<Answer> Answers
         {
             get;
             set;

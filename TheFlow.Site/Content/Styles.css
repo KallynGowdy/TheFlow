@@ -15,3 +15,8 @@ body {
 .full-width {
     width: 100%;
 }
+
+blockquote {
+    background-color: #eee;
+    border-left: 1em solid #333;
+}

@@ -37,12 +37,12 @@ namespace TheFlow.API.Entities
         }
 
         /// <summary>
-        /// Determines if this answer is the accepted answer.
+        /// Gets or sets whether the answer is accepted.
         /// </summary>
-        /// <returns></returns>
-        public bool IsAccepted()
+        public bool Accepted
         {
-            return Question.AcceptedAnswer == this;
+            get;
+            set;
         }
     }
 }

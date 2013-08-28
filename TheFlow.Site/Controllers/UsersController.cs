@@ -61,7 +61,7 @@ namespace TheFlow.Site.Controllers
             }
             else
             {
-                return View(u.ToModel());
+                return View(u);
             }
         }
 
@@ -73,7 +73,25 @@ namespace TheFlow.Site.Controllers
         [Authorize]
         public ActionResult Edit()
         {
-            return View(authenticate());
+            User u = authenticate();
+
+            PreferencesModel prefs;
+            if (u.Preferences == null)
+            {
+                u.Preferences = new Preferences();
+            }
+            prefs = u.Preferences.ToModel();
+
+            return View(new UserModel
+                        {
+                            DateOfBirth = u.DateOfBirth,
+                            DisplayName = u.DisplayName,
+                            EmailAddress = u.EmailAddress,
+                            FirstName = u.FirstName,
+                            LastName = u.LastName,
+                            Location = u.Location,
+                            Preferences = prefs
+                        });
         }
 
         [System.Web.Mvc.AcceptVerbs(HttpVerbs.Post)]
@@ -81,39 +99,47 @@ namespace TheFlow.Site.Controllers
         [ValidateInput(true)]
         public ActionResult Edit(UserModel newInfo)
         {
+            User user = authenticate(ref newInfo);
             if (newInfo != null)
             {
-                User user = authenticate(ref newInfo);
-                if (user != null)
+                if (newInfo.DisplayName != null)
                 {
-                    if (newInfo.DisplayName != null)
-                    {
-                        user.DisplayName = newInfo.DisplayName;
-                    }
-                    if (newInfo.DateOfBirth != null)
-                    {
-                        user.DateOfBirth = newInfo.DateOfBirth;
-                    }
-                    if (newInfo.EmailAddress != null)
-                    {
-                        user.EmailAddress = newInfo.EmailAddress;
-                    }
-                    if (newInfo.Location != null)
-                    {
-                        user.Location = newInfo.Location;
-                    }
-                    if (newInfo.FirstName != null)
-                    {
-                        user.FirstName = newInfo.FirstName;
-                    }
-                    if (newInfo.LastName != null)
-                    {
-                        user.LastName = newInfo.LastName;
-                    }
-                    dataContext.SaveChanges();
+                    user.DisplayName = newInfo.DisplayName;
                 }
+                if (newInfo.DateOfBirth != null)
+                {
+                    user.DateOfBirth = newInfo.DateOfBirth;
+                }
+                if (newInfo.EmailAddress != null)
+                {
+                    user.EmailAddress = newInfo.EmailAddress;
+                }
+                if (newInfo.Location != null)
+                {
+                    user.Location = newInfo.Location;
+                }
+                if (newInfo.FirstName != null)
+                {
+                    user.FirstName = newInfo.FirstName;
+                }
+                if (newInfo.LastName != null)
+                {
+                    user.LastName = newInfo.LastName;
+                }
+                if (newInfo.Preferences != null && newInfo.Preferences.CodeTheme.HasValue)
+                {
+                    if (user.Preferences == null)
+                    {
+                        user.Preferences = new Preferences { CodeStyle = newInfo.Preferences.CodeTheme.Value };
+                    }
+                    else
+                    {
+                        user.Preferences.CodeStyle = newInfo.Preferences.CodeTheme.Value;
+                    }
+                }
+                dataContext.SaveChanges();
             }
-            return View("Info", newInfo.DisplayName);
+            return View("Info", user);
         }
 
         /// <summary>
@@ -140,6 +166,9 @@ namespace TheFlow.Site.Controllers
         [System.Web.Mvc.AcceptVerbs(HttpVerbs.Get)]
         public ActionResult LogIn()
         {
+            //FormsAuthentication.SetAuthCookie("https://www.google.com/accounts/o8/id?id=AItOawmiaM32tj_WjvFmiMV0PatVe4Spployfc0", false);
+
+
             string returnUrl = Request["ReturnUrl"];
             if (returnUrl == null)
             {

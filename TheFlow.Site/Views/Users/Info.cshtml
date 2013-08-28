@@ -1,4 +1,4 @@
-﻿@model TheFlow.API.Models.UserModel
+﻿@model TheFlow.API.Entities.User
 
 @{
     ViewBag.Title = "Info";
@@ -10,8 +10,9 @@
 {
     @if (authenticated)
     {
-        <li class="show-for-small">
-            @Html.ActionLink("Edit", "Edit");
+        <li class="divider" />
+        <li>
+            @Html.ActionLink("Edit", "Edit")
         </li>   
     }
 }
@@ -42,9 +43,20 @@
             <h5>@reputation Reputation</h5>
         </div>
     </div>
-    <div class="columns large-1">
-    </div>
-    <div class="columns large-4">
+    <div class="columns large-9 panel radius" style="background-color: transparent;">
+        <div class="row">
+            <div class="columns large-12">
+                <p>Display Name: <span style="margin-left: 2em;">@Model.DisplayName</span></p>
+                @if (Model.Age.HasValue)
+                {
+                    <p>Age: <span style="margin-left: 2em;">@Model.Age.Value</span></p>
+                }
+                @if (Model.Location != null)
+                {
+                    <p>Location: <span style="margin-left: 2em;">@Model.Location</span></p>
+                }
+            </div>
+        </div>
     </div>
 </div>
 

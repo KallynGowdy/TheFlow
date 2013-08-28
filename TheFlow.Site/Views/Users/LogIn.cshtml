@@ -56,7 +56,7 @@
                 <section class="section">
                     <p class="title"><a href="#url" style="white-space: normal">Didn't find your provider? Access your provider by url.</a></p>
                     <div class="content" data-slug="url">
-                        <form data-abide action="@Url.Action("LogIn", "Users")" method="post">
+                        <form data-abide="" action="@Url.Action("LogIn", "Users")" method="post">
                             @Html.AntiForgeryToken()
                             <div class="email-field">
                                 <input type="url" id="OpenIdProvider" placeholder="Your OpenID provider URL here" required />

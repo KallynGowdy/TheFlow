@@ -1,4 +1,4 @@
-﻿@model TheFlow.API.Entities.Question
+﻿@model TheFlow.API.Models.ViewQuestionModel
 
 @{
     ViewBag.Title = "Question";
@@ -13,27 +13,58 @@
 {
     <script src="~/scripts/pagedown/Markdown.Converter.js"></script>
     <script src="~/scripts/pagedown/Markdown.Sanitizer.js"></script>
+    <script src="~/scripts/pagedown/Markdown.Editor.js"></script>
     <script src="~/scripts/prettyprint/prettify.js"></script>
-    <script src="~/scripts/prettyprint/run_prettify.js"></script>
+    @*<script src="~/scripts/prettyprint/run_prettify.js"></script>*@
+    <script src="~/scripts/editor.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+        });
+    </script>
 }
 
 @section OnPageLoadFunction
 {
-    function highlightCode() {
-            $("pre").addClass("prettyprint");
-            //$("pre").css("background-color", "#eee");
-            $("code").addClass("prettyprint");
-            //$("code").css("background-color", "#eee");
-            prettyPrint();
-        }
 
-        var textBody = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Body))) ;
+
+    var textBody = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Body)));
 
         var converter = new Markdown.getSanitizingConverter();
 
+        defaultHooks(converter);
+
         $(".text-body").html(converter.makeHtml(textBody));
 
-        highlightCode();
+        @foreach (var answer in Model.Answers)
+        {
+            var id = answer.Id;
+            @:var text_@id = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(answer.Body)));
+            @:$(".answer-@id").html(converter.makeHtml(text_@id));
+        }
+
+highlightCode();
+
+        enableEditor(function(editor){
+            editor.getConverter().hooks.chain("preConversion", function(text) {
+                        $("#Body").attr("value", text);
+                        return text;
+                });
+        });
+}
+
+@section TimeUpdateFunction
+{
+    var timePosted = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.DateCreated.ToUniversalTime().ToString("MM/dd/yyyy H:mm:ss"))));
+    var format = "MM/DD/YYYY H:mm:ss";
+    $("#date-posted").text(moment.utc(timePosted, format).local().fromNow());
+
+    @foreach (var answer in Model.Answers)
+    {
+        var id = answer.Id;
+        @:var time_@id = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(answer.DateCreated.ToUniversalTime().ToString("MM/dd/yyyy H:mm:ss"))));
+        @:$("#time-@id").text(moment.utc(time_@id, format).local().fromNow());
+    }
 }
 
 
@@ -43,9 +74,61 @@
             <h2 style="color: #f2b21b">@Model.Title</h2>
         </div>
         <div class="columns large-offset-1 large-3 text-center">
-            <p>Posted by @Model.Author.DisplayName at @Model.DatePosted.Value.ToShortTimeString()</p>
+            <p>Posted by <a href="/Users/Info?user=@Model.Author.DisplayName">@Model.Author.DisplayName</a> <span id="date-posted"></span></p>
         </div>
     </div>
-
+    <hr />
     <div class="text-body"></div>
+</div>
+@if (Model.Answers != null && Model.Answers.Any())
+{
+    foreach (var answer in Model.Answers)
+    {
+    <hr />
+    <div class="panel" style="background-color: transparent">
+
+
+        <div class="row">
+            <div class="columns large-1">
+                <a class="vote-up-disabled">Vote Up</a>
+                Vote
+            </div>
+            <div class="columns large-11">
+                <div class="answer-@answer.Id"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="columns large-12 text-right">
+                <p>Posted by <a href="/Users/Info?user=@answer.Author.DisplayName">@answer.Author.DisplayName</a> <span id="time-@answer.Id"></span></p>
+            </div>
+        </div>
+    </div>
+    }
+}
+else
+{
+    <hr />
+    <h3 class="text-center">No answers have been posted yet. Help and post an answer yourself!</h3>   
+}
+
+<hr />
+<div class="row">
+    <div class="columns large-12">
+        <h2 class="hide-for-small">Submit your Answer</h2>
+        <h2 class="show-for-small text-center">Submit your Answer</h2>
+        <form action="/Answers/Create" method="post" data-abide="">
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="QuestionId" name="QuestionId" value="@Model.Id.ToString()" />
+            <div id="body-field">
+                <textarea class="wmd-input" id="wmd-input" style="width: 100%; min-height: 16em;" required></textarea>
+                <small class="error">Please provide an answer</small>
+            </div>
+            <div class="panel radius" style="background-color: transparent;">
+                <small class="text-left" style="color: #858585">Preview</small>
+                <div id="wmd-preview"></div>
+            </div>
+            <input type="hidden" id="Body" name="Body" value="" />
+            <button class="button success" type="submit">Post your Answer</button>
+        </form>
+    </div>
 </div>

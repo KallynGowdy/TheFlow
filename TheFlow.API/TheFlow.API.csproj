@@ -257,6 +257,7 @@
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\Star.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Filters\RequireHttpsAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -297,11 +298,29 @@
     <Compile Include="Migrations\201308252343300_AddedUserPreferences.Designer.cs">
       <DependentUpon>201308252343300_AddedUserPreferences.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201308271748533_AddedAnswersReferenceToQuestion.cs" />
+    <Compile Include="Migrations\201308271748533_AddedAnswersReferenceToQuestion.Designer.cs">
+      <DependentUpon>201308271748533_AddedAnswersReferenceToQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308272139272_CleanedUpAnswerRefsToQuestion.cs" />
+    <Compile Include="Migrations\201308272139272_CleanedUpAnswerRefsToQuestion.Designer.cs">
+      <DependentUpon>201308272139272_CleanedUpAnswerRefsToQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308280048366_AddedEditDate.cs" />
+    <Compile Include="Migrations\201308280048366_AddedEditDate.Designer.cs">
+      <DependentUpon>201308280048366_AddedEditDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AnswerModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PostModel.cs" />
+    <Compile Include="Models\PreferencesModel.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\ViewAnswerModel.cs" />
+    <Compile Include="Models\ViewPostModel.cs" />
+    <Compile Include="Models\ViewQuestionModel.cs" />
+    <Compile Include="Models\ViewTagModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -453,6 +472,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201308252343300_AddedUserPreferences.resx">
       <DependentUpon>201308252343300_AddedUserPreferences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308271748533_AddedAnswersReferenceToQuestion.resx">
+      <DependentUpon>201308271748533_AddedAnswersReferenceToQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308272139272_CleanedUpAnswerRefsToQuestion.resx">
+      <DependentUpon>201308272139272_CleanedUpAnswerRefsToQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308280048366_AddedEditDate.resx">
+      <DependentUpon>201308280048366_AddedEditDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

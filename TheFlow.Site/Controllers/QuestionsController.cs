@@ -32,7 +32,9 @@ namespace TheFlow.Site.Controllers
             Question question = dataContext.Questions.Include(a => a.Author).FirstOrDefault(q => q.Id == questionId);
             if (question != null)
             {
-                return View(question);
+                question.Views += 1;
+                dataContext.SaveChanges();
+                return View(new ViewQuestionModel(question));
             }
             return View("Index", dataContext.Questions.Include(a => a.Author).Take(50));
         }
@@ -54,17 +56,23 @@ namespace TheFlow.Site.Controllers
         [Authorize]
         public ActionResult Create(QuestionModel question)
         {
-            Question q = new Question
+            if (ModelState.IsValid)
             {
-                Body = question.Body,
-                Title = question.Title,
-                DatePosted = DateTime.Now,
-                Author = ControllerHelper.Authenticate(Request, dataContext)
-            };
+                Question q = new Question
+                {
+                    Body = question.Body,
+                    Title = question.Title,
+                    DatePosted = DateTime.Now,
+                    Author = ControllerHelper.Authenticate(Request, dataContext)
+                };
 
-            dataContext.Questions.Add(q);
-            dataContext.SaveChanges();
-
+                dataContext.Questions.Add(q);
+                dataContext.SaveChanges();
+            }
+            else
+            {
+                return View();
+            }
             return View("Index", dataContext.Questions.Take(50));
         }
     }

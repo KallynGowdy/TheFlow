@@ -40,5 +40,17 @@ namespace TheFlow.API.Entities
             get;
             set;
         }
+
+        /// <summary>
+        /// Converts this entity to the related model.
+        /// </summary>
+        /// <returns></returns>
+        public Models.PreferencesModel ToModel()
+        {
+            return new Models.PreferencesModel
+            {
+                CodeTheme = CodeStyle
+            };
+        }
     }
 }
