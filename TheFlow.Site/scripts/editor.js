@@ -67,3 +67,16 @@ function defaultHooks(converter, editor) {
         });
     }
 }
+
+//gets the markdown converter with all of the default hooks
+function getConverter() {
+    var converter = new Markdown.getSanitizingConverter();
+
+    defaultHooks(converter);
+
+    return converter;
+}
+
+function buildLinkToUser(user) {
+    return '/Users/Info?user=' + user;
+}

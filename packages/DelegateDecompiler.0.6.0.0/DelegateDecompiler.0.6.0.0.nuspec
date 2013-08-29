@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>DelegateDecompiler</id>
+    <version>0.6.0.0</version>
+    <title>DelegateDecompiler</title>
+    <authors>hazzik</authors>
+    <owners>hazzik</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>https://github.com/hazzik/DelegateDecompiler</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A tool which is able to decompile a delegate or a method body to its lambda representation</description>
+    <releaseNotes />
+    <copyright>Copyright (c) hazzik 2012</copyright>
+    <tags>LINQ computed properties computedproperties decompiler</tags>
+    <dependencies>
+      <dependency id="Mono.Reflection" version="1.0.0.0" />
+    </dependencies>
+  </metadata>
+</package>

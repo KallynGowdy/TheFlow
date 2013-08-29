@@ -26,7 +26,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using TheFlow.API.Authentication;
 using TheFlow.API.Entities;
-using TheFlow.API.Models;
+using TheFlow.Site.Models;
 
 namespace TheFlow.Site.Controllers
 {
@@ -80,7 +80,7 @@ namespace TheFlow.Site.Controllers
             {
                 u.Preferences = new Preferences();
             }
-            prefs = u.Preferences.ToModel();
+            prefs = new PreferencesModel { CodeTheme = u.Preferences.CodeStyle };
 
             return View(new UserModel
                         {
@@ -186,7 +186,7 @@ namespace TheFlow.Site.Controllers
                         {
                             user.DisplayName = string.Format("User{0}", dataContext.Users.Count() + 1);
                         }
-                        user.DateJoined = DateTime.Now;
+                        user.DateJoined = DateTime.UtcNow;
                         dataContext.Users.Add(user);
                         dataContext.SaveChanges();
                     }

@@ -4,6 +4,7 @@
 
 @Html.AntiForgeryToken()
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,6 +122,8 @@
             @RenderSection("TimeUpdateFunction", required: false)
         }, 1000);
     </script>
+    @RenderSection("modal", required: false)
 </body>
 </html>
 
+@RenderSection("bottom", required: false)

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DelegateDecompiler;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace TheFlow.API.Models
+namespace TheFlow.Site.Models
 {
     /// <summary>
     /// Defines a model for questions that are going to be viewed (not created or edited) by a user.
@@ -11,12 +12,12 @@ namespace TheFlow.API.Models
     public class ViewQuestionModel : ViewPostModel
     {
 
-        public ViewQuestionModel(Entities.Question question)
+        public ViewQuestionModel(TheFlow.API.Entities.Question question)
             : base(question)
         {
             this.Title = question.Title;
-            this.Answers = question.Answers.Select(a => new ViewAnswerModel(a, this));
-            this.AcceptedAnswer = question.AcceptedAnswer != null ? new ViewAnswerModel(question.AcceptedAnswer, this) : null;
+            this.Answers = question.Answers.Select(a => new ViewAnswerModel(a)).ToList();
+            this.AcceptedAnswer = question.AcceptedAnswer != null ? new ViewAnswerModel(question.AcceptedAnswer) : null;
         }
 
         public ViewQuestionModel() { }
@@ -64,7 +65,7 @@ namespace TheFlow.API.Models
         /// <summary>
         /// Gets or sets the list of answers to this question.
         /// </summary>
-        public IEnumerable<ViewAnswerModel> Answers
+        public IList<ViewAnswerModel> Answers
         {
             get;
             set;

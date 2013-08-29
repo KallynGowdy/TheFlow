@@ -20,3 +20,11 @@ blockquote {
     background-color: #eee;
     border-left: 1em solid #333;
 }
+
+    blockquote > p {
+        color: black;
+    }
+
+.smallest.button {
+    padding-left: 0.8em;
+}

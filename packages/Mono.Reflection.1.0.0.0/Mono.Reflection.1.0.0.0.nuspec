@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Mono.Reflection</id>
+    <version>1.0.0.0</version>
+    <title>Mono.Reflection</title>
+    <authors>Jb Evain</authors>
+    <owners>Jb Evain</owners>
+    <licenseUrl>http://opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>http://github.com/jbevain/mono.reflection/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Complement for System.Reflection, including an IL disassembler.</description>
+    <summary>Complement for System.Reflection, including an IL disassembler.</summary>
+    <tags>assembly assemblies module modules il cil msil bytecode reflection disassembler</tags>
+  </metadata>
+</package>

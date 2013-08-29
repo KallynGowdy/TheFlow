@@ -4,12 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TheFlow.API.Entities;
-using TheFlow.API.Models;
 using System.Data.Entity;
+using PerpetuumSoft.Knockout;
+using TheFlow.Site.Models;
 
 namespace TheFlow.Site.Controllers
 {
-    public class QuestionsController : Controller
+    public class QuestionsController : KnockoutController
     {
         TheFlow.API.Entities.DbContext dataContext = new TheFlow.API.Entities.DbContext();
 
@@ -62,7 +63,7 @@ namespace TheFlow.Site.Controllers
                 {
                     Body = question.Body,
                     Title = question.Title,
-                    DatePosted = DateTime.Now,
+                    DatePosted = DateTime.UtcNow,
                     Author = ControllerHelper.Authenticate(Request, dataContext)
                 };
 
@@ -74,6 +75,35 @@ namespace TheFlow.Site.Controllers
                 return View();
             }
             return View("Index", dataContext.Questions.Take(50));
+        }
+
+        [HttpPost]
+        [ValidateInput(true)]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult AddAnswer(AnswerModel answer, long currentQuestionId)
+        {
+            if (ModelState.IsValid)
+            {
+                Question q = dataContext.Questions.SingleOrDefault(a => a.Id == currentQuestionId);
+                if (q != null)
+                {
+                    Answer a = new Answer
+                    {
+                        Accepted = false,
+                        Author = ControllerHelper.Authenticate(Request, dataContext),
+                        Body = answer.Body,
+                        DatePosted = DateTime.UtcNow,
+                        Question = q
+                    };
+
+                    dataContext.Answers.Add(a);
+                    dataContext.SaveChanges();
+                    return Json(new ViewAnswerModel(a));
+                }
+            }
+            return View("Index", dataContext.Questions.Take(50));
+
         }
     }
 }

@@ -55,7 +55,7 @@ namespace TheFlow.Site.Controllers
             }
             return url;
         }
-
+        
         /// <summary>
         /// Determines if the current user is authenticated.
         /// </summary>
@@ -112,7 +112,7 @@ namespace TheFlow.Site.Controllers
             if (request.Cookies[cookieName] != null)
             {
                 HttpCookie newCookie = new HttpCookie(cookieName);
-                newCookie.Expires = DateTime.Now.AddDays(-1);
+                newCookie.Expires = DateTime.UtcNow.AddDays(-1);
                 response.Cookies.Add(newCookie);
                 return true;
             }

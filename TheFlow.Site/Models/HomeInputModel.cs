@@ -34,7 +34,7 @@ namespace Models
                                    Blog = "http://foobar.com",
                                    Name = "asdf",
                                    Password = "asdfsd",
-                                   StartDate = DateTime.Now.AddYears(1)
+                                   StartDate = DateTime.UtcNow.AddYears(1)
                                },
                            new HomeInputModel
                                {
@@ -42,7 +42,7 @@ namespace Models
                                    Blog = "http://foobar.com",
                                    Name = "fffff",
                                    Password = "dddddddasdfsd",
-                                   StartDate = DateTime.Now.AddYears(2)
+                                   StartDate = DateTime.UtcNow.AddYears(2)
                                },
                        };
         }

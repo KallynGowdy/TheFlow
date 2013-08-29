@@ -1,4 +1,10 @@
-﻿@model TheFlow.API.Models.ViewQuestionModel
+﻿@using PerpetuumSoft.Knockout
+
+@model TheFlow.Site.Models.ViewQuestionModel
+
+@{
+    var ko = Html.CreateKnockoutContext();
+}
 
 @{
     ViewBag.Title = "Question";
@@ -11,38 +17,42 @@
 
 @section Scripts
 {
+    <script src="~/scripts/prettyprint/prettify.js"></script>
+    <script src="@Url.Content("~/scripts/knockout-2.1.0.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/scripts/knockout.mapping-latest.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/scripts/perpetuum.knockout.js")" type="text/javascript"></script>
     <script src="~/scripts/pagedown/Markdown.Converter.js"></script>
     <script src="~/scripts/pagedown/Markdown.Sanitizer.js"></script>
     <script src="~/scripts/pagedown/Markdown.Editor.js"></script>
-    <script src="~/scripts/prettyprint/prettify.js"></script>
-    @*<script src="~/scripts/prettyprint/run_prettify.js"></script>*@
     <script src="~/scripts/editor.js"></script>
-    <script type="text/javascript">
-        $(function () {
+}
 
-        });
+@section bottom
+{
+    @ko.Initialize(Model)
+    <script type="text/javascript">
+        viewModel.markdown = ko.computed(function () {
+            return Markdown.getSanitizingConverter().makeHtml(this.Body());
+        }, viewModel);
+
+        viewModel.postedTime = ko.computed(function () {
+            return moment.utc(this.DateCreated()).local().fromNow();
+        }, viewModel);
+
+        //update each of the times in the model
+        setInterval(function () {
+            viewModel.DateCreated(moment.utc(viewModel.DateCreated()).add('seconds', 1).format());
+            for (var i = 0; i < viewModel.Answers().length; i++) {
+                var a = viewModel.Answers()[i];
+                a.DateCreated(moment.utc(a.DateCreated()).add('seconds', 1).format());
+            }
+        }, 1000);
     </script>
+    @ko.Apply(Model)
 }
 
 @section OnPageLoadFunction
 {
-
-
-    var textBody = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Body)));
-
-        var converter = new Markdown.getSanitizingConverter();
-
-        defaultHooks(converter);
-
-        $(".text-body").html(converter.makeHtml(textBody));
-
-        @foreach (var answer in Model.Answers)
-        {
-            var id = answer.Id;
-            @:var text_@id = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(answer.Body)));
-            @:$(".answer-@id").html(converter.makeHtml(text_@id));
-        }
-
 highlightCode();
 
         enableEditor(function(editor){
@@ -51,10 +61,13 @@ highlightCode();
                         return text;
                 });
         });
+
+        enableTab('wmd-input');
 }
 
 @section TimeUpdateFunction
 {
+    highlightCode();
     var timePosted = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.DateCreated.ToUniversalTime().ToString("MM/dd/yyyy H:mm:ss"))));
     var format = "MM/DD/YYYY H:mm:ss";
     $("#date-posted").text(moment.utc(timePosted, format).local().fromNow());
@@ -67,6 +80,20 @@ highlightCode();
     }
 }
 
+@section modal
+{
+    <div id="voteModal" class="reveal-modal small">
+        <div class="row">
+            <div class="columns large-6">
+                <a href="#" class="button success full-width">Vote Up</a>
+            </div>
+            <div class="columns large-6">
+                <a href="#" class="button success full-width">Vote Down</a>
+            </div>
+        </div>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+}
 
 <div class="panel" style="background-color: white">
     <div class="row">
@@ -74,14 +101,55 @@ highlightCode();
             <h2 style="color: #f2b21b">@Model.Title</h2>
         </div>
         <div class="columns large-offset-1 large-3 text-center">
-            <p>Posted by <a href="/Users/Info?user=@Model.Author.DisplayName">@Model.Author.DisplayName</a> <span id="date-posted"></span></p>
+            <p>Posted by <a href="/Users/Info?user=@Model.Author.DisplayName">@Model.Author.DisplayName</a> <span data-bind="text: postedTime"></span></p>
         </div>
     </div>
     <hr />
-    <div class="text-body"></div>
+    <div data-bind="html: markdown"></div>
 </div>
 @if (Model.Answers != null && Model.Answers.Any())
 {
+    var answers = Model.Answers.ToList();
+    using (var items = ko.Foreach(a => a.Answers))
+    {
+    <hr />
+    <div class="panel" style="background-color: transparent">
+        <div class="row">
+            <div class="columns large-1">
+                <a href="#" data-reveal-id="voteModal" class="show-for-small radius button full-width">Vote</a>
+                <a href="#" data-reveal-id="voteModal" class="hide-for-small radius small smallest button">Vote</a>
+            </div>
+            <div class="columns large-11">
+                <div data-bind="html: getConverter().makeHtml($data.Body())">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="columns large-3 small-3">
+
+                <div class="row" style="line-height: 1.6;">
+                    <div class="columns large-3">
+                        <a class="small button radius" href="#">edit</a>
+                    </div>
+                    <div class="columns large-3">
+                        <a class="small button radius" href="#">share</a>
+                    </div>
+                    <div class="columns large-3">
+                        <a class="small button radius" href="#">flag</a>
+                    </div>
+                    <div class="columns large-3">
+                        <a class="small button radius" href="#" data-bind="visible: (@(User.Identity.IsAuthenticated.ToString()) && $data.Author.DisplayName == '@(User.Identity.Name)    '))">delete</a>
+                    </div>
+                </div>
+            </div>
+            <div class="columns large-9 small-9 text-right">
+                <p>Posted by <a data-bind="text: $data.Author.DisplayName, attr: { href: $data.Author.ViewAccountUrl }"></a>&nbsp;<span data-bind="    text: moment.utc($data.DateCreated()).local().fromNow()"></span></p>
+            </div>
+        </div>
+    </div>
+    }
+
+@*
     foreach (var answer in Model.Answers)
     {
     <hr />
@@ -102,8 +170,8 @@ highlightCode();
                 <p>Posted by <a href="/Users/Info?user=@answer.Author.DisplayName">@answer.Author.DisplayName</a> <span id="time-@answer.Id"></span></p>
             </div>
         </div>
-    </div>
-    }
+    </div>*@
+    
 }
 else
 {
@@ -128,6 +196,8 @@ else
                 <div id="wmd-preview"></div>
             </div>
             <input type="hidden" id="Body" name="Body" value="" />
+            @*@ko.Html.Button("Post your answer", "AddAnswer", "Questions", new {
+            *@
             <button class="button success" type="submit">Post your Answer</button>
         </form>
     </div>

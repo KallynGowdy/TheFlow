@@ -100,7 +100,7 @@ namespace TheFlow.API.Entities
             {
                 if(DateOfBirth.HasValue)
                 {
-                    return (int)Math.Round((DateTime.Now - DateOfBirth.Value).Days / DateExtensions.YearInDays);
+                    return (int)Math.Round((DateTime.UtcNow - DateOfBirth.Value).Days / DateExtensions.YearInDays);
                 }
                 return null;
             }
@@ -124,7 +124,7 @@ namespace TheFlow.API.Entities
 
         public User()
         {
-            DateJoined = DateTime.Now;
+            DateJoined = DateTime.UtcNow;
         }
 
         /// <summary>

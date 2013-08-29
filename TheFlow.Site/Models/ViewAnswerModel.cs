@@ -4,22 +4,15 @@ using System.Linq;
 using System.Text;
 using TheFlow.API.Entities;
 using TheFlow.API;
+using DelegateDecompiler;
 
-namespace TheFlow.API.Models
+namespace TheFlow.Site.Models
 {
     /// <summary>
     /// Defines a model for an answer to a question that is going to be viewed (not created or edited) by a user.
     /// </summary>
     public class ViewAnswerModel : ViewPostModel
     {
-        /// <summary>
-        /// Gets or sets the question that this answer is for.
-        /// </summary>
-        public ViewQuestionModel Question
-        {
-            get;
-            set;
-        }
 
         /// <summary>
         /// Gets or sets wether this answer is accepted.
@@ -31,22 +24,24 @@ namespace TheFlow.API.Models
             set;
         }
 
+        [Computed]
+        public bool IsNotAccepted
+        {
+            get
+            {
+                return !IsAccepted;
+            }
+        }
+
         public ViewAnswerModel()
         {
 
         }
 
-        public ViewAnswerModel(Answer answer, ViewQuestionModel question = null)
+        public ViewAnswerModel(Answer answer)
             : base(answer)
         {
-            if (question == null)
-            {
-                this.Question = new ViewQuestionModel(answer.Question);
-            }
-            else
-            {
-                this.Question = question;
-            }
+
         }
     }
 }
