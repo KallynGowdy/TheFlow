@@ -32,5 +32,25 @@ namespace TheFlow.Site
                 return obj;
             }
         }
+
+        /// <summary>
+        /// Converts the current string into an html string.
+        /// </summary>
+        /// <param name="obj">The string to display as html.</param>
+        /// <returns></returns>
+        public static HtmlString ToHtml(this string obj)
+        {
+            return new HtmlString(obj);
+        }
+
+        /// <summary>
+        /// Gets the string representation of the current DateTime object formatted as a UTC string.
+        /// </summary>
+        /// <param name="date">The DateTime object to format.</param>
+        /// <returns></returns>
+        public static string ToUtcString(this DateTime date)
+        {
+            return date.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'");
+        }
     }
 }

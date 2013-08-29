@@ -20,6 +20,9 @@ using System.Web;
 
 namespace TheFlow.API.Entities
 {
+    /// <summary>
+    /// Defines the data context for TheFlow. Use this for all interactions with the database.
+    /// </summary>
     public class DbContext : System.Data.Entity.DbContext, TheFlow.API.Entities.IDbContext
     {
         public DbSet<User> Users { get; set; }
@@ -28,6 +31,7 @@ namespace TheFlow.API.Entities
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Star> Stars { get; set; }
         public DbSet<Edit> Edits { get; set; }
+        public DbSet<Post> Posts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -16,6 +16,30 @@ namespace TheFlow.Site.Controllers
         DbContext dataContext = new DbContext();
 
         /// <summary>
+        /// Deletes the answer with the given id from the database. Requires authentication from the user that created the answer.
+        /// </summary>
+        /// <param name="answerId">The Id number of the answer to delete.</param>
+        /// <returns></returns>
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Delete([Bind(Prefix="id")] long answerId)
+        {
+            User user = ControllerHelper.Authenticate(Request, dataContext);
+            if (user != null)
+            {
+                Answer answer = dataContext.Answers.SingleOrDefault(a => a.Id == answerId);
+                //make sure the answer exits and that the author was the current user
+                if (answer != null && answer.Author.OpenId == user.OpenId)
+                {
+                    dataContext.Answers.Remove(answer);
+                    dataContext.SaveChanges();
+                }
+            }
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
+
+        /// <summary>
         /// Creates a new answer posted by the currently logged in user.
         /// </summary>
         /// <param name="answer"></param>

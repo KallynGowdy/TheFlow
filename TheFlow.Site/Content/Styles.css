@@ -20,3 +20,85 @@ blockquote {
     background-color: #eee;
     border-left: 1em solid #333;
 }
+
+.transparent {
+    background-color: transparent;
+}
+
+.button-group.vertical > *:first-child, .button-group.vertical > *:first-child > a, .button-group.vertical > *:first-child > button, .button-group.vertical > *:first-child > .button {
+    margin-bottom: 0px;
+}
+
+.button-group.vertical > *:last-child, .button-group.vertical > *:last-child > a, .button-group.vertical > *:last-child > button, .button-group.vertical > *:last-child > .button {
+    margin-top: 0px;
+}
+
+.button-group.vertical > *, .button-group.vertical > * > a, .button-group.vertical > * > .button, .button-group.vertical > * > button {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    width: 100%;
+}
+
+.button-group.radius.vertical > *:first-child, .button-group.radius.vertical > *:first-child > a, .button-group.radius.vertical > *:first-child > button, .button-group.radius.vertical > *:first-child > .button {
+        -moz-border-radius-topleft: 3px;
+        -moz-border-radius-topright: 3px;
+        -moz-border-radius-bottomleft: 3px;
+        -webkit-border-top-left-radius: 3px;
+        -webkit-border-top-right-radius: 3px;
+        -webkit-border-bottom-left-radius: 3px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        border-bottom-left-radius: 0px;
+        margin-bottom: 0px;
+    }
+
+    .button-group.radius.vertical > *:last-child, .button-group.radius.vertical > *:last-child > a, .button-group.radius > *:last-child > button, .button-group.radius.vertical > *:last-child > .button {
+        -moz-border-radius-bottomleft: 3px;
+        -moz-border-radius-bottomright: 3px;
+        -moz-border-radius-topright: 0px;
+        -webkit-border-bottom-left-radius: 3px;
+        -webkit-border-bottom-right-radius: 3px;
+        -webkit-border-top-right-radius: 0px;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border-top-right-radius: 0px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+
+
+/*implements vertical button bar styling on mobile devices*/
+@media (max-width: 768px) {
+    .button-group.radius > *:first-child, .button-group.radius > *:first-child > a, .button-group.radius > *:first-child > button, .button-group.radius > *:first-child > .button {
+        -moz-border-radius-topleft: 3px;
+        -moz-border-radius-topright: 3px;
+        -moz-border-radius-bottomleft: 3px;
+        -webkit-border-top-left-radius: 3px;
+        -webkit-border-top-right-radius: 3px;
+        -webkit-border-bottom-left-radius: 3px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        border-bottom-left-radius: 0px;
+        margin-bottom: 0px;
+    }
+
+    .button-group.radius > *:last-child, .button-group.radius > *:last-child > a, .button-group.radius > *:last-child > button, .button-group.radius > *:last-child > .button {
+        -moz-border-radius-bottomleft: 3px;
+        -moz-border-radius-bottomright: 3px;
+        -moz-border-radius-topright: 0px;
+        -webkit-border-bottom-left-radius: 3px;
+        -webkit-border-bottom-right-radius: 3px;
+        -webkit-border-top-right-radius: 0px;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border-top-right-radius: 0px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+
+    .button-group > *, .button-group > * > a, .button-group > * > .button, .button-group > * > button {
+        margin-bottom: 0px;
+        margin-top: 0px;
+        width: 100%;
+    }
+}

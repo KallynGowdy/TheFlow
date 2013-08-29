@@ -51,7 +51,7 @@ namespace TheFlow.API.Entities
         /// Gets or sets the author of this post.
         /// </summary>
         [Required]
-        public User Author
+        public virtual User Author
         {
             get;
             set;

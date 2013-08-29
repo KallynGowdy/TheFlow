@@ -86,5 +86,16 @@ namespace TheFlow.API.Models
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets the net vote on this post.
+        /// </summary>
+        public int NetVote
+        {
+            get
+            {
+                return UpVotes - DownVotes;
+            }
+        }
     }
 }
