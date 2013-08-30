@@ -25,6 +25,7 @@ using TheFlow.API.Entities;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace TheFlow.API.Authentication
 {
@@ -34,6 +35,27 @@ namespace TheFlow.API.Authentication
     public static class AuthenticationServer
     {
         public const string OpenIdHeader = "OpenIdProvider";
+
+        /// <summary>
+        /// Gets the current user that is authenticated user Forms Authentication.
+        /// Returns null if the user is not authenticated.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="dataContext"></param>
+        /// <returns></returns>
+        public static User GetFormsAuthenticatedUser(IDbContext dataContext = null)
+        {
+            if (dataContext == null)
+            {
+                dataContext = new DbContext();
+            }
+            if (HttpContext.Current.User != null && HttpContext.Current.User.Identity != null && HttpContext.Current.User.Identity.IsAuthenticated && HttpContext.Current.User.Identity is FormsIdentity)
+            {
+                User user = dataContext.Users.SingleOrDefault(a => a.OpenId == ((FormsIdentity)HttpContext.Current.User.Identity).Name);
+                return user;
+            }
+            return null;
+        }
 
         /// <summary>
         /// Authenticates the user using OpenID given the current http request, the url of the OpenID provider, and the database context.
@@ -339,7 +361,8 @@ namespace TheFlow.API.Authentication
                                     OpenId = claimedIdentifier,
                                     EmailAddress = claims.Attributes[WellKnownAttributes.Contact.Email].Values.First(),
                                     FirstName = claims.Attributes[WellKnownAttributes.Name.First].Values.First(),
-                                    LastName = claims.Attributes[WellKnownAttributes.Name.Last].Values.First()
+                                    LastName = claims.Attributes[WellKnownAttributes.Name.Last].Values.First(),
+                                    Preferences = new Preferences()
                                 };
                             }
                             else

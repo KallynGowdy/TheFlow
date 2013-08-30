@@ -23,5 +23,6 @@ namespace TheFlow.API.Entities
         System.Data.Entity.DbSet<Star> Stars { get; set; }
         System.Data.Entity.DbSet<User> Users { get; set; }
         System.Data.Entity.DbSet<Post> Posts { get; set; }
+        System.Data.Entity.DbSet<Vote> Votes { get; set; }
     }
 }

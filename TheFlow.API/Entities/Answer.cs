@@ -26,6 +26,15 @@ namespace TheFlow.API.Entities
     /// </summary>
     public class Answer : Post
     {
+        public Answer() { }
+
+        public Answer(User author, string body, Question question, bool accepted = false)
+            : base(author, body)
+        {
+            this.Question = question;
+            this.Accepted = accepted;
+        }
+
         /// <summary>
         /// Gets or sets the question that this post is an answer to.
         /// </summary>

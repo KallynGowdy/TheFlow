@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -26,9 +27,18 @@ namespace TheFlow.API.Entities
     /// </summary>
     public class Question : Post
     {
+        public Question() { }
+
+        public Question(User author, string body, string title)
+            : base(author, body)
+        {
+            this.Title = title;
+        }
+
         /// <summary>
         /// Gets or sets the title of this question.
         /// </summary>
+        [Required]
         public string Title { get; set; }
 
         /// <summary>

@@ -40,65 +40,154 @@ blockquote {
 }
 
 .button-group.radius.vertical > *:first-child, .button-group.radius.vertical > *:first-child > a, .button-group.radius.vertical > *:first-child > button, .button-group.radius.vertical > *:first-child > .button {
-        -moz-border-radius-topleft: 3px;
-        -moz-border-radius-topright: 3px;
-        -moz-border-radius-bottomleft: 3px;
-        -webkit-border-top-left-radius: 3px;
-        -webkit-border-top-right-radius: 3px;
-        -webkit-border-bottom-left-radius: 3px;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
-        border-bottom-left-radius: 0px;
-        margin-bottom: 0px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    -moz-border-radius-bottomleft: 3px;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-top-right-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 0px;
+    margin-bottom: 0px;
+}
+
+.button-group.radius.vertical > *:last-child, .button-group.radius.vertical > *:last-child > a, .button-group.radius > *:last-child > button, .button-group.radius.vertical > *:last-child > .button {
+    -moz-border-radius-bottomleft: 3px;
+    -moz-border-radius-bottomright: 3px;
+    -moz-border-radius-topright: 0px;
+    -webkit-border-bottom-left-radius: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+    -webkit-border-top-right-radius: 0px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 0px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.button-group.vertical {
+    margin-bottom: 1.25em;
+}
+
+
+@media only screen and (min-width: 1280px) {
+    /*implements medium button style when the screen is medium or up*/
+    .medium-on-medium-up.button {
+        line-height: 1;
+        padding-top: 0.75em;
+        padding-right: 1.5em;
+        padding-bottom: 0.8125em;
+        padding-left: 1.5em;
+        font-size: 1em;
     }
 
-    .button-group.radius.vertical > *:last-child, .button-group.radius.vertical > *:last-child > a, .button-group.radius > *:last-child > button, .button-group.radius.vertical > *:last-child > .button {
-        -moz-border-radius-bottomleft: 3px;
-        -moz-border-radius-bottomright: 3px;
-        -moz-border-radius-topright: 0px;
-        -webkit-border-bottom-left-radius: 3px;
-        -webkit-border-bottom-right-radius: 3px;
-        -webkit-border-top-right-radius: 0px;
-        border-bottom-left-radius: 3px;
-        border-bottom-right-radius: 3px;
-        border-top-right-radius: 0px;
-        margin-bottom: 0px;
-        margin-top: 0px;
+    /*implements tiny button style when the screen is medium or up*/
+    .tiny-on-medium-up.button {
+        padding-top: 0.4375em;
+        padding-right: 0.875em;
+        padding-bottom: 0.5em;
+        padding-left: 0.875em;
+        font-size: 0.6875em;
+    }
+}
+
+@media only screen and (min-width: 1280px) and (max-width: 1440px) {
+    /*implements medium button style when the screen is medium*/
+    .medium-on-medium.button {
+        line-height: 1;
+        padding-top: 0.75em;
+        padding-right: 1.5em;
+        padding-bottom: 0.8125em;
+        padding-left: 1.5em;
+        font-size: 1em;
     }
 
+    /*implements tiny button style when the screen is medium*/
+    .tiny-on-medium.button {
+        padding-top: 0.4375em;
+        padding-right: 0.875em;
+        padding-bottom: 0.5em;
+        padding-left: 0.875em;
+        font-size: 0.6875em;
+    }
+}
 
-/*implements vertical button bar styling on mobile devices*/
-@media (max-width: 768px) {
-    .button-group.radius > *:first-child, .button-group.radius > *:first-child > a, .button-group.radius > *:first-child > button, .button-group.radius > *:first-child > .button {
-        -moz-border-radius-topleft: 3px;
-        -moz-border-radius-topright: 3px;
-        -moz-border-radius-bottomleft: 3px;
-        -webkit-border-top-left-radius: 3px;
-        -webkit-border-top-right-radius: 3px;
-        -webkit-border-bottom-left-radius: 3px;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
-        border-bottom-left-radius: 0px;
-        margin-bottom: 0px;
+@media only screen and (min-width: 1440px) {
+     /*implements tiny button style when the screen is small*/
+    .tiny-on-large.button {
+        padding-top: 0.4375em;
+        padding-right: 0.875em;
+        padding-bottom: 0.5em;
+        padding-left: 0.875em;
+        font-size: 0.6875em;
     }
 
-    .button-group.radius > *:last-child, .button-group.radius > *:last-child > a, .button-group.radius > *:last-child > button, .button-group.radius > *:last-child > .button {
-        -moz-border-radius-bottomleft: 3px;
-        -moz-border-radius-bottomright: 3px;
-        -moz-border-radius-topright: 0px;
-        -webkit-border-bottom-left-radius: 3px;
-        -webkit-border-bottom-right-radius: 3px;
-        -webkit-border-top-right-radius: 0px;
-        border-bottom-left-radius: 3px;
-        border-bottom-right-radius: 3px;
-        border-top-right-radius: 0px;
-        margin-bottom: 0px;
-        margin-top: 0px;
+    /*implements medium button style when the screen is medium or up*/
+    .medium-on-large.button {
+        line-height: 1;
+        padding-top: 0.75em;
+        padding-right: 1.5em;
+        padding-bottom: 0.8125em;
+        padding-left: 1.5em;
+        font-size: 1em;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    /*implements tiny button style when the screen is small*/
+    .tiny-on-small.button {
+        padding-top: 0.4375em;
+        padding-right: 0.875em;
+        padding-bottom: 0.5em;
+        padding-left: 0.875em;
+        font-size: 0.6875em;
     }
 
-    .button-group > *, .button-group > * > a, .button-group > * > .button, .button-group > * > button {
-        margin-bottom: 0px;
-        margin-top: 0px;
-        width: 100%;
+    /*implements medium button style when the screen is medium or up*/
+    .medium-on-small.button {
+        line-height: 1;
+        padding-top: 0.75em;
+        padding-right: 1.5em;
+        padding-bottom: 0.8125em;
+        padding-left: 1.5em;
+        font-size: 1em;
     }
+
+    /*implements vertical button bar styling on mobile devices*/
+    .button-group {
+        margin-bottom: 1.25em;
+    }
+
+        .button-group.radius > *:first-child, .button-group.radius > *:first-child > a, .button-group.radius > *:first-child > button, .button-group.radius > *:first-child > .button {
+            -moz-border-radius-topleft: 3px;
+            -moz-border-radius-topright: 3px;
+            -moz-border-radius-bottomleft: 3px;
+            -webkit-border-top-left-radius: 3px;
+            -webkit-border-top-right-radius: 3px;
+            -webkit-border-bottom-left-radius: 3px;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            border-bottom-left-radius: 0px;
+            margin-bottom: 0px;
+        }
+
+        .button-group.radius > *:last-child, .button-group.radius > *:last-child > a, .button-group.radius > *:last-child > button, .button-group.radius > *:last-child > .button {
+            -moz-border-radius-bottomleft: 3px;
+            -moz-border-radius-bottomright: 3px;
+            -moz-border-radius-topright: 0px;
+            -webkit-border-bottom-left-radius: 3px;
+            -webkit-border-bottom-right-radius: 3px;
+            -webkit-border-top-right-radius: 0px;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+            border-top-right-radius: 0px;
+            margin-top: 0px;
+        }
+
+        .button-group > *, .button-group > * > a, .button-group > * > .button, .button-group > * > button {
+            margin-bottom: 0px;
+            margin-top: 0px;
+            width: 100%;
+        }
 }

@@ -250,13 +250,16 @@
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Context.cs" />
+    <Compile Include="Entities\DownVote.cs" />
     <Compile Include="Entities\Edit.cs" />
     <Compile Include="Entities\IContext.cs" />
     <Compile Include="Entities\Post.cs" />
     <Compile Include="Entities\Preferences.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\Star.cs" />
+    <Compile Include="Entities\UpVote.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\Vote.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Filters\RequireHttpsAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -310,6 +313,22 @@
     <Compile Include="Migrations\201308280048366_AddedEditDate.Designer.cs">
       <DependentUpon>201308280048366_AddedEditDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201308291804458_AbstractedVotesToEntities.cs" />
+    <Compile Include="Migrations\201308291804458_AbstractedVotesToEntities.Designer.cs">
+      <DependentUpon>201308291804458_AbstractedVotesToEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308300202594_RemovedSecondRefFromPostToVote.cs" />
+    <Compile Include="Migrations\201308300202594_RemovedSecondRefFromPostToVote.Designer.cs">
+      <DependentUpon>201308300202594_RemovedSecondRefFromPostToVote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308300402433_SwitchedPostsToUseEdits.cs" />
+    <Compile Include="Migrations\201308300402433_SwitchedPostsToUseEdits.Designer.cs">
+      <DependentUpon>201308300402433_SwitchedPostsToUseEdits.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308300433228_MadeQuestionTitleRequired.cs" />
+    <Compile Include="Migrations\201308300433228_MadeQuestionTitleRequired.Designer.cs">
+      <DependentUpon>201308300433228_MadeQuestionTitleRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnswerModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -318,9 +337,12 @@
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\ViewAnswerModel.cs" />
+    <Compile Include="Models\ViewDownVoteModel.cs" />
     <Compile Include="Models\ViewPostModel.cs" />
     <Compile Include="Models\ViewQuestionModel.cs" />
     <Compile Include="Models\ViewTagModel.cs" />
+    <Compile Include="Models\ViewUpVoteModel.cs" />
+    <Compile Include="Models\ViewVoteModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -481,6 +503,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201308280048366_AddedEditDate.resx">
       <DependentUpon>201308280048366_AddedEditDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308291804458_AbstractedVotesToEntities.resx">
+      <DependentUpon>201308291804458_AbstractedVotesToEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308300202594_RemovedSecondRefFromPostToVote.resx">
+      <DependentUpon>201308300202594_RemovedSecondRefFromPostToVote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308300402433_SwitchedPostsToUseEdits.resx">
+      <DependentUpon>201308300402433_SwitchedPostsToUseEdits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308300433228_MadeQuestionTitleRequired.resx">
+      <DependentUpon>201308300433228_MadeQuestionTitleRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

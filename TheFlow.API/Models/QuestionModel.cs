@@ -26,12 +26,12 @@ namespace TheFlow.API.Models
         /// <summary>
         /// Gets or sets the tags used to mark the question. Required.
         /// </summary>
-        [Required]
-        public IEnumerable<string> Tags
-        {
-            get;
-            set;
-        }
+        //[Required]
+        //public IEnumerable<string> Tags
+        //{
+        //    get;
+        //    set;
+        //}
 
 
         /// <summary>

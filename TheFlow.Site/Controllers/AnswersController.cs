@@ -40,7 +40,7 @@ namespace TheFlow.Site.Controllers
         }
 
         /// <summary>
-        /// Creates a new answer posted by the currently logged in user.
+        /// Creates or edits a new answer posted by the currently logged in user.
         /// </summary>
         /// <param name="answer"></param>
         /// <returns></returns>
@@ -53,20 +53,24 @@ namespace TheFlow.Site.Controllers
             User user = ControllerHelper.Authenticate(Request, dataContext);
             if (user != null && answer != null && ModelState.IsValid)
             {
-                Question question = dataContext.Questions.FirstOrDefault(a => a.Id == answer.QuestionId.Value);
+                Question question = dataContext.Questions.SingleOrDefault(a => a.Id == answer.QuestionId.Value);
                 if (question != null && question.Answers.All(a => a.Author.OpenId != user.OpenId))
                 {
-                    Answer a = new Answer
-                    {
-                        Author = user,
-                        Body = answer.Body,
-                        DatePosted = DateTime.Now,
-                        Question = question
-                    };
+                    Answer a = new Answer(user, answer.Body, question);
 
                     dataContext.Answers.Add(a);
                     dataContext.SaveChanges();
                     return RedirectToAction("Question", "Questions", new { id = answer.QuestionId });
+                }
+                else
+                {
+                    Answer a = dataContext.Answers.SingleOrDefault(ans => ans.Author.OpenId == user.OpenId);
+                    if (a != null)
+                    {
+                        //Apply the edit
+                        a.SetBody(answer.Body, user);
+                        dataContext.SaveChanges();
+                    }
                 }
             }
             return Redirect(Request.UrlReferrer.AbsoluteUri);

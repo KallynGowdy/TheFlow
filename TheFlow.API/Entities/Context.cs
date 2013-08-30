@@ -32,12 +32,21 @@ namespace TheFlow.API.Entities
         public DbSet<Star> Stars { get; set; }
         public DbSet<Edit> Edits { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Vote> Votes { get; set; }
+        public DbSet<UpVote> UpVotes { get; set; }
+        public DbSet<DownVote> DownVotes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Post>().ToTable("Posts");
             modelBuilder.Entity<Question>().ToTable("Questions");
             modelBuilder.Entity<Answer>().ToTable("Answers");
+
+            modelBuilder.Entity<Vote>().ToTable("Votes");
+            modelBuilder.Entity<UpVote>().ToTable("UpVotes");
+            modelBuilder.Entity<DownVote>().ToTable("DownVotes");
+
+            modelBuilder.Entity<Post>().Ignore(a => a.Body);
         }
     }
 }

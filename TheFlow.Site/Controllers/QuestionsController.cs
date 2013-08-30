@@ -58,13 +58,7 @@ namespace TheFlow.Site.Controllers
         {
             if (ModelState.IsValid)
             {
-                Question q = new Question
-                {
-                    Body = question.Body,
-                    Title = question.Title,
-                    DatePosted = DateTime.Now,
-                    Author = ControllerHelper.Authenticate(Request, dataContext)
-                };
+                Question q = new Question(ControllerHelper.Authenticate(Request, dataContext), question.Body, question.Title);
 
                 dataContext.Questions.Add(q);
                 dataContext.SaveChanges();

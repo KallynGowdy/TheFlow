@@ -67,3 +67,19 @@ function defaultHooks(converter, editor) {
         });
     }
 }
+
+//Adds an anti-forgery token to the given set of data for an ajax request.
+//Usage:
+//$.ajax({
+//  type: "post",
+//      dataType: "html",
+//  url: 'the url',
+//  data: AddAntiForgeryToken({ id: someIntData }),
+//  success: function (response) {
+//      // ....
+//  }
+//  });
+function AddAntiForgeryToken(data) {
+    data.__RequestVerificationToken = $('#__AjaxAntiForgeryForm input[name=__RequestVerificationToken]').val();
+    return data;
+};
