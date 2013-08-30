@@ -51,14 +51,14 @@ namespace TheFlow.Site.Controllers
         }
 
         [HttpPost]
-        [ValidateInput(true)]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         [Authorize]
         public ActionResult Create(QuestionModel question)
         {
             if (ModelState.IsValid)
             {
-                Question q = new Question(ControllerHelper.Authenticate(Request, dataContext), question.Body, question.Title);
+                Question q = new Question(ControllerHelper.Authenticate(Request, dataContext), HttpUtility.HtmlEncode(question.Body), question.Title);
 
                 dataContext.Questions.Add(q);
                 dataContext.SaveChanges();

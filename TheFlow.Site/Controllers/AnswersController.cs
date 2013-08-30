@@ -47,7 +47,7 @@ namespace TheFlow.Site.Controllers
         [ValidateAntiForgeryToken]
         [Authorize]
         [HttpPost]
-        [ValidateInput(true)]
+        [ValidateInput(false)]
         public ActionResult Create(AnswerModel answer)
         {
             User user = ControllerHelper.Authenticate(Request, dataContext);

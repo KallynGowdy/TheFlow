@@ -81,6 +81,20 @@
             });
         });
 
+        $('.post-back').click(function() {
+            var clicked = $(this);
+            var data = clicked.attr('data-post');
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: data,
+                data: AddAntiForgeryToken({ } ),
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        });
+
         //find all of the elements with .time class
         var timeElements = $('.time-from-now');
 
@@ -141,7 +155,7 @@
                 <li><a href="#" class="button medium-on-small tiny-on-medium-up">Flag</a></li>
                 @if (displayDelete)
                 {
-                    <li><a href="/Questions/Delete/@Model.Id" class="button medium-on-small tiny-on-medium-up">Delete</a></li>
+                    <li><a data-post="/Answers/Delete/@Model.Id" class="post-back button medium-on-small tiny-on-medium-up">Delete</a></li>
                 }
             </ul>
         </div>
@@ -183,7 +197,7 @@
                         <li><a href="#" class="button medium-on-small tiny-on-medium-up">Flag</a></li>
                         @if (displayDelete)
                         {
-                            <li><a href="/Answers/Delete/@answer.Id" class="button medium-on-small tiny-on-medium-up">Delete</a></li>
+                            <li><a data-post="/Answers/Delete/@answer.Id" class="post-back button medium-on-small tiny-on-medium-up">Delete</a></li>
                         }
                     </ul>
                 </div>
@@ -251,7 +265,16 @@ else
                 <div id="wmd-preview"></div>
             </div>
             <input type="hidden" id="Body" name="Body" value="" />
-            <button class="button success" type="submit">
+            <button class="button success hide-for-small" type="submit">
+                @if (editable)
+                {
+                    @:Edit your Answer
+                }
+                else
+                {
+                    @:Post your Answer
+                }</button>
+            <button class="button success show-for-small full-width" type="submit">
                 @if (editable)
                 {
                     @:Edit your Answer
