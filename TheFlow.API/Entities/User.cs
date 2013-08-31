@@ -118,6 +118,11 @@ namespace TheFlow.API.Entities
         /// </summary>
         public DateTime DateJoined { get; set; }
 
+        /// <summary>
+        /// Gets or sets the preferences of the user.
+        /// </summary>
+        public Preferences Preferences { get; set; }
+
         public User()
         {
             DateJoined = DateTime.Now;
@@ -162,7 +167,9 @@ namespace TheFlow.API.Entities
                 LastName = this.LastName,
                 Age = this.Age,
                 Reputation = this.Reputation,
-                Location = this.Location
+                Location = this.Location,
+                DisplayName = this.DisplayName,
+                Preferences = this.Preferences.ToModel()
             };
         }
     }

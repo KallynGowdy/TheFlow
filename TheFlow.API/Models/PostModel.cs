@@ -30,7 +30,7 @@ namespace TheFlow.API.Models
         /// <summary>
         /// Gets or sets the author of the post.
         /// </summary>
-        [Required]
+        [ReadOnly(true)]
         public string Author
         {
             get;
@@ -51,6 +51,7 @@ namespace TheFlow.API.Models
         /// Gets or sets the body of the post which is markdown.
         /// </summary>
         [Required(AllowEmptyStrings=false)]
+        [MinLength(40)]
         public string Body
         {
             get;

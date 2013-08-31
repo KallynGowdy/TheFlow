@@ -22,7 +22,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
-using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Security;
 using TheFlow.API.Authentication;
@@ -40,49 +39,107 @@ namespace TheFlow.Site.Controllers
             base.Initialize(requestContext);
         }
 
+        /// <summary>
+        /// Gets the info on the requested user.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public ActionResult Info(string user)
         {
-            return View(dataContext.Users.First(a => a.DisplayName == user).ToModel());
+            User u = null;
+            if (user != null)
+            {
+                u = dataContext.Users.FirstOrDefault(a => a.DisplayName == user);
+            }
+            else
+            {
+                u = authenticate();
+            }
+            if (u == null)
+            {
+                return Redirect(Request.UrlReferrer.AbsoluteUri);
+            }
+            else
+            {
+                return View(u);
+            }
         }
 
-        [System.Web.Mvc.AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        /// <summary>
+        /// Serves the edit view to the authenticated user.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize]
+        public ActionResult Edit()
+        {
+            User u = authenticate();
+
+            PreferencesModel prefs;
+            if (u.Preferences == null)
+            {
+                u.Preferences = new Preferences();
+            }
+            prefs = u.Preferences.ToModel();
+
+            return View(new UserModel
+                        {
+                            DateOfBirth = u.DateOfBirth,
+                            DisplayName = u.DisplayName,
+                            EmailAddress = u.EmailAddress,
+                            FirstName = u.FirstName,
+                            LastName = u.LastName,
+                            Location = u.Location,
+                            Preferences = prefs
+                        });
+        }
+
+        [System.Web.Mvc.AcceptVerbs(HttpVerbs.Post)]
         [ValidateAntiForgeryToken]
         [ValidateInput(true)]
         public ActionResult Edit(UserModel newInfo)
         {
+            User user = authenticate(ref newInfo);
             if (newInfo != null)
             {
-                User user = authenticate(ref newInfo);
-                if (user != null)
+                if (newInfo.DisplayName != null)
                 {
-                    if (newInfo.DisplayName != null)
-                    {
-                        user.DisplayName = newInfo.DisplayName;
-                    }
-                    if (newInfo.DateOfBirth != null)
-                    {
-                        user.DateOfBirth = newInfo.DateOfBirth;
-                    }
-                    if (newInfo.EmailAddress != null)
-                    {
-                        user.EmailAddress = newInfo.EmailAddress;
-                    }
-                    if (newInfo.Location != null)
-                    {
-                        user.Location = newInfo.Location;
-                    }
-                    if (newInfo.FirstName != null)
-                    {
-                        user.FirstName = newInfo.FirstName;
-                    }
-                    if (newInfo.LastName != null)
-                    {
-                        user.LastName = newInfo.LastName;
-                    }
-                    dataContext.SaveChanges();
+                    user.DisplayName = newInfo.DisplayName;
                 }
+                if (newInfo.DateOfBirth != null)
+                {
+                    user.DateOfBirth = newInfo.DateOfBirth;
+                }
+                if (newInfo.EmailAddress != null)
+                {
+                    user.EmailAddress = newInfo.EmailAddress;
+                }
+                if (newInfo.Location != null)
+                {
+                    user.Location = newInfo.Location;
+                }
+                if (newInfo.FirstName != null)
+                {
+                    user.FirstName = newInfo.FirstName;
+                }
+                if (newInfo.LastName != null)
+                {
+                    user.LastName = newInfo.LastName;
+                }
+                if (newInfo.Preferences != null && newInfo.Preferences.CodeTheme.HasValue)
+                {
+                    if (user.Preferences == null)
+                    {
+                        user.Preferences = new Preferences { CodeStyle = newInfo.Preferences.CodeTheme.Value };
+                    }
+                    else
+                    {
+                        user.Preferences.CodeStyle = newInfo.Preferences.CodeTheme.Value;
+                    }
+                }
+                dataContext.SaveChanges();
             }
-            return View("Info", newInfo.DisplayName);
+            return View("Info", user);
         }
 
         /// <summary>
@@ -109,6 +166,15 @@ namespace TheFlow.Site.Controllers
         [System.Web.Mvc.AcceptVerbs(HttpVerbs.Get)]
         public ActionResult LogIn()
         {
+            //FormsAuthentication.SetAuthCookie("https://www.google.com/accounts/o8/id?id=AItOawmiaM32tj_WjvFmiMV0PatVe4Spployfc0", false);
+
+
+            string returnUrl = Request["ReturnUrl"];
+            if (returnUrl == null)
+            {
+                returnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.AbsoluteUri : null;
+            }
+
             User user;
             if (AuthenticationServer.IsAuthenticated(out user))
             {
@@ -141,11 +207,18 @@ namespace TheFlow.Site.Controllers
                         }
                     }
                 }
-                string returnUrl = Request.Headers["TheFlow-ReturnUrl"];
+                returnUrl = Request.Cookies["TheFlow-ReturnUrl"].Value;
                 if (returnUrl != null)
                 {
-                    Response.Headers.Remove("TheFlow-ReturnUrl");
+                    ControllerHelper.RemoveCookie(Request, Response, "TheFlow-ReturnUrl");
                     return Redirect(returnUrl);
+                }
+            }
+            else
+            {
+                if (returnUrl != null)
+                {
+                    Response.Cookies.Add(new HttpCookie("TheFlow-ReturnUrl", returnUrl));
                 }
             }
             return View();
@@ -157,14 +230,14 @@ namespace TheFlow.Site.Controllers
         /// <returns></returns>
         [System.Web.Mvc.AcceptVerbs(HttpVerbs.Post)]
         [System.Web.Mvc.AllowAnonymous]
-        public ActionResult LogIn([FromUri] string OpenIdProvider)
+        public ActionResult LogIn([System.Web.Http.FromUri] string OpenIdProvider)
         {
             //Validate the request to make sure it is from our site.
             //This prevents Cross-Site Request Forgery.
             //DO NOT COMMENT OUT, OR REMOVE.
             AntiForgery.Validate();
 
-            Response.Cookies.Add(new HttpCookie("TheFlow-ReturnUrl", Request.UrlReferrer.AbsoluteUri));
+            //Response.Cookies.Add(new HttpCookie("TheFlow-ReturnUrl", Request.UrlReferrer.AbsoluteUri));
 
             //Authenticate the user based on their OpenID provider.
             if (OpenIdProvider != null)
@@ -181,7 +254,7 @@ namespace TheFlow.Site.Controllers
                     //return AuthenticationServer.AuthenticateActionResult(Request, OpenIdProvider);
                     return View();
                 }
-                catch (HttpResponseException)
+                catch (System.Web.Http.HttpResponseException)
                 {
                     return View();
                 }

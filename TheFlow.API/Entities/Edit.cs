@@ -66,6 +66,16 @@ namespace TheFlow.API.Entities
         }
 
         /// <summary>
+        /// Gets or sets the date that the edit was made.
+        /// </summary>
+        [Required]
+        public DateTime? DateChanged
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets the original post that was edited.
         /// </summary>
         [Required]

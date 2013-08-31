@@ -30,7 +30,7 @@ namespace TheFlow.Site.Controllers
         /// Returns null if the url could not be found.
         /// </summary>
         /// <returns></returns>
-        public static string getAuthProvider(HttpRequestBase request)
+        public static string GetAuthProvider(HttpRequestBase request)
         {
             //check the form
             string url = request.Form["OpenIdProvider"];
@@ -57,11 +57,20 @@ namespace TheFlow.Site.Controllers
         }
 
         /// <summary>
+        /// Determines if the current user is authenticated.
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsAuthenticated()
+        {
+            return HttpContext.Current.User != null && HttpContext.Current.User.Identity != null && HttpContext.Current.User.Identity.IsAuthenticated && HttpContext.Current.User.Identity is FormsIdentity;
+        }
+
+        /// <summary>
         /// Authenticates the current user by either using forms authentication or repeated OpenID requests.
         /// If the user is not authenticated he/she will be redirected to their provider if the provider is supplied in the request.
         /// </summary>
         /// <returns>The currently authenticated user, or null if the user is not authenticated.</returns>
-        public static User authenticate(HttpRequestBase request, DbContext dataContext = null)
+        public static User Authenticate(HttpRequestBase request, IDbContext dataContext = null)
         {
             if (dataContext == null)
             {
@@ -70,7 +79,7 @@ namespace TheFlow.Site.Controllers
 
             if (HttpContext.Current.User != null && HttpContext.Current.User.Identity != null && HttpContext.Current.User.Identity.IsAuthenticated && HttpContext.Current.User.Identity is FormsIdentity)
             {
-                User user = dataContext.Users.First(a => a.OpenId == ((FormsIdentity)HttpContext.Current.User.Identity).Name);
+                User user = dataContext.Users.SingleOrDefault(a => a.OpenId == ((FormsIdentity)HttpContext.Current.User.Identity).Name);
                 return user;
             }
             else if (!FormsAuthentication.IsEnabled)
@@ -82,7 +91,7 @@ namespace TheFlow.Site.Controllers
                 }
                 else
                 {
-                    string provider = getAuthProvider(request);
+                    string provider = GetAuthProvider(request);
                     if (provider != null)
                     {
                         AuthenticationServer.Authenticate(request, provider);
@@ -100,9 +109,9 @@ namespace TheFlow.Site.Controllers
         /// <returns></returns>
         public static bool RemoveCookie(HttpRequestBase request, HttpResponseBase response, string cookieName)
         {
-            if (request.Cookies["TheFlow-OpenIdProvider"] != null)
+            if (request.Cookies[cookieName] != null)
             {
-                HttpCookie newCookie = new HttpCookie("TheFlow-OpenIdProvider");
+                HttpCookie newCookie = new HttpCookie(cookieName);
                 newCookie.Expires = DateTime.Now.AddDays(-1);
                 response.Cookies.Add(newCookie);
                 return true;

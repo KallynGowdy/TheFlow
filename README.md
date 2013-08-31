@@ -4,7 +4,7 @@ An open source question and answer site inspired by [Stackoverflow](http://www.s
 ## Features and Goals ##
 - Licensed under the Apache 2.0 License
 - Runs on ASP.Net
-- Uses the MVC (Model-view-controller) pattern
+- Uses the MVC (Model-view-controller) pattern (ASP.Net MVC)
 - OpenID for login
 	- Using [DotNetOpenAuth](https://github.com/DotNetOpenAuth/DotNetOpenAuth)
 - Forms Authentication Cookies for login sessions
@@ -14,6 +14,12 @@ An open source question and answer site inspired by [Stackoverflow](http://www.s
 - Simple, clean and mobile friendly front-end website
 	- Using [Zurb Foundation 4](http://foundation.zurb.com/)
 - SSL
+- Markdown for posts, questions, comments etc.
+	- Syntax Highlighting using [Google Code Prettify](https://code.google.com/p/google-code-prettify/)
+		- Fully User customizable themes (with optional presets)
+	- Implemented with [PageDown](https://code.google.com/p/pagedown/)
+- (Possible) presentation support with [impress.js](http://bartaz.github.io/impress.js/#/bored "Impress.js")
+	- Not even close to being implemented yet
 
 ##Open ID##
 - Easy to implement with [DotNetOpenAuth](https://github.com/DotNetOpenAuth/DotNetOpenAuth)
@@ -64,3 +70,8 @@ These are the entities used by the Entity Framework ORM to provide statically ty
 - `User`, An entity that is used to hold information about a user (`OpenId`, `Email`, `Display Name`, `Reputation`, etc).
 - `Star`, An entity that is used to mark a question that a user likes (`User`, `Question`, `Id`).
 - `Edit`, An entity that is used to define an edit to a `Post` (`New Body`, `Original Post`, etc).
+
+##Question Presentation Format#
+- Every Question's body uses Markdown for formatting.
+	- Implemented with [PageDown](https://code.google.com/p/pagedown/)
+	- Uses [Google-Code-Prettify](https://code.google.com/p/google-code-prettify/wiki/GettingStarted) for syntax highlighting

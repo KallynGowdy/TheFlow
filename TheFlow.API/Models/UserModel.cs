@@ -74,5 +74,11 @@ namespace TheFlow.API.Models
         /// This attribute is NOT updated in the database.
         /// </summary>
         public int Reputation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the preferences of the user.
+        /// This attribute is updated in the database.
+        /// </summary>
+        public PreferencesModel Preferences { get; set; }
     }
 }

@@ -42,12 +42,13 @@
                 <ul class="left">
                     <li><a href="~/">Home</a></li>
                     <li><a href="~/Design">Design</a></li>
+                    <li><a href="~/Questions">Questions</a></li>
                     @RenderSection("NavBarLeft", false)
                     <li class="divider hide-for-small"></li>
                 </ul>
                 <ul class="right">
                     <li class="divider"></li>
-                    @{TheFlow.API.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.authenticate(Request);}
+                    @{TheFlow.API.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);}
 
                     @if (user == null)
                     {
@@ -57,15 +58,18 @@
                     else
                     {
                         <li class="has-dropdown">
-                            @Html.ActionLink(user.DisplayName, "Index", "Account")
+                            @Html.ActionLink(user.DisplayName, "Info", "Users", new { user = user.DisplayName }, null)
                             <ul class="dropdown">
                                 <li>
-                                    @using (Html.BeginForm("LogOut", "Users", FormMethod.Get))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <a id="logOut" onclick="$(this).parent().submit()">Log Out</a>
-                                    }
-                                    @*Html.ActionLink("Log Out", "LogOut", "Users")*@
+                                    @Html.ActionLink("Log Out", "LogOut", "Users")
+                                </li>
+                                <li class="has-dropdown">
+                                    @Html.ActionLink("Account", "Info", "Users")
+                                    <ul class="dropdown">
+                                        <li>
+                                            @Html.ActionLink("Edit", "Edit", "Users")
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
@@ -77,21 +81,21 @@
             </section>
         </nav>
     </div>
-
     <section class="main">
         <div class="row">
-            <div class="small-9 small-centered large-12 large-centered columns">
-                @* @Html.Partial("_alerts")*@
+            <div class="small-12 small-centered large-12 large-centered columns">
                 @Html.Partial("_validationSummary")
                 @RenderBody()
                 <hr>
                 <footer>
                     <div class="row">
-                        <div class="large-6 columns">
-                            <p class="text-left Copyright"></p>
+                        <div class="large-6 small-12 small-centered large-uncentered columns">
+                            <p class="hide-for-small text-left Copyright"></p>
+                            <p class="show-for-small text-center Copyright"></p>
                         </div>
-                        <div class="large-6 columns">
-                            <p class="text-right Time"></p>
+                        <div class="large-6 small-12 small-centered large-uncentered columns">
+                            <p class="hide-for-small text-right Time"></p>
+                            <p class="show-for-small text-center Time"></p>
                         </div>
                     </div>
                 </footer>
@@ -103,25 +107,18 @@
     <script src="/Scripts/jquery.validate.js"></script>
     <script src="/scripts/jquery.validate.unobtrusive.js"></script>
     <script src="/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js"></script>
-    @*@Scripts.Render("~/js")*@
     <script src="~/scripts/foundation.min.js"></script>
+    <script src="~/scripts/moment.js"></script>
     @RenderSection("Scripts", required: false)
     <script>
         $(function () {
             $(document).foundation();
+            @RenderSection("OnPageLoadFunction", required: false)
         });
-    </script>
-    <script src="~/scripts/moment.js"></script>
-    <script type="text/javascript">
-
-        //$('#logOut').click(function () {
-        //    $(this).parent().submit();
-        //});
-
-        //$(document).foundation();
         setInterval(function () {
             $(".Time").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
             $(".Copyright").text("© Your Company " + moment().format("YYYY"));
+            @RenderSection("TimeUpdateFunction", required: false)
         }, 1000);
     </script>
 </body>

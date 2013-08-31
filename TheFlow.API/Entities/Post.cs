@@ -32,7 +32,7 @@ namespace TheFlow.API.Entities
         public long Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the body (content) of this post.
+        /// Gets or sets the original body (content) of this post.
         /// </summary>
         [Column(TypeName="ntext")]
         [Required]
@@ -88,6 +88,22 @@ namespace TheFlow.API.Entities
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// Gets the current body of markdown flavored text for this post.
+        /// </summary>
+        /// <returns></returns>
+        public string GetCurrentBody()
+        {
+            if (Edits.Any())
+            {
+                return Edits.OrderByDescending(a => a.DateChanged.Value).First().Body;
+            }
+            else
+            {
+                return Body;
+            }
         }
     }
 }
