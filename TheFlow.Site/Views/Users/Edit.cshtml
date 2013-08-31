@@ -9,11 +9,11 @@
     <script src="~/scripts/pagedown/Markdown.Converter.js"></script>
     <script src="~/scripts/pagedown/Markdown.Editor.js"></script>
     <script src="~/scripts/pagedown/Markdown.Sanitizer.js"></script>
-    <script src="/scripts/prettyprint/prettify.js"></script>
-    <script src="/scripts/editor.js"></script>
+    <script src="~/scripts/prettyprint/prettify.js"></script>
+    <script src="~/scripts/editor.js"></script>
     <script type="text/javascript">
         function onThemeChanged(sel) {
-            $('#codeTheme').attr('href', '/Content/prettyprint/' + sel.options[sel.selectedIndex].value + "Style.css");
+            $('#codeTheme').attr('href', '../Content/prettyprint/' + sel.options[sel.selectedIndex].value + "Style.css");
             prettyPrint();
         }
     </script>

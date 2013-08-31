@@ -1,22 +1,38 @@
 ﻿@* Gets the path to the code style stylesheet based on the current user preferences. *@
-@helper GetCodeStylePath()
+@helper GetCodeStylePath(TheFlow.API.Entities.User user = null)
 {
-    
-    TheFlow.API.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);
+    if (user == null)
+    {
+        user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);
+    }
     if (user != null && user.Preferences != null)
     {
         switch (user.Preferences.CodeStyle)
         {
             case TheFlow.API.Entities.CodeStyle.Default:
-    @:/Content/prettyprint/TomorrowStyle.css
+    @:/TheFlow/Content/prettyprint/TomorrowStyle.css
                 break;
             default:
-                __razor_helper_writer.Write(String.Format("/Content/prettyprint/{0}Style.css", user.Preferences.CodeStyle.ToString()));
+                __razor_helper_writer.Write(String.Format("/TheFlow/Content/prettyprint/{0}Style.css", user.Preferences.CodeStyle.ToString()));
                 break;
         }
     }
     else
     {
-    @:/Content/prettyprint/TomorrowStyle.css
+    @:../Content/prettyprint/TomorrowStyle.css
+    }
+}
+
+@* Gets the path to the code style stylesheet based on the current user preferences. *@
+@helper GetCodeStylePath(TheFlow.API.Entities.CodeStyle codeStyle)
+{
+    switch (codeStyle)
+    {
+        case TheFlow.API.Entities.CodeStyle.Default:
+    @:/TheFlow/Content/prettyprint/TomorrowStyle.css
+                break;
+        default:
+                __razor_helper_writer.Write(String.Format("/TheFlow/Content/prettyprint/{0}Style.css", codeStyle.ToString()));
+                break;
     }
 }

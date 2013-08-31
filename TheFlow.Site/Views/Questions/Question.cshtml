@@ -36,7 +36,7 @@
             {
                 var id = answer.Id;
                 @:var text_@id = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(answer.Body)));
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @:$(".answer-@id").html(converter.makeHtml(text_@id));
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @:$(".answer-@id").html(converter.makeHtml(text_@id));
             }
             enableTab("wmd-input");
             highlightCode();
@@ -155,7 +155,7 @@
                 <li><a href="#" class="button medium-on-small tiny-on-medium-up">Flag</a></li>
                 @if (displayDelete)
                 {
-                    <li><a data-post="/Answers/Delete/@Model.Id" class="post-back button medium-on-small tiny-on-medium-up">Delete</a></li>
+                    <li><a data-post="../Delete/@Model.Id" class="post-back button medium-on-small tiny-on-medium-up">Delete</a></li>
                 }
             </ul>
         </div>
@@ -197,7 +197,7 @@
                         <li><a href="#" class="button medium-on-small tiny-on-medium-up">Flag</a></li>
                         @if (displayDelete)
                         {
-                            <li><a data-post="/Answers/Delete/@answer.Id" class="post-back button medium-on-small tiny-on-medium-up">Delete</a></li>
+                            <li><a data-post="../../Answers/Delete/@answer.Id" class="post-back button medium-on-small tiny-on-medium-up">Delete</a></li>
                         }
                     </ul>
                 </div>
@@ -248,15 +248,16 @@ else
             <h2 class="hide-for-small">Submit your Answer</h2>
             <h2 class="show-for-small text-center">Submit your Answer</h2>
         }
-        <form action="/Answers/Create" method="post" data-abide="">
+        @using (Html.BeginForm("Create", "Answers", FormMethod.Post, new { data_abide = "", novalidate = "novalidate" }))
+        {
             @Html.AntiForgeryToken()
             <input type="hidden" id="QuestionId" name="QuestionId" value="@Model.Id.ToString()" />
             <div id="body-field">
                 <textarea class="wmd-input" id="wmd-input" style="width: 100%; min-height: 16em;" required>
-                    @if (editable)
-                    {
-                        @Model.Answers.Single(a => a.Author.DisplayName == user.DisplayName).Body;
-                    }
+@if (editable)
+{
+@Model.Answers.Single(a => a.Author.DisplayName == user.DisplayName).Body;
+}
                 </textarea>
                 <small class="error">Please provide an answer</small>
             </div>
@@ -283,6 +284,6 @@ else
                 {
                     @:Post your Answer
                 }</button>
-        </form>
+        }
     </div>
 </div>

@@ -79,7 +79,7 @@ namespace TheFlow.Site.Controllers
         }
 
         /// <summary>
-        /// Returns
+        /// Returns menu items for the navigation bar depending on whether the user is logged in or not.
         /// </summary>
         /// <returns></returns>
         public ActionResult _Menu()

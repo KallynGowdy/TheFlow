@@ -180,7 +180,7 @@ namespace TheFlow.Site.Controllers
             {
                 if (user != null)
                 {
-                    if (!dataContext.Users.Any(a => a.EmailAddress == user.EmailAddress))
+                    if (!dataContext.Users.Any(a => a.OpenId == user.OpenId))
                     {
                         if (user.DisplayName == null)
                         {

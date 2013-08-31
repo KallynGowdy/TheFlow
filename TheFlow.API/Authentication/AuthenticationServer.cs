@@ -353,7 +353,7 @@ namespace TheFlow.API.Authentication
                         FetchResponse claims = response.GetExtension<FetchResponse>();
                         string claimedIdentifier = response.ClaimedIdentifier.ToString();
                         string email = claims.Attributes.Contains(WellKnownAttributes.Contact.Email) ? claims.Attributes[WellKnownAttributes.Contact.Email].Values.First() : null;
-                        if (dataContext.Users.All(u => u.EmailAddress != email))
+                        if (dataContext.Users.All(u => u.OpenId != claimedIdentifier))
                         {
                             if (claims != null)
                             {
@@ -365,7 +365,7 @@ namespace TheFlow.API.Authentication
                                     OpenId = claimedIdentifier,
                                     EmailAddress = email,
                                     FirstName = firstName,
-                                    LastName = lastName
+                                    LastName = lastName,
                                     Preferences = new Preferences()
                                 };
                             }
@@ -426,7 +426,7 @@ namespace TheFlow.API.Authentication
             string email = claims.Attributes.Contains(WellKnownAttributes.Contact.Email) ? claims.Attributes[WellKnownAttributes.Contact.Email].Values.First() : null;
             if (email != null)
             {
-                if (dataContext.Users.All(u => !u.EmailAddress.Equals(email, StringComparison.OrdinalIgnoreCase)))
+                if (dataContext.Users.All(u => !u.OpenId.Equals(email, StringComparison.OrdinalIgnoreCase)))
                 {
                     if (claims != null)
                     {
@@ -438,7 +438,8 @@ namespace TheFlow.API.Authentication
                             OpenId = claimedIdentifier,
                             EmailAddress = email,
                             FirstName = firstName,
-                            LastName = lastName
+                            LastName = lastName,
+                            Preferences = new Preferences()
                         };
                     }
                     else
@@ -451,7 +452,7 @@ namespace TheFlow.API.Authentication
                 }
                 else
                 {
-                    return dataContext.Users.First(u => u.EmailAddress.Equals(claimedIdentifier, StringComparison.Ordinal));
+                    return dataContext.Users.First(u => u.OpenId.Equals(claimedIdentifier, StringComparison.Ordinal));
                 }
             }
             else
@@ -484,7 +485,7 @@ namespace TheFlow.API.Authentication
                         FetchResponse claims = response.GetExtension<FetchResponse>();
                         string claimedIdentifier = response.ClaimedIdentifier.ToString();
                         string email = claims.Attributes.Contains(WellKnownAttributes.Contact.Email) ? claims.Attributes[WellKnownAttributes.Contact.Email].Values.First() : null;
-                        if (dataContext.Users.All(u => !u.EmailAddress.Equals(email, StringComparison.OrdinalIgnoreCase)))
+                        if (dataContext.Users.All(u => !u.OpenId.Equals(email, StringComparison.OrdinalIgnoreCase)))
                         {
                             if (claims != null)
                             {
@@ -496,7 +497,8 @@ namespace TheFlow.API.Authentication
                                     OpenId = claimedIdentifier,
                                     EmailAddress = email,
                                     FirstName = firstName,
-                                    LastName = lastName
+                                    LastName = lastName,
+                                    Preferences = new Preferences()
                                 };
                             }
                             else
@@ -509,7 +511,7 @@ namespace TheFlow.API.Authentication
                         }
                         else
                         {
-                            return dataContext.Users.First(u => u.EmailAddress.Equals(claimedIdentifier, StringComparison.Ordinal));
+                            return dataContext.Users.First(u => u.OpenId.Equals(claimedIdentifier, StringComparison.Ordinal));
                         }
                     }
                 }

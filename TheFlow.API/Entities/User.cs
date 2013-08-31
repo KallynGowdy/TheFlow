@@ -68,13 +68,13 @@ namespace TheFlow.API.Entities
         /// </summary>
         [EmailAddress]
         [Required]
-        [Key]
         public string EmailAddress { get; set; }
 
         /// <summary>
         /// Gets or sets the open id that this user owns.
         /// </summary>
-        [Required(AllowEmptyStrings=false)]
+        [Required(AllowEmptyStrings = false)]
+        [Key]
         public string OpenId
         {
             get;
@@ -99,7 +99,7 @@ namespace TheFlow.API.Entities
         {
             get
             {
-                if(DateOfBirth.HasValue)
+                if (DateOfBirth.HasValue)
                 {
                     return (int)Math.Round((DateTime.Now - DateOfBirth.Value).Days / DateExtensions.YearInDays);
                 }

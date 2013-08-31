@@ -19,7 +19,7 @@ namespace TheFlow.Site.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            return View(dataContext.Questions.Take(50));
+            return View(dataContext.Questions.Take(50).ToArray());
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace TheFlow.Site.Controllers
         {
             if (ModelState.IsValid)
             {
-                Question q = new Question(ControllerHelper.Authenticate(Request, dataContext), HttpUtility.HtmlEncode(question.Body), question.Title);
+                Question q = new Question(ControllerHelper.Authenticate(Request, dataContext), question.Body, question.Title);
 
                 dataContext.Questions.Add(q);
                 dataContext.SaveChanges();
@@ -68,6 +68,24 @@ namespace TheFlow.Site.Controllers
                 return View();
             }
             return View("Index", dataContext.Questions.Take(50));
+        }
+
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        [HttpPost]
+        public ActionResult Delete([Bind(Prefix = "id")] long questionId)
+        {
+            Question question = dataContext.Questions.SingleOrDefault(a => a.Id == questionId);
+            if (question != null)
+            {
+                User user = ControllerHelper.Authenticate(Request, dataContext);
+                if (user != null && user.OpenId == question.Author.OpenId)
+                {
+                    dataContext.Questions.Remove(question);
+                    dataContext.SaveChanges();
+                }
+            }
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
     }
 }

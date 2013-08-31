@@ -28,6 +28,7 @@
             @Html.AntiForgeryToken()
             <input id="Title" type="text" placeholder="Title" name="Title" autocomplete="off" required />
             <small class="error">Please provide a Title for your question.</small>
+            <input type="text" placeholder="Tags" name="Tags" autocomplete="off" title="The tags for your question" />
             <textarea class="wmd-input" id="wmd-input" name="Body" style="max-width: 100%; min-height: 16em;"></textarea>
             <div class="panel radius" style="background-color: white;">
                 <h3 id="title-preview"></h3>

@@ -20,19 +20,21 @@ using System.Web;
 
 namespace TheFlow.API.Models
 {
+    /// <summary>
+    /// Defines a model for a question that is posted to the server for creation and editing.
+    /// </summary>
     [Serializable]
     public class QuestionModel : PostModel
     {
         /// <summary>
-        /// Gets or sets the tags used to mark the question. Required.
+        /// Gets or sets the tags used to mark the question. Required but empty is allowed.
         /// </summary>
-        //[Required]
-        //public IEnumerable<string> Tags
-        //{
-        //    get;
-        //    set;
-        //}
-
+        [Required(AllowEmptyStrings=true)]
+        public string Tags
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Gets or sets the title of the question. Required.

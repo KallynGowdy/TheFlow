@@ -37,7 +37,8 @@
             <div class="row">
                 <div class="columns large-12">
                     <h3 class="text-left"><a href="~/Questions/Question/@question.Id" style="color: #f2b21b">@question.Title</a></h3>
-                    <p class="text-left"><small>@(question.Body.Length > 50 ? question.Body.Substring(0, 50) : question.Body)</small></p>
+                    @{var currentBody = question.Body;}
+                    <p class="text-left"><small>@(currentBody.Length > 50 ? currentBody.Substring(0, 50) : currentBody)</small></p>
                 </div>
             </div>
             }
