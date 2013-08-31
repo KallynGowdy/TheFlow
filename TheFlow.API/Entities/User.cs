@@ -172,5 +172,38 @@ namespace TheFlow.API.Entities
                 Preferences = this.Preferences.ToModel()
             };
         }
+
+        /// <summary>
+        /// Determines if the given object equals this user.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj != null)
+            {
+                if (obj is User)
+                {
+                    return ((User)obj).OpenId == this.OpenId;
+                }
+                else
+                {
+                    return base.Equals(obj);
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets the hash code of this user.
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return unchecked(OpenId.GetHashCode() * 21);
+        }
     }
 }

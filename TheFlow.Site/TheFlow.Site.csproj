@@ -46,6 +46,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="MarkdownSharp">
+      <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Mvc">
       <HintPath>..\packages\Mvc4Futures.4.0.20710.0\lib\net40\Microsoft.Web.Mvc.dll</HintPath>
@@ -130,6 +133,7 @@
     <Compile Include="Controllers\ControllerHelper.cs" />
     <Compile Include="Controllers\DevelopController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Extensions.cs" />
@@ -153,6 +157,9 @@
     <Content Include="Content\foundation\foundation.css" />
     <Content Include="Content\foundation\foundation.min.css" />
     <Content Include="Content\foundation\normalize.css" />
+    <Content Include="Content\foundation\scss\foundation.css">
+      <DependentUpon>foundation.scss</DependentUpon>
+    </Content>
     <Content Include="Content\prettyprint\DesertStyle.css" />
     <Content Include="Content\prettyprint\DoxyStyle.css" />
     <Content Include="Content\prettyprint\GithubStyle.css" />
@@ -168,7 +175,9 @@
     <Content Include="Content\prettyprint\TomorrowNightStyle.css" />
     <Content Include="Content\prettyprint\TomorrowStyle.css" />
     <Content Include="Content\prettyprint\VibrantInkStyle.css" />
-    <Content Include="Content\Styles.css" />
+    <Content Include="Content\Styles.css">
+      <DependentUpon>Styles.scss</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="scripts\codify.js" />
     <Content Include="scripts\custom.modernizr.js" />
@@ -192,6 +201,51 @@
     <Content Include="scripts\foundation.topbar.js" />
     <Content Include="scripts\html5shiv.js" />
     <Content Include="App_Code\Helpers.cshtml" />
+    <Content Include="Content\foundation\scss\foundation.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_alert-boxes.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_block-grid.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_breadcrumbs.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_button-groups.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_buttons.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_clearing.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_custom-forms.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_dropdown-buttons.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_dropdown.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_flex-video.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_forms.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_global.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_grid-5.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_grid.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_inline-lists.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_joyride.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_keystrokes.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_labels.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_magellan.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_orbit.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_pagination.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_panels.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_pricing-tables.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_progress-bars.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_reveal.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_section.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_side-nav.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_split-buttons.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_sub-nav.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_switch.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_tables.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_thumbs.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_tooltips.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_top-bar.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_type.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_visibility.scss" />
+    <Content Include="Content\foundation\scss\foundation\_variables.scss" />
+    <Content Include="Content\foundation\scss\normalize.scss" />
+    <Content Include="Content\Styles.scss">
+      <Compile>True</Compile>
+      <Minify>True</Minify>
+      <CompileStyle>Nested</CompileStyle>
+      <DebugInfo>False</DebugInfo>
+    </Content>
     <None Include="scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="scripts\jquery-2.0.3.js" />
     <Content Include="scripts\jquery-2.0.3.min.js" />

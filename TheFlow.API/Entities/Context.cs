@@ -20,6 +20,9 @@ using System.Web;
 
 namespace TheFlow.API.Entities
 {
+    /// <summary>
+    /// Defines the data context for TheFlow. Use this for all interactions with the database.
+    /// </summary>
     public class DbContext : System.Data.Entity.DbContext, TheFlow.API.Entities.IDbContext
     {
         public DbSet<User> Users { get; set; }
@@ -28,6 +31,10 @@ namespace TheFlow.API.Entities
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Star> Stars { get; set; }
         public DbSet<Edit> Edits { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Vote> Votes { get; set; }
+        public DbSet<UpVote> UpVotes { get; set; }
+        public DbSet<DownVote> DownVotes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -35,6 +42,12 @@ namespace TheFlow.API.Entities
             modelBuilder.Entity<Post>().ToTable("Posts");
             modelBuilder.Entity<Question>().ToTable("Questions");
             modelBuilder.Entity<Answer>().ToTable("Answers");
+
+            modelBuilder.Entity<Vote>().ToTable("Votes");
+            modelBuilder.Entity<UpVote>().ToTable("UpVotes");
+            modelBuilder.Entity<DownVote>().ToTable("DownVotes");
+
+            modelBuilder.Entity<Post>().Ignore(a => a.Body);
         }
     }
 }

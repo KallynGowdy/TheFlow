@@ -17,7 +17,7 @@ An open source question and answer site inspired by [Stackoverflow](http://www.s
 - Markdown for posts, questions, comments etc.
 	- Syntax Highlighting using [Google Code Prettify](https://code.google.com/p/google-code-prettify/)
 		- Fully User customizable themes (with optional presets)
-	- Implemented with [PageDown](https://code.google.com/p/pagedown/)
+	- Implemented with [PageDown](https://code.google.com/p/pagedown/) and [MarkdownSharp](https://code.google.com/p/markdownsharp/)
 - (Possible) presentation support with [impress.js](http://bartaz.github.io/impress.js/#/bored "Impress.js")
 	- Not even close to being implemented yet
 
@@ -70,8 +70,13 @@ These are the entities used by the Entity Framework ORM to provide statically ty
 - `User`, An entity that is used to hold information about a user (`OpenId`, `Email`, `Display Name`, `Reputation`, etc).
 - `Star`, An entity that is used to mark a question that a user likes (`User`, `Question`, `Id`).
 - `Edit`, An entity that is used to define an edit to a `Post` (`New Body`, `Original Post`, etc).
-
+- `Vote`, An entity that is used to hold information about a vote on a post (`Voter`, `Post`, `DateVoted`, etc.)
+	- `UpVote`, An entity that is used to hold information about an Up Vote on a Post (No new information added from `Vote`)
+	- `DownVote`, An entity that is used to hold information about a Down Vote on a Post (No new information added from `Vote`)
+- `Preferences`, An entity that is used to hold information about a User's preferences (`CodeStyle`, etc)
 ##Question Presentation Format#
 - Every Question's body uses Markdown for formatting.
-	- Implemented with [PageDown](https://code.google.com/p/pagedown/)
+	- Implemented on the client side with [PageDown](https://code.google.com/p/pagedown/)
+	- Implemented on the server side with [MarkdownSharp](https://code.google.com/p/markdownsharp/)
 	- Uses [Google-Code-Prettify](https://code.google.com/p/google-code-prettify/wiki/GettingStarted) for syntax highlighting
+	- Uses [Moment.js](http://momentjs.com/) for easy 'Posted X Minutes/Hours/Days Ago' formatting

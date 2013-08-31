@@ -16,33 +16,61 @@ namespace TheFlow.Site.Controllers
         DbContext dataContext = new DbContext();
 
         /// <summary>
-        /// Creates a new answer posted by the currently logged in user.
+        /// Deletes the answer with the given id from the database. Requires authentication from the user that created the answer.
+        /// </summary>
+        /// <param name="answerId">The Id number of the answer to delete.</param>
+        /// <returns></returns>
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Delete([Bind(Prefix="id")] long answerId)
+        {
+            User user = ControllerHelper.Authenticate(Request, dataContext);
+            if (user != null)
+            {
+                Answer answer = dataContext.Answers.SingleOrDefault(a => a.Id == answerId);
+                //make sure the answer exits and that the author was the current user
+                if (answer != null && answer.Author.OpenId == user.OpenId)
+                {
+                    dataContext.Answers.Remove(answer);
+                    dataContext.SaveChanges();
+                }
+            }
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
+        }
+
+        /// <summary>
+        /// Creates or edits a new answer posted by the currently logged in user.
         /// </summary>
         /// <param name="answer"></param>
         /// <returns></returns>
         [ValidateAntiForgeryToken]
         [Authorize]
         [HttpPost]
-        [ValidateInput(true)]
+        [ValidateInput(false)]
         public ActionResult Create(AnswerModel answer)
         {
             User user = ControllerHelper.Authenticate(Request, dataContext);
             if (user != null && answer != null && ModelState.IsValid)
             {
-                Question question = dataContext.Questions.FirstOrDefault(a => a.Id == answer.QuestionId.Value);
+                Question question = dataContext.Questions.SingleOrDefault(a => a.Id == answer.QuestionId.Value);
                 if (question != null && question.Answers.All(a => a.Author.OpenId != user.OpenId))
                 {
-                    Answer a = new Answer
-                    {
-                        Author = user,
-                        Body = answer.Body,
-                        DatePosted = DateTime.Now,
-                        Question = question
-                    };
+                    Answer a = new Answer(user, answer.Body, question);
 
                     dataContext.Answers.Add(a);
                     dataContext.SaveChanges();
                     return RedirectToAction("Question", "Questions", new { id = answer.QuestionId });
+                }
+                else
+                {
+                    Answer a = dataContext.Answers.SingleOrDefault(ans => ans.Author.OpenId == user.OpenId);
+                    if (a != null)
+                    {
+                        //Apply the edit
+                        a.SetBody(answer.Body, user);
+                        dataContext.SaveChanges();
+                    }
                 }
             }
             return Redirect(Request.UrlReferrer.AbsoluteUri);

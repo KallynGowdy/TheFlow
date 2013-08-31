@@ -57,5 +57,6 @@ namespace TheFlow.API.Models
             get;
             set;
         }
+
     }
 }

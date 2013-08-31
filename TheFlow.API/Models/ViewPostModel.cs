@@ -9,13 +9,13 @@ namespace TheFlow.API.Models
     /// <summary>
     /// Defines a model for a post that is going to be viewed by the user.
     /// </summary>
-    public class ViewPostModel
+    public abstract class ViewPostModel
     {
-        public ViewPostModel()
+        protected ViewPostModel()
         {
         }
 
-        public ViewPostModel(Post post)
+        protected ViewPostModel(Post post)
         {
             post.ThrowIfNull();
             this.Author = new UserModel
@@ -29,8 +29,8 @@ namespace TheFlow.API.Models
             this.Id = post.Id;
             this.Body = post.Body;
             this.DateCreated = post.DatePosted.Value;
-            this.DownVotes = post.DownVotes;
-            this.UpVotes = post.UpVotes;
+            this.DownVotes = post.DownVotes.Select(v => new ViewDownVoteModel(v));
+            this.UpVotes = post.UpVotes.Select(v => new ViewUpVoteModel(v));
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace TheFlow.API.Models
         /// <summary>
         /// Gets or sets the upvotes on this post.
         /// </summary>
-        public int UpVotes
+        public IEnumerable<ViewUpVoteModel> UpVotes
         {
             get;
             set;
@@ -81,10 +81,32 @@ namespace TheFlow.API.Models
         /// <summary>
         /// Gets or sets the downvotes on this post.
         /// </summary>
-        public int DownVotes
+        public IEnumerable<ViewDownVoteModel> DownVotes
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// Gets the net vote on this post.
+        /// </summary>
+        public int NetVote
+        {
+            get
+            {
+                return UpVotes.Count() - DownVotes.Count();
+            }
+        }
+
+        /// <summary>
+        /// Gets the total number of votes on this post.
+        /// </summary>
+        public long TotalVotes
+        {
+            get
+            {
+                return ((long)UpVotes.Count() + (long)DownVotes.Count());
+            }
         }
     }
 }

@@ -1,7 +1,12 @@
-﻿@model TheFlow.API.Models.ViewQuestionModel
+﻿@using MarkdownSharp;
+@using TheFlow.Site;
+
+@model TheFlow.API.Models.ViewQuestionModel
 
 @{
     ViewBag.Title = "Question";
+    var markdown = new Markdown(true);
+    var user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);
 }
 
 @section head
@@ -19,41 +24,90 @@
     <script src="~/scripts/editor.js"></script>
     <script type="text/javascript">
         $(function () {
+            var textBody = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Body)));
 
+            var converter = new Markdown.getSanitizingConverter();
+
+            defaultHooks(converter);
+
+            $(".text-body").html(converter.makeHtml(textBody));
+
+            @foreach (var answer in Model.Answers)
+            {
+                var id = answer.Id;
+                @:var text_@id = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(answer.Body)));
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @:$(".answer-@id").html(converter.makeHtml(text_@id));
+            }
+            enableTab("wmd-input");
+            highlightCode();
+
+            enableEditor(function(editor){
+                editor.getConverter().hooks.chain("preConversion", function(text) {
+                    $("#Body").attr("value", text);
+                    return text;
+                });
+            });
         });
+
+        //find all of the elements with the up-vote class
+        //and send an ajax request to up-vote the post
+        $('.up-vote').click(function(){
+            var clicked = $(this);
+            var data = clicked.attr('data-post');
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: '/Posts/UpVote/' + data,
+                data: AddAntiForgeryToken({ } ),
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        });
+
+        //find all of the elements with the up-vote class
+        //and send an ajax request to up-vote the post
+        $('.down-vote').click(function(){
+            var clicked = $(this);
+            var data = clicked.attr('data-post');
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: '/Posts/DownVote/' + data,
+                data: AddAntiForgeryToken({ } ),
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        });
+
+        $('.post-back').click(function() {
+            var clicked = $(this);
+            var data = clicked.attr('data-post');
+            $.ajax({
+                type: "post",
+                dataType: "html",
+                url: data,
+                data: AddAntiForgeryToken({ } ),
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        });
+
+        //find all of the elements with .time class
+        var timeElements = $('.time-from-now');
+
+        setInterval(function(){
+            //set the text
+            timeElements.html(function(index, text) {
+                timeElements[index].innerText = moment.utc(timeElements[index].getAttribute('data-time')).local().fromNow();
+            });
+        }, 1000); //60000 /*every minute*/);
     </script>
 }
 
-@section OnPageLoadFunction
-{
-
-
-    var textBody = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Body)));
-
-        var converter = new Markdown.getSanitizingConverter();
-
-        defaultHooks(converter);
-
-        $(".text-body").html(converter.makeHtml(textBody));
-
-        @foreach (var answer in Model.Answers)
-        {
-            var id = answer.Id;
-            @:var text_@id = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(answer.Body)));
-            @:$(".answer-@id").html(converter.makeHtml(text_@id));
-        }
-
-highlightCode();
-
-        enableEditor(function(editor){
-            editor.getConverter().hooks.chain("preConversion", function(text) {
-                        $("#Body").attr("value", text);
-                        return text;
-                });
-        });
-}
-
-@section TimeUpdateFunction
+@*@section TimeUpdateFunction
 {
     var timePosted = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.DateCreated.ToUniversalTime().ToString("MM/dd/yyyy H:mm:ss"))));
     var format = "MM/DD/YYYY H:mm:ss";
@@ -65,20 +119,48 @@ highlightCode();
         @:var time_@id = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(answer.DateCreated.ToUniversalTime().ToString("MM/dd/yyyy H:mm:ss"))));
         @:$("#time-@id").text(moment.utc(time_@id, format).local().fromNow());
     }
-}
-
-
+}*@
+@{bool displayDelete = (user != null && @Model.Author.DisplayName == user.DisplayName);}
 <div class="panel" style="background-color: white">
     <div class="row">
         <div class="columns large-8">
             <h2 style="color: #f2b21b">@Model.Title</h2>
         </div>
         <div class="columns large-offset-1 large-3 text-center">
-            <p>Posted by <a href="/Users/Info?user=@Model.Author.DisplayName">@Model.Author.DisplayName</a> <span id="date-posted"></span></p>
+            <p>Posted by <a href="/Users/Info?user=@Model.Author.DisplayName">@Model.Author.DisplayName</a> <span class="time-from-now" data-time="@Model.DateCreated.ToUtcString()"></span></p>
         </div>
     </div>
     <hr />
-    <div class="text-body"></div>
+    <div class="row">
+        <div class="columns large-1">
+            <a class="button full-width show-for-small">Vote</a>
+            <ul class="button-group vertical radius hide-for-small">
+                <li><a href="#" data-post="@Model.Id" class="button tiny up-vote" title="Vote Up">▲</a></li>
+                <li><a class="button disabled tiny" title="@(String.Format("{0} Up Votes and {1} Down Votes", Model.UpVotes.Count().ToString(), Model.DownVotes.Count().ToString()))">@Model.NetVote</a></li>
+                <li><a data-post="@Model.Id" class="button tiny down-vote" title="Vote Down">▼</a></li>
+            </ul>
+        </div>
+        <div class="columns large-11">
+            <div class="panel radius transparent">
+                @markdown.Transform(Model.Body).ToHtml()
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="columns large-12">
+            <ul class="button-group radius">
+                <li><a href="#" class="button medium-on-small tiny-on-medium-up">Share</a></li>
+                <li><a href="#" class="button medium-on-small tiny-on-medium-up">Edit</a></li>
+                <li><a href="#" class="button medium-on-small tiny-on-medium-up">Flag</a></li>
+                @if (displayDelete)
+                {
+                    <li><a data-post="/Answers/Delete/@Model.Id" class="post-back button medium-on-small tiny-on-medium-up">Delete</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+
 </div>
 @if (Model.Answers != null && Model.Answers.Any())
 {
@@ -86,20 +168,59 @@ highlightCode();
     {
     <hr />
     <div class="panel" style="background-color: transparent">
-
-
         <div class="row">
             <div class="columns large-1">
-                <a class="vote-up-disabled">Vote Up</a>
-                Vote
+                <a class="button full-width show-for-small">Vote</a>
+                <ul class="button-group vertical radius hide-for-small">
+                    <li><a data-post="@answer.Id" href="#" class="button tiny up-vote" title="Vote Up">▲</a></li>
+                    <li><a class="button disabled tiny" title="@(String.Format("{0} Up Votes and {1} Down Votes", Model.UpVotes.Count().ToString(), Model.DownVotes.Count().ToString()))">@answer.NetVote</a></li>
+                    <li><a data-post="@answer.Id" class="button tiny down-vote"  title="Vote Down">▼</a></li>
+                </ul>
             </div>
             <div class="columns large-11">
-                <div class="answer-@answer.Id"></div>
+                <div class="panel radius transparent">
+                    @markdown.Transform(answer.Body).ToHtml()
+                </div>
             </div>
         </div>
+        <hr />
         <div class="row">
-            <div class="columns large-12 text-right">
-                <p>Posted by <a href="/Users/Info?user=@answer.Author.DisplayName">@answer.Author.DisplayName</a> <span id="time-@answer.Id"></span></p>
+            @{
+        displayDelete = (user != null && user.DisplayName == answer.Author.DisplayName);
+        string columnSize = displayDelete ? "large-3" : "large-4";
+            }
+            <div class="columns large-3">
+                <div>
+                    <ul class="button-group radius">
+                        <li><a href="#" class="button medium-on-small tiny-on-medium-up">Share</a></li>
+                        <li><a href="#" class="button medium-on-small tiny-on-medium-up">Edit</a></li>
+                        <li><a href="#" class="button medium-on-small tiny-on-medium-up">Flag</a></li>
+                        @if (displayDelete)
+                        {
+                            <li><a data-post="/Answers/Delete/@answer.Id" class="post-back button medium-on-small tiny-on-medium-up">Delete</a></li>
+                        }
+                    </ul>
+                </div>
+                @*<div class="row">
+                    <div class="@columnSize columns">
+                        <a href="#" class="button tiny full-width">Share</a>
+                    </div>
+                    <div class="@columnSize columns">
+                        <a href="#" class="button tiny full-width">Edit</a>
+                    </div>
+                    <div class="@columnSize columns">
+                        <a href="#" class="button tiny full-width">Flag</a>
+                    </div>
+                    @if (displayDelete)
+                    {
+                        <div class="@columnSize columns">
+                            <a href="/Answers/Delete/@answer.Id" class="button tiny">Delete</a>
+                        </div>   
+                    }
+                </div>*@
+            </div>
+            <div class="columns large-8 text-right">
+                <p>Posted by <a href="/Users/Info?user=@answer.Author.DisplayName">@answer.Author.DisplayName</a> <span class="time-from-now" data-time="@answer.DateCreated.ToUtcString()"></span></p>
             </div>
         </div>
     </div>
@@ -114,13 +235,29 @@ else
 <hr />
 <div class="row">
     <div class="columns large-12">
-        <h2 class="hide-for-small">Submit your Answer</h2>
-        <h2 class="show-for-small text-center">Submit your Answer</h2>
+        @{
+            bool editable = (user != null && Model.Answers.Any(a => a.Author.DisplayName == user.DisplayName));
+        }
+        @if (editable)
+        {
+            <h2 class="hide-for-small">Edit your Answer</h2>
+            <h2 class="show-for-small text-center">Edit your Answer</h2>
+        }
+        else
+        {
+            <h2 class="hide-for-small">Submit your Answer</h2>
+            <h2 class="show-for-small text-center">Submit your Answer</h2>
+        }
         <form action="/Answers/Create" method="post" data-abide="">
             @Html.AntiForgeryToken()
             <input type="hidden" id="QuestionId" name="QuestionId" value="@Model.Id.ToString()" />
             <div id="body-field">
-                <textarea class="wmd-input" id="wmd-input" style="width: 100%; min-height: 16em;" required></textarea>
+                <textarea class="wmd-input" id="wmd-input" style="width: 100%; min-height: 16em;" required>
+                    @if (editable)
+                    {
+                        @Model.Answers.Single(a => a.Author.DisplayName == user.DisplayName).Body;
+                    }
+                </textarea>
                 <small class="error">Please provide an answer</small>
             </div>
             <div class="panel radius" style="background-color: transparent;">
@@ -128,7 +265,24 @@ else
                 <div id="wmd-preview"></div>
             </div>
             <input type="hidden" id="Body" name="Body" value="" />
-            <button class="button success" type="submit">Post your Answer</button>
+            <button class="button success hide-for-small" type="submit">
+                @if (editable)
+                {
+                    @:Edit your Answer
+                }
+                else
+                {
+                    @:Post your Answer
+                }</button>
+            <button class="button success show-for-small full-width" type="submit">
+                @if (editable)
+                {
+                    @:Edit your Answer
+                }
+                else
+                {
+                    @:Post your Answer
+                }</button>
         </form>
     </div>
 </div>

@@ -1837,8 +1837,11 @@ label.error {
   .button-group > * {
     margin: 0 0 0 -1px;
     float: left; }
-    .button-group > *:first-child {
-      margin-left: 0; }
+  /* commented out and replaced because it was causing (small) formatting issues on chrome*/
+    /*.button-group > *:first-child {
+      margin-left: 0px; }*/
+    .button-group > * {
+      margin-left: 0px; }
   .button-group.radius > *:first-child, .button-group.radius > *:first-child > a, .button-group.radius > *:first-child > button, .button-group.radius > *:first-child > .button {
     -moz-border-radius-bottomleft: 3px;
     -moz-border-radius-topleft: 3px;
