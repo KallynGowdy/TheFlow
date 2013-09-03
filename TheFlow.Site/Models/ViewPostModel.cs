@@ -28,7 +28,7 @@ namespace TheFlow.Api.Models
                 Preferences = post.Author.Preferences == null ? (post.Author.Preferences = new Preferences()).ToModel() : post.Author.Preferences.ToModel()
             };
             this.Id = post.Id;
-            this.Body = post.Body;
+            this.Body = post.GetMarkdownBody();
             this.DateCreated = post.DatePosted.Value;
             this.DownVotes = post.DownVotes.Select(v => new ViewDownVoteModel(v));
             this.UpVotes = post.UpVotes.Select(v => new ViewUpVoteModel(v));

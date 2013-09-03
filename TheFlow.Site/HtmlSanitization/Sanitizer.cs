@@ -48,14 +48,25 @@ namespace TheFlow.Site.HtmlSanitization
             {
                 if (doc.DocumentNode.HasChildNodes)
                 {
-                    filterElement(doc.DocumentNode.FirstChild);
+                    for (int i = 0; i < doc.DocumentNode.ChildNodes.Count; i++)
+                    {
+                        if (filterElement(doc.DocumentNode.ChildNodes[i]))
+                        {
+                            i--;
+                        }
+                    }
                 }
                 return doc.DocumentNode.InnerHtml;
             }
             return string.Empty;
         }
 
-        private void filterElement(HtmlNode node)
+        /// <summary>
+        /// Filters the element, returns whether the element was removed.
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        private bool filterElement(HtmlNode node)
         {
             if (ElementFilter.IsValid(node))
             {
@@ -63,11 +74,13 @@ namespace TheFlow.Site.HtmlSanitization
                 {
                     filterElement(child);
                 }
+                return false;
             }
             else
             {
                 node.RemoveAllChildren();
                 node.Remove();
+                return true;
             }
         }
     }
@@ -175,7 +188,7 @@ namespace TheFlow.Site.HtmlSanitization
         /// <returns></returns>
         public bool IsValid(HtmlNode node)
         {
-            if ( MappedElements.ContainsKey(node.Name))
+            if (MappedElements.ContainsKey(node.Name))
             {
                 //if we should remove all of the bad attributes
                 if (FilterType == HtmlSanitization.FilterType.RemoveBad)

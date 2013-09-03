@@ -108,7 +108,7 @@ namespace TheFlow.Api.Entities
             {
                 Title = this.Title,
                 Author = this.Author.DisplayName,
-                Body = this.Body,
+                Body = this.GetMarkdownBody(),
                 DateCreated = this.DatePosted
             };
         }

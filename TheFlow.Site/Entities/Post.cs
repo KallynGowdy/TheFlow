@@ -12,6 +12,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using MarkdownSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +21,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using TheFlow.Api.Authentication;
+using TheFlow.Site.Controllers;
 
 namespace TheFlow.Api.Entities
 {
@@ -64,6 +66,16 @@ namespace TheFlow.Api.Entities
             {
                 return GetCurrentBody();
             }
+        }
+
+        /// <summary>
+        /// Gets the sanitized markdown-converted version of the body of this post.
+        /// </summary>
+        /// <returns></returns>
+        public string GetMarkdownBody()
+        {
+            Markdown m = new Markdown(true);
+            return ControllerHelper.HtmlSanitizer.GetHtml(m.Transform(GetCurrentBody()));
         }
 
         /// <summary>
@@ -182,7 +194,7 @@ namespace TheFlow.Api.Entities
             }
             else
             {
-                return Body;
+                return string.Empty;
             }
         }
     }

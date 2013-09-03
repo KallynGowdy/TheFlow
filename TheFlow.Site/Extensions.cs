@@ -11,6 +11,16 @@ namespace TheFlow.Site
     public static class Extensions
     {
         /// <summary>
+        /// Sanitizes the current html string and returns a new sanitized html string.
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        public static HtmlString Sanitize(this HtmlString html)
+        {
+            return new HtmlString(Controllers.ControllerHelper.HtmlSanitizer.GetHtml(html.ToString()));
+        }
+
+        /// <summary>
         /// Throws an Argument null exception if the current object is null. Returns the value of the object if not null.
         /// </summary>
         /// <param name="obj"></param>
