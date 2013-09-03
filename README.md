@@ -74,7 +74,8 @@ These are the entities used by the Entity Framework ORM to provide statically ty
 	- `UpVote`, An entity that is used to hold information about an Up Vote on a Post (No new information added from `Vote`)
 	- `DownVote`, An entity that is used to hold information about a Down Vote on a Post (No new information added from `Vote`)
 - `Preferences`, An entity that is used to hold information about a User's preferences (`CodeStyle`, etc)
-##Question Presentation Format#
+
+##Question Presentation Format
 - Every Question's body uses Markdown for formatting.
 	- Implemented on the client side with [PageDown](https://code.google.com/p/pagedown/)
 	- Implemented on the server side with [MarkdownSharp](https://code.google.com/p/markdownsharp/)
