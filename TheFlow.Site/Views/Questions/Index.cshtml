@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-@model IEnumerable<TheFlow.API.Entities.Question>
+@model IEnumerable<TheFlow.Api.Entities.Question>
 
 @section NavBarRight
 {
@@ -25,7 +25,7 @@
 </div>
 <div class="row">
     <div class="columns large-3 push-9">
-        <p class="success text-center">Showing @Model.Count() of @(string.Format("{0:n0}", new TheFlow.API.Entities.DbContext().Questions.Count())) Questions</p>
+        <p class="success text-center">Showing @Model.Count() of @(string.Format("{0:n0}", new TheFlow.Api.Entities.DbContext().Questions.Count())) Questions</p>
     </div>
     <div class="columns large-9 pull-3">
 

@@ -17,8 +17,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Models;
-using TheFlow.API.Authentication;
+using TheFlow.Api.Models;
+using TheFlow.Api.Authentication;
 
 namespace TheFlow.Site.Controllers
 {
@@ -85,7 +85,7 @@ namespace TheFlow.Site.Controllers
         public ActionResult _Menu()
         {
             List<MenuItem> menu = new List<MenuItem>();
-            TheFlow.API.Entities.User user = ControllerHelper.Authenticate(Request);
+            TheFlow.Api.Entities.User user = ControllerHelper.Authenticate(Request);
             if (user == null)
             {
                 menu.Add(new MenuItem("Create Account", "~/Users/LogIn"));

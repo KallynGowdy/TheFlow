@@ -2937,11 +2937,11 @@ label.error {
       background: #c60f13; }
       .top-bar-section ul li > a.button.alert.hover {
         background: #970b0e; }
-  .top-bar-section ul li.hover > a {
-    background: #090909;
+  .top-bar-section ul li:hover > a {
+    background: #2b2b2b;
     color: white; }
-  .top-bar-section ul li.active > a {
-    background: #090909;
+  .top-bar-section ul li:active > a {
+    background: #202020;
     color: white; }
   .top-bar-section .has-form {
     padding: 15px; }
@@ -3109,10 +3109,10 @@ label.error {
         right: 100%; }
 
   .no-js .top-bar-section ul li:hover > a {
-    background: #090909;
+    background: #2b2b2b;
     color: white; }
   .no-js .top-bar-section ul li:active > a {
-    background: #090909;
+    background: #202020;
     color: white; }
   .no-js .top-bar-section .has-dropdown:hover > .dropdown {
     visibility: visible; } }

@@ -1,5 +1,5 @@
 ﻿@* Gets the path to the code style stylesheet based on the current user preferences. *@
-@helper GetCodeStylePath(TheFlow.API.Entities.User user = null)
+@helper GetCodeStylePath(TheFlow.Api.Entities.User user = null)
 {
     if (user == null)
     {
@@ -9,7 +9,7 @@
     {
         switch (user.Preferences.CodeStyle)
         {
-            case TheFlow.API.Entities.CodeStyle.Default:
+            case TheFlow.Api.Entities.CodeStyle.Default:
     @:/TheFlow/Content/prettyprint/TomorrowStyle.css
                 break;
             default:
@@ -24,11 +24,11 @@
 }
 
 @* Gets the path to the code style stylesheet based on the current user preferences. *@
-@helper GetCodeStylePath(TheFlow.API.Entities.CodeStyle codeStyle)
+@helper GetCodeStylePath(TheFlow.Api.Entities.CodeStyle codeStyle)
 {
     switch (codeStyle)
     {
-        case TheFlow.API.Entities.CodeStyle.Default:
+        case TheFlow.Api.Entities.CodeStyle.Default:
     @:/TheFlow/Content/prettyprint/TomorrowStyle.css
                 break;
         default:

@@ -1,0 +1,608 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3221C31E-3BE2-47E4-9948-3EA03C9C61F6}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TheFlow.Site</RootNamespace>
+    <AssemblyName>TheFlow.Site</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort>44301</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.3.1.13153\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core.UI, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.Core.UI.4.3.1.13153\lib\net45-full\DotNetOpenAuth.Core.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.InfoCard, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.InfoCard.4.3.1.13153\lib\net45-full\DotNetOpenAuth.InfoCard.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.InfoCard.UI, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.InfoCard.UI.4.3.1.13153\lib\net45-full\DotNetOpenAuth.InfoCard.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Common, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Common.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OAuth.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.ServiceProvider, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.ServiceProvider.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OAuth.ServiceProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.Core.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OAuth2.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2.AuthorizationServer, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.AuthorizationServer.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OAuth2.AuthorizationServer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2.Client, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.Client.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OAuth2.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2.Client.UI, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.Client.UI.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OAuth2.Client.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2.ClientAuthorization, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.ClientAuthorization.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OAuth2.ClientAuthorization.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2.ResourceServer, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.ResourceServer.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OAuth2.ResourceServer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.Provider, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Provider.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OpenId.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.Provider.UI, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Provider.UI.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OpenId.Provider.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty.UI, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.UI.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.UI, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.UI.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OpenId.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenIdInfoCard.UI, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenIdInfoCard.UI.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OpenIdInfoCard.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenIdOAuth, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenIdOAuth.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OpenIdOAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MarkdownSharp">
+      <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Mvc">
+      <HintPath>..\packages\Mvc4Futures.4.0.20710.0\lib\net40\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BootstrapBundleConfig.cs" />
+    <Compile Include="Authentication\AuthenticationServer.cs" />
+    <Compile Include="Authorization\OpenIDAuthorizeAttribute.cs" />
+    <Compile Include="Controllers\AnswersController.cs" />
+    <Compile Include="Controllers\ControllerHelper.cs" />
+    <Compile Include="Controllers\DevelopController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\QuestionsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DateExtension.cs" />
+    <Compile Include="Entities\Answer.cs" />
+    <Compile Include="Entities\Comment.cs" />
+    <Compile Include="Entities\Context.cs" />
+    <Compile Include="Entities\DownVote.cs" />
+    <Compile Include="Entities\Edit.cs" />
+    <Compile Include="Entities\IContext.cs" />
+    <Compile Include="Entities\Post.cs" />
+    <Compile Include="Entities\Preferences.cs" />
+    <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\Star.cs" />
+    <Compile Include="Entities\UpVote.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\Vote.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Filters\RequireHttpsAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlHelperExtensions.cs" />
+    <Compile Include="Migrations\201308121909368_InitialCreate.cs" />
+    <Compile Include="Migrations\201308121909368_InitialCreate.Designer.cs">
+      <DependentUpon>201308121909368_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308121943288_AddFirstLastName.cs" />
+    <Compile Include="Migrations\201308121943288_AddFirstLastName.Designer.cs">
+      <DependentUpon>201308121943288_AddFirstLastName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308122018280_UpdateBodyTypeUser.cs" />
+    <Compile Include="Migrations\201308122018280_UpdateBodyTypeUser.Designer.cs">
+      <DependentUpon>201308122018280_UpdateBodyTypeUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308130233368_UserAddDateJoined.cs" />
+    <Compile Include="Migrations\201308130233368_UserAddDateJoined.Designer.cs">
+      <DependentUpon>201308130233368_UserAddDateJoined.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308130345166_AddEdits.cs" />
+    <Compile Include="Migrations\201308130345166_AddEdits.Designer.cs">
+      <DependentUpon>201308130345166_AddEdits.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308130352046_EditBodyColumnTypeToNText.cs" />
+    <Compile Include="Migrations\201308130352046_EditBodyColumnTypeToNText.Designer.cs">
+      <DependentUpon>201308130352046_EditBodyColumnTypeToNText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308141729420_AddReputationToUsers.cs" />
+    <Compile Include="Migrations\201308141729420_AddReputationToUsers.Designer.cs">
+      <DependentUpon>201308141729420_AddReputationToUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308141828251_ChangedAgeToDOB.cs" />
+    <Compile Include="Migrations\201308141828251_ChangedAgeToDOB.Designer.cs">
+      <DependentUpon>201308141828251_ChangedAgeToDOB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308252343300_AddedUserPreferences.cs" />
+    <Compile Include="Migrations\201308252343300_AddedUserPreferences.Designer.cs">
+      <DependentUpon>201308252343300_AddedUserPreferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308271748533_AddedAnswersReferenceToQuestion.cs" />
+    <Compile Include="Migrations\201308271748533_AddedAnswersReferenceToQuestion.Designer.cs">
+      <DependentUpon>201308271748533_AddedAnswersReferenceToQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308272139272_CleanedUpAnswerRefsToQuestion.cs" />
+    <Compile Include="Migrations\201308272139272_CleanedUpAnswerRefsToQuestion.Designer.cs">
+      <DependentUpon>201308272139272_CleanedUpAnswerRefsToQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308280048366_AddedEditDate.cs" />
+    <Compile Include="Migrations\201308280048366_AddedEditDate.Designer.cs">
+      <DependentUpon>201308280048366_AddedEditDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308291804458_AbstractedVotesToEntities.cs" />
+    <Compile Include="Migrations\201308291804458_AbstractedVotesToEntities.Designer.cs">
+      <DependentUpon>201308291804458_AbstractedVotesToEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308300202594_RemovedSecondRefFromPostToVote.cs" />
+    <Compile Include="Migrations\201308300202594_RemovedSecondRefFromPostToVote.Designer.cs">
+      <DependentUpon>201308300202594_RemovedSecondRefFromPostToVote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308300402433_SwitchedPostsToUseEdits.cs" />
+    <Compile Include="Migrations\201308300402433_SwitchedPostsToUseEdits.Designer.cs">
+      <DependentUpon>201308300402433_SwitchedPostsToUseEdits.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201308300433228_MadeQuestionTitleRequired.cs" />
+    <Compile Include="Migrations\201308300433228_MadeQuestionTitleRequired.Designer.cs">
+      <DependentUpon>201308300433228_MadeQuestionTitleRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AnswerModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\PostModel.cs" />
+    <Compile Include="Models\PreferencesModel.cs" />
+    <Compile Include="Models\QuestionModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\ViewAnswerModel.cs" />
+    <Compile Include="Models\ViewDownVoteModel.cs" />
+    <Compile Include="Models\ViewPostModel.cs" />
+    <Compile Include="Models\ViewQuestionModel.cs" />
+    <Compile Include="Models\ViewTagModel.cs" />
+    <Compile Include="Models\ViewUpVoteModel.cs" />
+    <Compile Include="Models\ViewVoteModel.cs" />
+    <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
+    <Compile Include="NavigationRoutes\NamedRoute.cs" />
+    <Compile Include="NavigationRoutes\NavigationExtensions.cs" />
+    <Compile Include="NavigationRoutes\NavigationRouteConfigurationExtensions.cs" />
+    <Compile Include="NavigationRoutes\NavigationRouteFilter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\body.css" />
+    <Content Include="Content\foundation\foundation.css" />
+    <Content Include="Content\foundation\foundation.min.css" />
+    <Content Include="Content\foundation\normalize.css" />
+    <Content Include="Content\foundation\scss\foundation.css">
+      <DependentUpon>foundation.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\prettyprint\DesertStyle.css" />
+    <Content Include="Content\prettyprint\DoxyStyle.css" />
+    <Content Include="Content\prettyprint\GithubStyle.css" />
+    <Content Include="Content\prettyprint\HemisuDarkStyle.css" />
+    <Content Include="Content\prettyprint\HemisuLightStyle.css" />
+    <Content Include="Content\prettyprint\prettify.css" />
+    <Content Include="Content\prettyprint\SolarizedDarkStyle.css" />
+    <Content Include="Content\prettyprint\SonsOfObsidianStyle.css" />
+    <Content Include="Content\prettyprint\SunburstStyle.css" />
+    <Content Include="Content\prettyprint\TomorrowNightBlueStyle.css" />
+    <Content Include="Content\prettyprint\TomorrowNightBrightStyle.css" />
+    <Content Include="Content\prettyprint\TomorrowNightEightiesStyle.css" />
+    <Content Include="Content\prettyprint\TomorrowNightStyle.css" />
+    <Content Include="Content\prettyprint\TomorrowStyle.css" />
+    <Content Include="Content\prettyprint\VibrantInkStyle.css" />
+    <Content Include="Content\Styles.css">
+      <DependentUpon>Styles.scss</DependentUpon>
+    </Content>
+    <Content Include="Global.asax" />
+    <Content Include="scripts\codify.js" />
+    <Content Include="scripts\custom.modernizr.js" />
+    <Content Include="scripts\editor.js" />
+    <Content Include="scripts\foundation.abide.js" />
+    <Content Include="scripts\foundation.alerts.js" />
+    <Content Include="scripts\foundation.clearing.js" />
+    <Content Include="scripts\foundation.cookie.js" />
+    <Content Include="scripts\foundation.dropdown.js" />
+    <Content Include="scripts\foundation.forms.js" />
+    <Content Include="scripts\foundation.interchange.js" />
+    <Content Include="scripts\foundation.joyride.js" />
+    <Content Include="scripts\foundation.js" />
+    <Content Include="scripts\foundation.magellan.js" />
+    <Content Include="scripts\foundation.min.js" />
+    <Content Include="scripts\foundation.orbit.js" />
+    <Content Include="scripts\foundation.placeholder.js" />
+    <Content Include="scripts\foundation.reveal.js" />
+    <Content Include="scripts\foundation.section.js" />
+    <Content Include="scripts\foundation.tooltips.js" />
+    <Content Include="scripts\foundation.topbar.js" />
+    <Content Include="scripts\html5shiv.js" />
+    <Content Include="App_Code\Helpers.cshtml" />
+    <Content Include="Content\foundation\scss\foundation.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_alert-boxes.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_block-grid.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_breadcrumbs.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_button-groups.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_buttons.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_clearing.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_custom-forms.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_dropdown-buttons.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_dropdown.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_flex-video.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_forms.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_global.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_grid-5.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_grid.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_inline-lists.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_joyride.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_keystrokes.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_labels.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_magellan.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_orbit.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_pagination.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_panels.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_pricing-tables.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_progress-bars.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_reveal.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_section.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_side-nav.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_split-buttons.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_sub-nav.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_switch.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_tables.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_thumbs.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_tooltips.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_top-bar.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_type.scss" />
+    <Content Include="Content\foundation\scss\foundation\components\_visibility.scss" />
+    <Content Include="Content\foundation\scss\foundation\_variables.scss" />
+    <Content Include="Content\foundation\scss\normalize.scss" />
+    <Content Include="Content\Styles.scss">
+      <Compile>True</Compile>
+      <Minify>True</Minify>
+      <CompileStyle>Nested</CompileStyle>
+      <DebugInfo>False</DebugInfo>
+    </Content>
+    <None Include="scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="scripts\jquery-2.0.3.js" />
+    <Content Include="scripts\jquery-2.0.3.min.js" />
+    <Content Include="scripts\jquery-migrate-1.1.1.js" />
+    <Content Include="scripts\jquery-migrate-1.1.1.min.js" />
+    <Content Include="scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="scripts\jquery-2.0.3.min.map" />
+    <None Include="scripts\jquery.validate-vsdoc.js" />
+    <Content Include="scripts\jquery.validate.js" />
+    <Content Include="scripts\jquery.validate.min.js" />
+    <Content Include="scripts\jquery.validate.unobtrusive-custom-for-bootstrap.js" />
+    <Content Include="scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="scripts\moment.js" />
+    <Content Include="scripts\moment.min.js" />
+    <Content Include="scripts\pagedown\LICENSE.txt" />
+    <Content Include="scripts\pagedown\Markdown.Converter.js" />
+    <Content Include="scripts\pagedown\Markdown.Editor.js" />
+    <Content Include="scripts\pagedown\Markdown.Sanitizer.js" />
+    <Content Include="scripts\pagedown\README.txt" />
+    <Content Include="scripts\prettyprint\lang-apollo.js" />
+    <Content Include="scripts\prettyprint\lang-basic.js" />
+    <Content Include="scripts\prettyprint\lang-clj.js" />
+    <Content Include="scripts\prettyprint\lang-css.js" />
+    <Content Include="scripts\prettyprint\lang-dart.js" />
+    <Content Include="scripts\prettyprint\lang-erlang.js" />
+    <Content Include="scripts\prettyprint\lang-go.js" />
+    <Content Include="scripts\prettyprint\lang-hs.js" />
+    <Content Include="scripts\prettyprint\lang-lisp.js" />
+    <Content Include="scripts\prettyprint\lang-llvm.js" />
+    <Content Include="scripts\prettyprint\lang-lua.js" />
+    <Content Include="scripts\prettyprint\lang-matlab.js" />
+    <Content Include="scripts\prettyprint\lang-ml.js" />
+    <Content Include="scripts\prettyprint\lang-mumps.js" />
+    <Content Include="scripts\prettyprint\lang-n.js" />
+    <Content Include="scripts\prettyprint\lang-pascal.js" />
+    <Content Include="scripts\prettyprint\lang-proto.js" />
+    <Content Include="scripts\prettyprint\lang-r.js" />
+    <Content Include="scripts\prettyprint\lang-rd.js" />
+    <Content Include="scripts\prettyprint\lang-scala.js" />
+    <Content Include="scripts\prettyprint\lang-sql.js" />
+    <Content Include="scripts\prettyprint\lang-tcl.js" />
+    <Content Include="scripts\prettyprint\lang-tex.js" />
+    <Content Include="scripts\prettyprint\lang-vb.js" />
+    <Content Include="scripts\prettyprint\lang-vhdl.js" />
+    <Content Include="scripts\prettyprint\lang-wiki.js" />
+    <Content Include="scripts\prettyprint\lang-xq.js" />
+    <Content Include="scripts\prettyprint\lang-yaml.js" />
+    <Content Include="scripts\prettyprint\prettify.js" />
+    <Content Include="scripts\prettyprint\run_prettify.js" />
+    <Content Include="scripts\zepto.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\shared\Details.cshtml" />
+    <Content Include="Views\shared\Create.cshtml" />
+    <Content Include="Views\shared\_validationSummary.cshtml" />
+    <Content Include="Views\shared\_BootstrapLayout.narrow.cshtml" />
+    <Content Include="Views\shared\_BootstrapLayout.empty.cshtml" />
+    <Content Include="Views\shared\_Layout.cshtml" />
+    <Content Include="Views\shared\_alerts.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\ExampleLayouts\TBD.cshtml" />
+    <Content Include="Views\ExampleLayouts\Starter.cshtml" />
+    <Content Include="Views\ExampleLayouts\SignIn.cshtml" />
+    <Content Include="Views\ExampleLayouts\Narrow.cshtml" />
+    <Content Include="Views\shared\Index.cshtml" />
+    <Content Include="Views\Home\Learn.cshtml" />
+    <Content Include="Views\Develop\Index.cshtml" />
+    <Content Include="Views\Users\LogIn.cshtml" />
+    <Content Include="Views\Users\Welcome.cshtml" />
+    <Content Include="Views\Users\Info.cshtml" />
+    <Content Include="Views\Questions\Index.cshtml" />
+    <Content Include="Views\Home\_Menu.cshtml" />
+    <Content Include="Views\Questions\Create.cshtml" />
+    <Content Include="Views\Questions\Question.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\shared\_html5shiv.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201308121909368_InitialCreate.resx">
+      <DependentUpon>201308121909368_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308121943288_AddFirstLastName.resx">
+      <DependentUpon>201308121943288_AddFirstLastName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308122018280_UpdateBodyTypeUser.resx">
+      <DependentUpon>201308122018280_UpdateBodyTypeUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308130233368_UserAddDateJoined.resx">
+      <DependentUpon>201308130233368_UserAddDateJoined.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308130345166_AddEdits.resx">
+      <DependentUpon>201308130345166_AddEdits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308130352046_EditBodyColumnTypeToNText.resx">
+      <DependentUpon>201308130352046_EditBodyColumnTypeToNText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308141729420_AddReputationToUsers.resx">
+      <DependentUpon>201308141729420_AddReputationToUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308141828251_ChangedAgeToDOB.resx">
+      <DependentUpon>201308141828251_ChangedAgeToDOB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308252343300_AddedUserPreferences.resx">
+      <DependentUpon>201308252343300_AddedUserPreferences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308271748533_AddedAnswersReferenceToQuestion.resx">
+      <DependentUpon>201308271748533_AddedAnswersReferenceToQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308272139272_CleanedUpAnswerRefsToQuestion.resx">
+      <DependentUpon>201308272139272_CleanedUpAnswerRefsToQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308280048366_AddedEditDate.resx">
+      <DependentUpon>201308280048366_AddedEditDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308291804458_AbstractedVotesToEntities.resx">
+      <DependentUpon>201308291804458_AbstractedVotesToEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308300202594_RemovedSecondRefFromPostToVote.resx">
+      <DependentUpon>201308300202594_RemovedSecondRefFromPostToVote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308300402433_SwitchedPostsToUseEdits.resx">
+      <DependentUpon>201308300402433_SwitchedPostsToUseEdits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201308300433228_MadeQuestionTitleRequired.resx">
+      <DependentUpon>201308300433228_MadeQuestionTitleRequired.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51468</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/TheFlow</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

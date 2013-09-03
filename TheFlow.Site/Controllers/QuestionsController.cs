@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TheFlow.API.Entities;
-using TheFlow.API.Models;
+using TheFlow.Api.Entities;
+using TheFlow.Api.Models;
 using System.Data.Entity;
 
 namespace TheFlow.Site.Controllers
 {
     public class QuestionsController : Controller
     {
-        TheFlow.API.Entities.DbContext dataContext = new TheFlow.API.Entities.DbContext();
+        TheFlow.Api.Entities.DbContext dataContext = new TheFlow.Api.Entities.DbContext();
 
         /// <summary>
         /// Serves the index of the top 50 questions to the user.

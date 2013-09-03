@@ -51,7 +51,7 @@
                 </ul>
                 <ul class="right">
                     <li class="divider"></li>
-                    @{TheFlow.API.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);}
+                    @{TheFlow.Api.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);}
 
                     @if (user == null)
                     {

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TheFlow.API.Entities;
-using TheFlow.API.Models;
+using TheFlow.Api.Entities;
+using TheFlow.Api.Models;
 
 namespace TheFlow.Site.Controllers
 {

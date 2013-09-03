@@ -25,14 +25,14 @@ An open source question and answer site inspired by [Stackoverflow](http://www.s
 - Easy to implement with [DotNetOpenAuth](https://github.com/DotNetOpenAuth/DotNetOpenAuth)
 - Does not transmit user credentials.
 
-##Front-End (TheFlow.Site) ##
+##Front-End (TheFlow.Site namespace) ##
 - Smooth and mobile friendly using [Zurb Foundation 4](http://foundation.zurb.com/)
 - Authentication using [DotNetOpenAuth](https://github.com/DotNetOpenAuth/DotNetOpenAuth)
 	- With Forms Authentication
 - SSL enabled
 - Date formatting with [moment.js](http://momentjs.com/)
 
-##Back-End (TheFlow.API) ##
+##Back-End (TheFlow.Api namespace) ##
 - RESTful
 - Uses API Keys to prevent CSRF (Cross-Site Request Forgery) attacks (Not implemented)
 
@@ -54,9 +54,9 @@ An open source question and answer site inspired by [Stackoverflow](http://www.s
 
 ##Data Storage Scheme##
 
-The Database system is based on Entity Framework Code First, therefore no database is actually included in the project. When you first start the site it will probably give you an error about the database. This is because none of the migrations (incremental changes) have been applied to the database. To solve this go to the `Package Manager Console`, set the default project to `TheFlow.API` and type `Update-Database` then press `Enter`. This will apply changes to the database based on the code files in `TheFlow.API\Migrations`, therefore updating the database to a version with no conflicts.
+The Database system is based on Entity Framework Code First, therefore no database is actually included in the project. When you first start the site it will probably give you an error about the database. This is because none of the migrations (incremental changes) have been applied to the database. To solve this go to the `Package Manager Console`, set the default project to `TheFlow.Site` and type `Update-Database` then press `Enter`. This will apply changes to the database based on the code files in `TheFlow.Site\Migrations`, therefore updating the database to a version with no conflicts.
 
-To make changes to the tables, edit the entity classes in `TheFlow.API\Migrations` and then type `Add-Migration [TheNameForYourChanges]` in the `Package Manager Console`, a new migration file will appear in `TheFlow.API\Migrations` detailing how to update the database. Then run `Update-Database` again to update the database.
+To make changes to the tables, edit the entity classes in `TheFlow.Site\Migrations` and then type `Add-Migration [TheNameForYourChanges]` in the `Package Manager Console`, a new migration file will appear in `TheFlow.Site\Migrations` detailing how to update the database. Then run `Update-Database` again to update the database.
 
 **ALL** queries to the database should go through the 'DbContext' class, this provides the easiest access to the database. And **All** queries to the database should use `LINQ`, it provides the easiest and most secure option for queries by preventing `Code Injection`.
 

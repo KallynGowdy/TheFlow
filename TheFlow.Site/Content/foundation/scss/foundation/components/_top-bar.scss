@@ -32,8 +32,8 @@ $topbar-link-color-active: #fff !default;
 $topbar-link-weight: bold !default;
 $topbar-link-font-size: emCalc(13) !default;
 $topbar-link-hover-lightness: -30% !default; // Darken by 30%
-$topbar-link-bg-hover: darken($topbar-bg, 3%) !default;
-$topbar-link-bg-active: darken($topbar-bg, 3%) !default;
+$topbar-link-bg-hover: lighten($topbar-bg, 10%) !default; //Lighten by 10% when a menu item is hovered
+$topbar-link-bg-active: lighten($topbar-bg, 6%) !default; //Lighten by only 6% when a menu item is active
 
 $topbar-dropdown-label-color: #555 !default;
 $topbar-dropdown-label-text-transform: uppercase !default;
@@ -271,14 +271,14 @@ $topbar-sticky-class: ".sticky" !default;
 
       }
 
-      // Apply the hover link color when it has that class
-      &.hover > a {
+      // Apply the hover link color when it is hovered
+      &:hover > a {
         background: $topbar-link-bg-hover;
         color: $topbar-link-color-hover;
       }
 
       // Apply the active link color when it has that class
-      &.active > a {
+      &:active > a {
         background: $topbar-link-bg-active;
         color: $topbar-link-color-active;
       }

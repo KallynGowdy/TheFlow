@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TheFlow.API.Entities;
+using TheFlow.Api.Entities;
 
 namespace TheFlow.Site.Controllers
 {
@@ -34,7 +34,7 @@ namespace TheFlow.Site.Controllers
                     //Make sure that the user has not voted on the post yet
                     if (post.Votes.All(a => a.Voter.OpenId != user.OpenId))
                     {
-                        post.Votes.Add(new TheFlow.API.Entities.UpVote
+                        post.Votes.Add(new TheFlow.Api.Entities.UpVote
                             {
                                 Voter = user,
                                 Post = post,

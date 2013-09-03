@@ -18,8 +18,8 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
-using TheFlow.API.Authentication;
-using TheFlow.API.Entities;
+using TheFlow.Api.Authentication;
+using TheFlow.Api.Entities;
 
 namespace TheFlow.Site.Controllers
 {
