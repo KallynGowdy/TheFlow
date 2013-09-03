@@ -16,15 +16,376 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Security;
 using TheFlow.Api.Authentication;
 using TheFlow.Api.Entities;
+using TheFlow.Site.HtmlSanitization;
 
 namespace TheFlow.Site.Controllers
 {
     public static class ControllerHelper
     {
+        #region HtmlSanitizer
+        private static readonly HtmlSanitizer htmlSanitizer = new HtmlSanitizer
+        {
+            ElementFilter = new ElementFilter
+            {
+                DefaultMapType = ElementMapType.Disallow,
+                FilterType = FilterType.FailOnFirst, //disallow the element if one of the attributes are wrong.
+                MappedElements = new Dictionary<string, Tuple<ElementMapType, IAttributeFilter>>()
+                {
+                    {
+                        #region A
+		                "a", //allow hyperlinks
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow,
+                                Attributes = new Dictionary<string, Tuple<ElementMapType, Predicate<HtmlAgilityPack.HtmlAttribute>>>()
+                                {
+                                    {
+                                        "href",
+                                        new Tuple<ElementMapType, Predicate<HtmlAgilityPack.HtmlAttribute>>
+                                        (
+                                            ElementMapType.Allow,
+                                            (a => 
+                                                {
+                                                    Uri result;
+                                                    return Uri.TryCreate(a.Value, UriKind.Absolute, out result) && (result.Scheme == Uri.UriSchemeHttps || result.Scheme == Uri.UriSchemeHttp);
+                                                })
+                                        )
+                                    },
+                                    {
+                                        "title",
+                                        new Tuple<ElementMapType, Predicate<HtmlAgilityPack.HtmlAttribute>>
+                                        (
+                                            ElementMapType.Allow,
+                                            (a => a.Value.All(c => char.IsLetterOrDigit(c)))
+                                        )
+                                    }
+                                }
+                            }
+                        ) 
+	#endregion
+                    },
+                    {
+                        #region Img
+		                "img", //allow image tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow,
+                                Attributes = new Dictionary<string, Tuple<ElementMapType, Predicate<HtmlAgilityPack.HtmlAttribute>>>()
+                                {
+                                    {
+                                        "src",
+                                        new Tuple<ElementMapType, Predicate<HtmlAgilityPack.HtmlAttribute>>
+                                        (
+                                            ElementMapType.Allow,
+                                            (a => {
+                                                Uri result;
+                                                return Uri.TryCreate(a.Value, UriKind.Absolute, out result) && (result.Scheme == Uri.UriSchemeHttp || result.Scheme == Uri.UriSchemeHttps);
+                                            })
+                                        )
+                                    },
+                                    {
+                                        "width",
+                                        new Tuple<ElementMapType, Predicate<HtmlAgilityPack.HtmlAttribute>>
+                                        (
+                                            ElementMapType.Allow,
+                                            (a => {
+                                                int width;
+                                                return int.TryParse(a.Value, out width) && (width > 0 && width <= 999);
+                                            })
+                                        )
+                                    },
+                                    {
+                                        "height",
+                                        new Tuple<ElementMapType, Predicate<HtmlAgilityPack.HtmlAttribute>>
+                                        (
+                                            ElementMapType.Allow,
+                                            (a => {
+                                                int height;
+                                                return int.TryParse(a.Value, out height) && (height > 0 && height <= 999);
+                                            })
+                                        )
+                                    },
+                                    {
+                                        "alt",
+                                        new Tuple<ElementMapType, Predicate<HtmlAgilityPack.HtmlAttribute>>
+                                        (
+                                            ElementMapType.Allow,
+                                            (a => {
+                                                return a.Value.All(c => char.IsLetterOrDigit(c));
+                                            })
+                                        )
+                                    },
+                                    {
+                                        "title",
+                                        new Tuple<ElementMapType, Predicate<HtmlAgilityPack.HtmlAttribute>>
+                                        (
+                                            ElementMapType.Allow,
+                                            (a => a.Value.All(c => char.IsLetterOrDigit(c)))
+                                        )
+                                    }
+                                }
+                            }
+                        ) 
+	#endregion
+                    },
+                    {
+                        "b", //allow bold tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "blockquote", //allow blockquote tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "code", //allow code tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "em", //allow em tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "h1", //allow h1 tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "h2", //allow h2 tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "h3", //allow h3 tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "i", //allow italic tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "kbd", //allow kbd tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "li", //allow list item tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "ol", //allow ordered list tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "p", //allow paragraph tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "pre", //allow pre tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "s", //allow strikethrough tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "sup", //allow superscript tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "sub", //allow subscript tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "strong", //allow bold tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "strike", //allow strikethrough tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "ul", //allow unordered list tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "br", //allow line break tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    },
+                    {
+                        "hr", //allow horizontal rule tags
+                        new Tuple<ElementMapType, IAttributeFilter>
+                        (
+                            ElementMapType.Allow,
+                            new AttributeFilter
+                            {
+                                DefaultMapType = ElementMapType.Disallow
+                            }
+                        )
+                    }
+                }
+            }
+        }; 
+        #endregion
+
+        /// <summary>
+        /// Gets the sanitizer to use for html.
+        /// </summary>
+        public static HtmlSanitizer HtmlSanitizer
+        {
+            get
+            {
+                return htmlSanitizer;
+            }
+        }
+
         /// <summary>
         /// Gets the OpenID Authentication provider by searching the form, headers, query string and then cookies.
         /// Returns null if the url could not be found.

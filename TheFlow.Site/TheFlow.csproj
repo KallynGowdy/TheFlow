@@ -134,6 +134,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="MarkdownSharp">
       <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
     </Reference>
@@ -246,6 +249,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlHelperExtensions.cs" />
+    <Compile Include="HtmlSanitization\Sanitizer.cs" />
     <Compile Include="Migrations\201308121909368_InitialCreate.cs" />
     <Compile Include="Migrations\201308121909368_InitialCreate.Designer.cs">
       <DependentUpon>201308121909368_InitialCreate.cs</DependentUpon>
@@ -361,6 +365,7 @@
       <DependentUpon>Styles.scss</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="Licenses\HtmlAgilityPack\Ms-PL.txt" />
     <Content Include="scripts\codify.js" />
     <Content Include="scripts\custom.modernizr.js" />
     <Content Include="scripts\editor.js" />

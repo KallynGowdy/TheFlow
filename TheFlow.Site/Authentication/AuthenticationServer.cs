@@ -26,7 +26,6 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using TheFlow.Api.Entities;
 
 namespace TheFlow.Api.Authentication
 {

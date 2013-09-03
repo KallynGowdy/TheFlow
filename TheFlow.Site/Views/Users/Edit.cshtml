@@ -74,7 +74,7 @@ var converter = new Markdown.getSanitizingConverter();
 @* @Html.DropDownListFor(a => a.Preferences.CodeTheme, Enum.GetValues(typeof(TheFlow.API.Entities.CodeStyle)).Cast<TheFlow.API.Entities.CodeStyle>().Select(a => new SelectListItem { Selected = false, Text = a.ToString(), Value = a.ToString() }));
             *@
             <select onchange="onThemeChanged(this)" name="Preferences.CodeTheme" id="preferences">
-                @foreach (TheFlow.API.Entities.CodeStyle style in Enum.GetValues(typeof(TheFlow.API.Entities.CodeStyle)))
+                @foreach (TheFlow.Api.Entities.CodeStyle style in Enum.GetValues(typeof(TheFlow.Api.Entities.CodeStyle)))
                 {
                     <option value="@style.ToString()" @if (Model.Preferences.CodeTheme == style)
                                                                                       { <text>selected</text> }>@style.ToString()</option>

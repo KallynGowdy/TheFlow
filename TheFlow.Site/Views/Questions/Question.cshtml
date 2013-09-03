@@ -142,7 +142,7 @@
         </div>
         <div class="columns large-11">
             <div class="panel radius transparent">
-                @markdown.Transform(Model.Body).ToHtml()
+                @TheFlow.Site.Controllers.ControllerHelper.HtmlSanitizer.GetHtml(markdown.Transform(Model.Body)).ToHtml()
             </div>
         </div>
     </div>
@@ -179,7 +179,7 @@
             </div>
             <div class="columns large-11">
                 <div class="panel radius transparent">
-                    @markdown.Transform(answer.Body).ToHtml()
+                    @TheFlow.Site.Controllers.ControllerHelper.HtmlSanitizer.GetHtml(markdown.Transform(answer.Body)).ToHtml()
                 </div>
             </div>
         </div>
