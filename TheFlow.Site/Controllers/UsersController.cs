@@ -416,7 +416,7 @@ namespace TheFlow
         /// </summary>
         public class UsersController : ApiController
         {
-            public UsersController(DbContext context)
+            public UsersController(IDbContext context)
             {
                 DataContext = context;
             }
@@ -424,7 +424,7 @@ namespace TheFlow
             /// <summary>
             /// Gets the database context for this controller.
             /// </summary>
-            public DbContext DataContext
+            public IDbContext DataContext
             {
                 get;
                 private set;

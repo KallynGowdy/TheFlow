@@ -468,7 +468,7 @@ namespace TheFlow.Api.Authentication
         /// Gets the currently authenticated user, returns null if no user is authenticated.
         /// </summary>
         /// <returns></returns>
-        public static User GetAuthenticatedUser(DbContext dataContext = null)
+        public static User GetAuthenticatedUser(IDbContext dataContext = null)
         {
             if (dataContext == null)
             {

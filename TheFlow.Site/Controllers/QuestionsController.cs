@@ -11,7 +11,19 @@ namespace TheFlow.Site.Controllers
 {
     public class QuestionsController : Controller
     {
-        TheFlow.Api.Entities.DbContext dataContext = new TheFlow.Api.Entities.DbContext();
+        TheFlow.Api.Entities.IDbContext dataContext = new TheFlow.Api.Entities.DbContext();
+
+        public QuestionsController()
+        {
+        }
+
+        public QuestionsController(TheFlow.Api.Entities.IDbContext dataContext)
+        {
+            if (dataContext != null)
+            {
+                this.dataContext = dataContext;
+            }
+        }
 
         /// <summary>
         /// Serves the index of the top 50 questions to the user.

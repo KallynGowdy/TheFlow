@@ -1,0 +1,8 @@
+﻿<publishData>
+    <publishProfile publishUrl="https://kallyngowdy-001-site1.smarterasp.net:8172/msdeploy.axd" 
+                    msdeploySite="kallyngowdy-001-site1"
+                    destinationAppUrl="http://kallyngowdy-001-site1.smarterasp.net/"
+                    profileName="Default Settings"
+                    publishMethod="MSDeploy"
+                    userName="ifc\kallyngowdy-001" />
+</publishData>

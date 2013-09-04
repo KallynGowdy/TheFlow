@@ -15,7 +15,7 @@
 using System;
 namespace TheFlow.Api.Entities
 {
-    public interface IDbContext
+    public interface IDbContext : IDisposable
     {
         System.Data.Entity.DbSet<Answer> Answers { get; set; }
         System.Data.Entity.DbSet<Comment> Comments { get; set; }
@@ -24,5 +24,6 @@ namespace TheFlow.Api.Entities
         System.Data.Entity.DbSet<User> Users { get; set; }
         System.Data.Entity.DbSet<Post> Posts { get; set; }
         System.Data.Entity.DbSet<Vote> Votes { get; set; }
+        int SaveChanges();
     }
 }

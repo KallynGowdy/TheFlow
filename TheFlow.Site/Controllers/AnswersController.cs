@@ -13,8 +13,19 @@ namespace TheFlow.Site.Controllers
     /// </summary>
     public class AnswersController : Controller
     {
-        DbContext dataContext = new DbContext();
+        IDbContext dataContext = new DbContext();
 
+        public AnswersController()
+        {
+        }
+
+        public AnswersController(IDbContext dataContext)
+        {
+            if (dataContext != null)
+            {
+                this.dataContext = dataContext;
+            }
+        }
         /// <summary>
         /// Deletes the answer with the given id from the database. Requires authentication from the user that created the answer.
         /// </summary>

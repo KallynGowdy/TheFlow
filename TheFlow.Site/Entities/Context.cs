@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -25,6 +26,10 @@ namespace TheFlow.Api.Entities
     /// </summary>
     public class DbContext : System.Data.Entity.DbContext, TheFlow.Api.Entities.IDbContext
     {
+        public DbContext() { }
+
+        public DbContext(DbConnection connection) : base(connection, true) { }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }

@@ -12,7 +12,21 @@ namespace TheFlow.Site.Controllers
     /// </summary>
     public class PostsController : Controller
     {
-        DbContext dataContext = new DbContext();
+        IDbContext dataContext = new DbContext();
+
+        public PostsController() { }
+
+        /// <summary>
+        /// Creates a new PostsController using the given data context.
+        /// </summary>
+        /// <param name="dataContext"></param>
+        public PostsController(IDbContext dataContext)
+        {
+            if (dataContext != null)
+            {
+                this.dataContext = dataContext;
+            }
+        }
 
         /// <summary>
         /// Adds an Up Vote to the post with the given id and redirects the user back to where they were.
