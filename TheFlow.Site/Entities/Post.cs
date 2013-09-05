@@ -188,7 +188,7 @@ namespace TheFlow.Api.Entities
         /// <returns></returns>
         public string GetCurrentBody()
         {
-            if (Edits.Any())
+            if (Edits.Count > 0)
             {
                 return Edits.OrderByDescending(a => a.DateChanged.Value).First().Body;
             }

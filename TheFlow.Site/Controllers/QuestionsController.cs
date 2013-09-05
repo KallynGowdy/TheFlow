@@ -31,7 +31,7 @@ namespace TheFlow.Site.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            return View(dataContext.Questions.Take(50).ToArray());
+            return View(dataContext.Questions.Take(50).Include(a => a.Edits).ToArray());
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace TheFlow.Site.Controllers
                 dataContext.SaveChanges();
                 return View(new ViewQuestionModel(question));
             }
-            return View("Index", dataContext.Questions.Include(a => a.Author).Take(50));
+            return View("Index", dataContext.Questions.Include(a => a.Author).Take(50).Include(a => a.Edits));
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace TheFlow.Site.Controllers
             {
                 return View();
             }
-            return View("Index", dataContext.Questions.Take(50));
+            return View("Index", dataContext.Questions.Take(50).Include(a => a.Edits));
         }
 
         [ValidateAntiForgeryToken]

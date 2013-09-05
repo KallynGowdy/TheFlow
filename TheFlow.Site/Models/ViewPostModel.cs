@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using TheFlow.Api.Entities;
 using TheFlow.Site;
+using TheFlow.Site.HtmlSanitization;
 
 namespace TheFlow.Api.Models
 {
@@ -28,7 +30,7 @@ namespace TheFlow.Api.Models
                 Preferences = post.Author.Preferences == null ? (post.Author.Preferences = new Preferences()).ToModel() : post.Author.Preferences.ToModel()
             };
             this.Id = post.Id;
-            this.Body = post.GetMarkdownBody();
+            this.MarkdownBody = post.Body;
             this.DateCreated = post.DatePosted.Value;
             this.DownVotes = post.DownVotes.Select(v => new ViewDownVoteModel(v));
             this.UpVotes = post.UpVotes.Select(v => new ViewUpVoteModel(v));
@@ -62,12 +64,69 @@ namespace TheFlow.Api.Models
         }
 
         /// <summary>
-        /// Gets or sets the body of the post.
+        /// Gets or sets the direct content from the post that is not converted or sanitized.
         /// </summary>
-        public string Body
+        public string MarkdownBody
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// Gets the markdown converted body of the post, not sanitized.
+        /// </summary>
+        public string ConvertedBody
+        {
+            get
+            {
+                return GetConvertedBody(null);
+            }
+        }
+
+        /// <summary>
+        /// Gets the markdown converted body of the post, sanitized.
+        /// </summary>
+        public string SanitizedBody
+        {
+            get
+            {
+                return GetSanitizedBody(null, TheFlow.Site.Controllers.ControllerHelper.HtmlSanitizer);
+            }
+        }
+
+        /// <summary>
+        /// Gets the markdown converted body of the post that is sanizited.
+        /// </summary>
+        /// <param name="transformer">The Markdown object used to convert markdown to html. Optional.</param>
+        /// <param name="sanitizer">The IHtmlSanitizer object used to sanitize the html produced by the converter.</param>
+        /// <returns>A string containing the Html that was produced and then sanitized from the markdown.</returns>
+        public string GetSanitizedBody(MarkdownSharp.Markdown transformer = null, IHtmlSanitizer sanitizer = null)
+        {
+            if (sanitizer == null)
+            {
+                return new HtmlSanitizer().GetHtml(GetConvertedBody(transformer));
+            }
+            else
+            {
+                return sanitizer.GetHtml(GetConvertedBody(transformer));
+            }
+        }
+
+        /// <summary>
+        /// Gets the markdown converted body of the post that is not sanitized.
+        /// </summary>
+        /// <param name="transformer">The Markdown object used to convert markdown to html. Optional.</param>
+        /// <returns>A string containing the Html that was produced from the markdown.</returns>
+        public string GetConvertedBody(MarkdownSharp.Markdown transformer = null)
+        {
+            if (transformer == null)
+            {
+                return (new MarkdownSharp.Markdown(true)).Transform(MarkdownBody);
+            }
+            else
+            {
+                return transformer.Transform(MarkdownBody);
+            }
         }
 
         /// <summary>

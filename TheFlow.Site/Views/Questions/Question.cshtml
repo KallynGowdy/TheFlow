@@ -24,20 +24,12 @@
     <script src="~/scripts/editor.js"></script>
     <script type="text/javascript">
         $(function () {
-            var textBody = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.Body)));
 
             var converter = new Markdown.getSanitizingConverter();
 
             defaultHooks(converter);
 
-            $(".text-body").html(converter.makeHtml(textBody));
 
-            @foreach (var answer in Model.Answers)
-            {
-                var id = answer.Id;
-                @:var text_@id = @(new HtmlString(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(answer.Body)));
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @:$(".answer-@id").html(converter.makeHtml(text_@id));
-            }
             enableTab("wmd-input");
             highlightCode();
 
@@ -141,8 +133,9 @@
             </ul>
         </div>
         <div class="columns large-11">
-            <div class="panel radius transparent">
-                @TheFlow.Site.Controllers.ControllerHelper.HtmlSanitizer.GetHtml(markdown.Transform(Model.Body)).ToHtml()
+            <div class="panel radius transparent wrap">
+                @*@TheFlow.Site.Controllers.ControllerHelper.HtmlSanitizer.GetHtml(markdown.Transform(Model.Body)).ToHtml()*@
+                @Model.SanitizedBody.ToHtml()
             </div>
         </div>
     </div>
@@ -178,8 +171,9 @@
                 </ul>
             </div>
             <div class="columns large-11">
-                <div class="panel radius transparent">
-                    @TheFlow.Site.Controllers.ControllerHelper.HtmlSanitizer.GetHtml(markdown.Transform(answer.Body)).ToHtml()
+                <div class="panel radius transparent wrap">
+                    @*@TheFlow.Site.Controllers.ControllerHelper.HtmlSanitizer.GetHtml(markdown.Transform(answer.Body)).ToHtml()*@
+                    @answer.SanitizedBody.ToHtml()
                 </div>
             </div>
         </div>
@@ -189,7 +183,7 @@
         displayDelete = (user != null && user.DisplayName == answer.Author.DisplayName);
         string columnSize = displayDelete ? "large-3" : "large-4";
             }
-            <div class="columns large-3">
+            <div class="columns large-6">
                 <div>
                     <ul class="button-group radius">
                         <li><a href="#" class="button medium-on-small tiny-on-medium-up">Share</a></li>
@@ -219,7 +213,7 @@
                     }
                 </div>*@
             </div>
-            <div class="columns large-8 text-right">
+            <div class="columns large-6 text-right">
                 <p>Posted by <a href="/Users/Info?user=@answer.Author.DisplayName">@answer.Author.DisplayName</a> <span class="time-from-now" data-time="@answer.DateCreated.ToUtcString()"></span></p>
             </div>
         </div>
@@ -256,7 +250,7 @@ else
                 <textarea class="wmd-input" id="wmd-input" style="width: 100%; min-height: 16em;" required>
 @if (editable)
 {
-@Model.Answers.Single(a => a.Author.DisplayName == user.DisplayName).Body;
+@Model.Answers.Single(a => a.Author.DisplayName == user.DisplayName).MarkdownBody;
 }
                 </textarea>
                 <small class="error">Please provide an answer</small>
