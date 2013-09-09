@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TheFlow.Api.Entities;
 using TheFlow.Api.Models;
 using System.Data.Entity;
+using System.ComponentModel;
 
 namespace TheFlow.Site.Controllers
 {
@@ -13,10 +14,17 @@ namespace TheFlow.Site.Controllers
     {
         TheFlow.Api.Entities.IDbContext dataContext = new TheFlow.Api.Entities.DbContext();
 
+        /// <summary>
+        /// Creates a new Questions Controller that uses a new TheFlow.Api.Entities.DbContext instance for data access.
+        /// </summary>
         public QuestionsController()
         {
         }
 
+        /// <summary>
+        /// Creates a new Questions Controller using the given data context for data access.
+        /// </summary>
+        /// <param name="dataContext">The IDbContext object to use for data access.</param>
         public QuestionsController(TheFlow.Api.Entities.IDbContext dataContext)
         {
             if (dataContext != null)
@@ -26,29 +34,45 @@ namespace TheFlow.Site.Controllers
         }
 
         /// <summary>
+        /// Gets the questions that reside on the given page based on the number of pages to view per page.
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        private IEnumerable<Question> getQuestions(int page)
+        {
+            int skipNum = page * Settings.QuestionController.QuestionsPerPage;
+            return dataContext.Questions.OrderByDescending(a => a.DatePosted).Skip(skipNum).Take(Settings.QuestionController.QuestionsPerPage).Include(a => a.Edits).ToArray();
+        }
+
+        /// <summary>
         /// Serves the index of the top 50 questions to the user.
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        public ActionResult Index([DefaultValue(0)]int page = 0)
         {
-            return View(dataContext.Questions.Take(50).Include(a => a.Edits).ToArray());
+            //Return the current page, total pages, and questions to show
+            return View(new Tuple<int, int, IEnumerable<Question>>(page, dataContext.Questions.Count() / Settings.QuestionController.QuestionsPerPage, getQuestions(page)));
         }
 
         /// <summary>
         /// Serves the view for the specified question.
         /// </summary>
-        /// <param name="questionId"></param>
+        /// <param name="questionId">The Id number of the question to view.</param>
+        /// <param name="addView">Whether to add a view to the question.</param>
         /// <returns></returns>
-        public ActionResult Question([Bind(Prefix = "id")] long questionId)
+        public ActionResult Question([Bind(Prefix = "id")] long questionId, bool addView = false)
         {
             Question question = dataContext.Questions.Include(a => a.Author).FirstOrDefault(q => q.Id == questionId);
             if (question != null)
             {
-                question.Views += 1;
-                dataContext.SaveChanges();
+                if (addView)
+                {
+                    question.Views += 1;
+                    dataContext.SaveChanges();
+                }
                 return View(new ViewQuestionModel(question));
             }
-            return View("Index", dataContext.Questions.Include(a => a.Author).Take(50).Include(a => a.Edits));
+            return ControllerHelper.RedirectBack(Request, Redirect);
         }
 
         /// <summary>
@@ -79,7 +103,7 @@ namespace TheFlow.Site.Controllers
             {
                 return View();
             }
-            return View("Index", dataContext.Questions.Take(50).Include(a => a.Edits));
+            return ControllerHelper.RedirectBack(Request, Redirect);
         }
 
         [ValidateAntiForgeryToken]
@@ -97,7 +121,7 @@ namespace TheFlow.Site.Controllers
                     dataContext.SaveChanges();
                 }
             }
-            return Redirect(Request.UrlReferrer.AbsoluteUri);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -16,28 +16,24 @@
             $('#codeTheme').attr('href', '../Content/prettyprint/' + sel.options[sel.selectedIndex].value + "Style.css");
             prettyPrint();
         }
+
+        enableTab("wmd-input");
+
+        var converter = new Markdown.getSanitizingConverter();
+
+        var editor = new Markdown.Editor(converter);
+
+        //refresh prettyprint when the preview is refreshed
+        editor.hooks.chain("onPreviewRefresh", function () {
+            $("pre").addClass("prettyprint");
+            $("code").addClass("prettyprint");
+            //$("code").css("background-color", '#eee');
+            prettyPrint();
+        });
+
+        editor.run();
     </script>
 }
-
-@section OnPageLoadFunction
-{
-    enableTab("wmd-input");
-
-var converter = new Markdown.getSanitizingConverter();
-
-            var editor = new Markdown.Editor(converter);
-
-            //refresh prettyprint when the preview is refreshed
-            editor.hooks.chain("onPreviewRefresh", function () {
-                $("pre").addClass("prettyprint");
-                $("code").addClass("prettyprint");
-                //$("code").css("background-color", '#eee');
-                prettyPrint();
-            });
-
-            editor.run();
-}
-
 
 @section head
 {
@@ -77,7 +73,7 @@ var converter = new Markdown.getSanitizingConverter();
                 @foreach (TheFlow.Api.Entities.CodeStyle style in Enum.GetValues(typeof(TheFlow.Api.Entities.CodeStyle)))
                 {
                     <option value="@style.ToString()" @if (Model.Preferences.CodeTheme == style)
-                                                                                      { <text>selected</text> }>@style.ToString()</option>
+                                                      { <text>selected</text> }>@style.ToString()</option>
                 }
             </select>
                 
@@ -87,9 +83,9 @@ var converter = new Markdown.getSanitizingConverter();
     <div class="columns large-6">
         <small>Markdown preview</small>
         <textarea class="wmd-input" id="wmd-input" name="Body" style="max-width: 100%; min-height: 16em;"></textarea>
-            <div class="panel radius" style="background-color: white;">
-                <h3 id="title-preview"></h3>
-                <div id="wmd-preview"></div>
-            </div>
+        <div class="panel radius" style="background-color: white;">
+            <h3 id="title-preview"></h3>
+            <div id="wmd-preview"></div>
+        </div>
     </div>
 </div>

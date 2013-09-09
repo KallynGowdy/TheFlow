@@ -69,6 +69,20 @@ namespace TheFlow.Api.Entities
         }
 
         /// <summary>
+        /// Gets the plain-text version of the body of the post that is stripped from all markdown.
+        /// </summary>
+        public string PlainTextBody
+        {
+            get
+            {
+                string m = GetMarkdownBody();
+                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(m);
+                return doc.DocumentNode.InnerText;
+            }
+        }
+
+        /// <summary>
         /// Gets the sanitized markdown-converted version of the body of this post.
         /// </summary>
         /// <returns></returns>
@@ -141,6 +155,15 @@ namespace TheFlow.Api.Entities
         /// </summary>
         [Required]
         public DateTime? DatePosted { get; set; }
+
+        /// <summary>
+        /// Gets the net number of votes on the post.
+        /// </summary>
+        /// <returns></returns>
+        public int NetVotes()
+        {
+            return UpVotes.Count() - DownVotes.Count();
+        }
 
         /// <summary>
         /// Gets the upvotes that this post has.

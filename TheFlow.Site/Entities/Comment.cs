@@ -64,7 +64,7 @@ namespace TheFlow.Api.Entities
         /// <summary>
         /// Gets or sets the up votes that this comment has.
         /// </summary>
-        public uint UpVotes
+        public int UpVotes
         {
             get;
             set;

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TheFlow.Api.Entities;
+using System.Data.Entity;
+using TheFlow.Site.Models;
 
 namespace TheFlow.Site.Controllers
 {
@@ -12,7 +14,7 @@ namespace TheFlow.Site.Controllers
     /// </summary>
     public class PostsController : Controller
     {
-        IDbContext dataContext = new DbContext();
+        IDbContext dataContext = new TheFlow.Api.Entities.DbContext();
 
         public PostsController() { }
 
@@ -25,6 +27,89 @@ namespace TheFlow.Site.Controllers
             if (dataContext != null)
             {
                 this.dataContext = dataContext;
+            }
+        }
+
+        /// <summary>
+        /// Adds the given comment to the post with the given post id.
+        /// </summary>
+        /// <param name="postId">The Id number of the post to add the comment to.</param>
+        /// <param name="comment">The Comment to add to the post.</param>
+        /// <returns>A redirect back to the referring url</returns>
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddComment([Bind(Prefix = "id")]long postId, [System.Web.Http.FromBody]CommentModel comment)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = ControllerHelper.Authenticate(Request, dataContext);
+                if (user != null)
+                {
+                    Post post = dataContext.Posts.SingleOrDefault(p => p.Id == postId);
+                    if (post != null)
+                    {
+                        post.Comments.Add(new Comment
+                        {
+                            Author = user,
+                            Body = comment.Body,
+                            DatePosted = DateTime.UtcNow,
+                            Post = post
+                        });
+                        dataContext.SaveChanges();
+                    }
+                }
+            }
+            return ControllerHelper.RedirectBack(Request, Redirect, true);
+        }
+
+        /// <summary>
+        /// Deletes the comment with the given id if it was posted by the current user.
+        /// </summary>
+        /// <param name="commentId">The Id number of the comment to delete.</param>
+        /// <returns></returns>
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        [HttpPost]
+        public ActionResult DeleteComment([Bind(Prefix = "id")] long commentId)
+        {
+            User user = ControllerHelper.Authenticate(Request, dataContext);
+
+            if (user != null)
+            {
+                Comment comment = dataContext.Comments.SingleOrDefault(a => a.Id == commentId);
+                if (comment != null && comment.Author.OpenId == user.OpenId)
+                {
+                    dataContext.Comments.Remove(comment);
+                    dataContext.SaveChanges();
+                }
+            }
+            return ControllerHelper.RedirectBack(Request, Redirect, true);
+        }
+
+        /// <summary>
+        /// Serves the page with the post matching the given post id.
+        /// </summary>
+        /// <param name="postId">The Id number of the post to view.</param>
+        [HttpGet]
+        public ActionResult Index([Bind(Prefix = "id")]long postId)
+        {
+            Post post = dataContext.Posts.SingleOrDefault(a => a.Id == postId);
+            if (post != null)
+            {
+                if (post is Question)
+                {
+                    return RedirectToAction("Question", "Questions", new { id = postId });
+                }
+                else
+                {
+                    //Redirect 
+                    return Redirect(string.Format("{0}#{1}", Url.Action("Question", "Questions", new { id = ((Answer)post).Question.Id }), postId.ToString()));
+                }
+            }
+            else
+            {
+                return ControllerHelper.RedirectBack(Request, Redirect, true);
             }
         }
 
@@ -58,7 +143,7 @@ namespace TheFlow.Site.Controllers
                     }
                 }
             }
-            return Redirect(Request.UrlReferrer.AbsoluteUri);
+            return ControllerHelper.RedirectBack(Request, Redirect, true);
         }
 
         /// <summary>
@@ -86,7 +171,7 @@ namespace TheFlow.Site.Controllers
                     }
                 }
             }
-            return Redirect(Request.UrlReferrer.AbsoluteUri);
+            return ControllerHelper.RedirectBack(Request, Redirect, true);
         }
 
         /// <summary>
@@ -119,7 +204,7 @@ namespace TheFlow.Site.Controllers
                     }
                 }
             }
-            return Redirect(Request.UrlReferrer.AbsoluteUri);
+            return ControllerHelper.RedirectBack(Request, Redirect, true);
         }
     }
 }

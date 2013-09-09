@@ -54,7 +54,7 @@ namespace TheFlow.Api.Entities
         /// <summary>
         /// Gets or sets the number of views that this question has.
         /// </summary>
-        public uint Views
+        public int Views
         {
             get;
             set;

@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-@model IEnumerable<TheFlow.Api.Entities.Question>
+@model Tuple<int, int, IEnumerable<TheFlow.Api.Entities.Question>>
 
 @section NavBarRight
 {
@@ -25,23 +25,63 @@
 </div>
 <div class="row">
     <div class="columns large-3 push-9">
-        <p class="success text-center">Showing @Model.Count() of @(string.Format("{0:n0}", new TheFlow.Api.Entities.DbContext().Questions.Count())) Questions</p>
+        <p class="success text-center">Showing @Model.Item3.Count() of @(string.Format("{0:n0}", new TheFlow.Api.Entities.DbContext().Questions.Count())) Questions</p>
     </div>
     <div class="columns large-9 pull-3">
 
-        @if (Model.Count() > 0)
+        @if (Model.Item3.Count() > 0)
         {
-            foreach (var question in Model)
+            foreach (var question in Model.Item3)
             {
             <hr />
             <div class="row">
-                <div class="columns large-12">
-                    <h3 class="text-left"><a href="~/Questions/Question/@question.Id" style="color: #f2b21b">@question.Title</a></h3>
-                    @{var currentBody = question.Body;}
+                <div class="columns large-7">
+                    <h3 class="text-left"><a href="~/Questions/Question/@question.Id?addView=true" style="color: #f2b21b">@question.Title</a></h3>
+                    @{var currentBody = question.PlainTextBody;}
                     <p class="text-left"><small>@(currentBody.Length > 50 ? currentBody.Substring(0, 50) : currentBody)</small></p>
                 </div>
+                <div class="columns large-5 question-stats">
+                    <ul class="button-group radius even-2 question-stats">
+                        @{int votes = question.NetVotes();
+                          int answers = question.Answers.Count;
+                          int views = question.Views;
+                          string votesText = string.Format("{0} {1}", votes, votes != 1 ? "Votes" : "Vote");
+                          string answersText = string.Format("{0} {1}", answers, answers != 1 ? "Answers" : "Answer");
+                          string viewsTest = string.Format("{0} {1}", views, views != 1 ? "Views" : "View");}
+                        <li class="full-height"><a class="button small-on-small secondary">@votesText</a></li>
+                        <li class="full-height"><a class="button small-on-small @if(answers == 0){<text>secondary</text>}else if(question.AcceptedAnswer != null){<text>success</text>}else{<text>primary</text>}">@answersText</a></li>
+                    </ul>
+                    <a class="small-on-small secondary">@viewsTest</a>
+                </div>
+                @*<div class="columns large-4 radius hide-for-small">
+                    <div class="row">
+                        <div class="columns large-6 panel">
+                            @{int votes = question.NetVotes();}
+                            @if (votes != 1)
+                            {
+                                @votes @:Votes      
+                            }
+                            else
+                            {
+                                @votes @:Vote
+                            }
+                        </div>
+                        <div class="columns large-6 panel @if(question.AcceptedAnswer != null){<text>callout</text>}">
+                            @{int answers = question.Answers.Count;}
+                            @if(answers != 1)
+                            {
+                                @answers @:Answers   
+                            }
+                            else
+                            {
+                                @answers @:Answer   
+                            }
+                        </div>
+                    </div>
+                </div>*@
             </div>
             }
+
         }
         else
         {
@@ -49,5 +89,69 @@
             <p class="text-center">There are no Questions, Sorry</p>
         }
     </div>
-
 </div>
+<hr />
+<ul class="pagination">
+    @* Pagination *@
+    @if (Model.Item1 == 0)
+    {
+        <li class="current"><a href="~/Questions?page=0" title="Go To Page 1">1</a></li>
+    }
+    else if (Model.Item1 > 4)
+    {
+        <li><a href="~/Questions?page=0" title="Go To Page 1">1</a></li>
+        <li class="unavailable"><a>...</a></li>
+        for (int i = Model.Item1 - 2; i < Model.Item1; i++)
+        {
+        <li><a href="~/Questions?page=@i" title="Go To Page @(i + 1)">@(i + 1)</a></li>
+        }
+            
+        <li class="current"><a href="~/Questions?page=@Model.Item1" title="Go To Page @(Model.Item1 + 1)">@(Model.Item1 + 1)</a></li>
+        int difference = Model.Item2 - Model.Item1;
+        if (difference > 3)
+        {
+            for (int i = Model.Item1 + 1; i < Model.Item1 + 3; i++)
+            {
+        <li><a href="~/Questions?page=@i" title="Go To Page @(i + 1)">@(i + 1)</a></li>
+            }
+        <li class="unavailable"><a>...</a></li>
+        <li><a href="~/Questions?page=@Model.Item2" title="Go To Page @(Model.Item2 + 1)">@(Model.Item2 + 1)</a></li>
+        }
+        else
+        {
+            for (int i = Model.Item1 + 1; i <= Model.Item2; i++)
+            {
+        <li><a href="~/Questions?page=@i" title="Go To Page @(i + 1)">@(i + 1)</a></li>
+            }
+        }
+    }
+    else
+    {
+        //Model.Item1 is between 0 and 4 (1 or 2 or 3)
+        <li><a href="~/Questions?page=0" title="Go To Page 1">1</a></li>
+        for (int i = 1; i < Model.Item1; i++)
+        {
+        <li><a href="~/Questions?page=@i" title="Go To Page @(i + 1)">@(i + 1)</a></li>
+        }
+        <li class="current"><a href="~/Questions?page=@Model.Item1" title="Go To Page @(Model.Item1 + 1)">@(Model.Item1 + 1)</a></li>
+            
+        int difference = Model.Item2 - Model.Item1;
+        if (difference > 3)
+        {
+            for (int i = Model.Item1 + 1; i < Model.Item1 + 3; i++)
+            {
+        <li><a href="~/Questions?page=@i" title="Go To Page @(i + 1)">@(i + 1)</a></li>
+            }
+        <li class="unavailable"><a>...</a></li>
+        <li><a href="~/Questions?page=@Model.Item2" title="Go To Page @(Model.Item2 + 1)">@(Model.Item2 + 1)</a></li>
+        }
+        else
+        {
+            for (int i = Model.Item1 + 1; i <= Model.Item2; i++)
+            {
+        <li><a href="~/Questions?page=@i" title="Go To Page @(i + 1)">@(i + 1)</a></li>
+            }
+        }
+
+    }
+</ul>

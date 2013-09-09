@@ -32,6 +32,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
+    <includesetaclproviderondestination>False</includesetaclproviderondestination>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -330,8 +331,17 @@
     <Compile Include="Migrations\201308300433228_MadeQuestionTitleRequired.Designer.cs">
       <DependentUpon>201308300433228_MadeQuestionTitleRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201309052014122_UpdateComments.cs" />
+    <Compile Include="Migrations\201309052014122_UpdateComments.Designer.cs">
+      <DependentUpon>201309052014122_UpdateComments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201309082132459_FixedQuestionViews.cs" />
+    <Compile Include="Migrations\201309082132459_FixedQuestionViews.Designer.cs">
+      <DependentUpon>201309082132459_FixedQuestionViews.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnswerModel.cs" />
+    <Compile Include="Models\CommentModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\PreferencesModel.cs" />
@@ -350,6 +360,7 @@
     <Compile Include="NavigationRoutes\NavigationRouteConfigurationExtensions.cs" />
     <Compile Include="NavigationRoutes\NavigationRouteFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -404,51 +415,51 @@
     <Content Include="scripts\foundation.topbar.js" />
     <Content Include="scripts\html5shiv.js" />
     <Content Include="App_Code\Helpers.cshtml" />
-    <Content Include="Content\foundation\scss\foundation.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_alert-boxes.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_block-grid.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_breadcrumbs.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_button-groups.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_buttons.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_clearing.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_custom-forms.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_dropdown-buttons.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_dropdown.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_flex-video.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_forms.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_global.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_grid-5.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_grid.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_inline-lists.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_joyride.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_keystrokes.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_labels.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_magellan.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_orbit.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_pagination.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_panels.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_pricing-tables.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_progress-bars.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_reveal.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_section.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_side-nav.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_split-buttons.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_sub-nav.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_switch.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_tables.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_thumbs.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_tooltips.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_top-bar.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_type.scss" />
-    <Content Include="Content\foundation\scss\foundation\components\_visibility.scss" />
-    <Content Include="Content\foundation\scss\foundation\_variables.scss" />
-    <Content Include="Content\foundation\scss\normalize.scss" />
-    <Content Include="Content\Styles.scss">
+    <None Include="Content\foundation\scss\foundation.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_alert-boxes.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_block-grid.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_breadcrumbs.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_button-groups.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_buttons.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_clearing.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_custom-forms.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_dropdown-buttons.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_dropdown.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_flex-video.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_forms.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_global.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_grid-5.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_grid.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_inline-lists.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_joyride.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_keystrokes.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_labels.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_magellan.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_orbit.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_pagination.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_panels.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_pricing-tables.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_progress-bars.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_reveal.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_section.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_side-nav.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_split-buttons.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_sub-nav.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_switch.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_tables.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_thumbs.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_tooltips.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_top-bar.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_type.scss" />
+    <None Include="Content\foundation\scss\foundation\components\_visibility.scss" />
+    <None Include="Content\foundation\scss\foundation\_variables.scss" />
+    <None Include="Content\foundation\scss\normalize.scss" />
+    <None Include="Content\Styles.scss">
       <Compile>True</Compile>
       <Minify>True</Minify>
       <CompileStyle>Nested</CompileStyle>
       <DebugInfo>False</DebugInfo>
-    </Content>
+    </None>
     <None Include="Properties\PublishProfiles\TheFlow.pubxml" />
     <None Include="scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="scripts\jquery-2.0.3.js" />
@@ -594,6 +605,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201308300433228_MadeQuestionTitleRequired.resx">
       <DependentUpon>201308300433228_MadeQuestionTitleRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309052014122_UpdateComments.resx">
+      <DependentUpon>201309052014122_UpdateComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309082132459_FixedQuestionViews.resx">
+      <DependentUpon>201309082132459_FixedQuestionViews.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

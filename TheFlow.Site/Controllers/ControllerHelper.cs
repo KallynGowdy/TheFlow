@@ -18,6 +18,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Security;
 using TheFlow.Api.Authentication;
 using TheFlow.Api.Entities;
@@ -372,7 +373,7 @@ namespace TheFlow.Site.Controllers
                     }
                 }
             }
-        }; 
+        };
         #endregion
 
         /// <summary>
@@ -383,6 +384,90 @@ namespace TheFlow.Site.Controllers
             get
             {
                 return htmlSanitizer;
+            }
+        }
+
+        /// <summary>
+        /// Redirects the user back based on the given request and redirect function.
+        /// </summary>
+        /// <param name="request">The request that was made to the controller.</param>
+        /// <param name="redirectFunction">A function that, given a redirect uri, returns an ActionResult object that redirects the user to the (given) uri.</param>
+        /// <param name="redirectHome">Whether to redirect to the home page or redirect to the index of the current controller.</param>
+        /// <param name="ajaxRedirect">Whether to return a 200 status code with a redirect value that contains the redirect information to prevent browsers from messing with the "transparent" redirect.</param>
+        /// <returns></returns>
+        public static ActionResult RedirectBack(HttpRequestBase request, Func<string, ActionResult> redirectFunction, bool redirectHome = false, bool ajaxRedirect = false)
+        {
+            if (!ajaxRedirect)
+            {
+                //check for an ajax header to determine if we should redirect for ajax.
+                string ajax = request["ajax"];
+                if (ajax != null)
+                {
+                    bool use;
+                    if (bool.TryParse(ajax, out use))
+                    {
+                        ajaxRedirect = use;
+                    }
+                }
+                else
+                {
+                    ajax = request.Headers["ajax"];
+                    if (ajax != null)
+                    {
+                        bool use;
+                        if (bool.TryParse(ajax, out use))
+                        {
+                            ajaxRedirect = use;
+                        }
+                    }
+                }
+            }
+            
+            if (!ajaxRedirect)
+            {
+                if (request.UrlReferrer != null)
+                {
+                    return redirectFunction(request.UrlReferrer.AbsolutePath);
+                }
+                else
+                {
+                    UrlHelper helper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+                    if (!redirectHome)
+                    {
+                        return redirectFunction(helper.Action("Index"));
+                    }
+                    else
+                    {
+                        return redirectFunction(helper.Action("Index", "Home"));
+                    }
+                }
+            }
+            else
+            {
+                string returnUrl;
+                if (request.UrlReferrer != null)
+                {
+                    returnUrl = request.UrlReferrer.AbsolutePath;
+                }
+                else
+                {
+
+                    UrlHelper helper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+                    if (!redirectHome)
+                    {
+                        returnUrl = helper.Action("Index");
+                    }
+                    else
+                    {
+                        returnUrl = helper.Action("Index", "Home");
+                    }
+                   
+                }
+                HttpContext.Current.Response.StatusCode = 200;
+                return new JsonResult
+                {
+                    Data = new { redirect = returnUrl }
+                };
             }
         }
 

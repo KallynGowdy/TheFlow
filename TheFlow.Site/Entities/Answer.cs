@@ -39,7 +39,7 @@ namespace TheFlow.Api.Entities
         /// Gets or sets the question that this post is an answer to.
         /// </summary>
         [Required]
-        public Question Question
+        public virtual Question Question
         {
             get;
             set;

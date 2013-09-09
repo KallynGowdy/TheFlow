@@ -95,6 +95,19 @@ namespace TheFlow.Api.Models
         }
 
         /// <summary>
+        /// Gets the text-only version of the body stripped of all markdown.
+        /// </summary>
+        public string PlainTextBody
+        {
+            get
+            {
+                var doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(SanitizedBody);
+                return doc.DocumentNode.InnerText;
+            }
+        }
+
+        /// <summary>
         /// Gets the markdown converted body of the post that is sanizited.
         /// </summary>
         /// <param name="transformer">The Markdown object used to convert markdown to html. Optional.</param>

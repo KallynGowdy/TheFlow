@@ -33,8 +33,8 @@
             enableTab("wmd-input");
             highlightCode();
 
-            enableEditor(function(editor){
-                editor.getConverter().hooks.chain("preConversion", function(text) {
+            enableEditor(function (editor) {
+                editor.getConverter().hooks.chain("preConversion", function (text) {
                     $("#Body").attr("value", text);
                     return text;
                 });
@@ -43,46 +43,66 @@
 
         //find all of the elements with the up-vote class
         //and send an ajax request to up-vote the post
-        $('.up-vote').click(function(){
+        $('.up-vote').click(function () {
             var clicked = $(this);
             var data = clicked.attr('data-post');
             $.ajax({
                 type: "post",
-                dataType: "html",
-                url: '/Posts/UpVote/' + data,
-                data: AddAntiForgeryToken({ } ),
-                success: function (response) {
-                    location.reload();
+                dataType: "json",
+                url: '/TheFlow/Posts/UpVote/' + data,
+                data: AddAntiForgeryToken({ ajax: true }),
+                success: function (data, textStaus) {
+                    if (data.redirect) {
+                        window.location.replace(data.redirect);
+                    }
                 }
             });
         });
 
         //find all of the elements with the up-vote class
         //and send an ajax request to up-vote the post
-        $('.down-vote').click(function(){
+        $('.down-vote').click(function () {
             var clicked = $(this);
             var data = clicked.attr('data-post');
             $.ajax({
                 type: "post",
-                dataType: "html",
-                url: '/Posts/DownVote/' + data,
-                data: AddAntiForgeryToken({ } ),
-                success: function (response) {
-                    location.reload();
+                dataType: "json",
+                url: '/TheFlow/Posts/DownVote/' + data,
+                data: AddAntiForgeryToken({ ajax: true }),
+                success: function (data, textStaus) {
+                    if (data.redirect) {
+                        window.location.replace(data.redirect);
+                    }
                 }
             });
         });
 
-        $('.post-back').click(function() {
+        //$('.delete').click(function () {
+        //    var clicked = $(this);
+        //    var data = clicked.attr('data-post');
+        //    $.ajax({
+        //        type: "post",
+        //        dataType: "html",
+        //        url: '/TheFlow/Posts/DownVote/' + data,
+        //        data: AddAntiForgeryToken({ ajax: true }),
+        //        success: function (response) {
+        //            location.reload();
+        //        }
+        //    });
+        //});
+
+        $('.post-back').click(function () {
             var clicked = $(this);
             var data = clicked.attr('data-post');
             $.ajax({
                 type: "post",
-                dataType: "html",
+                dataType: "json",
                 url: data,
-                data: AddAntiForgeryToken({ } ),
-                success: function (response) {
-                    location.reload();
+                data: AddAntiForgeryToken({ ajax: true }),
+                success: function (data, textStaus) {
+                    if (data.redirect) {
+                        window.location.replace(data.redirect);
+                    }
                 }
             });
         });
@@ -90,9 +110,9 @@
         //find all of the elements with .time class
         var timeElements = $('.time-from-now');
 
-        setInterval(function(){
+        setInterval(function () {
             //set the text
-            timeElements.html(function(index, text) {
+            timeElements.html(function (index, text) {
                 timeElements[index].innerText = moment.utc(timeElements[index].getAttribute('data-time')).local().fromNow();
             });
         }, 1000); //60000 /*every minute*/);
@@ -127,7 +147,7 @@
         <div class="columns large-1">
             <a class="button full-width show-for-small">Vote</a>
             <ul class="button-group vertical radius hide-for-small">
-                <li><a href="#" data-post="@Model.Id" class="button tiny up-vote" title="Vote Up">▲</a></li>
+                <li><a data-post="@Model.Id" class="button tiny up-vote" title="Vote Up">▲</a></li>
                 <li><a class="button disabled tiny" title="@(String.Format("{0} Up Votes and {1} Down Votes", Model.UpVotes.Count().ToString(), Model.DownVotes.Count().ToString()))">@Model.NetVote</a></li>
                 <li><a data-post="@Model.Id" class="button tiny down-vote" title="Vote Down">▼</a></li>
             </ul>
@@ -165,13 +185,13 @@
             <div class="columns large-1">
                 <a class="button full-width show-for-small">Vote</a>
                 <ul class="button-group vertical radius hide-for-small">
-                    <li><a data-post="@answer.Id" href="#" class="button tiny up-vote" title="Vote Up">▲</a></li>
+                    <li><a data-post="@answer.Id" class="button tiny up-vote" title="Vote Up">▲</a></li>
                     <li><a class="button disabled tiny" title="@(String.Format("{0} Up Votes and {1} Down Votes", Model.UpVotes.Count().ToString(), Model.DownVotes.Count().ToString()))">@answer.NetVote</a></li>
                     <li><a data-post="@answer.Id" class="button tiny down-vote"  title="Vote Down">▼</a></li>
                 </ul>
             </div>
             <div class="columns large-11">
-                <div class="panel radius transparent wrap">
+                <div class="panel radius transparent wrap" id="@answer.Id">
                     @*@TheFlow.Site.Controllers.ControllerHelper.HtmlSanitizer.GetHtml(markdown.Transform(answer.Body)).ToHtml()*@
                     @answer.SanitizedBody.ToHtml()
                 </div>

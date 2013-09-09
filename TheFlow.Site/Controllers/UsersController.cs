@@ -159,7 +159,7 @@ namespace TheFlow
                 {
                     ControllerHelper.RemoveCookie(Request, Response, "TheFlow-OpenIdProvider");
                 }
-                return Redirect(Request.UrlReferrer.AbsolutePath);
+                return ControllerHelper.RedirectBack(Request, Redirect, true);
             }
 
             /// <summary>
@@ -175,7 +175,7 @@ namespace TheFlow
                 string returnUrl = Request["ReturnUrl"];
                 if (returnUrl == null)
                 {
-                    returnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.AbsoluteUri : null;
+                    returnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.AbsolutePath : null;
                 }
 
                 User user;
