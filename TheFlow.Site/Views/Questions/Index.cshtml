@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Questions";
 }
 @model Tuple<int, int, IEnumerable<TheFlow.Api.Entities.Question>>
 
@@ -11,47 +11,52 @@
     </li>
 }
 
-<div class="row">
-    <div class="columns large-9 small-centered large-uncentered">
-        <h2 class="hide-for-small">Questions</h2>
-        <h1 class="show-for-small text-center">Questions</h1>
+<div class="uk-grid">
+    <div class="uk-width-medium-3-4">
+        <h1 class="uk-hidden-small">Questions</h1>
+        <h1 class="uk-visible-small uk-text-center">Questions</h1>
     </div>
 
-    <div class="columns large-3 hide-for-small">
-        <div class="container text-center hide-for-small">
-            <a class="button round" style="margin-top: .45em;" href="~/Questions/Create">Ask a Question</a>
+    <div class="uk-width-medium-1-4 uk-hidden-small">
+        <div class="uk-container uk-text-center uk-hidden-small">
+            <a class="uk-button" style="margin-top: .45em;" href="~/Questions/Create">Ask a Question</a>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="columns large-3 push-9">
+<div class="uk-grid">
+    <div class="uk-width-medium-1-4 uk-push-3-4">
         <p class="success text-center">Showing @Model.Item3.Count() of @(string.Format("{0:n0}", new TheFlow.Api.Entities.DbContext().Questions.Count())) Questions</p>
     </div>
-    <div class="columns large-9 pull-3">
-
+    <div class="uk-width-medium-3-4 uk-pull-1-4">
         @if (Model.Item3.Count() > 0)
         {
             foreach (var question in Model.Item3)
             {
             <hr />
-            <div class="row">
-                <div class="columns large-7">
-                    <h3 class="text-left"><a href="~/Questions/Question/@question.Id?addView=true" style="color: #f2b21b">@question.Title</a></h3>
+            <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-width-medium-6-10">
+                    <h2 class="text-left"><a href="~/Questions/Question/@question.Id?addView=true" style="color: #f2b21b">@question.Title</a></h2>
                     @{var currentBody = question.PlainTextBody;}
                     <p class="text-left"><small>@(currentBody.Length > 50 ? currentBody.Substring(0, 50) : currentBody)</small></p>
                 </div>
-                <div class="columns large-5 question-stats">
-                    <ul class="button-group radius even-2 question-stats">
+                <div class="uk-width-medium-4-10">
+                    <div class="uk-button-group uk-disabled uk-float-right">
                         @{int votes = question.NetVotes();
                           int answers = question.Answers.Count;
                           int views = question.Views;
                           string votesText = string.Format("{0} {1}", votes, votes != 1 ? "Votes" : "Vote");
                           string answersText = string.Format("{0} {1}", answers, answers != 1 ? "Answers" : "Answer");
                           string viewsTest = string.Format("{0} {1}", views, views != 1 ? "Views" : "View");}
-                        <li class="full-height"><a class="button small-on-small secondary">@votesText</a></li>
-                        <li class="full-height"><a class="button small-on-small @if(answers == 0){<text>secondary</text>}else if(question.AcceptedAnswer != null){<text>success</text>}else{<text>primary</text>}">@answersText</a></li>
-                    </ul>
-                    <a class="small-on-small secondary">@viewsTest</a>
+                        <span class="uk-button uk-disabled">@votesText</span>
+                        <span class="uk-button uk-disabled @if (answers == 0)
+                                                           {<text>secondary</text>}
+                                                           else if (question.AcceptedAnswer != null)
+                                                           {<text>success</text>}
+                                                           else
+                                                           {<text>primary</text>}">@answersText</span>
+                        <span class="uk-button uk-disabled">@viewsTest</span>
+                    </div>
+
                 </div>
                 @*<div class="columns large-4 radius hide-for-small">
                     <div class="row">
@@ -91,22 +96,22 @@
     </div>
 </div>
 <hr />
-<ul class="pagination">
+<ul class="uk-pagination uk-pagination-left">
     @* Pagination *@
     @if (Model.Item1 == 0)
     {
-        <li class="current"><a href="~/Questions?page=0" title="Go To Page 1">1</a></li>
+        <li class="uk-active"><span title="You are on Page 1">1</span></li>
     }
     else if (Model.Item1 > 4)
     {
         <li><a href="~/Questions?page=0" title="Go To Page 1">1</a></li>
-        <li class="unavailable"><a>...</a></li>
+        <li class="uk-disabled"><span>...</span></li>
         for (int i = Model.Item1 - 2; i < Model.Item1; i++)
         {
         <li><a href="~/Questions?page=@i" title="Go To Page @(i + 1)">@(i + 1)</a></li>
         }
             
-        <li class="current"><a href="~/Questions?page=@Model.Item1" title="Go To Page @(Model.Item1 + 1)">@(Model.Item1 + 1)</a></li>
+        <li class="uk-active"><span title="You are on Page @(Model.Item1 + 1)">@(Model.Item1 + 1)</span></li>
         int difference = Model.Item2 - Model.Item1;
         if (difference > 3)
         {
@@ -114,7 +119,7 @@
             {
         <li><a href="~/Questions?page=@i" title="Go To Page @(i + 1)">@(i + 1)</a></li>
             }
-        <li class="unavailable"><a>...</a></li>
+        <li class="uk-disabled"><span>...</span></li>
         <li><a href="~/Questions?page=@Model.Item2" title="Go To Page @(Model.Item2 + 1)">@(Model.Item2 + 1)</a></li>
         }
         else
@@ -133,7 +138,7 @@
         {
         <li><a href="~/Questions?page=@i" title="Go To Page @(i + 1)">@(i + 1)</a></li>
         }
-        <li class="current"><a href="~/Questions?page=@Model.Item1" title="Go To Page @(Model.Item1 + 1)">@(Model.Item1 + 1)</a></li>
+        <li class="uk-active"><span title="You are on Page @(Model.Item1 + 1)">@(Model.Item1 + 1)</span></li>
             
         int difference = Model.Item2 - Model.Item1;
         if (difference > 3)
@@ -142,7 +147,7 @@
             {
         <li><a href="~/Questions?page=@i" title="Go To Page @(i + 1)">@(i + 1)</a></li>
             }
-        <li class="unavailable"><a>...</a></li>
+        <li class="uk-disabled"><span>...</span></li>
         <li><a href="~/Questions?page=@Model.Item2" title="Go To Page @(Model.Item2 + 1)">@(Model.Item2 + 1)</a></li>
         }
         else

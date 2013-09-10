@@ -11,6 +11,7 @@
 
     @*<link rel="stylesheet" href="~/Content/foundation/normalize.css" />
     <link rel="stylesheet" href="~/Content/foundation/foundation.css" />*@
+    <link href="~/Content/uikit/uikit.css" rel="stylesheet" />
     <link href="~/Content/Styles.css" rel="stylesheet" />
     @RenderSection("head", required: false)
     @Html.Partial("_html5shiv")
@@ -19,40 +20,37 @@
 
 </head>
 <body>
-    <div class="fixed">
-        <nav class="top-bar" role="navigation">
-            <ul class="title-area">
-                <li class="name">
-                    <h1>
-                        <a href="~/">TheFlow</a>
-                    </h1>
-                </li>
-                <li class="toggle-topbar menu-icon">
-                    <a href="#"><span>Menu</span></a>
-                </li>
-            </ul>
-            <section class="top-bar-section">
-                <ul class="left">
-                    <li><a href="~/">Home</a></li>
-                    <li><a href="~/Develop">Develop</a></li>
-                    <li><a href="~/Questions">Questions</a></li>
-                    @RenderSection("NavBarLeft", false)
-                    <li class="divider hide-for-small"></li>
-                </ul>
-                <ul class="right">
-                    <li class="divider"></li>
-                    @{TheFlow.Api.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);}
+    <nav class="uk-navbar uk-navbar-attached" role="navigation">
+        <a class="uk-navbar-brand" href="~/">TheFlow</a>
+        <ul class="uk-navbar-nav uk-hidden-small">
+            <li><a href="~/">Home</a></li>
+            <li><a href="~/Develop">Develop</a></li>
+            <li><a href="~/Questions">Questions</a></li>
+            @{var navbarLeftSection = RenderSection("NavBarLeft", false);
+              string navbarLeft = "";
+              if (navbarLeftSection != null)
+              {
+                  navbarLeft = navbarLeftSection.ToHtmlString();
+              }}
+            @Html.Raw(navbarLeft)
+            <li class="uk-nav-divider"></li>
+        </ul>
+        <div class="uk-navbar-flip uk-hidden-small">
+            <ul class="uk-navbar-nav">
+                <li class="uk-nav-divider"></li>
+                @{TheFlow.Api.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);}
 
-                    @if (user == null)
-                    {
-                        <li><a href="~/Users/LogIn">Create Account</a></li>
-                        <li>@Html.ActionLink("Log In", "LogIn", "Users")</li>
-                    }
-                    else
-                    {
-                        <li class="has-dropdown">
-                            @Html.ActionLink(user.DisplayName, "Info", "Users", new { user = user.DisplayName }, null)
-                            <ul class="dropdown">
+                @if (user == null)
+                {
+                    <li><a href="~/Users/LogIn">Create Account</a></li>
+                    <li>@Html.ActionLink("Log In", "LogIn", "Users")</li>
+                }
+                else
+                {
+                    <li class="uk-parent">
+                        @Html.ActionLink(user.DisplayName, "Info", "Users", new { user = user.DisplayName }, null)
+                        <div class="uk-dropdown uk-dropdown-navbar">
+                            <ul class="uk-nav uk-nav-navbar">
                                 <li>
                                     @Html.ActionLink("Log Out", "LogOut", "Users")
                                 </li>
@@ -65,53 +63,104 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
+                        </div>
+                    </li>
                         
-                        <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account", new { title = string.Format("{0} Reputation", user.Reputation.ToString()) })</li>
-                    }
-                    @RenderSection("NavBarRight", false)
-                </ul>
-            </section>
-        </nav>
+                    <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account", new { title = string.Format("{0} Reputation", user.Reputation.ToString()) })</li>
+                }
+                @{var navbarRightSection = RenderSection("NavBarRight", false);
+                  string navbarRight = "";
+                  if (navbarRightSection != null)
+                  {
+                      navbarRight = navbarRightSection.ToHtmlString();
+                  }}
+                @Html.Raw(navbarRight)
+            </ul>
+        </div>
+        <a href="mobile-sidebar" class="uk-navbar-toggle uk-float-right uk-visible-small" data-uk-offcanvas="{target: '#mobile-sidebar'}"></a>
+    </nav>
+    <div id="mobile-sidebar" class="uk-offcanvas">
+        <div class="uk-offcanvas-bar uk-offcanvas-bar-flip">
+            <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon">
+                <li><a href="~/">Home</a></li>
+                <li><a href="~/Develop">Develop</a></li>
+                <li><a href="~/Questions">Questions</a></li>
+                @Html.Raw(navbarLeft)
+                <li class="uk-nav-divider"></li>
+
+                @if (user == null)
+                {
+                    <li><a href="~/Users/LogIn">Create Account</a></li>
+                    <li>@Html.ActionLink("Log In", "LogIn", "Users")</li>
+                }
+                else
+                {
+                    <li class="uk-parent">
+                        @Html.ActionLink(user.DisplayName, "Info", "Users", new { user = user.DisplayName }, null)
+                        <div class="uk-dropdown uk-dropdown-navbar">
+                            <ul class="uk-nav uk-nav-navbar">
+                                <li>
+                                    @Html.ActionLink("Log Out", "LogOut", "Users")
+                                </li>
+                                <li class="has-dropdown">
+                                    @Html.ActionLink("Account", "Info", "Users")
+                                    <ul class="dropdown">
+                                        <li>
+                                            @Html.ActionLink("Edit", "Edit", "Users")
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>                        
+                    <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account", new { title = string.Format("{0} Reputation", user.Reputation.ToString()) })</li>
+                }
+                @Html.Raw(navbarRight)
+            </ul>
+        </div>
     </div>
-    <section class="main">
-        <div class="row">
-            <div class="small-12 small-centered large-12 large-centered columns">
+    <div class="uk-container uk-container-center main-content">
+        <div class="uk-grid" data-uk-grid-margin>
+            <div class="uk-width-1-1">
                 @Html.Partial("_validationSummary")
                 @RenderBody()
                 <hr>
-                <footer>
-                    <div class="row">
-                        <div class="large-6 small-12 small-centered large-uncentered columns">
-                            <p class="hide-for-small text-left Copyright"></p>
-                            <p class="show-for-small text-center Copyright"></p>
-                        </div>
-                        <div class="large-6 small-12 small-centered large-uncentered columns">
-                            <p class="hide-for-small text-right Time"></p>
-                            <p class="show-for-small text-center Time"></p>
-                        </div>
-                    </div>
-                </footer>
             </div>
         </div>
-    </section>
+        <footer class="uk-margin-top">
+            <div class="uk-grid">
+                <div class="uk-width-medium-1-2">
+                    <p class="uk-hidden-small uk-text-left Copyright"></p>
+                    <p class="uk-visible-small uk-text-center Copyright"></p>
+                </div>
+                <div class="uk-width-medium-1-2">
+                    <p class="uk-hidden-small uk-text-right Time"></p>
+                    <p class="uk-visible-small uk-text-center Time"></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
     @* A form that includes an anti-forgery token that is used for ajax requests *@
     <form id="__AjaxAntiForgeryForm" style="height: 0px; width: auto; padding: 0px 0px 0px 0px; margin: 0 0 0 0;" method="post" action="#">
         @Html.AntiForgeryToken()
     </form>
 
     @*<script src="~/scripts/custom.modernizr.js"></script>*@
-    <script>
+    @*<script>
         document.write('<script src=' +
         ('__proto__' in {} ? '/TheFlow/scripts/zepto' : 'TheFlow/scripts/jquery-2.0.3') +
         '.js><\/script>')
-    </script>
-    <script src="~/scripts/foundation.min.js"></script>
+    </script>*@
+    <script src="~/scripts/jquery-2.0.3.js"></script>
+    <script src="~/scripts/uikit.js"></script>
+    @*<script src="~/scripts/foundation.min.js"></script>*@
     <script src="~/scripts/moment.js"></script>
     @RenderSection("Scripts", required: false)
     <script>
         $(function () {
-            $(document).foundation();
+            //$(document).foundation();
             @RenderSection("OnPageLoadFunction", required: false)
         });
         setInterval(function () {

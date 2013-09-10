@@ -133,45 +133,56 @@
     }
 }*@
 @{bool displayDelete = (user != null && @Model.Author.DisplayName == user.DisplayName);}
-<div class="panel" style="background-color: white">
-    <div class="row">
-        <div class="columns large-8">
+<div class="uk-panel uk-panel-box uk-panel-box-secondary" style="background-color: white">
+    <div class="uk-grid">
+        <div class="uk-width-medium-1-1">
             <h2 style="color: #f2b21b">@Model.Title</h2>
         </div>
-        <div class="columns large-offset-1 large-3 text-center">
-            <p>Posted by <a href="/Users/Info?user=@Model.Author.DisplayName">@Model.Author.DisplayName</a> <span class="time-from-now" data-time="@Model.DateCreated.ToUtcString()"></span></p>
-        </div>
+
     </div>
     <hr />
-    <div class="row">
-        <div class="columns large-1">
-            <a class="button full-width show-for-small">Vote</a>
-            <ul class="button-group vertical radius hide-for-small">
-                <li><a data-post="@Model.Id" class="button tiny up-vote" title="Vote Up">▲</a></li>
-                <li><a class="button disabled tiny" title="@(String.Format("{0} Up Votes and {1} Down Votes", Model.UpVotes.Count().ToString(), Model.DownVotes.Count().ToString()))">@Model.NetVote</a></li>
-                <li><a data-post="@Model.Id" class="button tiny down-vote" title="Vote Down">▼</a></li>
-            </ul>
+    <div class="uk-grid">
+        <div class="uk-width-medium-1-10 columns large-1">
+            <a class="uk-button full-width uk-visible-small uk-margin uk-text-center">Vote</a>
+            <div class="uk-hidden-small uk-vertical-align-middle">
+                <a data-post="@Model.Id" class="uk-icon-button uk-icon-arrow-up tiny up-vote" title="Vote Up"></a>
+                <br />
+                <span class="uk-icon-button uk-margin-top" title="@(String.Format("{0} Up Votes and {1} Down Votes", Model.UpVotes.Count().ToString(), Model.DownVotes.Count().ToString()))">@Model.NetVote</span>
+                <br />
+                <a data-post="@Model.Id" class="uk-icon-button uk-icon-arrow-down uk-margin-top down-vote" title="Vote Down"></a>
+            </div>
         </div>
-        <div class="columns large-11">
-            <div class="panel radius transparent wrap">
+        <div class="uk-width-medium-9-10 columns large-11">
+            <div class="uk-panel uk-panel-box uk-panel-box-secondary">
                 @*@TheFlow.Site.Controllers.ControllerHelper.HtmlSanitizer.GetHtml(markdown.Transform(Model.Body)).ToHtml()*@
                 @Model.SanitizedBody.ToHtml()
             </div>
         </div>
     </div>
     <hr />
-    <div class="row">
-        <div class="columns large-12">
-            <ul class="button-group radius">
-                <li><a href="#" class="button medium-on-small tiny-on-medium-up">Share</a></li>
-                <li><a href="#" class="button medium-on-small tiny-on-medium-up">Edit</a></li>
-                <li><a href="#" class="button medium-on-small tiny-on-medium-up">Flag</a></li>
+    <div class="uk-grid">
+        <div class="uk-width-medium-1-2">
+            <div class="uk-button-group">
+                <a href="#" class="uk-button medium-on-small tiny-on-medium-up">Share</a>
+                <a href="#" class="uk-button medium-on-small tiny-on-medium-up">Edit</a>
+                <a href="#" class="uk-button medium-on-small tiny-on-medium-up">Flag</a>
                 @if (displayDelete)
                 {
-                    <li><a data-post="../Delete/@Model.Id" class="post-back button medium-on-small tiny-on-medium-up">Delete</a></li>
+                    <a data-post="../Delete/@Model.Id" class="post-back uk-button medium-on-small tiny-on-medium-up">Delete</a>
                 }
-            </ul>
+            </div>
         </div>
+        <div class="uk-width-medium-1-2 uk-margin-top">
+            <article class="uk-comment">
+                <header class="uk-comment-header">
+                    <img class="uk-comment-avatar" src="" alt="@Model.Author.DisplayName">
+                    <h4 class="uk-comment-title uk-text-left">@Model.Author.DisplayName</h4>
+                    <div class="uk-comment-meta"><span class="time-from-now" data-time="@Model.DateCreated.ToUtcString()"></span></div>
+                </header>
+                <div class="uk-comment-body"></div>
+            </article>
+            @*<p>Posted by <a href="/Users/Info?user=@Model.Author.DisplayName">@Model.Author.DisplayName</a> <span class="time-from-now" data-time="@Model.DateCreated.ToUtcString()"></span></p>
+        *@</div>
     </div>
 
 </div>
@@ -180,40 +191,41 @@
     foreach (var answer in Model.Answers)
     {
     <hr />
-    <div class="panel" style="background-color: transparent">
-        <div class="row">
-            <div class="columns large-1">
-                <a class="button full-width show-for-small">Vote</a>
-                <ul class="button-group vertical radius hide-for-small">
-                    <li><a data-post="@answer.Id" class="button tiny up-vote" title="Vote Up">▲</a></li>
-                    <li><a class="button disabled tiny" title="@(String.Format("{0} Up Votes and {1} Down Votes", Model.UpVotes.Count().ToString(), Model.DownVotes.Count().ToString()))">@answer.NetVote</a></li>
-                    <li><a data-post="@answer.Id" class="button tiny down-vote"  title="Vote Down">▼</a></li>
-                </ul>
+    <div class="uk-panel uk-panel-box uk-panel-box-secondary" style="background-color: transparent">
+        <div class="uk-grid">
+            <div class="uk-width-medium-1-10">
+                <a class="uk-button full-width uk-visible-small uk-margin uk-text-center">Vote</a>
+                <div class="uk-hidden-small">
+                    <a data-post="@answer.Id" class="uk-icon-button uk-icon-arrow-up up-vote" title="Vote Up"></a>
+                    <br />
+                    <a class="uk-icon-button uk-margin-top" title="@(String.Format("{0} Up Votes and {1} Down Votes", Model.UpVotes.Count().ToString(), Model.DownVotes.Count().ToString()))">@answer.NetVote</a>
+                    <br />
+                    <a data-post="@answer.Id" class="uk-icon-button uk-icon-arrow-down uk-margin-top down-vote"  title="Vote Down"></a>
+                </div>
             </div>
-            <div class="columns large-11">
-                <div class="panel radius transparent wrap" id="@answer.Id">
+            <div class="uk-width-medium-9-10">
+                <div class="uk-panel uk-panel-box uk-panel-box-secondary" id="@answer.Id">
                     @*@TheFlow.Site.Controllers.ControllerHelper.HtmlSanitizer.GetHtml(markdown.Transform(answer.Body)).ToHtml()*@
                     @answer.SanitizedBody.ToHtml()
                 </div>
             </div>
         </div>
         <hr />
-        <div class="row">
+        <div class="uk-grid">
             @{
         displayDelete = (user != null && user.DisplayName == answer.Author.DisplayName);
-        string columnSize = displayDelete ? "large-3" : "large-4";
             }
-            <div class="columns large-6">
+            <div class="uk-width-medium-1-2">
                 <div>
-                    <ul class="button-group radius">
-                        <li><a href="#" class="button medium-on-small tiny-on-medium-up">Share</a></li>
-                        <li><a href="#" class="button medium-on-small tiny-on-medium-up">Edit</a></li>
-                        <li><a href="#" class="button medium-on-small tiny-on-medium-up">Flag</a></li>
+                    <div class="uk-button-group">
+                        <a href="#" class="uk-button medium-on-small tiny-on-medium-up">Share</a>
+                        <a href="#" class="uk-button medium-on-small tiny-on-medium-up">Edit</a>
+                        <a href="#" class="uk-button medium-on-small tiny-on-medium-up">Flag</a>
                         @if (displayDelete)
                         {
-                            <li><a data-post="../../Answers/Delete/@answer.Id" class="post-back button medium-on-small tiny-on-medium-up">Delete</a></li>
+                            <a data-post="../../Answers/Delete/@answer.Id" class="post-back uk-button medium-on-small tiny-on-medium-up">Delete</a>
                         }
-                    </ul>
+                    </div>
                 </div>
                 @*<div class="row">
                     <div class="@columnSize columns">
@@ -233,7 +245,7 @@
                     }
                 </div>*@
             </div>
-            <div class="columns large-6 text-right">
+            <div class="uk-width-medium-1-2 uk-text-center uk-margin-top">
                 <p>Posted by <a href="/Users/Info?user=@answer.Author.DisplayName">@answer.Author.DisplayName</a> <span class="time-from-now" data-time="@answer.DateCreated.ToUtcString()"></span></p>
             </div>
         </div>
@@ -243,44 +255,40 @@
 else
 {
     <hr />
-    <h3 class="text-center">No answers have been posted yet. Help and post an answer yourself!</h3>   
+    <h3 class="uk-text-center">No answers have been posted yet. Help and post an answer yourself!</h3>   
 }
 
 <hr />
-<div class="row">
-    <div class="columns large-12">
+<div class="uk-grid">
+    <div class="uk-width-medium-1-1 columns large-12">
         @{
             bool editable = (user != null && Model.Answers.Any(a => a.Author.DisplayName == user.DisplayName));
         }
         @if (editable)
         {
-            <h2 class="hide-for-small">Edit your Answer</h2>
-            <h2 class="show-for-small text-center">Edit your Answer</h2>
+            <h2 class="uk-hidden-small">Edit your Answer</h2>
+            <h2 class="uk-visible-small uk-text-center">Edit your Answer</h2>
         }
         else
         {
-            <h2 class="hide-for-small">Submit your Answer</h2>
-            <h2 class="show-for-small text-center">Submit your Answer</h2>
+            <h2 class="uk-hidden-small">Submit your Answer</h2>
+            <h2 class="uk-visible-small uk-text-center">Submit your Answer</h2>
         }
         @using (Html.BeginForm("Create", "Answers", FormMethod.Post, new { data_abide = "", novalidate = "novalidate" }))
         {
             @Html.AntiForgeryToken()
             <input type="hidden" id="QuestionId" name="QuestionId" value="@Model.Id.ToString()" />
             <div id="body-field">
-                <textarea class="wmd-input" id="wmd-input" style="width: 100%; min-height: 16em;" required>
-@if (editable)
-{
-@Model.Answers.Single(a => a.Author.DisplayName == user.DisplayName).MarkdownBody;
-}
-                </textarea>
+                <textarea class="wmd-input" id="wmd-input" style="width: 100%; min-height: 16em;" required>@if (editable)
+                                                                                                           {<text>@Model.Answers.Single(a => a.Author.DisplayName == user.DisplayName).MarkdownBody</text>}</textarea>
                 <small class="error">Please provide an answer</small>
             </div>
-            <div class="panel radius" style="background-color: transparent;">
-                <small class="text-left" style="color: #858585">Preview</small>
+            <div class="uk-panel uk-panel-box uk-panel-box-secondary">
+                <small class="uk-text-left" style="color: #858585">Preview</small>
                 <div id="wmd-preview"></div>
             </div>
             <input type="hidden" id="Body" name="Body" value="" />
-            <button class="button success hide-for-small" type="submit">
+            <button class="uk-button uk-button-success uk-margin" type="submit">
                 @if (editable)
                 {
                     @:Edit your Answer
@@ -289,7 +297,7 @@ else
                 {
                     @:Post your Answer
                 }</button>
-            <button class="button success show-for-small full-width" type="submit">
+@*<button class="uk-button-success uk-visible-small full-width" type="submit">
                 @if (editable)
                 {
                     @:Edit your Answer
@@ -297,7 +305,7 @@ else
                 else
                 {
                     @:Post your Answer
-                }</button>
+                }</button>*@
         }
     </div>
 </div>

@@ -13,7 +13,7 @@ As of Today September 3rd, 2013 there is no live site example yet.
 	- Using [MVC Web Api](http://www.asp.net/web-api)
 	- API Keys to help prevent Cross-Site Request Forgery
 - Simple, clean and mobile friendly front-end website
-	- Using [Zurb Foundation 4](http://foundation.zurb.com/)
+	- Using **UI Kit**
 - SSL
 - Markdown for posts, questions, comments etc.
 	- Syntax Highlighting using [Google Code Prettify](https://code.google.com/p/google-code-prettify/)
@@ -27,7 +27,7 @@ As of Today September 3rd, 2013 there is no live site example yet.
 - Does not transmit user credentials.
 
 ##Front-End (TheFlow.Site namespace) ##
-- Smooth and mobile friendly using [Zurb Foundation 4](http://foundation.zurb.com/)
+- Smooth and mobile friendly using **UI Kit**
 - Authentication using [DotNetOpenAuth](https://github.com/DotNetOpenAuth/DotNetOpenAuth)
 	- With Forms Authentication
 - SSL enabled
