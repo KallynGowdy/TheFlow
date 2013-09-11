@@ -339,6 +339,10 @@
     <Compile Include="Migrations\201309082132459_FixedQuestionViews.Designer.cs">
       <DependentUpon>201309082132459_FixedQuestionViews.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201309101710132_UpdatedEditsForValidation.cs" />
+    <Compile Include="Migrations\201309101710132_UpdatedEditsForValidation.Designer.cs">
+      <DependentUpon>201309101710132_UpdatedEditsForValidation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnswerModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
@@ -435,6 +439,8 @@
     <Content Include="scripts\pagedown\Markdown.Editor.js" />
     <Content Include="scripts\pagedown\Markdown.Sanitizer.js" />
     <Content Include="scripts\pagedown\README.txt" />
+    <Content Include="scripts\parsley.extend.js" />
+    <Content Include="scripts\parsley.js" />
     <Content Include="scripts\prettyprint\lang-apollo.js" />
     <Content Include="scripts\prettyprint\lang-basic.js" />
     <Content Include="scripts\prettyprint\lang-clj.js" />
@@ -505,6 +511,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\parsley\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -566,6 +573,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201309082132459_FixedQuestionViews.resx">
       <DependentUpon>201309082132459_FixedQuestionViews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309101710132_UpdatedEditsForValidation.resx">
+      <DependentUpon>201309101710132_UpdatedEditsForValidation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

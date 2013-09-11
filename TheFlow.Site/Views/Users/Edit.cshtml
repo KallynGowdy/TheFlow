@@ -1,11 +1,12 @@
 ﻿@model TheFlow.Api.Models.UserModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title =  Model.DisplayName + " - Edit";
 }
 
 @section Scripts
 {
+    <script src="~/scripts/parsley.js"></script>
     <script src="~/scripts/pagedown/Markdown.Converter.js"></script>
     <script src="~/scripts/pagedown/Markdown.Editor.js"></script>
     <script src="~/scripts/pagedown/Markdown.Sanitizer.js"></script>
@@ -13,7 +14,7 @@
     <script src="~/scripts/editor.js"></script>
     <script type="text/javascript">
         function onThemeChanged(sel) {
-            $('#codeTheme').attr('href', '../Content/prettyprint/' + sel.options[sel.selectedIndex].value + "Style.css");
+            $('#codeTheme').attr('href', '@Url.Content("~/Content/prettyprint/")' + sel.options[sel.selectedIndex].value + "Style.css");
             prettyPrint();
         }
 
@@ -37,53 +38,65 @@
 
 @section head
 {
-    <link id="codeTheme" href="@String.Format("/Content/prettyprint/{0}Style.css", Model.Preferences.CodeTheme)" rel="stylesheet" />
+    <link id="codeTheme" href="@Url.Content(String.Format("~/Content/prettyprint/{0}Style.css", Model.Preferences.CodeTheme))" rel="stylesheet" />
 }
 
-<h2>Edit</h2>
+<h2>Edit Profile</h2>
 
-<div class="row panel radius">
-    <div class="columns large-6">
-        @using (Html.BeginForm("Edit", "Users", FormMethod.Post))
+<div class="uk-grid uk-panel uk-panel-box">
+    <div class="uk-width-medium-1-2">
+        @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { data_validate = "parsley", novalidate = "" }))
         {
-            @Html.AntiForgeryToken();
-    
-            @Html.LabelFor(a => a.DisplayName);
-            @Html.EditorFor(a => a.DisplayName);
-    
-            @Html.LabelFor(a => a.DateOfBirth);
-            @Html.EditorFor(a => a.DateOfBirth);
-
-            @Html.LabelFor(a => a.FirstName);
-            @Html.EditorFor(a => a.FirstName);
-
-            @Html.LabelFor(a => a.LastName);
-            @Html.EditorFor(a => a.LastName);
-
-            @Html.LabelFor(a => a.Location);
-            @Html.EditorFor(a => a.Location);
-
-            @Html.LabelFor(a => a.EmailAddress);
-            @Html.EditorFor(a => a.EmailAddress);
-                
-            @Html.LabelFor(a => a.Preferences.CodeTheme);
-@* @Html.DropDownListFor(a => a.Preferences.CodeTheme, Enum.GetValues(typeof(TheFlow.API.Entities.CodeStyle)).Cast<TheFlow.API.Entities.CodeStyle>().Select(a => new SelectListItem { Selected = false, Text = a.ToString(), Value = a.ToString() }));
-            *@
-            <select onchange="onThemeChanged(this)" name="Preferences.CodeTheme" id="preferences">
-                @foreach (TheFlow.Api.Entities.CodeStyle style in Enum.GetValues(typeof(TheFlow.Api.Entities.CodeStyle)))
-                {
-                    <option value="@style.ToString()" @if (Model.Preferences.CodeTheme == style)
-                                                      { <text>selected</text> }>@style.ToString()</option>
-                }
-            </select>
-                
-            <button type="submit">Save Changes</button>
+            @Html.AntiForgeryToken()
+            <dl class="uk-description-list uk-description-list-horizontal">
+                <dt>@Html.LabelFor(a => a.DisplayName)</dt>
+                <dd>
+                    <input class="text-box single-line" id="DisplayName" name="DisplayName" type="text" value="@Model.DisplayName" required data-minLength="5"></dd>
+            </dl>
+            <dl class="uk-description-list uk-description-list-horizontal">
+                <dt>@Html.LabelFor(a => a.DateOfBirth)</dt>
+                <dd>
+                    <input type="date" id="DateOfBirth" name="DateOfBirth" data-type="dateIso" value="@Model.DateOfBirth.Value.Date" /></dd>
+            </dl>
+            <dl class="uk-description-list uk-description-list-horizontal">
+                <dt>@Html.LabelFor(a => a.FirstName)</dt>
+                <dd>
+                    <input type="text" id="FirstName" name="FirstName" data-type="text" value="@Model.DateOfBirth.Value.Date" /></dd>
+            </dl>
+            <dl class="uk-description-list uk-description-list-horizontal">
+                <dt>@Html.LabelFor(a => a.LastName)</dt>
+                <dd>
+                    <input class="text-box single-line" id="LastName" name="LastName" type="text" value="@Model.LastName"/></dd>
+            </dl>
+            <dl class="uk-description-list uk-description-list-horizontal">
+                <dt>@Html.LabelFor(a => a.Location)</dt>
+                <dd>
+                    <input class="text-box single-line" id="Location" name="Location" type="text" value="@Model.Location"/></dd>
+            </dl>
+            <dl class="uk-description-list uk-description-list-horizontal">
+                <dt>@Html.LabelFor(a => a.EmailAddress)</dt>
+                <dd>
+                    <input class="text-box single-line parsley-validated" data-val="true" data-val-email="The EmailAddress field is not a valid e-mail address." id="EmailAddress" name="EmailAddress" type="email" value="@Model.EmailAddress" required data-type="email"/></dd>
+            </dl>
+            <dl class="uk-description-list uk-description-list-horizontal">
+                <dt>@Html.LabelFor(a => a.Preferences.CodeTheme)</dt>
+                <dd>
+                    <select onchange="onThemeChanged(this)" name="Preferences.CodeTheme" id="preferences">
+                        @foreach (TheFlow.Api.Entities.CodeStyle style in Enum.GetValues(typeof(TheFlow.Api.Entities.CodeStyle)))
+                        {
+                            <option value="@style.ToString()" @if (Model.Preferences.CodeTheme == style)
+                                                              { <text>selected</text> }>@style.ToString()</option>
+                        }
+                    </select>
+                </dd>
+            </dl>
+            <button class="uk-button" type="submit">Save Changes</button>
         }
     </div>
-    <div class="columns large-6">
+    <div class="uk-width-medium-1-2">
         <small>Markdown preview</small>
         <textarea class="wmd-input" id="wmd-input" name="Body" style="max-width: 100%; min-height: 16em;"></textarea>
-        <div class="panel radius" style="background-color: white;">
+        <div class="uk-panel uk-panel-box uk-panel-box-secondary uk-margin-top" style="background-color: white;">
             <h3 id="title-preview"></h3>
             <div id="wmd-preview"></div>
         </div>

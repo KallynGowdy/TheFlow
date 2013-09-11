@@ -17,45 +17,64 @@
     }
 }
 
-<div class="row">
-    <div class="columns large-4">
-        <h2 class="show-for-medium-up">@Model.DisplayName</h2>
-        <h1 class="show-for-small text-center">@Model.DisplayName</h1>
+<div class="uk-grid">
+    <div class="uk-width-medium-1-3 columns large-4">
+        <h1 class="uk-text-success">@Model.DisplayName</h1>
     </div>
-    <div class="columns large-offset-7 large-1">
+    <div class="uk-width-medium-1-10 uk-push-6-10 uk-hidden-small">
         @if (authenticated)
         {
-            <div class="show-for-medium-up text-right" style="margin-top: 0.2em;">
-                @Html.ActionLink("edit", "Edit", null, new { @class = "button round" })
+            <div style="margin-top: 0.2em;">
+                @Html.ActionLink("edit", "Edit", null, new { @class = "uk-button" })
             </div>
         }
     </div>
 </div>
 <hr />
-<div class="row">
-    <div class="columns large-3">
+<div class="uk-grid">
+    <div class="uk-width-medium-1-4">
         @{string reputation = string.Format("{0:n0}", Model.Reputation);}
 
-        <div class="show-for-medium-up">
+        <div class="uk-hidden-small">
             <h5>@reputation Reputation</h5>
         </div>
-        <div class="show-for-small text-center">
+        <div class="uk-visible-small uk-text-center">
             <h5>@reputation Reputation</h5>
         </div>
     </div>
-    <div class="columns large-9 panel radius" style="background-color: transparent;">
-        <div class="row">
-            <div class="columns large-12">
-                <p>Display Name: <span style="margin-left: 2em;">@Model.DisplayName</span></p>
+    <div class="uk-width-medium-3-4 uk-panel uk-panel-box uk-panel-box-secondary">
+        <div class="uk-grid">
+            <div class="uk-width-medium-1-1">
+                <dl class="uk-panel uk-panel-box uk-description-list uk-description-list-horizontal">
+                    <dt>Display Name</dt>
+                    <dd>
+                        @Model.DisplayName
+                    </dd>
+                </dl>
                 @if (Model.Age.HasValue)
                 {
-                    <p>Age: <span style="margin-left: 2em;">@Model.Age.Value</span></p>
+                    <dl class="uk-panel uk-panel-box uk-description-list uk-description-list-horizontal  uk-margin-top">
+                        <dt>Age</dt>
+                        <dd>
+                            @Model.Age.Value
+                        </dd>
+                    </dl>
                 }
                 @if (Model.Location != null)
                 {
-                    <p>Location: <span style="margin-left: 2em;">@Model.Location</span></p>
+                    <dl class="uk-panel uk-panel-box uk-description-list uk-description-list-horizontal uk-margin-top">
+                        <dt>Location</dt>
+                        <dd>
+                            @Model.Location
+                        </dd>
+                    </dl>
                 }
-                <p>Preferred Code Theme: @Model.Preferences.CodeStyle.ToString()</p>
+                <dl class="uk-panel uk-panel-box uk-description-list uk-description-list-horizontal uk-margin-top">
+                    <dt>Preferred Code Theme</dt>
+                    <dd>
+                        @Model.Preferences.CodeStyle.ToString()
+                    </dd>
+                </dl>
             </div>
         </div>
     </div>

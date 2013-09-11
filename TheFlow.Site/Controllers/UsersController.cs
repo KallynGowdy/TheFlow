@@ -176,6 +176,10 @@ namespace TheFlow
                 if (returnUrl == null)
                 {
                     returnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.AbsolutePath : null;
+                    if (returnUrl == null)
+                    {
+                        returnUrl = Url.Action("Index", "Home");
+                    }
                 }
 
                 User user;

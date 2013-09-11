@@ -1,6 +1,6 @@
 # TheFlow
 An open source question and answer site inspired by [Stackoverflow](http://www.stackoverflow.com).
-As of Today September 3rd, 2013 there is no live site example yet.
+As of Today, September 10th, 2013 there is a live **test** site at [http://www.opensourceoverflow.com](http://www.opensourceoverflow.com), this site features the latest updated branch.
 
 ## Features and Goals ##
 - Licensed under the Apache 2.0 License
@@ -13,7 +13,7 @@ As of Today September 3rd, 2013 there is no live site example yet.
 	- Using [MVC Web Api](http://www.asp.net/web-api)
 	- API Keys to help prevent Cross-Site Request Forgery
 - Simple, clean and mobile friendly front-end website
-	- Using **UI Kit**
+	- Using [UI Kit](http://getuikit.com/ "UI Kit")
 - SSL
 - Markdown for posts, questions, comments etc.
 	- Syntax Highlighting using [Google Code Prettify](https://code.google.com/p/google-code-prettify/)
@@ -27,7 +27,7 @@ As of Today September 3rd, 2013 there is no live site example yet.
 - Does not transmit user credentials.
 
 ##Front-End (TheFlow.Site namespace) ##
-- Smooth and mobile friendly using **UI Kit**
+- Smooth and mobile friendly using [UI Kit](http://getuikit.com/ "UI Kit")
 - Authentication using [DotNetOpenAuth](https://github.com/DotNetOpenAuth/DotNetOpenAuth)
 	- With Forms Authentication
 - SSL enabled

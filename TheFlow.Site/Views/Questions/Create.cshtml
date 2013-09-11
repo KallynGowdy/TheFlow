@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Ask a Question";
 }
 @section head
 {
@@ -7,6 +7,8 @@
 }
 @section Scripts
 {
+    <script src="~/scripts/parsley.js"></script>
+    <script src="~/scripts/parsley.extend.js"></script>
     <script src="~/scripts/pagedown/Markdown.Converter.js"></script>
     <script src="~/scripts/pagedown/Markdown.Editor.js"></script>
     <script src="~/scripts/pagedown/Markdown.Sanitizer.js"></script>
@@ -15,26 +17,35 @@
 }
 @section OnPageLoadFunction
 {
-    enableTab("wmd-input");
+enableTab("wmd-input");
 
     enableEditor();
 }
 <h2>Ask a Question</h2>
 
-<div class="row">
-    <div class="columns large-12">
-        @using (Html.BeginForm("Create", "Questions", FormMethod.Post, new { data_abide = "" }))
-        {
-            @Html.AntiForgeryToken()
-            <input id="Title" type="text" placeholder="Title" name="Title" autocomplete="off" required />
-            <small class="error">Please provide a Title for your question.</small>
-            <input type="text" placeholder="Tags" name="Tags" autocomplete="off" title="The tags for your question" />
-            <textarea class="wmd-input" id="wmd-input" name="Body" style="max-width: 100%; min-height: 16em;"></textarea>
-            <div class="panel radius" style="background-color: white;">
-                <h3 id="title-preview"></h3>
-                <div id="wmd-preview"></div>
-            </div>
-            <button type="submit">Ask Question</button>
-        }
+<div class="uk-grid">
+    <div class="uk-width-medium-1-1">
+        <div class="uk-grid">
+            @using (Html.BeginForm("Create", "Questions", FormMethod.Post, new { novalidate = true, data_validate = "parsley" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="uk-width-1-1">
+                    <input class="full-width radius" id="Title" type="text" placeholder="Title" name="Title" data-minlength="10" data-error-message="Please provide a Title with a length of at least 10" autocomplete="off" required />
+                </div>
+                <div class="uk-width-1-1 uk-margin-top">
+                    <input class="full-width radius" type="text" placeholder="Tags" name="Tags" autocomplete="off" title="The tags for your question" data-minwords="1" data-error-message="Please provide at least one tag" required />
+                </div>
+                <div class="uk-width-1-1 uk-margin-top">
+                    <textarea class="full-width" class="wmd-input" id="wmd-input" name="Body" style="max-width: 100%; min-height: 16em;" required data-minLength="15" data-error-message="Please write a question with at least 15 characters."></textarea>
+                </div>
+                <div class="uk-width-1-1 uk-margin-top">
+                    <div class="uk-panel uk-panel-box uk-panel-box-secondary">
+                        <h3 id="title-preview"></h3>
+                        <div id="wmd-preview"></div>
+                    </div>
+                </div>
+                <button class="uk-button uk-margin" type="submit">Ask Question</button>
+            }
+        </div>
     </div>
 </div>

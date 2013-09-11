@@ -47,25 +47,15 @@
                 }
                 else
                 {
-                    <li class="uk-parent">
-                        @Html.ActionLink(user.DisplayName, "Info", "Users", new { user = user.DisplayName }, null)
-                        <div class="uk-dropdown uk-dropdown-navbar">
-                            <ul class="uk-nav uk-nav-navbar">
-                                <li>
-                                    @Html.ActionLink("Log Out", "LogOut", "Users")
-                                </li>
-                                <li class="has-dropdown">
-                                    @Html.ActionLink("Account", "Info", "Users")
-                                    <ul class="dropdown">
-                                        <li>
-                                            @Html.ActionLink("Edit", "Edit", "Users")
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                    <li class="uk-parent" data-uk-dropdown="">
+                            @Html.ActionLink(user.DisplayName, "Info", "Users", new { user = user.DisplayName }, null)
+                            <div class="uk-dropdown uk-dropdown-navbar">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li>@Html.ActionLink("Log Out", "LogOut", "Users")</li>
+                                    <li>@Html.ActionLink("Account", "Info", "Users")</li>
+                                </ul>
                         </div>
-                    </li>
-                        
+                    </li>  
                     <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account", new { title = string.Format("{0} Reputation", user.Reputation.ToString()) })</li>
                 }
                 @{var navbarRightSection = RenderSection("NavBarRight", false);
@@ -95,22 +85,13 @@
                 }
                 else
                 {
-                    <li class="uk-parent">
-                        @Html.ActionLink(user.DisplayName, "Info", "Users", new { user = user.DisplayName }, null)
-                        <div class="uk-dropdown uk-dropdown-navbar">
-                            <ul class="uk-nav uk-nav-navbar">
-                                <li>
-                                    @Html.ActionLink("Log Out", "LogOut", "Users")
-                                </li>
-                                <li class="has-dropdown">
-                                    @Html.ActionLink("Account", "Info", "Users")
-                                    <ul class="dropdown">
-                                        <li>
-                                            @Html.ActionLink("Edit", "Edit", "Users")
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                    <li class="uk-parent" data-uk-dropdown="">
+                            @Html.ActionLink(user.DisplayName, "Info", "Users", new { user = user.DisplayName }, null)
+                            <div class="uk-dropdown uk-dropdown-navbar">
+                                <ul class="uk-nav uk-nav-navbar">
+                                    <li>@Html.ActionLink("Log Out", "LogOut", "Users")</li>
+                                    <li>@Html.ActionLink("Account", "Info", "Users")</li>
+                                </ul>
                         </div>
                     </li>                        
                     <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account", new { title = string.Format("{0} Reputation", user.Reputation.ToString()) })</li>
@@ -150,7 +131,7 @@
     @*<script src="~/scripts/custom.modernizr.js"></script>*@
     @*<script>
         document.write('<script src=' +
-        ('__proto__' in {} ? '/TheFlow/scripts/zepto' : 'TheFlow/scripts/jquery-2.0.3') +
+        ('__proto__' in {} ? '@Url.Content("~/scripts/zepto")' : '@Url.Content("scripts/jquery-2.0.3")') +
         '.js><\/script>')
     </script>*@
     <script src="~/scripts/jquery-2.0.3.js"></script>

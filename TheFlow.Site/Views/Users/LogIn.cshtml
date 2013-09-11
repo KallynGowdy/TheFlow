@@ -4,7 +4,7 @@
     ViewBag.Title = "Log In";
 }
 
-<h2>Create User</h2>
+<h2>Log In</h2>
 <div class="uk-container">
     <div class="uk-grid">
         <div class="uk-width-medium-1-1 uk-panel uk-panel-box">
@@ -14,7 +14,7 @@
                 <p class="uk-hidden-small">Sign in with one of these providers:</p>
                 <p class="uk-visible-small uk-text-center">Sign in with one of these providers:</p>
                 <div class="uk-grid uk-margin">
-                    <div class="uk-width-medium-1-4">
+                    <div class="uk-width-medium-1-4 uk-margin-top">
                         @using (Html.BeginForm("LogIn", "Users", FormMethod.Post, new { style = "width: 100%" }))
                         {
                             @Html.AntiForgeryToken();

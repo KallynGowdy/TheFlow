@@ -9,6 +9,41 @@ blockquote {
     padding: 10px 10px 10px 10px;
 }
 
+.content-padding {
+    padding: 5px;
+}
+
 .full-width {
     width: 100%;
+}
+
+.radius {
+    border-radius: 4px;
+    border-width: 1px;
+    padding: 4px;
+}
+
+.wmd-input {
+    width: 100%;
+    min-height: 16em;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+
+.parsley-error {
+    background-color: #ff9a97;
+}
+
+ul.parsley-error-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+ul.parsley-error-list > li {
+    border: 1px solid red;
+    border-radius: 4px;
+    color: black;
+    padding: 5px;
+    background-color: #ff4949;
 }

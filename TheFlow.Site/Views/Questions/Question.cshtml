@@ -4,7 +4,7 @@
 @model TheFlow.Api.Models.ViewQuestionModel
 
 @{
-    ViewBag.Title = "Question";
+    ViewBag.Title = Model.Title;
     var markdown = new Markdown(true);
     var user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);
 }
@@ -16,6 +16,7 @@
 
 @section Scripts
 {
+    <script src="~/scripts/parsley.js"></script>
     <script src="~/scripts/pagedown/Markdown.Converter.js"></script>
     <script src="~/scripts/pagedown/Markdown.Sanitizer.js"></script>
     <script src="~/scripts/pagedown/Markdown.Editor.js"></script>
@@ -49,7 +50,7 @@
             $.ajax({
                 type: "post",
                 dataType: "json",
-                url: '/TheFlow/Posts/UpVote/' + data,
+                url: '@Url.Action("UpVote", "Posts")/' + data,
                 data: AddAntiForgeryToken({ ajax: true }),
                 success: function (data, textStaus) {
                     if (data.redirect) {
@@ -67,7 +68,7 @@
             $.ajax({
                 type: "post",
                 dataType: "json",
-                url: '/TheFlow/Posts/DownVote/' + data,
+                url: '@Url.Action("DownVote", "Posts")/' + data,
                 data: AddAntiForgeryToken({ ajax: true }),
                 success: function (data, textStaus) {
                     if (data.redirect) {
@@ -107,6 +108,9 @@
             });
         });
 
+        //tell the browser to remove the query string from the url bar
+        history.replaceState({}, '@ViewBag.Title', '@Request.Url.AbsolutePath');
+
         //find all of the elements with .time class
         var timeElements = $('.time-from-now');
 
@@ -133,12 +137,11 @@
     }
 }*@
 @{bool displayDelete = (user != null && @Model.Author.DisplayName == user.DisplayName);}
-<div class="uk-panel uk-panel-box uk-panel-box-secondary" style="background-color: white">
+<div class="uk-panel uk-panel-box uk-panel-box-secondary">
     <div class="uk-grid">
         <div class="uk-width-medium-1-1">
             <h2 style="color: #f2b21b">@Model.Title</h2>
         </div>
-
     </div>
     <hr />
     <div class="uk-grid">
@@ -168,7 +171,7 @@
                 <a href="#" class="uk-button medium-on-small tiny-on-medium-up">Flag</a>
                 @if (displayDelete)
                 {
-                    <a data-post="../Delete/@Model.Id" class="post-back uk-button medium-on-small tiny-on-medium-up">Delete</a>
+                    <a data-post="@Url.Action("Delete", "Questions", new { id = Model.Id })" class="post-back uk-button medium-on-small tiny-on-medium-up">Delete</a>
                 }
             </div>
         </div>
@@ -182,16 +185,16 @@
                 <div class="uk-comment-body"></div>
             </article>
             @*<p>Posted by <a href="/Users/Info?user=@Model.Author.DisplayName">@Model.Author.DisplayName</a> <span class="time-from-now" data-time="@Model.DateCreated.ToUtcString()"></span></p>
-        *@</div>
+        *@
+        </div>
     </div>
-
 </div>
 @if (Model.Answers != null && Model.Answers.Any())
 {
     foreach (var answer in Model.Answers)
     {
     <hr />
-    <div class="uk-panel uk-panel-box uk-panel-box-secondary" style="background-color: transparent">
+    <div class="uk-panel uk-panel-box uk-panel-box-secondary">
         <div class="uk-grid">
             <div class="uk-width-medium-1-10">
                 <a class="uk-button full-width uk-visible-small uk-margin uk-text-center">Vote</a>
@@ -223,7 +226,7 @@
                         <a href="#" class="uk-button medium-on-small tiny-on-medium-up">Flag</a>
                         @if (displayDelete)
                         {
-                            <a data-post="../../Answers/Delete/@answer.Id" class="post-back uk-button medium-on-small tiny-on-medium-up">Delete</a>
+                            <a data-post="@Url.Action("Delete", "Answers", new { id = answer.Id })" class="post-back uk-button medium-on-small tiny-on-medium-up">Delete</a>
                         }
                     </div>
                 </div>
@@ -245,7 +248,7 @@
                     }
                 </div>*@
             </div>
-            <div class="uk-width-medium-1-2 uk-text-center uk-margin-top">
+            <div class="uk-width-medium-1-2 uk-text-right uk-margin-top">
                 <p>Posted by <a href="/Users/Info?user=@answer.Author.DisplayName">@answer.Author.DisplayName</a> <span class="time-from-now" data-time="@answer.DateCreated.ToUtcString()"></span></p>
             </div>
         </div>
@@ -274,16 +277,15 @@ else
             <h2 class="uk-hidden-small">Submit your Answer</h2>
             <h2 class="uk-visible-small uk-text-center">Submit your Answer</h2>
         }
-        @using (Html.BeginForm("Create", "Answers", FormMethod.Post, new { data_abide = "", novalidate = "novalidate" }))
+        @using (Html.BeginForm("Create", "Answers", FormMethod.Post, new { data_validate = "parsley", novalidate = "novalidate" }))
         {
             @Html.AntiForgeryToken()
             <input type="hidden" id="QuestionId" name="QuestionId" value="@Model.Id.ToString()" />
             <div id="body-field">
-                <textarea class="wmd-input" id="wmd-input" style="width: 100%; min-height: 16em;" required>@if (editable)
-                                                                                                           {<text>@Model.Answers.Single(a => a.Author.DisplayName == user.DisplayName).MarkdownBody</text>}</textarea>
-                <small class="error">Please provide an answer</small>
+                <textarea data-minlength="15" class="wmd-input" id="wmd-input" data-error-message="Your answer must be at least 15 characters long" required>@if (editable)
+                                                                                                                                                             {<text>@Model.Answers.Single(a => a.Author.DisplayName == user.DisplayName).MarkdownBody</text>}</textarea>
             </div>
-            <div class="uk-panel uk-panel-box uk-panel-box-secondary">
+            <div class="uk-panel uk-panel-box uk-panel-box-secondary uk-margin">
                 <small class="uk-text-left" style="color: #858585">Preview</small>
                 <div id="wmd-preview"></div>
             </div>

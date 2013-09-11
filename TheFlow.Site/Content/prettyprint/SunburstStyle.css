@@ -3,6 +3,10 @@
 /* Pretty printing styles. Used with prettify.js. */
 /* Vim sunburst theme by David Leibovic */
 
+code {
+    border-color: black;
+}
+
 pre .str, code .str {
     color: #65B042;
 }

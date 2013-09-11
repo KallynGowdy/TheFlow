@@ -36,10 +36,10 @@ namespace TheFlow.Api.Entities
         }
 
         /// <summary>
-        /// Gets or sets the body text of the edit.
+        /// Gets or sets the body text of the edit. Maximum lenght is 64,000 characters.
         /// </summary>
         [Required]
-        [Column(TypeName="ntext")]
+        [MaxLength(64000)]
         public string Body
         {
             get;
