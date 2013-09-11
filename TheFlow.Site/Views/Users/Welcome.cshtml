@@ -1,7 +1,7 @@
 ﻿@model TheFlow.Api.Entities.User
 
 @{
-    ViewBag.Title = "Account";
+    ViewBag.Title = string.Format("Welcome - {0}", TheFlow.Site.Settings.SiteName);
     Layout = "~/Views/shared/_Layout.cshtml";
 }
 

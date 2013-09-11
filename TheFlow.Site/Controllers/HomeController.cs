@@ -73,7 +73,7 @@ namespace TheFlow.Site.Controllers
             return View();
         }
 
-        public ActionResult Learn()
+        public ActionResult About()
         {
             return View();
         }

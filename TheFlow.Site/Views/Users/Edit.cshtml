@@ -1,7 +1,7 @@
 ﻿@model TheFlow.Api.Models.UserModel
 
 @{
-    ViewBag.Title =  Model.DisplayName + " - Edit";
+    ViewBag.Title = string.Format("{0} - Edit - {1}", Model.DisplayName, TheFlow.Site.Settings.SiteName);
 }
 
 @section Scripts
@@ -49,37 +49,36 @@
         {
             @Html.AntiForgeryToken()
             <dl class="uk-description-list uk-description-list-horizontal">
-                <dt>@Html.LabelFor(a => a.DisplayName)</dt>
+                <dt><label for="DisplayName">Display Name</label></dt>
                 <dd>
                     <input class="text-box single-line" id="DisplayName" name="DisplayName" type="text" value="@Model.DisplayName" required data-minLength="5"></dd>
             </dl>
             <dl class="uk-description-list uk-description-list-horizontal">
-                <dt>@Html.LabelFor(a => a.DateOfBirth)</dt>
+                <dt><label for="DateOfBirth" title="Used only for displaying Age">*Date Of Birth</label></dt>
                 <dd>
-                    <input type="date" id="DateOfBirth" name="DateOfBirth" data-type="dateIso" value="@Model.DateOfBirth.Value.Date" /></dd>
+                    <input type="date" id="DateOfBirth" name="DateOfBirth" data-type="dateIso" value="@Model.DateOfBirth" /></dd>
             </dl>
             <dl class="uk-description-list uk-description-list-horizontal">
-                <dt>@Html.LabelFor(a => a.FirstName)</dt>
-                <dd>
-                    <input type="text" id="FirstName" name="FirstName" data-type="text" value="@Model.DateOfBirth.Value.Date" /></dd>
+                <dt><label for="FirstName">First Name</label></dt>
+                <dd><input type="text" id="FirstName" name="FirstName" value="@Model.FirstName" /></dd>
             </dl>
             <dl class="uk-description-list uk-description-list-horizontal">
-                <dt>@Html.LabelFor(a => a.LastName)</dt>
+                <dt><label for="LastName">Last Name</label></dt>
                 <dd>
                     <input class="text-box single-line" id="LastName" name="LastName" type="text" value="@Model.LastName"/></dd>
             </dl>
             <dl class="uk-description-list uk-description-list-horizontal">
-                <dt>@Html.LabelFor(a => a.Location)</dt>
+                <dt><label for="Location">Location</label></dt>
                 <dd>
                     <input class="text-box single-line" id="Location" name="Location" type="text" value="@Model.Location"/></dd>
             </dl>
             <dl class="uk-description-list uk-description-list-horizontal">
-                <dt>@Html.LabelFor(a => a.EmailAddress)</dt>
+                <dt><label for="EmailAddress">Email Address</label></dt>
                 <dd>
                     <input class="text-box single-line parsley-validated" data-val="true" data-val-email="The EmailAddress field is not a valid e-mail address." id="EmailAddress" name="EmailAddress" type="email" value="@Model.EmailAddress" required data-type="email"/></dd>
             </dl>
             <dl class="uk-description-list uk-description-list-horizontal">
-                <dt>@Html.LabelFor(a => a.Preferences.CodeTheme)</dt>
+                <dt><label for="Preferences.CodeTheme">Code Theme</label></dt>
                 <dd>
                     <select onchange="onThemeChanged(this)" name="Preferences.CodeTheme" id="preferences">
                         @foreach (TheFlow.Api.Entities.CodeStyle style in Enum.GetValues(typeof(TheFlow.Api.Entities.CodeStyle)))
@@ -90,6 +89,8 @@
                     </select>
                 </dd>
             </dl>
+            <small>*Used only for displaying Age</small>
+            <hr />
             <button class="uk-button" type="submit">Save Changes</button>
         }
     </div>

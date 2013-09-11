@@ -1,7 +1,7 @@
 ﻿@model TheFlow.Api.Entities.User
 
 @{
-    ViewBag.Title = "Info";
+    ViewBag.Title = string.Format("Info - {0}", TheFlow.Site.Settings.SiteName);
 }
 
 @{bool authenticated = TheFlow.Site.Controllers.ControllerHelper.IsAuthenticated();}

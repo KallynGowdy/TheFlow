@@ -1,7 +1,7 @@
 ﻿@model dynamic
 
 @{
-    ViewBag.Title = "TheFlow - Home";
+    ViewBag.Title = string.Format("Home - {0}", TheFlow.Site.Settings.SiteName);
     Layout = "~/Views/shared/_Layout.cshtml";
 }
 
@@ -16,10 +16,10 @@
 <div>
     <div class="uk-container">
         <!-- Main hero unit for a primary marketing message or call to action -->
-        <div class="uk-panel-box uk-text-center radius">
+        <div class="uk-panel-box uk-text-center">
             <h1><strong>Welcome to TheFlow!</strong></h1>
             <p>TheFlow is an Open Source Question And Answer site inspired by <a href="http://www.stackoverflow.com">StackOverflow</a>. Feel free to <a href="https://github.com/KallynGowdy/TheFlow">Fork Us</a> at Github!</p>
-            @Html.ActionLink("Learn More", "Learn", "Home", null, new { @class = "uk-button uk-button-success" })
+            <a href="~/Home/About" class="uk-button uk-button-success">About</a>
         </div>
     </div>
     <div class="uk-grid uk-margin-top" data-uk-grid-margin="">

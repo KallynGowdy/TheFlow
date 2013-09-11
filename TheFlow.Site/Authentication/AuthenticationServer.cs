@@ -426,7 +426,7 @@ namespace TheFlow.Api.Authentication
             string email = claims.Attributes.Contains(WellKnownAttributes.Contact.Email) ? claims.Attributes[WellKnownAttributes.Contact.Email].Values.First() : null;
             if (email != null)
             {
-                if (dataContext.Users.All(u => !u.OpenId.Equals(email, StringComparison.OrdinalIgnoreCase)))
+                if (dataContext.Users.All(u => !u.OpenId.Equals(claimedIdentifier, StringComparison.OrdinalIgnoreCase)))
                 {
                     if (claims != null)
                     {
@@ -485,7 +485,7 @@ namespace TheFlow.Api.Authentication
                         FetchResponse claims = response.GetExtension<FetchResponse>();
                         string claimedIdentifier = response.ClaimedIdentifier.ToString();
                         string email = claims.Attributes.Contains(WellKnownAttributes.Contact.Email) ? claims.Attributes[WellKnownAttributes.Contact.Email].Values.First() : null;
-                        if (dataContext.Users.All(u => !u.OpenId.Equals(email, StringComparison.OrdinalIgnoreCase)))
+                        if (dataContext.Users.All(u => !u.OpenId.Equals(claimedIdentifier, StringComparison.OrdinalIgnoreCase)))
                         {
                             if (claims != null)
                             {

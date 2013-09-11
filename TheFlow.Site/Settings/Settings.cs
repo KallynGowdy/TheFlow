@@ -11,19 +11,54 @@ namespace TheFlow.Site
     /// </summary>
     public static class Settings
     {
+        private static readonly Dictionary<string, object> lookup = new Dictionary<string, object>()
+        {
+            {
+                "QuestionsPerPage",
+                int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.QuestionController.QuestionsPerPage"])
+            },
+            {
+                "AnswerUpVoteReputationIncrease",
+                int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.AnswerUpVoteReputationIncrease"])
+            },
+            {
+                "AnswerDownVoteReputationDecrease",
+                int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.AnswerDownVoteReputationDecrease"])
+            },
+            {
+                "QuestionDownVoteReputationDecrease",
+                int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.QuestionDownVoteReputationDecrease"])
+            },
+            {
+                "QuestionUpVoteReputationIncrease",
+                int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.QuestionUpVoteReputationIncrease"])
+            },
+            {
+                "AnswerAcceptedReputationIncrease",
+                int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.AnswerAcceptedReputationIncrease"])
+            },
+            {
+                "PostEditAcceptedReputationIncrease",
+                int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.PostEditAcceptedReputationIncrease"])
+            },
+        };
+
+        /// <summary>
+        /// Gets the name that should be asociated with the web site.
+        /// </summary>
+        public static string SiteName
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["SiteName"];
+            }
+        }
+
         /// <summary>
         /// Provides static settings for the Questions Controller.
         /// </summary>
         public static class QuestionController
         {
-            private static readonly Dictionary<string, object> lookup = new Dictionary<string, object>()
-            {
-                {
-                    "QuestionsPerPage",
-                    int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.QuestionController.QuestionsPerPage"])
-                }
-            };
-
             /// <summary>
             /// Gets the number of questions to display per page at the questions index page.
             /// </summary>
@@ -36,5 +71,94 @@ namespace TheFlow.Site
             }
         }
 
+        /// <summary>
+        /// Provides static settings for Reputation increases/decreases.
+        /// </summary>
+        public static class Reputation
+        {
+            /// <summary>
+            /// Defines a class that defines reputation increase/decrease values for answers.
+            /// </summary>
+            public static class Answers
+            {
+                /// <summary>
+                /// Gets the ammount of reputation to give the author of an answer that got upvoted.
+                /// </summary>
+                public static int UpVote
+                {
+                    get
+                    {
+                        return (int)lookup["AnswerUpVoteReputationIncrease"];
+                    }
+                }
+
+                /// <summary>
+                /// Gets the ammount of reputation to give the author of an answer that got downvoted.
+                /// </summary>
+                public static int DownVote
+                {
+                    get
+                    {
+                        return (int)lookup["AnswerDownVoteReputationDecrease"];
+                    }
+                }
+
+                /// <summary>
+                /// Gets the ammount of reputation to award the author of an answer that got accepted.
+                /// </summary>
+                public static int Accepted
+                {
+                    get
+                    {
+                        return (int)lookup["AnswerAcceptedReputationIncrease"];
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Defines a class that defines reputation increase/decrease values for questions.
+            /// </summary>
+            public static class Questions
+            {
+                /// <summary>
+                /// Gets the ammount of reputation to give the author of a question that got downvoted.
+                /// </summary>
+                public static int DownVote
+                {
+                    get
+                    {
+                        return (int)lookup["QuestionDownVoteReputationDecrease"];
+                    }
+                }
+
+                /// <summary>
+                /// Gets the ammount of reputation to give the author of a question that got upvoted.
+                /// </summary>
+                public static int UpVote
+                {
+                    get
+                    {
+                        return (int)lookup["QuestionUpVoteReputationIncrease"];
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Defines a class that defines reputation increase/decrease values for posts.
+            /// </summary>
+            public static class Posts
+            {
+                /// <summary>
+                /// Gets the ammount of reputation to award a user whose edit on a post got accepted.
+                /// </summary>
+                public static int EditAccepted
+                {
+                    get
+                    {
+                        return (int)lookup["PostEditAcceptedReputationIncrease"];
+                    }
+                }
+            }
+        }
     }
 }

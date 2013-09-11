@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Questions";
+    ViewBag.Title = string.Format("Questions - {0}", TheFlow.Site.Settings.SiteName);
 }
 @model Tuple<int, int, IEnumerable<TheFlow.Api.Entities.Question>>
 
@@ -33,7 +33,7 @@
             foreach (var question in Model.Item3)
             {
             <hr />
-            <div class="uk-grid" data-uk-grid-margin>
+            <div class="uk-grid" data-uk-grid-margin="">
                 <div class="uk-width-medium-6-10">
                     <h2 class="text-left"><a href="~/Questions/Question/@question.Id?addView=true" style="color: #f2b21b">@question.Title</a></h2>
                     @{var currentBody = question.PlainTextBody;}

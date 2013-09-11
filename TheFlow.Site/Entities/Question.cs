@@ -112,5 +112,49 @@ namespace TheFlow.Api.Entities
                 DateCreated = this.DatePosted
             };
         }
+
+        /// <summary>
+        /// Adds the given vote to the post and returns how much reputation that vote is worth, does not add the reputation to the author.
+        /// </summary>
+        /// <param name="vote"></param>
+        /// <returns></returns>
+        public override int AddVote(Vote vote)
+        {
+            if (vote is DownVote)
+            {
+                this.Votes.Add(vote);
+                return Settings.Reputation.Questions.DownVote;
+            }
+            else if (vote is UpVote)
+            {
+                this.Votes.Add(vote);
+                return Settings.Reputation.Questions.UpVote;
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// Removes the given vote from the post and returns how much reputation the removal is worth, does not add/remove that reputation from the author.
+        /// </summary>
+        /// <param name="vote">The vote to remove from the post.</param>
+        /// <returns></returns>
+        public override int RemoveVote(Vote vote)
+        {
+            if (vote is DownVote)
+            {
+                if (this.Votes.Remove(vote))
+                {
+                    return -Settings.Reputation.Questions.DownVote;
+                }
+            }
+            else if (vote is UpVote)
+            {
+                if (this.Votes.Remove(vote))
+                {
+                    return -Settings.Reputation.Questions.UpVote;
+                }
+            }
+            return 0;
+        }
     }
 }

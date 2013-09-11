@@ -206,6 +206,20 @@ namespace TheFlow.Api.Entities
         }
 
         /// <summary>
+        /// Adds the given vote to the post and returns how much reputation it is worth, does not add that reputation to the author.
+        /// </summary>
+        /// <param name="vote">The vote to add to the post.</param>
+        /// <returns></returns>
+        public abstract int AddVote(Vote vote);
+
+        /// <summary>
+        /// Removes the given vote from the post and returns how much reputation the removal is worth, does not add/remove that reputation from the author.
+        /// </summary>
+        /// <param name="vote">The vote to remove from the post.</param>
+        /// <returns></returns>
+        public abstract int RemoveVote(Vote vote);
+
+        /// <summary>
         /// Gets the current body of markdown flavored text for this post.
         /// </summary>
         /// <returns></returns>

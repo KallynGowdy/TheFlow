@@ -4,7 +4,7 @@
 @model TheFlow.Api.Models.ViewQuestionModel
 
 @{
-    ViewBag.Title = Model.Title;
+    ViewBag.Title = string.Format("{0} - {1}", Model.Title, TheFlow.Site.Settings.SiteName);
     var markdown = new Markdown(true);
     var user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);
 }
@@ -148,11 +148,15 @@
         <div class="uk-width-medium-1-10 columns large-1">
             <a class="uk-button full-width uk-visible-small uk-margin uk-text-center">Vote</a>
             <div class="uk-hidden-small uk-vertical-align-middle">
-                <a data-post="@Model.Id" class="uk-icon-button uk-icon-arrow-up tiny up-vote" title="Vote Up"></a>
+                <a data-post="@Model.Id" class="uk-icon-button uk-icon-arrow-up tiny up-vote
+                    @if (user != null && Model.UpVotes.Any(a => a.Voter.DisplayName == user.DisplayName))
+                    {<text>vote-active</text> }" title="Vote Up"></a>
                 <br />
                 <span class="uk-icon-button uk-margin-top" title="@(String.Format("{0} Up Votes and {1} Down Votes", Model.UpVotes.Count().ToString(), Model.DownVotes.Count().ToString()))">@Model.NetVote</span>
                 <br />
-                <a data-post="@Model.Id" class="uk-icon-button uk-icon-arrow-down uk-margin-top down-vote" title="Vote Down"></a>
+                <a data-post="@Model.Id" class="uk-icon-button uk-icon-arrow-down uk-margin-top down-vote
+                    @if (user != null && Model.DownVotes.Any(a => a.Voter.DisplayName == user.DisplayName))
+                    { <text>vote-active</text> }" title="Vote Down"></a>
             </div>
         </div>
         <div class="uk-width-medium-9-10 columns large-11">
@@ -176,7 +180,7 @@
             </div>
         </div>
         <div class="uk-width-medium-1-2 uk-margin-top uk-text-right">
-                <p>Posted by <a href="/Users/Info?user=@Model.Author.DisplayName">@Model.Author.DisplayName</a> <span class="time-from-now" data-time="@Model.DateCreated.ToUtcString()"></span></p>
+            <p>Posted by @Html.ActionLink(Model.Author.DisplayName, "Info", "Users", new { userId = Model.Author.OpenId }, null) <span class="time-from-now" data-time="@Model.DateCreated.ToUtcString()"></span></p>
         </div>
     </div>
 </div>
@@ -190,11 +194,15 @@
             <div class="uk-width-medium-1-10">
                 <a class="uk-button full-width uk-visible-small uk-margin uk-text-center">Vote</a>
                 <div class="uk-hidden-small">
-                    <a data-post="@answer.Id" class="uk-icon-button uk-icon-arrow-up up-vote" title="Vote Up"></a>
+                    <a data-post="@answer.Id" class="uk-icon-button uk-icon-arrow-up up-vote 
+                        @if (user != null && answer.UpVotes.Any(a => a.Voter.DisplayName == user.DisplayName))
+                        {<text>vote-active</text> }" title="Vote Up"></a>
                     <br />
                     <a class="uk-icon-button uk-margin-top" title="@(String.Format("{0} Up Votes and {1} Down Votes", Model.UpVotes.Count().ToString(), Model.DownVotes.Count().ToString()))">@answer.NetVote</a>
                     <br />
-                    <a data-post="@answer.Id" class="uk-icon-button uk-icon-arrow-down uk-margin-top down-vote"  title="Vote Down"></a>
+                    <a data-post="@answer.Id" class="uk-icon-button uk-icon-arrow-down uk-margin-top down-vote
+                        @if (user != null && answer.DownVotes.Any(a => a.Voter.DisplayName == user.DisplayName))
+                        {<text>vote-active</text> }"  title="Vote Down"></a>
                 </div>
             </div>
             <div class="uk-width-medium-9-10">
@@ -207,7 +215,7 @@
         <hr />
         <div class="uk-grid">
             @{
-        displayDelete = (user != null && user.DisplayName == answer.Author.DisplayName);
+                        displayDelete = (user != null && user.DisplayName == answer.Author.DisplayName);
             }
             <div class="uk-width-medium-1-2">
                 <div>
@@ -240,7 +248,7 @@
                 </div>*@
             </div>
             <div class="uk-width-medium-1-2 uk-text-right uk-margin-top">
-                <p>Posted by <a href="/Users/Info?user=@answer.Author.DisplayName">@answer.Author.DisplayName</a> <span class="time-from-now" data-time="@answer.DateCreated.ToUtcString()"></span></p>
+                <p>Posted by @Html.ActionLink(answer.Author.DisplayName, "Info", "Users", new { userId = answer.Author.OpenId }, null) <span class="time-from-now" data-time="@answer.DateCreated.ToUtcString()"></span></p>
             </div>
         </div>
     </div>

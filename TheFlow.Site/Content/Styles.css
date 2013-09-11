@@ -30,6 +30,13 @@ blockquote {
     min-width: 100%;
 }
 
+.vote-active {
+    background-color: #faa732;
+}
+
+    .vote-active:hover {
+        background-color: #b47722;
+    }
 
 .parsley-error {
     background-color: #ff9a97;
@@ -40,10 +47,10 @@ ul.parsley-error-list {
     padding-left: 0;
 }
 
-ul.parsley-error-list > li {
-    border: 1px solid red;
-    border-radius: 4px;
-    color: black;
-    padding: 5px;
-    background-color: #ff4949;
-}
+    ul.parsley-error-list > li {
+        border: 1px solid red;
+        border-radius: 4px;
+        color: black;
+        padding: 5px;
+        background-color: #ff4949;
+    }

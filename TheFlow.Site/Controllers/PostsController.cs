@@ -1,4 +1,18 @@
-﻿using System;
+﻿// Copyright 2013 Kallyn Gowdy
+// 
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+// 
+//        http://www.apache.org/licenses/LICENSE-2.0
+// 
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -118,7 +132,6 @@ namespace TheFlow.Site.Controllers
         /// </summary>
         /// <param name="postId">The Id number of the post to Up Vote.</param>
         /// <returns>A Redirect Result that redirects the user to where they came from.</returns>
-        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult UpVote([Bind(Prefix = "id")] long postId)
         {
@@ -133,17 +146,26 @@ namespace TheFlow.Site.Controllers
                     //Make sure that the user has not voted on the post yet
                     if (post.Votes.All(a => a.Voter.OpenId != user.OpenId))
                     {
-                        post.Votes.Add(new TheFlow.Api.Entities.UpVote
+                        int reputation = post.AddVote(new TheFlow.Api.Entities.UpVote
                             {
                                 Voter = user,
                                 Post = post,
                                 DateVoted = DateTime.UtcNow
                             });
+
+                        //add the reputation to the author
+                        post.Author.Reputation += reputation;
+
                         dataContext.SaveChanges();
                     }
                 }
+                else if(user == null)
+                {
+                    return ControllerHelper.Redirect(Url.Action("LogIn", "Users"), Request, Redirect);
+                }
             }
-            return ControllerHelper.RedirectBack(Request, Redirect, true);
+            return Index(postId);
+            //return ControllerHelper.RedirectBack(Request, Redirect, true);
         }
 
         /// <summary>
@@ -151,7 +173,6 @@ namespace TheFlow.Site.Controllers
         /// </summary>
         /// <param name="postId">The Id number of the Post to Remove the vote from.</param>
         /// <returns></returns>
-        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult RemoveVote([Bind(Prefix = "id")] long postId)
         {
@@ -166,12 +187,18 @@ namespace TheFlow.Site.Controllers
 
                     if (vote != null)
                     {
-                        post.Votes.Remove(vote);
+                        int rep = post.RemoveVote(vote);
+                        post.Author.Reputation += rep;
                         dataContext.SaveChanges();
                     }
                 }
+                else
+                {
+                    return ControllerHelper.Redirect(Url.Action("LogIn", "Users"), Request, Redirect);
+                }
             }
-            return ControllerHelper.RedirectBack(Request, Redirect, true);
+
+            return Index(postId);
         }
 
         /// <summary>
@@ -194,17 +221,22 @@ namespace TheFlow.Site.Controllers
                     //Make sure that the user has not voted on the post yet
                     if (post.DownVotes.All(a => a.Voter.OpenId != user.OpenId))
                     {
-                        post.Votes.Add(new DownVote
+                        int rep = post.AddVote(new DownVote
                         {
                             Voter = user,
                             DateVoted = DateTime.UtcNow,
                             Post = post
                         });
+                        post.Author.Reputation += rep;
                         dataContext.SaveChanges();
                     }
                 }
+                else if(user == null)
+                {
+                    return ControllerHelper.Redirect(Url.Action("LogIn", "Users"), Request, Redirect);
+                }
             }
-            return ControllerHelper.RedirectBack(Request, Redirect, true);
+            return Index(postId);
         }
     }
 }

@@ -25,6 +25,7 @@ namespace TheFlow.Api.Models
             {
                 Age = post.Author.Age,
                 DisplayName = post.Author.DisplayName,
+                OpenId = post.Author.OpenId,
                 Location = post.Author.Location,
                 Reputation = post.Author.Reputation,
                 Preferences = post.Author.Preferences == null ? (post.Author.Preferences = new Preferences()).ToModel() : post.Author.Preferences.ToModel()

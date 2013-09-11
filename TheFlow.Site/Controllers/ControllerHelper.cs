@@ -14,6 +14,20 @@
 
 using System;
 using System.Collections.Generic;
+// Copyright 2013 Kallyn Gowdy
+// 
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+// 
+//        http://www.apache.org/licenses/LICENSE-2.0
+// 
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+
 using System.Linq;
 using System.Security.Principal;
 using System.Text.RegularExpressions;
@@ -388,6 +402,65 @@ namespace TheFlow.Site.Controllers
         }
 
         /// <summary>
+        /// Redirects the user to the given url based on the given request and redirect function.
+        /// </summary>
+        /// <param name="url">The Url of the location to redirect to.</param>
+        /// <param name="request">The request that was made to the controller.</param>
+        /// <param name="redirectFunction">A function that, given a redirect uri, returns an ActionResult object that redirects the user to the (given) uri.</param>
+        /// <returns></returns>
+        public static ActionResult Redirect(string url, HttpRequestBase request, Func<string, ActionResult> redirectFunction)
+        {
+            bool ajaxRedirect = false;
+            //check for an ajax header to determine if we should redirect for ajax.
+            string ajax = request["ajax"];
+            if (ajax != null)
+            {
+                bool use;
+                if (bool.TryParse(ajax, out use))
+                {
+                    ajaxRedirect = use;
+                }
+            }
+            else
+            {
+                ajax = request.Headers["ajax"];
+                if (ajax != null)
+                {
+                    bool use;
+                    if (bool.TryParse(ajax, out use))
+                    {
+                        ajaxRedirect = use;
+                    }
+                }
+            }
+
+            return Redirect(url, redirectFunction, ajaxRedirect);
+        }
+
+        /// <summary>
+        /// Redirects the user to the given url using the given redirect function as a helper.
+        /// </summary>
+        /// <param name="url">The url to redirect the user to.</param>
+        /// <param name="redirectFunction">The function that, given a uri string returns an ActionResult object.</param>
+        /// <param name="ajaxRedirect">Whether to return a 200 status code with a redirect value that contains the redirect information to prevent browsers from messing with the "transparent" redirect.</param>
+        /// <returns></returns>
+        public static ActionResult Redirect(string url, Func<string, ActionResult> redirectFunction, bool ajaxRedirect = false)
+        {
+            if (!ajaxRedirect)
+            {
+                return redirectFunction(url);
+            }
+            else
+            {
+                HttpContext.Current.Response.StatusCode = 200;
+                return new JsonResult
+                {
+                    Data = new { redirect = url }
+                };
+            }
+        }
+
+        /// <summary>
         /// Redirects the user back based on the given request and redirect function.
         /// </summary>
         /// <param name="request">The request that was made to the controller.</param>
@@ -422,7 +495,7 @@ namespace TheFlow.Site.Controllers
                     }
                 }
             }
-            
+
             if (!ajaxRedirect)
             {
                 if (request.UrlReferrer != null)
@@ -461,7 +534,6 @@ namespace TheFlow.Site.Controllers
                     {
                         returnUrl = helper.Action("Index", "Home");
                     }
-                   
                 }
                 HttpContext.Current.Response.StatusCode = 200;
                 return new JsonResult

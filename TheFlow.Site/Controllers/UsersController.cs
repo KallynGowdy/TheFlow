@@ -45,14 +45,15 @@ namespace TheFlow
             /// <summary>
             /// Gets the info on the requested user.
             /// </summary>
-            /// <param name="user"></param>
+            /// <param name="userId">The Open Identifier of the user to view info on.</param>
             /// <returns></returns>
-            public ActionResult Info(string user)
+            [ValidateInput(false)]
+            public ActionResult Info(string userId = null)
             {
                 User u = null;
-                if (user != null)
+                if (userId != null)
                 {
-                    u = dataContext.Users.FirstOrDefault(a => a.DisplayName == user);
+                    u = dataContext.Users.FirstOrDefault(a => a.OpenId == userId);
                 }
                 else
                 {
@@ -60,7 +61,7 @@ namespace TheFlow
                 }
                 if (u == null)
                 {
-                    return Redirect(Request.UrlReferrer.AbsoluteUri);
+                    return ControllerHelper.RedirectBack(Request, Redirect, true);
                 }
                 else
                 {
@@ -90,6 +91,7 @@ namespace TheFlow
                                 DateOfBirth = u.DateOfBirth,
                                 DisplayName = u.DisplayName,
                                 EmailAddress = u.EmailAddress,
+                                OpenId = u.OpenId,
                                 FirstName = u.FirstName,
                                 LastName = u.LastName,
                                 Location = u.Location,
@@ -169,9 +171,6 @@ namespace TheFlow
             [System.Web.Mvc.AcceptVerbs(HttpVerbs.Get)]
             public ActionResult LogIn()
             {
-                //FormsAuthentication.SetAuthCookie("https://www.google.com/accounts/o8/id?id=AItOawmiaM32tj_WjvFmiMV0PatVe4Spployfc0", false);
-
-
                 string returnUrl = Request["ReturnUrl"];
                 if (returnUrl == null)
                 {
@@ -243,8 +242,6 @@ namespace TheFlow
                 //This prevents Cross-Site Request Forgery.
                 //DO NOT COMMENT OUT, OR REMOVE.
                 AntiForgery.Validate();
-
-                //Response.Cookies.Add(new HttpCookie("TheFlow-ReturnUrl", Request.UrlReferrer.AbsoluteUri));
 
                 //Authenticate the user based on their OpenID provider.
                 if (OpenIdProvider != null)
@@ -555,6 +552,7 @@ namespace TheFlow
                         FirstName = a.FirstName,
                         LastName = a.LastName,
                         Location = a.Location,
+                        OpenId = a.OpenId,
                         DisplayName = a.DisplayName,
                         DateOfBirth = a.DateOfBirth
                     });

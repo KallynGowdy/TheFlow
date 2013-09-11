@@ -1,5 +1,4 @@
 ﻿@using System.Web.Optimization
-@using BootstrapSupport
 @using NavigationRoutes
 
 <!DOCTYPE html>
@@ -24,6 +23,7 @@
         <a class="uk-navbar-brand" href="~/">TheFlow</a>
         <ul class="uk-navbar-nav uk-hidden-small">
             <li><a href="~/">Home</a></li>
+            <li><a href="~/About">About</a></li>
             <li><a href="~/Develop">Develop</a></li>
             <li><a href="~/Questions">Questions</a></li>
             @{var navbarLeftSection = RenderSection("NavBarLeft", false);
@@ -48,12 +48,12 @@
                 else
                 {
                     <li class="uk-parent" data-uk-dropdown="">
-                            @Html.ActionLink(user.DisplayName, "Info", "Users", new { user = user.DisplayName }, null)
-                            <div class="uk-dropdown uk-dropdown-navbar">
-                                <ul class="uk-nav uk-nav-navbar">
-                                    <li>@Html.ActionLink("Log Out", "LogOut", "Users")</li>
-                                    <li>@Html.ActionLink("Account", "Info", "Users")</li>
-                                </ul>
+                        @Html.ActionLink(user.DisplayName, "Info", "Users", new { user = user.DisplayName }, null)
+                        <div class="uk-dropdown uk-dropdown-navbar">
+                            <ul class="uk-nav uk-nav-navbar">
+                                <li>@Html.ActionLink("Log Out", "LogOut", "Users")</li>
+                                <li>@Html.ActionLink("Account", "Info", "Users")</li>
+                            </ul>
                         </div>
                     </li>  
                     <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account", new { title = string.Format("{0} Reputation", user.Reputation.ToString()) })</li>
@@ -73,6 +73,7 @@
         <div class="uk-offcanvas-bar uk-offcanvas-bar-flip">
             <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon">
                 <li><a href="~/">Home</a></li>
+                <li><a href="~/About">About</a></li>
                 <li><a href="~/Develop">Develop</a></li>
                 <li><a href="~/Questions">Questions</a></li>
                 @Html.Raw(navbarLeft)
@@ -82,18 +83,20 @@
                 {
                     <li><a href="~/Users/LogIn">Create Account</a></li>
                     <li>@Html.ActionLink("Log In", "LogIn", "Users")</li>
+                    
                 }
                 else
                 {
-                    <li class="uk-parent" data-uk-dropdown="">
-                            @Html.ActionLink(user.DisplayName, "Info", "Users", new { user = user.DisplayName }, null)
-                            <div class="uk-dropdown uk-dropdown-navbar">
-                                <ul class="uk-nav uk-nav-navbar">
-                                    <li>@Html.ActionLink("Log Out", "LogOut", "Users")</li>
-                                    <li>@Html.ActionLink("Account", "Info", "Users")</li>
-                                </ul>
-                        </div>
-                    </li>                        
+                    <li>
+                        @Html.ActionLink(user.DisplayName, "Info", "Users", new { user = user.DisplayName }, null)
+                        @*<div class="uk-dropdown uk-dropdown-navbar">
+                            <ul class="uk-nav uk-nav-navbar">
+                                <li>@Html.ActionLink("Log Out", "LogOut", "Users")</li>
+                                <li>@Html.ActionLink("Account", "Info", "Users")</li>
+                            </ul>
+                        </div>*@
+                    </li>
+                    <li>@Html.ActionLink("Log Out", "LogOut", "Users")</li>                   
                     <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account", new { title = string.Format("{0} Reputation", user.Reputation.ToString()) })</li>
                 }
                 @Html.Raw(navbarRight)

@@ -28,25 +28,36 @@ namespace TheFlow.Api.Models
     [Serializable]
     public class UserModel
     {
+        public UserModel() { }
+
         /// <summary>
-        /// Gets or sets the display name of the user.
+        /// Gets or sets the display name of the user model.
         /// </summary>
         [MaxLength(255)]
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// Gets or sets the email address of the user.
+        /// Gets or sets the open id of the user model.
+        /// </summary>
+        public string OpenId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the email address of the user model.
         /// </summary>
         [EmailAddress]
         public string EmailAddress { get; set; }
 
         /// <summary>
-        /// Gets or sets the date of birth of the user.
+        /// Gets or sets the date of birth of the user model.
         /// </summary>
         public DateTime? DateOfBirth { get; set; }
 
         /// <summary>
-        /// Gets or sets the age of the user.
+        /// Gets or sets the age of the user model.
         /// </summary>
         public int? Age
         {
@@ -55,28 +66,28 @@ namespace TheFlow.Api.Models
         }
 
         /// <summary>
-        /// Gets or sets the location of the user.
+        /// Gets or sets the location of the user model.
         /// </summary>
         public string Location { get; set; }
 
         /// <summary>
-        /// Gets or sets the first name of the user.
+        /// Gets or sets the first name of the user model.
         /// </summary>
         public string FirstName { get; set; }
 
         /// <summary>
-        /// Gets or sets the last name of the user.
+        /// Gets or sets the last name of the user model.
         /// </summary>
         public string LastName { get; set; }
 
         /// <summary>
-        /// Gets or sets the reputation of the user.
+        /// Gets or sets the reputation of the user model.
         /// This attribute is NOT updated in the database.
         /// </summary>
         public int Reputation { get; set; }
 
         /// <summary>
-        /// Gets or sets the preferences of the user.
+        /// Gets or sets the preferences of the user model.
         /// This attribute is updated in the database.
         /// </summary>
         public PreferencesModel Preferences { get; set; }
