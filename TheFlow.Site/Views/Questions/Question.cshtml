@@ -175,17 +175,8 @@
                 }
             </div>
         </div>
-        <div class="uk-width-medium-1-2 uk-margin-top">
-            <article class="uk-comment">
-                <header class="uk-comment-header">
-                    <img class="uk-comment-avatar" src="" alt="@Model.Author.DisplayName">
-                    <h4 class="uk-comment-title uk-text-left">@Model.Author.DisplayName</h4>
-                    <div class="uk-comment-meta"><span class="time-from-now" data-time="@Model.DateCreated.ToUtcString()"></span></div>
-                </header>
-                <div class="uk-comment-body"></div>
-            </article>
-            @*<p>Posted by <a href="/Users/Info?user=@Model.Author.DisplayName">@Model.Author.DisplayName</a> <span class="time-from-now" data-time="@Model.DateCreated.ToUtcString()"></span></p>
-        *@
+        <div class="uk-width-medium-1-2 uk-margin-top uk-text-right">
+                <p>Posted by <a href="/Users/Info?user=@Model.Author.DisplayName">@Model.Author.DisplayName</a> <span class="time-from-now" data-time="@Model.DateCreated.ToUtcString()"></span></p>
         </div>
     </div>
 </div>
