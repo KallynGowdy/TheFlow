@@ -353,6 +353,7 @@
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\ViewAnswerModel.cs" />
+    <Compile Include="Models\ViewCommentModel.cs" />
     <Compile Include="Models\ViewDownVoteModel.cs" />
     <Compile Include="Models\ViewPostModel.cs" />
     <Compile Include="Models\ViewQuestionModel.cs" />

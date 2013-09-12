@@ -6,6 +6,7 @@ using System.Web.Http;
 using TheFlow.Api.Entities;
 using TheFlow.Site;
 using TheFlow.Site.HtmlSanitization;
+using TheFlow.Site.Models;
 
 namespace TheFlow.Api.Models
 {
@@ -35,6 +36,7 @@ namespace TheFlow.Api.Models
             this.DateCreated = post.DatePosted.Value;
             this.DownVotes = post.DownVotes.Select(v => new ViewDownVoteModel(v));
             this.UpVotes = post.UpVotes.Select(v => new ViewUpVoteModel(v));
+            this.Comments = post.Comments.Select(c => new ViewCommentModel(c));
         }
 
         /// <summary>
@@ -156,6 +158,12 @@ namespace TheFlow.Api.Models
         /// Gets or sets the downvotes on this post.
         /// </summary>
         public IEnumerable<ViewDownVoteModel> DownVotes
+        {
+            get;
+            set;
+        }
+
+        public IEnumerable<ViewCommentModel> Comments
         {
             get;
             set;

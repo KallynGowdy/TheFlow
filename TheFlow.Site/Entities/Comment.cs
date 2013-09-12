@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -27,6 +28,7 @@ namespace TheFlow.Api.Entities
         /// <summary>
         /// Gets or sets the ID number of this comment.
         /// </summary>
+        [Key]
         public long Id
         {
             get;
@@ -36,11 +38,13 @@ namespace TheFlow.Api.Entities
         /// <summary>
         /// Gets or sets the author of the post.
         /// </summary>
+        [Required]
         public virtual User Author { get; set; }
 
         /// <summary>
         /// Gets or sets the date that this comment was posted.
         /// </summary>
+        [Required]
         public DateTime DatePosted
         {
             get;
@@ -50,6 +54,7 @@ namespace TheFlow.Api.Entities
         /// <summary>
         /// Gets or sets the body of the post.
         /// </summary>
+        [Required, MinLength(15)]
         public string Body
         {
             get;
@@ -59,11 +64,13 @@ namespace TheFlow.Api.Entities
         /// <summary>
         /// Gets or sets the post that this comment was added to.
         /// </summary>
+        [Required]
         public virtual Post Post { get; set; }
 
         /// <summary>
         /// Gets or sets the up votes that this comment has.
         /// </summary>
+        [Required]
         public int UpVotes
         {
             get;
