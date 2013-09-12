@@ -80,5 +80,6 @@ These are the entities used by the Entity Framework ORM to provide statically ty
 - Every Question's body uses Markdown for formatting.
 	- Implemented on the client side with [PageDown](https://code.google.com/p/pagedown/)
 	- Implemented on the server side with [MarkdownSharp](https://code.google.com/p/markdownsharp/)
+	- Uses a custom Html sanitization solution with [HtmlAgilityPack](http://htmlagilitypack.codeplex.com/) (see TheFlow.Site/HtmlSanitization)
 	- Uses [Google-Code-Prettify](https://code.google.com/p/google-code-prettify/wiki/GettingStarted) for syntax highlighting
 	- Uses [Moment.js](http://momentjs.com/) for easy 'Posted X Minutes/Hours/Days Ago' formatting
