@@ -33,14 +33,14 @@
             foreach (var question in Model.Item3)
             {
             <hr />
-            <div class="uk-grid" data-uk-grid-margin="">
-                <div class="uk-width-medium-6-10">
+            <div class="uk-grid">
+                <div class="uk-width-large-7-10 uk-width-medium-6-10">
                     <h2 class="text-left"><a href="~/Questions/Question/@question.Id?addView=true" style="color: #f2b21b">@question.Title</a></h2>
                     @{var currentBody = question.PlainTextBody;}
-                    <p class="text-left"><small>@(currentBody.Length > 50 ? currentBody.Substring(0, 50) : currentBody)</small></p>
+                    <p class="text-left question-preview">@currentBody</p>
                 </div>
-                <div class="uk-width-medium-4-10">
-                    <div class="uk-button-group uk-disabled uk-float-right">
+                <div class="uk-width-large-3-10 uk-width-medium-4-10 uk-margin-top uk-text-center">
+                    <div class="uk-button-group uk-disabled uk-align-medium-right uk-text-center">
                         @{int votes = question.NetVotes();
                           int answers = question.Answers.Count;
                           int views = question.Views;
@@ -56,7 +56,6 @@
                                                            {<text>primary</text>}">@answersText</span>
                         <span class="uk-button uk-disabled">@viewsTest</span>
                     </div>
-
                 </div>
                 @*<div class="columns large-4 radius hide-for-small">
                     <div class="row">

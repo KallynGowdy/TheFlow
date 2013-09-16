@@ -183,10 +183,13 @@
             <p>Posted by @Html.ActionLink(Model.Author.DisplayName, "Info", "Users", new { userId = Model.Author.OpenId }, null) <span class="time-from-now" data-time="@Model.DateCreated.ToUtcString()"></span></p>
         </div>
     </div>
+
     <hr />
     <div class="uk-grid">
-        @foreach (var comment in Model.Comments)
+        @if (Model.Comments.Count() > 0)
         {
+            foreach (var comment in Model.Comments)
+            {
             <div class="uk-width-1-1">
                 <div class="uk-grid uk-panel uk-panel-box">
                     <div class="uk-width-1-10">
@@ -197,13 +200,12 @@
                                     @comment.UpVotes
                                 </div>
                                 <div class="uk-width-1-2">
-
                                 </div>
                             }
                             else
                             {
-                                <div class="uk-width-1-1">
                                     
+                                <div class="uk-width-1-1">
                                 </div>   
                             }
                         </div>
@@ -213,11 +215,13 @@
                     </div>
                 </div>
             </div>
+            }
         }
         <div class="uk-width-1-1">
-            
+
         </div>
     </div>
+
 </div>
 @if (Model.Answers != null && Model.Answers.Any())
 {

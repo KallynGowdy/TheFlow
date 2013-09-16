@@ -1,6 +1,5 @@
 # TheFlow
 An open source question and answer site inspired by [Stackoverflow](http://www.stackoverflow.com).
-As of Today, September 10th, 2013 there is a live **test** site at [http://www.opensourceoverflow.com](http://www.opensourceoverflow.com), this site features the latest updated branch.
 
 ## Features and Goals ##
 - Licensed under the Apache 2.0 License

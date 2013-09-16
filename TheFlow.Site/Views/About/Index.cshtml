@@ -1,55 +1,61 @@
 ﻿@model dynamic
 
 @{
-    ViewBag.Title = "About - TheFlow";
+    ViewBag.Title = string.Format("About - {0}", TheFlow.Site.Settings.SiteName);
     Layout = "~/Views/shared/_Layout.cshtml";
 }
 
-@section NavBarRight
-{
-    <!-- Alternative navigation -->
-    <li class="has-dropdown">
-        <a href="#">Navigate</a>
-        <ul class="dropdown">
-            <li class="has-dropdown">
-                <a href="#">FAQ</a>
-                <ul class="dropdown">
-                    @FAQNav()
-                </ul>
-                <li />
-        </ul>
-    </li>
-}
-
-@helper FAQNav()
-{
-    <li>
-        <a href="#">Why</a>
-    </li>
-}
-
-<div class="row">
-    <div class="large-3 columns">
-        <div class="section-container accordion" data-section="accordion">
-            <section>
-                <p class="title" data-section-title><a href="#">Basic Information</a></p>
-                <div class="content" data-section-content>
-                    <p><a href="~/Home/Learn" class="active">What is TheFlow?</a></p>
-                </div>
-            </section>
-            <section>
-                <p class="title" data-section-title><a href="#">FAQ</a></p>
-                <div class="content" data-section-content>
-                    <ul class="side-nav">
-                        @FAQNav()
-                    </ul>
-                </div>
-            </section>
+<div class="uk-grid">
+    <div class="uk-width-medium-1-4">
+        <div class="uk-panel uk-panel-box">
+            <ul class="uk-nav uk-nav-side" data-uk-nav="">
+                <li><a href="#Info" data-uk-smooth-scroll="">What is TheFlow?</a></li>
+                <li><a href="#Features" data-uk-smooth-scroll="">Features</a></li>
+            </ul>
         </div>
     </div>
-    <div class="large-9 columns">
-        <div class="panel">
-            <h1>Info</h1>
+    <div class="uk-width-medium-3-4">
+        <div id="Info">
+            <div class="uk-panel uk-text-center uk-panel-box">
+                <h1>What is TheFlow?</h1>
+            </div>
+            <div class="uk-margin uk-text-center">
+                <p><strong>TheFlow is an Open Source Question and Answer site inspired by <a href="http://www.stackoverflow.com">StackOverflow</a>.</strong></p>
+                <p>
+                    TheFlow is designed to be mobile friendly by using powerful front end frameworks that make the design process easier. By leveraging industry standards, TheFlow provides powerful interoperability features that ensure a smooth user experience.
+                </p>
+            </div>
+        </div>
+        <div id="Features" class="uk-panel uk-margin">
+            <h2 class="uk-panel-box">Features (Planned and Implemented)</h2>
+            <p>
+                Many of the features are taken from StackOverflow, but unlike other similar projects, TheFlow changes and extends on certain features to provide a unique user experience.
+            </p>
+            <p>
+                Below are several of the currently implemented features on TheFlow.
+            </p>
+            <ul>
+                <li>Login with OpenID
+                            <ul>
+                                <li>This allows us to identify users without handling passwords
+                                </li>
+                            </ul>
+                </li>
+                <li>Content authoring with markdown syntax 
+                            <ul>
+                                <li>Used on Questions, Answers, and Comments</li>
+                            </ul>
+                </li>
+                <li>Reputation based on the StackOverflow model
+                            <ul>
+                                <li>Up votes on answers are worth 10 points</li>
+                                <li>Up votes on questions are worth 5 points</li>
+                                <li>Accepted answers are worth 15 points</li>
+                                <li>All down votes are worth -2 points</li>
+                            </ul>
+                </li>
+            </ul>
+            <p class="uk-text-center">TheFlow's goal is to provide a website that is easily ported into different Q&A environments.</p>
         </div>
     </div>
 </div>
