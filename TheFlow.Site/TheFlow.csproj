@@ -344,6 +344,10 @@
     <Compile Include="Migrations\201309101710132_UpdatedEditsForValidation.Designer.cs">
       <DependentUpon>201309101710132_UpdatedEditsForValidation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201309121810107_AddedCommentValidations.cs" />
+    <Compile Include="Migrations\201309121810107_AddedCommentValidations.Designer.cs">
+      <DependentUpon>201309121810107_AddedCommentValidations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnswerModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
@@ -574,6 +578,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201309101710132_UpdatedEditsForValidation.resx">
       <DependentUpon>201309101710132_UpdatedEditsForValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309121810107_AddedCommentValidations.resx">
+      <DependentUpon>201309121810107_AddedCommentValidations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

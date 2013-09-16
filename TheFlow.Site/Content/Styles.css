@@ -38,6 +38,13 @@ blockquote {
         background-color: #b47722;
     }
 
+.question-preview {
+    line-height: 1.5;
+    font-size: smaller;
+    overflow: hidden;
+    max-height: 3em;
+}
+
 .parsley-error {
     background-color: #ff9a97;
 }
@@ -54,3 +61,7 @@ ul.parsley-error-list {
         padding: 5px;
         background-color: #ff4949;
     }
+
+#Features {
+    margin-top: 3em;
+}
