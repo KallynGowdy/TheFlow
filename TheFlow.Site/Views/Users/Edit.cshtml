@@ -43,62 +43,58 @@
 
 <h2>Edit Profile</h2>
 
-<div class="uk-grid uk-panel uk-panel-box">
-    <div class="uk-width-medium-1-2">
-        @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { data_validate = "parsley", novalidate = "" }))
+<div id="edit-user-area" class="row panel panel-default">
+    <div class="col-sm-6">
+        @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { data_validate = "parsley", novalidate = "", role = "form", id = "edit-user-form" }))
         {
             @Html.AntiForgeryToken()
-            <dl class="uk-description-list uk-description-list-horizontal">
-                <dt><label for="DisplayName">Display Name</label></dt>
-                <dd>
-                    <input class="text-box single-line" id="DisplayName" name="DisplayName" type="text" value="@Model.DisplayName" required data-minLength="5"></dd>
-            </dl>
-            <dl class="uk-description-list uk-description-list-horizontal">
-                <dt><label for="DateOfBirth" title="Used only for displaying Age">*Date Of Birth</label></dt>
-                <dd>
-                    <input type="date" id="DateOfBirth" name="DateOfBirth" data-type="dateIso" value="@Model.DateOfBirth" /></dd>
-            </dl>
-            <dl class="uk-description-list uk-description-list-horizontal">
-                <dt><label for="FirstName">First Name</label></dt>
-                <dd><input type="text" id="FirstName" name="FirstName" value="@Model.FirstName" /></dd>
-            </dl>
-            <dl class="uk-description-list uk-description-list-horizontal">
-                <dt><label for="LastName">Last Name</label></dt>
-                <dd>
-                    <input class="text-box single-line" id="LastName" name="LastName" type="text" value="@Model.LastName"/></dd>
-            </dl>
-            <dl class="uk-description-list uk-description-list-horizontal">
-                <dt><label for="Location">Location</label></dt>
-                <dd>
-                    <input class="text-box single-line" id="Location" name="Location" type="text" value="@Model.Location"/></dd>
-            </dl>
-            <dl class="uk-description-list uk-description-list-horizontal">
-                <dt><label for="EmailAddress">Email Address</label></dt>
-                <dd>
-                    <input class="text-box single-line parsley-validated" data-val="true" data-val-email="The EmailAddress field is not a valid e-mail address." id="EmailAddress" name="EmailAddress" type="email" value="@Model.EmailAddress" required data-type="email"/></dd>
-            </dl>
-            <dl class="uk-description-list uk-description-list-horizontal">
-                <dt><label for="Preferences.CodeTheme">Code Theme</label></dt>
-                <dd>
-                    <select onchange="onThemeChanged(this)" name="Preferences.CodeTheme" id="preferences">
-                        @foreach (TheFlow.Api.Entities.CodeStyle style in Enum.GetValues(typeof(TheFlow.Api.Entities.CodeStyle)))
-                        {
-                            <option value="@style.ToString()" @if (Model.Preferences.CodeTheme == style)
-                                                              { <text>selected</text> }>@style.ToString()</option>
-                        }
-                    </select>
-                </dd>
-            </dl>
+            <div class="form-group">
+                <label for="DisplayName">Display Name</label>
+                <input class="form-control" id="DisplayName" name="DisplayName" type="text" value="@Model.DisplayName" required data-minLength="5" />
+            </div>
+            <div class="form-group">
+                <label for="DateOfBirth">Date Of Birth<sup>*</sup></label>
+                <input class="form-control" id="DateOfBirth" name="DateOfBirth" type="date" value="@Model.DateOfBirth" data-type="dateIso" />
+            </div>
+            <div class="form-group">
+                <label for="FirstName">First Name<sup>**</sup></label>
+                <input class="form-control" id="FirstName" name="FirstName" type="text" value="@Model.FirstName" />
+            </div>
+            <div class="form-group">
+                <label for="LastName">Last Name<sup>**</sup></label>
+                <input class="form-control" id="LastName" name="LastName" type="text" value="@Model.LastName" />
+            </div>
+            <div class="form-group">
+                <label for="Location">Location</label>
+                <input class="form-control" id="Location" name="Location" type="text" value="@Model.Location" />
+            </div>
+            <div class="form-group">
+                <label for="EmailAddress">Email Address<sup>**</sup></label>
+                <input class="form-control" id="EmailAddress" name="EmailAddress" type="email" value="@Model.EmailAddress" required data-val-email="The Value must be a valid email address." data-type="email" />
+            </div>
+            <div class="form-group">
+                <label for="Preferences.CodeTheme">Code Theme</label>
+                <select class="form-control" onchange="onThemeChanged(this)" name="Preferences.CodeTheme" id="Preferences.CodeTheme">
+                    @foreach (TheFlow.Api.Entities.CodeStyle style in Enum.GetValues(typeof(TheFlow.Api.Entities.CodeStyle)))
+                    {
+                        <option value="@style.ToString()" @if (Model.Preferences.CodeTheme == style)
+                                                          { <text>selected</text> }>@style.ToString()</option>
+                    }
+                </select>
+            </div>
             <small>*Used only for displaying Age</small>
+            <br />
+            <small>**Not Shown</small>
             <hr />
-            <button class="uk-button" type="submit">Save Changes</button>
+            <button class="btn btn-success" type="submit">Save Changes</button>
         }
     </div>
-    <div class="uk-width-medium-1-2">
+    <div class="col-sm-6">
         <small>Markdown preview</small>
-        <textarea class="wmd-input" id="wmd-input" name="Body" style="max-width: 100%; min-height: 16em;"></textarea>
-        <div class="uk-panel uk-panel-box uk-panel-box-secondary uk-margin-top" style="background-color: white;">
-            <h3 id="title-preview"></h3>
+        <textarea class="wmd-input full-width" id="wmd-input" name="Body" style="max-width: 100%; min-height: 16em;"></textarea>
+        <div class="panel panel-default editor-preview" style="background-color: white;">
+            <small id="preview-text">Preview</small>
+            <br />
             <div id="wmd-preview"></div>
         </div>
     </div>

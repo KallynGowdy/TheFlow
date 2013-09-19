@@ -5,62 +5,66 @@
 }
 
 <h2>Log In</h2>
-<div class="uk-container">
-    <div class="uk-grid">
-        <div class="uk-width-medium-1-1 uk-panel uk-panel-box">
-
+<div>
+    <div class="row">
+        <div class="col-sm-12 panel panel-default">
             <h3 class="title">Do you already have an account with one of these providers?</h3>
-            <div class="content" data-slug="select">
-                <p class="uk-hidden-small">Sign in with one of these providers:</p>
-                <p class="uk-visible-small uk-text-center">Sign in with one of these providers:</p>
-                <div class="uk-grid uk-margin">
-                    <div class="uk-width-medium-1-4 uk-margin-top">
+            <div>
+                <p class="hidden-sm">Sign in with one of these providers:</p>
+                <p class="visible-sm text-center">Sign in with one of these providers:</p>
+                <div class="row">
+                    <div class="col-sm-3">
                         @using (Html.BeginForm("LogIn", "Users", FormMethod.Post, new { style = "width: 100%" }))
                         {
                             @Html.AntiForgeryToken();
                             @Html.Hidden("OpenIdProvider", "https://www.google.com/accounts/o8/id")
-                            <button data-tooltip="" data-options="disable-for-touch:true" class="uk-button uk-button-success" title="Sign in with Google" type="submit" style="width: 100%">Google</button>
+                            <button class="btn btn-primary" title="Sign in with Google" type="submit" style="width: 100%">Google</button>
                         }
                     </div>
-                    <div class="uk-width-medium-1-4 uk-margin-top">
+                    <div class="col-sm-3">
                         @using (Html.BeginForm("LogIn", "Users", FormMethod.Post, new { style = "width: 100%" }))
                         {
                             @Html.AntiForgeryToken();
                             @Html.Hidden("OpenIdProvider", "https://me.yahoo.com")
-                            <button data-tooltip="" data-options="disable-for-touch:true" class="uk-button uk-button-success" title="Sign in with Yahoo" type="submit" style="width: 100%">Yahoo</button>
+                            <button class="btn btn-primary" title="Sign in with Yahoo" type="submit" style="width: 100%">Yahoo</button>
                         }
                     </div>
-                    <div class="uk-width-medium-1-4 uk-margin-top">
+                    <div class="col-sm-3">
                         @using (Html.BeginForm("LogIn", "Users", FormMethod.Post, new { style = "width: 100%" }))
                         {
                             @Html.AntiForgeryToken();
                             @Html.Hidden("OpenIdProvider", "https://myopenid.com")
-                            <button data-tooltip="" data-options="disable-for-touch:true" class="uk-button uk-button-success" title="Sign in with myOpenID" type="submit" style="width: 100%">myOpenID</button>
+                            <button class="btn btn-primary" title="Sign in with myOpenID" type="submit" style="width: 100%">myOpenID</button>
                         }
                     </div>
-                    <div class="uk-width-medium-1-4 uk-margin-top">
+                    <div class="col-sm-3">
                         @using (Html.BeginForm("LogIn", "Users", FormMethod.Post, new { style = "width: 100%" }))
                         {
                             @Html.AntiForgeryToken();
                             @Html.Hidden("OpenIdProvider", "https://openid.stackexchange.com/")
-                            <button data-tooltip="" data-options="disable-for-touch:true" class="uk-button uk-button-success" title="Sign in with Stack Exchange" type="submit" style="width: 100%">Stack Exchange</button>
+                            <button class="btn btn-primary" title="Sign in with Stack Exchange" type="submit" style="width: 100%">Stack Exchange</button>
                         }
                     </div>
                 </div>
             </div>
             <hr />
             <h3 class="title">Didn't find your provider? Access your provider by url.</h3>
-            <div class="content" data-slug="url">
-                <form data-abide="" action="@Url.Action("LogIn", "Users")" method="post">
+            <div>
+                <form role="form" class="form-inline panel" action="@Url.Action("LogIn", "Users")" method="post">
                     @Html.AntiForgeryToken()
-                    <div class="uk-margin">
+                    <div class="form-group width-90">
+                        <label for="OpenIdProvider" class="sr-only">Open ID provider URL</label>
                         <input class="full-width" type="url" id="OpenIdProvider" placeholder="Your OpenID provider URL here" required />
                     </div>
-                    <div class="uk-grid">
-                        <div class="uk-width-medium-1-4 uk-width-1-1">
-                            <button data-tooltip="" data-options="disable-for-touch:true" class="full-width uk-button uk-button-success" title="Sign in with your OpenID provider" type="submit">Log In</button>
+                    <button class="btn btn-success" title="Sign in with your OpenID provider" type="submit">Log In</button>
+                    @*<div class="row">
+                        <div class="col-sm-11">
+                            <input class="full-width" type="url" id="OpenIdProvider" placeholder="Your OpenID provider URL here" required />
                         </div>
-                    </div>
+                        <div class="col-sm-1">
+                            
+                        </div>
+                    </div>*@
                 </form>
             </div>
         </div>

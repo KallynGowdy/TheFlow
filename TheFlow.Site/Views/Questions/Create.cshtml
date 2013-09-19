@@ -23,28 +23,42 @@ enableTab("wmd-input");
 }
 <h2>Ask a Question</h2>
 
-<div class="uk-grid">
-    <div class="uk-width-medium-1-1">
-        <div class="uk-grid">
-            @using (Html.BeginForm("Create", "Questions", FormMethod.Post, new { novalidate = true, data_validate = "parsley" }))
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            @using (Html.BeginForm("Create", "Questions", FormMethod.Post, new { novalidate = true, data_validate = "parsley", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <div class="uk-width-1-1">
-                    <input class="full-width radius" id="Title" type="text" placeholder="Title" name="Title" data-minlength="10" data-error-message="Please provide a Title with a length of at least 10" autocomplete="off" required />
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="Title" class="sr-only">The title for your question.</label>
+                        <input class="full-width input-field" title="The title for your question" id="Title" type="text" placeholder="Title" name="Title" data-minlength="10" data-error-message="Please provide a Title with a length of at least 10" autocomplete="off" required />
+                    </div>
                 </div>
-                <div class="uk-width-1-1 uk-margin-top">
-                    <input class="full-width radius" type="text" placeholder="Tags" name="Tags" autocomplete="off" title="The tags for your question" data-minwords="1" data-error-message="Please provide at least one tag" required />
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="Tags" class="sr-only">The tags for your question.</label>
+                        <input class="full-width input-field" id="Tags" type="text" placeholder="Tags" name="Tags" autocomplete="off" title="The tags for your question" data-minwords="1" data-error-message="Please provide at least one tag" required />
+                    </div>
                 </div>
-                <div class="uk-width-1-1 uk-margin-top">
-                    <textarea class="full-width" class="wmd-input" id="wmd-input" name="Body" style="max-width: 100%; min-height: 16em;" required data-minLength="15" data-error-message="Please write a question with at least 15 characters."></textarea>
+                <div class="col-xs-12">
+                    <hr />
+                    <div class="wmd-button-bar" id="wmd-button-bar"></div>
+                    <div class="form-group">
+                        <label for="wmd-input" class="sr-only">The body of your question.</label>
+                        <textarea class="wmd-input" id="wmd-input" name="Body" required data-minlength="15" data-error-message="Please write a question with at least 15 characters."></textarea>
+                    </div>
                 </div>
-                <div class="uk-width-1-1 uk-margin-top">
-                    <div class="uk-panel uk-panel-box uk-panel-box-secondary">
-                        <h3 id="title-preview"></h3>
+                <div class="col-xs-12">
+                    <div class="panel panel-default editor-preview">
+                        <small id="preview-text">Preview</small>
+                        <br />
                         <div id="wmd-preview"></div>
                     </div>
                 </div>
-                <button class="uk-button uk-margin" type="submit">Ask Question</button>
+                <div class="col-xs-12">
+                    <button class="btn btn-success" type="submit">Ask Question</button>
+                </div>
             }
         </div>
     </div>

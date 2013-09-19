@@ -17,35 +17,35 @@
     }
 }
 
-<div class="uk-grid">
-    <div class="uk-width-medium-1-3 columns large-4">
-        <h1 class="uk-text-success">@Model.DisplayName</h1>
+<div class="row">
+    <div class="col-sm-4">
+        <h1>@Model.DisplayName</h1>
     </div>
-    <div class="uk-width-medium-1-10 uk-push-6-10 uk-hidden-small">
+    <div class="col-sm-1 col-sm-push-7 hidden-xs">
         @if (authenticated)
         {
             <div style="margin-top: 0.2em;">
-                @Html.ActionLink("edit", "Edit", null, new { @class = "uk-button" })
+                @Html.ActionLink("edit", "Edit", null, new { @class = "btn btn-default" })
             </div>
         }
     </div>
 </div>
 <hr />
-<div class="uk-grid">
-    <div class="uk-width-medium-1-4">
+<div class="row">
+    <div class="col-sm-3">
         @{string reputation = string.Format("{0:n0}", Model.Reputation);}
 
-        <div class="uk-hidden-small">
+        <div class="hidden-xs">
             <h5>@reputation Reputation</h5>
         </div>
-        <div class="uk-visible-small uk-text-center">
+        <div class="visible-xs text-center">
             <h5>@reputation Reputation</h5>
         </div>
     </div>
-    <div class="uk-width-medium-3-4 uk-panel uk-panel-box uk-panel-box-secondary">
-        <div class="uk-grid">
-            <div class="uk-width-medium-1-1">
-                <dl class="uk-panel uk-panel-box uk-description-list uk-description-list-horizontal">
+    <div class="col-sm-9 panel panel-default">
+        <div class="row">
+            <div class="col-sm-12">
+                <dl>
                     <dt>Display Name</dt>
                     <dd>
                         @Model.DisplayName
@@ -53,7 +53,7 @@
                 </dl>
                 @if (Model.Age.HasValue)
                 {
-                    <dl class="uk-panel uk-panel-box uk-description-list uk-description-list-horizontal  uk-margin-top">
+                    <dl>
                         <dt>Age</dt>
                         <dd>
                             @Model.Age.Value
@@ -62,14 +62,14 @@
                 }
                 @if (Model.Location != null)
                 {
-                    <dl class="uk-panel uk-panel-box uk-description-list uk-description-list-horizontal uk-margin-top">
+                    <dl>
                         <dt>Location</dt>
                         <dd>
                             @Model.Location
                         </dd>
                     </dl>
                 }
-                <dl class="uk-panel uk-panel-box uk-description-list uk-description-list-horizontal uk-margin-top">
+                <dl>
                     <dt>Preferred Code Theme</dt>
                     <dd>
                         @Model.Preferences.CodeStyle.ToString()

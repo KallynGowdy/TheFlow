@@ -12,7 +12,7 @@ An open source question and answer site inspired by [Stackoverflow](http://www.s
 	- Using [MVC Web Api](http://www.asp.net/web-api)
 	- API Keys to help prevent Cross-Site Request Forgery
 - Simple, clean and mobile friendly front-end website
-	- Using [UI Kit](http://getuikit.com/ "UI Kit")
+	- Using [Twitter Bootstrap 3](http://getbootstrap.com/)
 - SSL
 - Markdown for posts, questions, comments etc.
 	- Syntax Highlighting using [Google Code Prettify](https://code.google.com/p/google-code-prettify/)
@@ -26,7 +26,7 @@ An open source question and answer site inspired by [Stackoverflow](http://www.s
 - Does not transmit user credentials.
 
 ##Front-End (TheFlow.Site namespace) ##
-- Smooth and mobile friendly using [UI Kit](http://getuikit.com/ "UI Kit")
+- Smooth and mobile friendly using [Twitter Bootstrap 3](http://getbootstrap.com/)
 - Authentication using [DotNetOpenAuth](https://github.com/DotNetOpenAuth/DotNetOpenAuth)
 	- With Forms Authentication
 - SSL enabled
