@@ -348,6 +348,10 @@
     <Compile Include="Migrations\201309121810107_AddedCommentValidations.Designer.cs">
       <DependentUpon>201309121810107_AddedCommentValidations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201309161949521_ReworkedComments.cs" />
+    <Compile Include="Migrations\201309161949521_ReworkedComments.Designer.cs">
+      <DependentUpon>201309161949521_ReworkedComments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnswerModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
@@ -377,7 +381,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\body.css" />
+    <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\content.css" />
+    <Content Include="Content\images\markdown_editor\wmd-buttons.png" />
     <Content Include="Content\prettyprint\DesertStyle.css" />
     <Content Include="Content\prettyprint\DoxyStyle.css" />
     <Content Include="Content\prettyprint\GithubStyle.css" />
@@ -397,6 +403,9 @@
     <Content Include="Content\uikit\uikit.css" />
     <Content Include="Global.asax" />
     <Content Include="Licenses\HtmlAgilityPack\Ms-PL.txt" />
+    <Content Include="robots.txt" />
+    <Content Include="scripts\bootstrap.js" />
+    <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\codify.js" />
     <Content Include="scripts\custom.modernizr.js" />
     <Content Include="scripts\editor.js" />
@@ -423,6 +432,11 @@
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\TheFlow.pubxml" />
     <None Include="scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="scripts\jquery-2.0.3.js" />
@@ -481,7 +495,9 @@
     <Content Include="scripts\uikit.min.js" />
     <Content Include="scripts\zepto.js" />
     <Content Include="TheFlow.publish.xml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -581,6 +597,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201309121810107_AddedCommentValidations.resx">
       <DependentUpon>201309121810107_AddedCommentValidations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309161949521_ReworkedComments.resx">
+      <DependentUpon>201309161949521_ReworkedComments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

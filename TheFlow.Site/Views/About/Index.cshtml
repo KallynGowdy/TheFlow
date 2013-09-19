@@ -5,29 +5,43 @@
     Layout = "~/Views/shared/_Layout.cshtml";
 }
 
-<div class="uk-grid">
-    <div class="uk-width-medium-1-4">
-        <div class="uk-panel uk-panel-box">
-            <ul class="uk-nav uk-nav-side" data-uk-nav="">
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $(".nav li").removeClass("active");
+            $(".nav li:eq(1)").addClass("active");
+        });
+        $('#sidebar').affix({
+            offset: {
+                top: 90
+            }
+        });
+    </script>
+}
+
+<div class="row">
+    <div class="col-md-3 uk-width-medium-1-4 hidden-sm hidden-xs">
+        <div id="sidebar" class="panel panel-default">
+            <ul class="nav nav-pills nav-stacked" data-uk-nav="">
                 <li><a href="#Info" data-uk-smooth-scroll="">What is TheFlow?</a></li>
                 <li><a href="#Features" data-uk-smooth-scroll="">Features</a></li>
             </ul>
         </div>
     </div>
-    <div class="uk-width-medium-3-4">
+    <div class="col-md-9">
         <div id="Info">
-            <div class="uk-panel uk-text-center uk-panel-box">
+            <div class="jumbotron text-center">
                 <h1>What is TheFlow?</h1>
             </div>
-            <div class="uk-margin uk-text-center">
-                <p><strong>TheFlow is an Open Source Question and Answer site inspired by <a href="http://www.stackoverflow.com">StackOverflow</a>.</strong></p>
+            <div class="text-center">
+                <h3><strong>TheFlow is an Open Source Question and Answer site inspired by <a href="http://www.stackoverflow.com">StackOverflow</a>.</strong></h3>
                 <p>
                     TheFlow is designed to be mobile friendly by using powerful front end frameworks that make the design process easier. By leveraging industry standards, TheFlow provides powerful interoperability features that ensure a smooth user experience.
                 </p>
             </div>
         </div>
-        <div id="Features" class="uk-panel uk-margin">
-            <h2 class="uk-panel-box">Features (Planned and Implemented)</h2>
+        <div id="Features">
+            <h2 class="panel">Features (Planned and Implemented)</h2>
             <p>
                 Many of the features are taken from StackOverflow, but unlike other similar projects, TheFlow changes and extends on certain features to provide a unique user experience.
             </p>

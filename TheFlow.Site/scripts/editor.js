@@ -1,4 +1,5 @@
-﻿function enableTab(id) {
+﻿//Enables interception of the tab key to write a tab to the focused input element instead of changing elements
+function enableTab(id) {
     var el = document.getElementById(id);
     el.onkeydown = function (e) {
         if (e.keyCode === 9) { // tab was pressed
@@ -14,9 +15,8 @@
             // put caret at right position again
             this.selectionStart = this.selectionEnd = start + 1;
 
-            // prevent the focus lose
+            // prevent the focus loss
             return false;
-
         }
     };
 }
@@ -30,12 +30,6 @@ function enableEditor(hooks) {
     if (hooks) {
         hooks(editor);
     }
-
-    converter.hooks.chain("preBlockGamut", function (text, runBlockGamut) {
-        return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
-            return "<blockquote>" + runBlockGamut(inner) + "</blockquote>\n";
-        });
-    });
 
     //refresh prettyprint when the preview is refreshed
     editor.hooks.chain("onPreviewRefresh", function () {
@@ -83,3 +77,20 @@ function AddAntiForgeryToken(data) {
     data.__RequestVerificationToken = $('#__AjaxAntiForgeryForm input[name=__RequestVerificationToken]').val();
     return data;
 };
+
+//enable post back functionality with the .post-back class and data-post attribute
+$('.post-back').click(function () {
+    var clicked = $(this);
+    var data = clicked.attr('data-post');
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: data,
+        data: AddAntiForgeryToken({ ajax: true }),
+        success: function (data, textStaus) {
+            if (data.redirect) {
+                window.location.replace(data.redirect);
+            }
+        }
+    });
+});
