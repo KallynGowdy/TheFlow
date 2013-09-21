@@ -108,16 +108,28 @@ namespace TheFlow.Site.Controllers
         {
             if (ModelState.IsValid)
             {
-                Question q = new Question(ControllerHelper.Authenticate(Request, dataContext), question.Body, question.Title);
+                string[] seperatedTags = question.Tags.Split(new[] { ' ', ',', '.' }, StringSplitOptions.RemoveEmptyEntries);
+                List<Tag> tags = new List<Tag>(seperatedTags.Length);
+                foreach (string tag in seperatedTags)
+                {
+                    Tag t = dataContext.Tags.FirstOrDefault(a => a.Name.Equals(tag, StringComparison.OrdinalIgnoreCase));
+                    if (t == null)
+                    {
+                        t = new Tag(tag, null, ControllerHelper.Authenticate(Request, dataContext));
+                    }
+                    tags.Add(t);
+                }
+
+                Question q = new Question(ControllerHelper.Authenticate(Request, dataContext), question.Body, question.Title, tags);
 
                 dataContext.Questions.Add(q);
                 dataContext.SaveChanges();
+                return RedirectToAction("Question", new { id = q.Id });
             }
             else
             {
                 return View();
             }
-            return ControllerHelper.RedirectBack(Request, Redirect);
         }
 
         [ValidateAntiForgeryToken]
@@ -135,7 +147,7 @@ namespace TheFlow.Site.Controllers
                     dataContext.SaveChanges();
                 }
             }
-            return RedirectToAction("Index");
+            return ControllerHelper.Redirect(Url.Action("Index"), Request, Redirect);
         }
     }
 }

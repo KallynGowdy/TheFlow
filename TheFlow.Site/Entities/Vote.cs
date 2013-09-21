@@ -25,6 +25,7 @@ namespace TheFlow.Api.Entities
     /// </summary>
     public abstract class Vote
     {
+
         /// <summary>
         /// Gets or set the user that voted.
         /// </summary>
@@ -50,6 +51,16 @@ namespace TheFlow.Api.Entities
         /// </summary>
         [Required]
         public virtual Post Post
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the reputation value of the vote.
+        /// </summary>
+        [Range(1, int.MaxValue)]
+        public int Value
         {
             get;
             set;

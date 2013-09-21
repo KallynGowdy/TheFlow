@@ -13,17 +13,20 @@
 //    limitations under the License.
 
 using System;
+using System.Data.Entity;
 namespace TheFlow.Api.Entities
 {
     public interface IDbContext : IDisposable
     {
-        System.Data.Entity.DbSet<Answer> Answers { get; set; }
-        System.Data.Entity.DbSet<Comment> Comments { get; set; }
-        System.Data.Entity.DbSet<Question> Questions { get; set; }
-        System.Data.Entity.DbSet<Star> Stars { get; set; }
-        System.Data.Entity.DbSet<User> Users { get; set; }
-        System.Data.Entity.DbSet<Post> Posts { get; set; }
-        System.Data.Entity.DbSet<Vote> Votes { get; set; }
+        DbSet<Answer> Answers { get; set; }
+        DbSet<Comment> Comments { get; set; }
+        DbSet<Question> Questions { get; set; }
+        DbSet<Star> Stars { get; set; }
+        DbSet<User> Users { get; set; }
+        DbSet<Post> Posts { get; set; }
+        DbSet<Vote> Votes { get; set; }
+        DbSet<Tag> Tags { get; set; }
+        DbSet<TagEdit> TagEdits { get; set; }
         int SaveChanges();
     }
 }

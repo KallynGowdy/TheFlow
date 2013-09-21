@@ -113,12 +113,12 @@ namespace TheFlow.Site.Controllers
             {
                 if (post is Question)
                 {
-                    return RedirectToAction("Question", "Questions", new { id = postId });
+                    return ControllerHelper.Redirect(Url.Action("Question", "Questions", new { id = postId }), Request, Redirect);
                 }
                 else
                 {
                     //Redirect 
-                    return Redirect(string.Format("{0}#{1}", Url.Action("Question", "Questions", new { id = ((Answer)post).Question.Id }), postId.ToString()));
+                    return ControllerHelper.Redirect(string.Format("{0}#{1}", Url.Action("Question", "Questions", new { id = ((Answer)post).Question.Id }), postId.ToString()), Request, Redirect);
                 }
             }
             else
@@ -146,20 +146,26 @@ namespace TheFlow.Site.Controllers
                     //Make sure that the user has not voted on the post yet
                     if (post.Votes.All(a => a.Voter.OpenId != user.OpenId))
                     {
-                        int reputation = post.AddVote(new TheFlow.Api.Entities.UpVote
-                            {
-                                Voter = user,
-                                Post = post,
-                                DateVoted = DateTime.UtcNow
-                            });
-
+                        Vote vote = new TheFlow.Api.Entities.UpVote
+                        {
+                            Voter = user,
+                            Post = post,
+                            DateVoted = DateTime.UtcNow
+                        };
+                        int reputation = post.AddVote(vote);
+                        vote.Value = reputation;
                         //add the reputation to the author
                         post.Author.Reputation += reputation;
 
                         dataContext.SaveChanges();
                     }
+                    else
+                    {
+                        //otherwise, remove the vote.
+                        return RemoveVote(postId);
+                    }
                 }
-                else if(user == null)
+                else if (user == null)
                 {
                     return ControllerHelper.Redirect(Url.Action("LogIn", "Users"), Request, Redirect);
                 }
@@ -221,17 +227,19 @@ namespace TheFlow.Site.Controllers
                     //Make sure that the user has not voted on the post yet
                     if (post.DownVotes.All(a => a.Voter.OpenId != user.OpenId))
                     {
-                        int rep = post.AddVote(new DownVote
+                        Vote vote = new TheFlow.Api.Entities.DownVote
                         {
                             Voter = user,
-                            DateVoted = DateTime.UtcNow,
-                            Post = post
-                        });
+                            Post = post,
+                            DateVoted = DateTime.UtcNow
+                        };
+                        int rep = post.AddVote(vote);
+                        vote.Value = rep;
                         post.Author.Reputation += rep;
                         dataContext.SaveChanges();
                     }
                 }
-                else if(user == null)
+                else if (user == null)
                 {
                     return ControllerHelper.Redirect(Url.Action("LogIn", "Users"), Request, Redirect);
                 }

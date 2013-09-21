@@ -57,6 +57,15 @@ namespace TheFlow.Api.Models
         public DateTime? DateOfBirth { get; set; }
 
         /// <summary>
+        /// Gets or sets the date that the user joined.
+        /// </summary>
+        public DateTime DateJoined
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets the age of the user model.
         /// </summary>
         public int? Age

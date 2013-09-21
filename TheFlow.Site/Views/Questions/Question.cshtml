@@ -4,7 +4,7 @@
 @model TheFlow.Api.Models.ViewQuestionModel
 
 @{
-    ViewBag.Title = string.Format("{0} - {1}", Model.Title, TheFlow.Site.Settings.SiteName);
+    ViewBag.Title = string.Format("{0} - {1} | {2}", Model.Tags.OrderBy(t => t.Subscriptions).OrderBy(t => t.DateCreated).FirstOrDefault().Name,  Model.Title, TheFlow.Site.Settings.SiteName);
     var markdown = new Markdown(true);
     var user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);
 }
@@ -63,7 +63,7 @@
     @*<script src="~/scripts/prettyprint/run_prettify.js"></script>*@
     <script src="~/scripts/editor.js"></script>
     <script type="text/javascript">
-        $(function () {
+        loader.jqueryCallback.push(function () {
             var converter = new Markdown.getSanitizingConverter();
 
             defaultHooks(converter);
@@ -77,56 +77,75 @@
                     return text;
                 });
             });
-        });
 
-        //find all of the elements with the up-vote class
-        //and send an ajax request to up-vote the post
-        $('.up-vote').click(function () {
-            var clicked = $(this);
-            var data = clicked.attr('data-post');
-            $.ajax({
-                type: "post",
-                dataType: "json",
-                url: '@Url.Action("UpVote", "Posts")/' + data,
-                data: AddAntiForgeryToken({ ajax: true }),
-                success: function (data, textStaus) {
-                    if (data.redirect) {
-                        window.location.replace(data.redirect);
+
+            //find all of the elements with the up-vote class
+            //and send an ajax request to up-vote the post
+            $('.up-vote').click(function () {
+                var clicked = $(this);
+                var data = clicked.attr('data-post');
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: '@Url.Action("UpVote", "Posts")/' + data,
+                    data: AddAntiForgeryToken({ ajax: true }),
+                    success: function (data, textStaus) {
+                        if (data.redirect) {
+                            window.location.replace(data.redirect);
+                        }
                     }
-                }
+                });
             });
-        });
 
-        //find all of the elements with the up-vote class
-        //and send an ajax request to up-vote the post
-        $('.down-vote').click(function () {
-            var clicked = $(this);
-            var data = clicked.attr('data-post');
-            $.ajax({
-                type: "post",
-                dataType: "json",
-                url: '@Url.Action("DownVote", "Posts")/' + data,
-                data: AddAntiForgeryToken({ ajax: true }),
-                success: function (data, textStaus) {
-                    if (data.redirect) {
-                        window.location.replace(data.redirect);
+            //find all of the elements with the down-vote class
+            //and send an ajax request to up-vote the post
+            $('.down-vote').click(function () {
+                var clicked = $(this);
+                var data = clicked.attr('data-post');
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: '@Url.Action("DownVote", "Posts")/' + data,
+                    data: AddAntiForgeryToken({ ajax: true }),
+                    success: function (data, textStaus) {
+                        if (data.redirect) {
+                            window.location.replace(data.redirect);
+                        }
                     }
-                }
+                });
             });
+
+            //find all of the elements with the post-back class
+            //and send an ajax request to the url specified in the data-post attribute.
+            $('.post-back').click(function () {
+                var clicked = $(this);
+                var data = clicked.attr('data-post');
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: data,
+                    data: AddAntiForgeryToken({ ajax: true }),
+                    success: function (data, textStaus) {
+                        if (data.redirect) {
+                            window.location.replace(data.redirect);
+                        }
+                    }
+                });
+            });
+
+            //tell the browser to remove the query string from the url bar
+            history.replaceState({}, '@ViewBag.Title', '@Request.Url.AbsolutePath');
+
+            //find all of the elements with .time class
+            var timeElements = $('.time-from-now');
+
+            setInterval(function () {
+                //set the text
+                timeElements.html(function (index, text) {
+                    timeElements[index].innerText = moment.utc(timeElements[index].getAttribute('data-time')).local().fromNow();
+                });
+            }, 1000); //60000 /*every minute*/);
         });
-
-        //tell the browser to remove the query string from the url bar
-        history.replaceState({}, '@ViewBag.Title', '@Request.Url.AbsolutePath');
-
-        //find all of the elements with .time class
-        var timeElements = $('.time-from-now');
-
-        setInterval(function () {
-            //set the text
-            timeElements.html(function (index, text) {
-                timeElements[index].innerText = moment.utc(timeElements[index].getAttribute('data-time')).local().fromNow();
-            });
-        }, 1000); //60000 /*every minute*/);
     </script>
 }
 @{bool displayDelete = (user != null && @Model.Author.DisplayName == user.DisplayName);}

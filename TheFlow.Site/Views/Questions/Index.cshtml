@@ -5,7 +5,7 @@
 
 @section NavBarRight
 {
-    <li class="divider" />
+    <li class="vertical-divider" />
     <li>
         <a href="~/Questions/Create">Ask a Question</a>
     </li>
@@ -76,7 +76,7 @@
                           string viewsTest = string.Format("{0} {1}", views, views != 1 ? "Views" : "View");}
                         <span class="btn btn-default">@votesText</span>
                         <span class="btn @if (answers == 0)
-                                         {<text>btn-secondary</text>}
+                                         {<text>btn-default</text>}
                                          else if (question.AcceptedAnswer != null)
                                          {<text>btn-success</text>}
                                          else

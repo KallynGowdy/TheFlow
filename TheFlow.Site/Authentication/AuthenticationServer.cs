@@ -366,14 +366,17 @@ namespace TheFlow.Api.Authentication
                                     EmailAddress = email,
                                     FirstName = firstName,
                                     LastName = lastName,
-                                    Preferences = new Preferences()
+                                    Preferences = new Preferences(),
+                                    Reputation = 1
                                 };
                             }
                             else
                             {
                                 user = new User
                                 {
-                                    OpenId = claimedIdentifier
+                                    OpenId = claimedIdentifier,
+                                    Preferences = new Preferences(),
+                                    Reputation = 1,
                                 };
                             }
                         }
