@@ -24,14 +24,39 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
+using TheFlow.Api;
 using TheFlow.Api.Authentication;
 using TheFlow.Api.Entities;
 using TheFlow.Api.Models;
-
+using System.Data.Objects;
 namespace TheFlow
 {
     namespace Site.Controllers
     {
+        /// <summary>
+        /// Defines several ways that users can be sorted.
+        /// </summary>
+        public enum UserSortingMethod
+        {
+            /// <summary>
+            /// Defines that users should be sorted by reputation.
+            /// </summary>
+            Reputation,
+            /// <summary>
+            /// Defines that users should be sorted by the date that they joined.
+            /// </summary>
+            DateJoined,
+
+            /// <summary>
+            /// Defines that users should be sorted by the number of votes they gave/used.
+            /// </summary>
+            Votes,
+
+            /// <summary>
+            /// Defines that users should be sorted by the number of edits proposed by them that got accepted.
+            /// </summary>
+            Edits
+        }
 
         public class UsersController : Controller
         {
@@ -40,6 +65,81 @@ namespace TheFlow
             protected override void Initialize(System.Web.Routing.RequestContext requestContext)
             {
                 base.Initialize(requestContext);
+            }
+
+            /// <summary>
+            /// Serves the page displaying all of the users, sorted by
+            /// </summary>
+            /// <param name="page">The page number </param>
+            /// <param name="sortingMethod">The method used to sort the users by.</param>
+            /// <param name="numToShow">The number of users to show on the page.</param>
+            /// <param name="sortingRange">The number of days before today to include as a cutoff. 7 days will filter everything not in the last week out.</param>
+            /// <returns></returns>
+            public ActionResult Index(int page = 0, UserSortingMethod sortingMethod = UserSortingMethod.Reputation, int sortingRange = 7, int numToShow = 40)
+            {
+                if (sortingRange <= 0)
+                {
+                    sortingRange = 1;
+                }
+                if (numToShow <= 0)
+                {
+                    numToShow = 40;
+                }
+                if (page < 0)
+                {
+                    page = 0;
+                }
+                IEnumerable<UserModel> users = new UserModel[0];
+                switch (sortingMethod)
+                {
+                    case UserSortingMethod.Reputation:
+                        //Select x number of users on page y filtering reputation that was gained in the last z(sortingRange) days
+                        users = dataContext.Users.Select(a => new UserModel
+                        {
+                            DisplayName = a.DisplayName,
+                            Age = (a.DateOfBirth.HasValue ? ((int)(EntityFunctions.DiffDays(DateTime.UtcNow, a.DateOfBirth.Value) / DateExtensions.YearInDays)) : (int?)null),
+                            Location = a.Location,
+                            OpenId = a.OpenId,
+                            DateJoined = a.DateJoined,
+                            Reputation = (((int?)a.Votes.Where(v => EntityFunctions.DiffDays(DateTime.UtcNow, v.DateVoted.Value).Value <= sortingRange).Sum(v => v.Value)) ?? 0) + 1,
+                        }).OrderByDescending(u => u.Reputation).Skip(page * numToShow).Take(numToShow);
+                        break;
+                    case UserSortingMethod.DateJoined:
+                        users = dataContext.Users.Where(u => -EntityFunctions.DiffDays(DateTime.UtcNow, u.DateJoined) <= sortingRange).Select(a => new UserModel
+                        {
+                            DisplayName = a.DisplayName,
+                            Age = (a.DateOfBirth.HasValue ? ((int)(EntityFunctions.DiffDays(DateTime.UtcNow, a.DateOfBirth.Value) / DateExtensions.YearInDays)) : (int?)null),
+                            Location = a.Location,
+                            OpenId = a.OpenId,
+                            Reputation = a.Reputation,
+                            DateJoined = a.DateJoined
+                        }).OrderByDescending(u => u.DateJoined).Skip(page * numToShow).Take(numToShow);
+                        break;
+                    case UserSortingMethod.Votes:
+                        users = dataContext.Users.OrderByDescending(u => dataContext.Votes.Where(v => v.Voter.OpenId == u.OpenId && EntityFunctions.DiffDays(DateTime.Now, v.DateVoted) <= sortingRange).Count()).Select(u => new UserModel
+                        {
+                            DisplayName = u.DisplayName,
+                            Age = (u.DateOfBirth.HasValue ? ((int)(EntityFunctions.DiffDays(DateTime.UtcNow, u.DateOfBirth.Value) / DateExtensions.YearInDays)) : (int?)null),
+                            Location = u.Location,
+                            OpenId = u.OpenId,
+                            Reputation = u.Reputation,
+                            DateJoined = u.DateJoined
+                        });
+                        break;
+                    case UserSortingMethod.Edits:
+                        users = dataContext.Users.OrderByDescending(u => dataContext.Edits.Where(e => e.Editor.OpenId == u.OpenId && EntityFunctions.DiffDays(DateTime.UtcNow, e.DateChanged.Value.ToUniversalTime()) <= sortingRange).Count()).Select(a => new UserModel
+                        {
+                            DisplayName = a.DisplayName,
+                            Age = (a.DateOfBirth.HasValue ? ((int)(EntityFunctions.DiffDays(DateTime.UtcNow, a.DateOfBirth.Value) / DateExtensions.YearInDays)) : (int?)null),
+                            Location = a.Location,
+                            OpenId = a.OpenId,
+                            Reputation = a.Reputation,
+                            DateJoined = a.DateJoined
+                        });
+                        break;
+
+                }
+                return View(new Tuple<UserSortingMethod, IEnumerable<UserModel>, int, int>(sortingMethod, users.AsEnumerable(), page, sortingRange));
             }
 
             /// <summary>
@@ -192,7 +292,7 @@ namespace TheFlow
                             {
                                 user.DisplayName = string.Format("User{0}", dataContext.Users.Count() + 1);
                             }
-                            user.DateJoined = DateTime.Now;
+                            user.DateJoined = DateTime.UtcNow;
                             dataContext.Users.Add(user);
                             dataContext.SaveChanges();
                         }

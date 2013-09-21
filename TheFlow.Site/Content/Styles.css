@@ -5,6 +5,10 @@
     overflow-x: hidden;
 }
 
+.full-height-line {
+    height: 1.428571429em;
+}
+
 .wmd-button > span {
     background-image: url(images/markdown_editor/wmd-buttons.png);
     background-repeat: no-repeat;

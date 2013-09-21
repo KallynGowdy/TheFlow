@@ -20,6 +20,7 @@ using System.Linq;
 using System.Web;
 using TheFlow.Api.Models;
 using TheFlow.Site;
+using TheFlow.Site.Controllers;
 
 namespace TheFlow.Api.Entities
 {
@@ -30,10 +31,18 @@ namespace TheFlow.Api.Entities
     {
         public Question() { }
 
-        public Question(User author, string body, string title)
+        public Question(User author, string body, string title, IEnumerable<Tag> tags)
             : base(author, body)
         {
             this.Title = title;
+            this.Tags = tags.ToList();
+        }
+
+        public Question(User author, string body, string title, IList<Tag> tags)
+            : base(author, body)
+        {
+            this.Title = title;
+            this.Tags = tags;
         }
 
         /// <summary>
@@ -99,6 +108,15 @@ namespace TheFlow.Api.Entities
         }
 
         /// <summary>
+        /// Gets or sets the tags that this question references.
+        /// </summary>
+        public virtual ICollection<Tag> Tags
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets the model representation of this entity.
         /// </summary>
         /// <returns></returns>
@@ -114,6 +132,37 @@ namespace TheFlow.Api.Entities
         }
 
         /// <summary>
+        /// Gets the amount of reputation that the given vote is worth.
+        /// </summary>
+        /// <param name="v">The vote the get the reputation value of.</param>
+        /// <returns></returns>
+        public override int GetVoteValue(Vote v)
+        {
+            if (v is DownVote)
+            {
+                return Settings.Reputation.Questions.DownVote;
+            }
+            else if (v is UpVote)
+            {
+                return Settings.Reputation.Questions.UpVote;
+            }
+            return 0;
+        }
+
+        public override System.Linq.Expressions.Expression<Func<int>> GetVoteValueExpression(Vote v)
+        {
+            if (v is DownVote)
+            {
+                return () => Settings.Reputation.Questions.DownVote;
+            }
+            else if (v is UpVote)
+            {
+                return () => Settings.Reputation.Questions.UpVote;
+            }
+            return () => 0;
+        }
+
+        /// <summary>
         /// Adds the given vote to the post and returns how much reputation that vote is worth, does not add the reputation to the author.
         /// </summary>
         /// <param name="vote"></param>
@@ -122,12 +171,12 @@ namespace TheFlow.Api.Entities
         {
             if (vote is DownVote)
             {
-                this.Votes.Add(vote);
+                this.DownVotes.Add((DownVote)vote);
                 return Settings.Reputation.Questions.DownVote;
             }
             else if (vote is UpVote)
             {
-                this.Votes.Add(vote);
+                this.UpVotes.Add((UpVote)vote);
                 return Settings.Reputation.Questions.UpVote;
             }
             return 0;
@@ -142,14 +191,14 @@ namespace TheFlow.Api.Entities
         {
             if (vote is DownVote)
             {
-                if (this.Votes.Remove(vote))
+                if (this.DownVotes.Remove((DownVote)vote))
                 {
                     return -Settings.Reputation.Questions.DownVote;
                 }
             }
             else if (vote is UpVote)
             {
-                if (this.Votes.Remove(vote))
+                if (this.UpVotes.Remove((UpVote)vote))
                 {
                     return -Settings.Reputation.Questions.UpVote;
                 }

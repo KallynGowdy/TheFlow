@@ -31,7 +31,7 @@ namespace TheFlow.Tests
                 {
                     DisplayName = "Person",
                     DateOfBirth = new DateTime(1990, 1, 1),
-                    DateJoined = DateTime.Now,
+                    DateJoined = DateTime.UtcNow,
                     Preferences = new Preferences()
                 });
                 Debug.Assert(context.Users.ToArray().Length > 0);

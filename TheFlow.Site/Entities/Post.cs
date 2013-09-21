@@ -19,6 +19,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using TheFlow.Api.Authentication;
 using TheFlow.Site.Controllers;
@@ -165,35 +166,49 @@ namespace TheFlow.Api.Entities
             return UpVotes.Count() - DownVotes.Count();
         }
 
-        /// <summary>
-        /// Gets the upvotes that this post has.
-        /// </summary>
-        public virtual IEnumerable<UpVote> UpVotes
+        ///// <summary>
+        ///// Gets the upvotes that this post has.
+        ///// </summary>
+        //public virtual IEnumerable<UpVote> UpVotes
+        //{
+        //    get
+        //    {
+        //        return Votes.OfType<UpVote>();
+        //    }
+        //}
+
+        ///// <summary>
+        ///// Gets the down votes this post has.
+        ///// </summary>
+        //public virtual IEnumerable<DownVote> DownVotes
+        //{
+        //    get
+        //    {
+        //        return Votes.OfType<DownVote>();
+        //    }
+        //}
+
+        public virtual ICollection<UpVote> UpVotes
         {
-            get
-            {
-                return Votes.OfType<UpVote>();
-            }
+            get;
+            set;
         }
 
-        /// <summary>
-        /// Gets the down votes this post has.
-        /// </summary>
-        public virtual IEnumerable<DownVote> DownVotes
+        public virtual ICollection<DownVote> DownVotes
         {
-            get
-            {
-                return Votes.OfType<DownVote>();
-            }
+            get;
+            set;
         }
 
         /// <summary>
         /// Gets or sets the votes on this post.
         /// </summary>
-        public virtual ICollection<Vote> Votes
+        public virtual IEnumerable<Vote> Votes
         {
-            get;
-            set;
+            get
+            {
+                return new Vote[] { }.Concat(UpVotes).Concat(DownVotes);
+            }
         }
 
         /// <summary>
@@ -218,6 +233,15 @@ namespace TheFlow.Api.Entities
         /// <param name="vote">The vote to remove from the post.</param>
         /// <returns></returns>
         public abstract int RemoveVote(Vote vote);
+
+        /// <summary>
+        /// Gets the amount of reputation that the given vote is worth.
+        /// </summary>
+        /// <param name="v">The vote the get the reputation value of.</param>
+        /// <returns></returns>
+        public abstract int GetVoteValue(Vote v);
+
+        public abstract Expression<Func<int>> GetVoteValueExpression(Vote v);
 
         /// <summary>
         /// Gets the current body of markdown flavored text for this post.

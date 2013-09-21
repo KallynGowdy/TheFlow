@@ -56,6 +56,37 @@ namespace TheFlow.Api.Entities
         }
 
         /// <summary>
+        /// Gets the amount of reputation that the given vote is worth.
+        /// </summary>
+        /// <param name="v">The vote the get the reputation value of.</param>
+        /// <returns></returns>
+        public override int GetVoteValue(Vote v)
+        {
+            if (v is DownVote)
+            {
+                return Settings.Reputation.Answers.DownVote;
+            }
+            else if (v is UpVote)
+            {
+                return Settings.Reputation.Answers.UpVote;
+            }
+            return 0;
+        }
+
+        public override System.Linq.Expressions.Expression<Func<int>> GetVoteValueExpression(Vote v)
+        {
+            if (v is DownVote)
+            {
+                return () => Settings.Reputation.Answers.DownVote;
+            }
+            else if (v is UpVote)
+            {
+                return () => Settings.Reputation.Answers.UpVote;
+            }
+            return () => 0;
+        }
+
+        /// <summary>
         /// Adds the given vote to the post and returns how much reputation that vote is worth, does not add the reputation to the author.
         /// </summary>
         /// <param name="vote"></param>
@@ -64,12 +95,12 @@ namespace TheFlow.Api.Entities
         {
             if (vote is DownVote)
             {
-                this.Votes.Add(vote);
+                this.DownVotes.Add((DownVote)vote);
                 return Settings.Reputation.Answers.DownVote;
             }
             else if (vote is UpVote)
             {
-                this.Votes.Add(vote);
+                this.UpVotes.Add((UpVote)vote);
                 return Settings.Reputation.Answers.UpVote;
             }
             return 0;
@@ -84,14 +115,14 @@ namespace TheFlow.Api.Entities
         {
             if (vote is DownVote)
             {
-                if (this.Votes.Remove(vote))
+                if (this.DownVotes.Remove((DownVote)vote))
                 {
                     return -Settings.Reputation.Answers.DownVote;
                 }
             }
             else if (vote is UpVote)
             {
-                if (this.Votes.Remove(vote))
+                if (this.UpVotes.Remove((UpVote)vote))
                 {
                     return -Settings.Reputation.Answers.UpVote;
                 }

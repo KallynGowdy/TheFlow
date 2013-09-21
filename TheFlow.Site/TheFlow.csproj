@@ -257,6 +257,9 @@
     <Compile Include="Entities\Preferences.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\Star.cs" />
+    <Compile Include="Entities\Tag.cs" />
+    <Compile Include="Entities\TagEdit.cs" />
+    <Compile Include="Entities\TagSubscription.cs" />
     <Compile Include="Entities\UpVote.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Vote.cs" />
@@ -352,6 +355,22 @@
     <Compile Include="Migrations\201309161949521_ReworkedComments.Designer.cs">
       <DependentUpon>201309161949521_ReworkedComments.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201309210059310_AddedValueToVotes.cs" />
+    <Compile Include="Migrations\201309210059310_AddedValueToVotes.Designer.cs">
+      <DependentUpon>201309210059310_AddedValueToVotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201309210259060_AddedTagsAndSubscriptions.cs" />
+    <Compile Include="Migrations\201309210259060_AddedTagsAndSubscriptions.Designer.cs">
+      <DependentUpon>201309210259060_AddedTagsAndSubscriptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201309210330495_AddedTagCreationDate.cs" />
+    <Compile Include="Migrations\201309210330495_AddedTagCreationDate.Designer.cs">
+      <DependentUpon>201309210330495_AddedTagCreationDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201309211523320_ChangedPostVotesAround.cs" />
+    <Compile Include="Migrations\201309211523320_ChangedPostVotesAround.Designer.cs">
+      <DependentUpon>201309211523320_ChangedPostVotesAround.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnswerModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
@@ -363,6 +382,7 @@
     <Compile Include="Models\ViewAnswerModel.cs" />
     <Compile Include="Models\ViewCommentModel.cs" />
     <Compile Include="Models\ViewDownVoteModel.cs" />
+    <Compile Include="Models\ViewEditModel.cs" />
     <Compile Include="Models\ViewPostModel.cs" />
     <Compile Include="Models\ViewQuestionModel.cs" />
     <Compile Include="Models\ViewTagModel.cs" />
@@ -526,6 +546,7 @@
     <Content Include="Views\Questions\Create.cshtml" />
     <Content Include="Views\Questions\Question.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -600,6 +621,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201309161949521_ReworkedComments.resx">
       <DependentUpon>201309161949521_ReworkedComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309210059310_AddedValueToVotes.resx">
+      <DependentUpon>201309210059310_AddedValueToVotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309210259060_AddedTagsAndSubscriptions.resx">
+      <DependentUpon>201309210259060_AddedTagsAndSubscriptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309210330495_AddedTagCreationDate.resx">
+      <DependentUpon>201309210330495_AddedTagCreationDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309211523320_ChangedPostVotesAround.resx">
+      <DependentUpon>201309211523320_ChangedPostVotesAround.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -24,6 +24,8 @@ namespace TheFlow.Api.Entities
     /// </summary>
     public class UpVote : Vote
     {
+        public UpVote() { }
+
         /// <summary>
         /// Gets the string representation of the down vote.
         /// </summary>

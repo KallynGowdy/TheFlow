@@ -40,6 +40,8 @@ namespace TheFlow.Api.Entities
         public DbSet<Vote> Votes { get; set; }
         public DbSet<UpVote> UpVotes { get; set; }
         public DbSet<DownVote> DownVotes { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<TagEdit> TagEdits { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

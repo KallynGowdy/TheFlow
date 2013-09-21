@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using TheFlow.Api.Models;
 
@@ -101,9 +102,25 @@ namespace TheFlow.Api.Entities
             {
                 if (DateOfBirth.HasValue)
                 {
-                    return (int)Math.Round((DateTime.Now - DateOfBirth.Value).Days / DateExtensions.YearInDays);
+                    return (int)Math.Round((DateTime.UtcNow - DateOfBirth.Value).Days / DateExtensions.YearInDays);
                 }
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets an expression that gets the age of the user in years.
+        /// </summary>
+        /// <returns></returns>
+        public Expression<Func<int?>> GetAgeExpression()
+        {
+            if (DateOfBirth.HasValue)
+            {
+                return () => (int)((DateTime.UtcNow - DateOfBirth.Value).Days / DateExtensions.YearInDays);
+            }
+            else
+            {
+                return () => null;
             }
         }
 
@@ -111,6 +128,7 @@ namespace TheFlow.Api.Entities
         /// Gets or sets the reputation that the user has.
         /// </summary>
         [Required]
+        [Range(1, int.MaxValue)]
         public int Reputation { get; set; }
 
         /// <summary>
@@ -125,7 +143,7 @@ namespace TheFlow.Api.Entities
 
         public User()
         {
-            DateJoined = DateTime.Now;
+            DateJoined = DateTime.UtcNow;
         }
 
         /// <summary>
@@ -150,6 +168,33 @@ namespace TheFlow.Api.Entities
         /// Gets or sets the collection of questions that this user has asked.
         /// </summary>
         public virtual ICollection<Question> Questions
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the collection of votes that this user has made.
+        /// </summary>
+        public virtual ICollection<Vote> Votes
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the collection of edits that this user has proposed.
+        /// </summary>
+        public virtual ICollection<Edit> Edits
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the collection of tags that this user is subscribed to.
+        /// </summary>
+        public virtual ICollection<Tag> Tags
         {
             get;
             set;

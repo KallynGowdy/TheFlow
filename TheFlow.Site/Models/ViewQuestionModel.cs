@@ -16,6 +16,7 @@ namespace TheFlow.Api.Models
             this.Title = question.Title;
             this.AcceptedAnswer = question.AcceptedAnswer != null ? new ViewAnswerModel(question.AcceptedAnswer, this) : null;
             this.Answers = question.Answers.Select(a => new ViewAnswerModel(a, this));
+            this.Tags = question.Tags.Select(a => new ViewTagModel(a));
         }
 
         public ViewQuestionModel() { }

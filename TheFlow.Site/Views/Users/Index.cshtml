@@ -1,0 +1,75 @@
+﻿@model Tuple<TheFlow.Site.Controllers.UserSortingMethod, IEnumerable<TheFlow.Api.Models.UserModel>, int, int>
+
+@{
+    ViewBag.Title = string.Format("Users - {0}", TheFlow.Site.Settings.SiteName);
+}
+
+@section Scripts
+{
+    <script>
+        loader.jqueryCallback.push(function () {
+            $(".nav li").removeClass("active");
+            var elements = $(".nav li:eq(5)");
+            elements.addClass("active");
+        });
+    </script>
+}
+
+@section NavBarRight
+{
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Sort</a>
+        <ul class="dropdown-menu">
+            <li><a href="~/Users?sortingMethod=Reputation">By Reputation</a></li>
+            <li><a href="~/Users?sortingMethod=DateJoined">By Date Joined</a></li>
+            <li><a href="~/Users?sortingMethod=Votes">By Votes</a></li>
+            <li><a href="~/Users?sortingMethod=Edits">By Edits</a></li>
+        </ul>
+    </li>
+}
+
+<h1>Users<small class="text-right pull-right">Sorted by @if (Model.Item1 == TheFlow.Site.Controllers.UserSortingMethod.Reputation)
+                                                        {
+                                                            if (Model.Item4 > 36500)
+                                                            {<text>Total Reputation</text> }
+                                                            else
+                                                            {<text>Reputation gained in the last @Model.Item4 Days</text>}
+                                                        }
+                                                        else if (Model.Item1 == TheFlow.Site.Controllers.UserSortingMethod.DateJoined)
+                                                        {<text>Accounts created in the last @Model.Item4 Days</text>}
+                                                        else if (Model.Item1 == TheFlow.Site.Controllers.UserSortingMethod.Votes)
+                                                        {<text>Votes used in the last @Model.Item4 Days</text>}
+                                                        else
+                                                        {<text>Edits accepted in the last @Model.Item4 Days</text>}
+
+</small></h1>
+
+<div class="row">
+    <hr />
+    @foreach (var user in Model.Item2)
+    {
+        <div class="col-sm-3 panel panel-default top-padding">
+            <p title="Display Name: @user.DisplayName">
+                <a href="~/Users/Info?userId=@user.OpenId">@user.DisplayName</a>
+            </p>
+            <p title="Location: @(user.Location != null ? user.Location : "Not Set")" class="full-height-line">
+                @if (user.Location != null)
+                {
+                    @:@user.Location
+                }
+            </p>
+            @if (Model.Item1 == TheFlow.Site.Controllers.UserSortingMethod.Reputation)
+            {
+                <p title="@user.Reputation Reputation"><strong>@user.Reputation</strong></p>
+            }
+            else if (Model.Item1 == TheFlow.Site.Controllers.UserSortingMethod.DateJoined)
+            {
+                <p title="@user.Reputation Gained in @((DateTime.UtcNow - user.DateJoined).Days) Days">@user.Reputation Gained in @((DateTime.UtcNow - user.DateJoined).Days) Days</p>
+            }
+            else if (Model.Item1 == TheFlow.Site.Controllers.UserSortingMethod.Edits)
+            {
+
+            }
+        </div>
+    }
+</div>
