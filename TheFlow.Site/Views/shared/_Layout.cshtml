@@ -7,6 +7,14 @@
     <meta charset="utf-8">
     <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @if (ViewBag.Description != null)
+    {
+        <meta name="description" content="@ViewBag.Description" />
+    }
+    @if (ViewBag.Keywords != null)
+    {
+        <meta name="keywords" content="@ViewBag.Keywords" />
+    }
     <link rel="stylesheet" href="~/Content/Styles.full.min.css" />
     @RenderSection("head", required: false)
     @Html.Partial("_html5shiv")
@@ -71,9 +79,8 @@
                             <li>@Html.ActionLink("Log Out", "LogOut", "Users")</li>
                             <li>@Html.ActionLink("Account", "Info", "Users")</li>
                         </ul>
-                    </li>  
-                    <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account", new { title = string.Format("{0} Reputation", user.Reputation.ToString()) })</li>
-                    <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account", new { title = string.Format("{0} Reputation", user.Reputation.ToString()) }, null)</li>
+                    </li>
+                    <li>@Html.ActionLink(user.Reputation.ToString(), "Reputation", "Account", null, new { title = string.Format("{0} Reputation", user.Reputation.ToString()) })</li>
                 }
                 @{var navbarRightSection = RenderSection("NavBarRight", false);
                   string navbarRight = "";
@@ -101,7 +108,7 @@
                         <p class="visible-sm text-center Copyright"></p>
                     </div>
                     <div class="col-xs-4">
-                        <p class="text-center">This Version: <a href="https://github.com/KallynGowdy/TheFlow/commit/327a2b6869ceaba4dfc67158c5ff0ad2d1795ed6">327a2b6869</a></p>
+                        <p class="text-center">This Version: <a href="https://github.com/KallynGowdy/TheFlow/commit/83e8c38a6ee8d556959e5b480e56c95374ff30f7">83e8c38a6e</a></p>
                     </div>
                     <div class="col-xs-4">
                         <p class="hidden-sm text-right Time"></p>
@@ -131,6 +138,14 @@
             momentCallback: [],
             stylesCallback: [],
             bootstrapCssCallback: [],
+            callback: [],
+            completeCallback: [],
+
+            invokeCallback: function (callbackArray) {
+                for (var i = 0; i < callbackArray.length; i++) {
+                    callbackArray[i]();
+                }
+            },
 
             load: function (args) {
                 yepnope({
@@ -138,28 +153,26 @@
                     callback: function (url, result, key) {
                         if (key === 'styles') {
                             loader.stylesLoaded = true;
-                            for (var i = 0; i < loader.stylesCallback.length; i++) {
-                                loader.stylesCallback[i]();
-                            }
+                            loader.invokeCallback(loader.jqueryCallback);
                         }
                         else if (key === 'bootstrap_css') {
                             loader.bootstrapLoaded = true;
-                            for (var i = 0; i < loader.bootstrapCssCallback.length; i++) {
-                                loader.bootstrapCssCallback[i]();
-                            }
+                            loader.invokeCallback(loader.jqueryCallback);
                         }
                         if (key === 'jquery') {
                             loader.jqueryLoaded = true;
-                            for (var i = 0; i < loader.jqueryCallback.length; i++) {
-                                loader.jqueryCallback[i]();
-                            }
+                            loader.invokeCallback(loader.jqueryCallback);
                         }
                         if (key === 'moment') {
                             loader.momentLoaded = true;
-                            for (var i = 0; i < loader.momentCallback.length; i++) {
-                                loader.momentCallback[i]();
-                            }
+                            loader.invokeCallback(loader.momentCallback);
                         }
+                        for (var i = 0; i < loader.callback.length; i++) {
+                            loader.callback[i](key);
+                        }
+                    },
+                    complete: function () {
+                        loader.invokeCallback(loader.completeCallback);
                     }
                 })
             }

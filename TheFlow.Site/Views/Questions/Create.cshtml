@@ -5,22 +5,28 @@
 {
     <link href="@Helpers.GetCodeStylePath()" type="text/css" rel="stylesheet" />
 }
+@section AsyncScripts
+{
+    ,
+    "parsley" : "@Url.Content("~/scripts/parsley.js")",
+    "markdown.converter" : "@Url.Content("~/scripts/pagedown/Markdown.Converter.js")",
+    "markdown.editor" : "@Url.Content("~/scripts/pagedown/Markdown.Editor.js")",
+    "markdown.sanitizer" : "@Url.Content("~/scripts/pagedown/Markdown.Sanitizer.js")",
+    "prettify" : "@Url.Content("~/scripts/prettyprint/prettify.js")",
+    "editor" : "@Url.Content("~/scripts/editor.js")"
+}
+
 @section Scripts
 {
-    <script src="~/scripts/parsley.js"></script>
-    <script src="~/scripts/parsley.extend.js"></script>
-    <script src="~/scripts/pagedown/Markdown.Converter.js"></script>
-    <script src="~/scripts/pagedown/Markdown.Editor.js"></script>
-    <script src="~/scripts/pagedown/Markdown.Sanitizer.js"></script>
-    <script src="~/scripts/prettyprint/prettify.js"></script>
-    <script src="~/scripts/editor.js"></script>
-}
-@section OnPageLoadFunction
-{
-enableTab("wmd-input");
+    <script>
+        loader.completeCallback.push(function () {
+            enableTab("wmd-input");
 
-    enableEditor();
+            enableEditor();
+        });
+    </script>
 }
+
 <h2>Ask a Question</h2>
 
 <div class="row">

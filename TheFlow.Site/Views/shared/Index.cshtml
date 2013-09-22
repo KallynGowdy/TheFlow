@@ -1,7 +1,9 @@
 ﻿@model dynamic
 
 @{
-    ViewBag.Title = string.Format("Home - {0}", TheFlow.Site.Settings.SiteName);
+    ViewBag.Title = string.Format("An Open Source Question and Answer website - {0}", TheFlow.Site.Settings.SiteName);
+    ViewBag.Description = TheFlow.Site.Settings.SiteDescription;
+    ViewBag.Keywords = TheFlow.Site.Settings.SiteKeywords;
     Layout = "~/Views/shared/_Layout.cshtml";
 }
 
@@ -26,7 +28,7 @@
     <div class="row" data-uk-grid-margin="">
         <div class="col-md-4 text-center">
             <h2 class="uk-text-success">Questions</h2>
-            <p>Want to help? Support the community by answering questions.</p>
+            <p>Want to help? Support the community by asking and answering questions.</p>
             <p><a class="btn btn-primary" href="~/Questions">View Questions &raquo;</a></p>
         </div>
         <div class="col-md-4 text-center">

@@ -400,6 +400,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Data\TheFlow.API.Entities.DbContext.mdf" />
+    <Content Include="App_Data\TheFlow.API.Entities.DbContext_log.ldf">
+      <DependentUpon>TheFlow.API.Entities.DbContext.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\body.css" />
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\content.css" />
@@ -553,7 +557,6 @@
     <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\parsley\" />
   </ItemGroup>
   <ItemGroup>

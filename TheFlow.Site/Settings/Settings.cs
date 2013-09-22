@@ -55,6 +55,28 @@ namespace TheFlow.Site
         }
 
         /// <summary>
+        /// Gets the description that should be asociated with the web site.
+        /// </summary>
+        public static string SiteDescription
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["SiteDescription"];
+            }
+        }
+
+        /// <summary>
+        /// Gets the Keywords that should be asociated with the web site.
+        /// </summary>
+        public static string SiteKeywords
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["SiteKeywords"];
+            }
+        }
+
+        /// <summary>
         /// Provides static settings for the Questions Controller.
         /// </summary>
         public static class QuestionController
