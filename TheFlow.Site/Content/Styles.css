@@ -116,6 +116,23 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
     padding: 4px;
 }
 
+.comment-container {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+@media (max-width: 768px) {
+    .comment-container {
+        margin-bottom: 7px;
+    }
+}
+
+.input-margin {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
 .editor-preview {
     margin-top: 10px;
     padding: 15px;

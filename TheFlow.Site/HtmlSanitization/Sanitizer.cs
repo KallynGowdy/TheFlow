@@ -70,9 +70,12 @@ namespace TheFlow.Site.HtmlSanitization
         {
             if (ElementFilter.IsValid(node))
             {
-                foreach (HtmlNode child in node.ChildNodes)
+                for(int i = 0; i < node.ChildNodes.Count; i++)
                 {
-                    filterElement(child);
+                    if (filterElement(node.ChildNodes[i]))
+                    {
+                        i--;
+                    }
                 }
                 return false;
             }

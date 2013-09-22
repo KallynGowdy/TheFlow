@@ -4,7 +4,7 @@
 @model TheFlow.Api.Models.ViewQuestionModel
 
 @{
-    ViewBag.Title = string.Format("{0} - {1} | {2}", Model.Tags.OrderBy(t => t.Subscriptions).OrderBy(t => t.DateCreated).FirstOrDefault().Name,  Model.Title, TheFlow.Site.Settings.SiteName);
+    ViewBag.Title = string.Format("{0} - {1} | {2}", Model.Tags.OrderBy(t => t.Subscriptions).OrderBy(t => t.DateCreated).FirstOrDefault().Name, Model.Title, TheFlow.Site.Settings.SiteName);
     var markdown = new Markdown(true);
     var user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);
 }
@@ -12,38 +12,34 @@
 @* Draws the comments section for the given post *@
 @helper DrawCommentSection(TheFlow.Api.Models.ViewPostModel post)
 {
+    <h4 class="text-left"><small>Comments</small></h4>
     <div class="row">
-        @if (Model.Comments.Count() > 0)
-        {
-            foreach (var comment in post.Comments)
-            {
-            <div class="col-xs-12">
-                <div class="row panel panel-default">
-                    <div class="col-sm-2">
-                        <div class="row">
-                            @if (comment.UpVotes > 0)
-                            {
-                                <div class="col-xs-6">
-                                    @comment.UpVotes
+        <div class="col-sm-7">
+                @if (Model.Comments.Count() > 0)
+                {
+                    foreach (var comment in post.Comments)
+                    {
+                    <div class="row comment-container">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    @comment.SanitizedBody.ToHtml()
                                 </div>
-                                <div class="col-xs-6">
+                                <div class="col-xs-5">
+                                    <span class="pull-right">-- <a href="~/Users/Info?userId=@comment.Author.OpenId">@comment.Author.DisplayName</a> <span class="time" data-time="@comment.DatePosted.ToUtcString()"></span></span>
                                 </div>
-                            }
-                            else
-                            {  
-                                <div class="col-xs-12">
-                                </div>   
-                            }
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-10">
-                        @comment.SanitizedBody.ToHtml()
-                    </div>
-                </div>
-            </div>
-            }
-        }
-        <div class="col-sm-12">
+                    }
+                }
+        </div>
+        <div class="col-sm-5">
+            <form action="~/Posts/AddComment/@post.Id" method="post" data-validate="parsley" role="form" novalidate>
+                @Html.AntiForgeryToken()
+                <textarea data-required="true" data-trigger="keyup" class="full-width" style="max-width: 100%;" id="Comment.Body" data-minlength="10" data-error-message="Please type in a comment that is at least 10 characters long." placeholder="Type your comment here" name="Body" required></textarea>
+                <button class="btn btn-default input-margin full-width" type="submit">Add Comment</button>
+            </form>
         </div>
     </div>
 }
@@ -51,11 +47,16 @@
 @section head
 {
     <link href="@Helpers.GetCodeStylePath()" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/font-awesome/font-awesome.css" />
+}
+
+@section AsyncScripts
+{
+    ,'parsley' : '@Url.Content("~/scripts/parsley.js")'
 }
 
 @section Scripts
 {
-    <script src="~/scripts/parsley.js"></script>
     <script src="~/scripts/pagedown/Markdown.Converter.js"></script>
     <script src="~/scripts/pagedown/Markdown.Sanitizer.js"></script>
     <script src="~/scripts/pagedown/Markdown.Editor.js"></script>
@@ -139,6 +140,13 @@
             //find all of the elements with .time class
             var timeElements = $('.time-from-now');
 
+            var utcTimeElements = $('.time');
+
+            loader.momentCallback.push(function () {
+                utcTimeElements.html(function (index, text) {
+                    utcTimeElements[index].innerText = moment.utc(utcTimeElements[index].getAttribute('data-time')).local().format("MMM DD `YY [at] h:mm a");
+                });
+            });
             setInterval(function () {
                 //set the text
                 timeElements.html(function (index, text) {
@@ -172,7 +180,7 @@
         </div>
         <hr />
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-xs-6">
                 <div class="btn-group">
                     <a href="#" class="btn btn-default">Share</a>
                     <a href="#" class="btn btn-default">Edit</a>
@@ -183,7 +191,7 @@
                     }
                 </div>
             </div>
-            <div class="col-sm-6 text-right">
+            <div class="col-xs-6 text-right">
                 <p>Posted by @Html.ActionLink(Model.Author.DisplayName, "Info", "Users", new { userId = Model.Author.OpenId }, null) <span class="time-from-now" data-time="@Model.DateCreated.ToUtcString()"></span></p>
             </div>
         </div>
@@ -216,7 +224,7 @@
                 @{
             displayDelete = (user != null && user.DisplayName == answer.Author.DisplayName);
                 }
-                <div class="col-sm-6">
+                <div class="col-xs-6">
                     <div class="btn-group">
                         <a href="#" class="btn btn-default">Share</a>
                         <a href="#" class="btn btn-default">Edit</a>
@@ -227,7 +235,7 @@
                         }
                     </div>
                 </div>
-                <div class="col-sm-6 text-right">
+                <div class="col-xs-6 text-right">
                     <p>Posted by @Html.ActionLink(answer.Author.DisplayName, "Info", "Users", new { userId = answer.Author.OpenId }, null) <span class="time-from-now" data-time="@answer.DateCreated.ToUtcString()"></span></p>
                 </div>
             </div>

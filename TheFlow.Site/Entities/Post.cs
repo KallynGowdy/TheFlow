@@ -188,12 +188,20 @@ namespace TheFlow.Api.Entities
         //    }
         //}
 
+        /// <summary>
+        /// Gets or sets the collection of up votes on this post.
+        /// Use AddVote and RemoveVote to integrate reputation changes.
+        /// </summary>
         public virtual ICollection<UpVote> UpVotes
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the collection of down votes on this post.
+        /// Use AddVote and RemoveVote to integrate reputation changes.
+        /// </summary>
         public virtual ICollection<DownVote> DownVotes
         {
             get;
@@ -203,12 +211,10 @@ namespace TheFlow.Api.Entities
         /// <summary>
         /// Gets or sets the votes on this post.
         /// </summary>
-        public virtual IEnumerable<Vote> Votes
+        public virtual ICollection<Vote> Votes
         {
-            get
-            {
-                return new Vote[] { }.Concat(UpVotes).Concat(DownVotes);
-            }
+            get;
+            set;
         }
 
         /// <summary>

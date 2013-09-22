@@ -18,21 +18,23 @@
             prettyPrint();
         }
 
-        enableTab("wmd-input");
+        loader.jqueryCallback.push(function () {
+            enableTab("wmd-input");
 
-        var converter = new Markdown.getSanitizingConverter();
+            var converter = new Markdown.getSanitizingConverter();
 
-        var editor = new Markdown.Editor(converter);
+            var editor = new Markdown.Editor(converter);
 
-        //refresh prettyprint when the preview is refreshed
-        editor.hooks.chain("onPreviewRefresh", function () {
-            $("pre").addClass("prettyprint");
-            $("code").addClass("prettyprint");
-            //$("code").css("background-color", '#eee');
-            prettyPrint();
+            //refresh prettyprint when the preview is refreshed
+            editor.hooks.chain("onPreviewRefresh", function () {
+                $("pre").addClass("prettyprint");
+                $("code").addClass("prettyprint");
+                //$("code").css("background-color", '#eee');
+                prettyPrint();
+            });
+
+            editor.run();
         });
-
-        editor.run();
     </script>
 }
 
@@ -91,7 +93,22 @@
     </div>
     <div class="col-sm-6">
         <small>Markdown preview</small>
-        <textarea class="wmd-input full-width" id="wmd-input" name="Body" style="max-width: 100%; min-height: 16em;"></textarea>
+        <textarea class="wmd-input full-width" id="wmd-input" name="Body" style="max-width: 100%; min-height: 16em;">
+This is some test text for you to preview with:
+
+    Console.Write("Type Your Name: ");
+    string input = Console.ReadLine();
+    Console.WriteLine("Hello {0}", input);
+    if(input == "bob")
+    {
+        Console.WriteLine("Your name is Bob!");
+    }
+    else
+    {
+        Console.WriteLine("Your name is not bob.");
+    }
+
+        </textarea>
         <div class="panel panel-default editor-preview" style="background-color: white;">
             <small id="preview-text">Preview</small>
             <br />

@@ -403,6 +403,8 @@
     <Content Include="Content\body.css" />
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\content.css" />
+    <Content Include="Content\font-awesome\font-awesome.css" />
+    <Content Include="Content\font-awesome\font-awesome.min.css" />
     <Content Include="Content\images\markdown_editor\wmd-buttons.png" />
     <Content Include="Content\prettyprint\DesertStyle.css" />
     <Content Include="Content\prettyprint\DoxyStyle.css" />
@@ -457,6 +459,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <None Include="Properties\PublishProfiles\TheFlow.pubxml" />
     <None Include="scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="scripts\jquery-2.0.3.js" />

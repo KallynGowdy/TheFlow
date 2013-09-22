@@ -13,27 +13,31 @@
 
 @section Scripts{
     <script type="text/javascript">
-        $(function () {
+        loader.jqueryCallback.push(function () {
             $(".nav li").removeClass("active");
             $(".nav li:eq(3)").addClass("active");
-        });
 
-        var width = 0;
-        var elements = $('.votes-views');
-        $(window).bind("resize", function () {
-            width = $(window).width();
-            //mobile - extra small screen
-            if (width < 768) {
-                //make the views, votes and answers buttons display horizontally
-                elements.removeClass('btn-group-vertical');
-                elements.addClass('btn-group');
+            var width = 0;
+            var elements = $('.votes-views');
+            function resize() {
+                width = $(window).width();
+                //mobile - extra small screen
+                if (width < 768) {
+                    //make the views, votes and answers buttons display horizontally
+                    elements.removeClass('btn-group-vertical');
+                    elements.addClass('btn-group');
+                }
+                    //tablet or up - small screen and up
+                else {
+                    //make the views, votes and answers buttons display vertically
+                    elements.removeClass('btn-group');
+                    elements.addClass('btn-group-vertical');
+                }
             }
-            //tablet or up - small screen and up
-            else {
-                //make the views, votes and answers buttons display vertically
-                elements.removeClass('btn-group');
-                elements.addClass('btn-group-vertical');
-            }
+            resize();
+            $(window).bind("resize", function () {
+                resize();
+            });
         });
     </script>
 }

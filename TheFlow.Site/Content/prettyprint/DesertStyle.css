@@ -10,6 +10,11 @@ pre.prettyprint {
 }
 
 code.prettyprint {
+    background-color: #333;
+    padding: 2px 4px;
+}
+
+code.prettyprint {
     display: inline-block;
 }
 
@@ -23,33 +28,33 @@ code.prettyprint {
 }
 /* string  - pink */
 
-pre > code > .kwd {
+.kwd {
     color: #f0e68c;
     font-weight: bold;
 }
 
-.kwd {
-    color: #e1c233;
+/*.kwd {
+    color: #c4a724;
     font-weight: bold;
-}
+}*/
 /* keyword - warm yellow*/
 
-pre > code > .com {
+.com {
     color: #87ceeb;
 }
 
-.com {
+/*.com {
     color: #46aed8;
-}
+}*/
 /* comment - skyblue */
 
-pre > code > .typ {
+.typ {
     color: #98fb98;
 }
 
-.typ {
+/*.typ {
     color: #4ee94e;
-}
+}*/
 /* type    - lightgreen */
 
 .lit {
@@ -57,33 +62,33 @@ pre > code > .typ {
 }
 /* literal - darkred */
 
-pre > code > .pun {
+.pun {
     color: #fff;
 }
 /* punctuation */
 
-.pun {
+/*.pun {
     color: black;
-}
+}*/
 
-pre > code > .pln {
+.pln {
     color: #fff;
 }
 /* plaintext */
 
-.pln {
+/*.pln {
     color: black;
-}
+}*/
 
-pre > code > .tag {
+.tag {
     color: #f0e68c;
     font-weight: bold;
 }
 
-.tag {
+/*.tag {
     color: #e9d268;
     font-weight: bold;
-}
+}*/
 
 /* html/xml tag    - lightyellow */
 

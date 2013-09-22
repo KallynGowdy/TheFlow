@@ -173,6 +173,12 @@ namespace TheFlow.Api.Entities
             set;
         }
 
+        public virtual ICollection<Post> Posts
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Gets or sets the collection of votes that this user has made.
         /// </summary>

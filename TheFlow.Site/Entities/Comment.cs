@@ -54,7 +54,7 @@ namespace TheFlow.Api.Entities
         /// <summary>
         /// Gets or sets the body of the post.
         /// </summary>
-        [Required, MinLength(15)]
+        [Required, Range(15, 500)]
         public string Body
         {
             get;

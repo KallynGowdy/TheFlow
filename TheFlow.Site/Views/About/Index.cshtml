@@ -7,14 +7,15 @@
 
 @section Scripts{
     <script type="text/javascript">
-        $(function () {
+        loader.jqueryCallback.push(function () {
             $(".nav li").removeClass("active");
             $(".nav li:eq(1)").addClass("active");
-        });
-        $('#sidebar').affix({
-            offset: {
-                top: 90
-            }
+
+            $('#sidebar').affix({
+                offset: {
+                    top: 90
+                }
+            });
         });
     </script>
 }

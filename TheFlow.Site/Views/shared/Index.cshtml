@@ -7,7 +7,7 @@
 
 @section Scripts{
     <script type="text/javascript">
-        $(function () {
+        loader.jqueryCallback.push(function () {
             $(".nav li").removeClass("active");
             $(".nav li:eq(0)").addClass("active");
         });
@@ -31,8 +31,8 @@
         </div>
         <div class="col-md-4 text-center">
             <h2 class="uk-text-success">Develop</h2>
-            <p>Do you want to help us develop TheFlow? Just <a href="https://github.com/KallynGowdy/TheFlow/fork">fork TheFlow</a>, make changes, <a href="https://github.com/KallynGowdy/TheFlow/pulls">then submit a pull request</a> and we would <strong>love</strong> to review them. Be sure the read the <a href="#">Code Design</a> documents first!</p>
-            <p>@Html.ActionLink("Get Started »", "Index", "Develop", null, new { @class = "btn btn-primary" })</p>
+            <p>Do you want to help us develop TheFlow? Just <a href="https://github.com/KallynGowdy/TheFlow/fork">fork TheFlow</a>, make changes, <a href="https://github.com/KallynGowdy/TheFlow/pulls">then submit a pull request</a> and we would <strong>love</strong> to review them. Be sure the read the <a href="https://github.com/KallynGowdy/TheFlow#code-style">Code Design</a> documents first!</p>
+            <p><a href="https://github.com/KallynGowdy/TheFlow/fork" class="btn btn-primary">Get Started</a></p>
         </div>
         <div class="col-md-4 text-center">
             <h2 class="uk-text-success">Bugs</h2>

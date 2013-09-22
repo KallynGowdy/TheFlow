@@ -10,10 +10,10 @@ function enableTab(id) {
                 end = this.selectionEnd;
 
             // set textarea value to: text before caret + tab + text after caret
-            this.value = val.substring(0, start) + '\t' + val.substring(end);
+            this.value = val.substring(0, start) + '    ' + val.substring(end);
 
             // put caret at right position again
-            this.selectionStart = this.selectionEnd = start + 1;
+            this.selectionStart = this.selectionEnd = start + 4;
 
             // prevent the focus loss
             return false;
@@ -78,19 +78,21 @@ function AddAntiForgeryToken(data) {
     return data;
 };
 
-//enable post back functionality with the .post-back class and data-post attribute
-$('.post-back').click(function () {
-    var clicked = $(this);
-    var data = clicked.attr('data-post');
-    $.ajax({
-        type: "post",
-        dataType: "json",
-        url: data,
-        data: AddAntiForgeryToken({ ajax: true }),
-        success: function (data, textStaus) {
-            if (data.redirect) {
-                window.location.replace(data.redirect);
+loader.jqueryCallback.push(function () {
+    //enable post back functionality with the .post-back class and data-post attribute
+    $('.post-back').click(function () {
+        var clicked = $(this);
+        var data = clicked.attr('data-post');
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: data,
+            data: AddAntiForgeryToken({ ajax: true }),
+            success: function (data, textStaus) {
+                if (data.redirect) {
+                    window.location.replace(data.redirect);
+                }
             }
-        }
+        });
     });
 });

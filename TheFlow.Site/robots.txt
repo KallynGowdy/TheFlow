@@ -1,8 +1,9 @@
-﻿User-Agent: *
+﻿User-agent: *
 Disallow: /Users/LogIn/
 Disallow: /Users/LogIn?
 Disallow: /Questions/
 Disallow: /Questions/Create/
+Disallow: /Questions/Create?
 Disallow: /Users/LogOut/
 Disallow: /Users/LogOut?
 Disallow: /api/

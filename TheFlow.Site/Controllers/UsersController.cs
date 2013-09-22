@@ -101,7 +101,7 @@ namespace TheFlow
                             Location = a.Location,
                             OpenId = a.OpenId,
                             DateJoined = a.DateJoined,
-                            Reputation = (((int?)a.Votes.Where(v => EntityFunctions.DiffDays(DateTime.UtcNow, v.DateVoted.Value).Value <= sortingRange).Sum(v => v.Value)) ?? 0) + 1,
+                            Reputation = (((int?)a.Posts.Sum(p => (int?)p.Votes.Where(v => EntityFunctions.DiffDays(DateTime.UtcNow, v.DateVoted.Value).Value <= sortingRange).Sum(v => v.Value) ?? 0) ?? 0) + 1),
                         }).OrderByDescending(u => u.Reputation).Skip(page * numToShow).Take(numToShow);
                         break;
                     case UserSortingMethod.DateJoined:
