@@ -422,6 +422,7 @@
     <Content Include="Content\prettyprint\TomorrowStyle.css" />
     <Content Include="Content\prettyprint\VibrantInkStyle.css" />
     <Content Include="Content\Styles.css" />
+    <Content Include="Content\Styles.full.min.css" />
     <Content Include="Content\uikit\uikit.css" />
     <Content Include="Global.asax" />
     <Content Include="Licenses\HtmlAgilityPack\Ms-PL.txt" />
