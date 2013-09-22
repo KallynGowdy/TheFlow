@@ -10,16 +10,16 @@
         switch (user.Preferences.CodeStyle)
         {
             case TheFlow.Api.Entities.CodeStyle.Default:
-                __razor_helper_writer.Write(VirtualPathUtility.ToAbsolute("~/Content/prettyprint/TomorrowStyle.css"));
+                __razor_helper_writer.Write(VirtualPathUtility.ToAbsolute("~/Content/prettyprint/TomorrowStyle.min.css"));
                 break;
             default:
-                __razor_helper_writer.Write(VirtualPathUtility.ToAbsolute(String.Format("~/Content/prettyprint/{0}Style.css", user.Preferences.CodeStyle.ToString())));
+                __razor_helper_writer.Write(VirtualPathUtility.ToAbsolute(String.Format("~/Content/prettyprint/{0}Style.min.css", user.Preferences.CodeStyle.ToString())));
                 break;
         }
     }
     else
     {
-        __razor_helper_writer.Write(VirtualPathUtility.ToAbsolute("~/Content/prettyprint/TomorrowStyle.css"));
+        __razor_helper_writer.Write(VirtualPathUtility.ToAbsolute("~/Content/prettyprint/TomorrowStyle.min.css"));
     }
 }
 
@@ -29,10 +29,10 @@
     switch (codeStyle)
     {
         case TheFlow.Api.Entities.CodeStyle.Default:
-            __razor_helper_writer.Write(VirtualPathUtility.ToAbsolute("~/Content/prettyprint/TomorrowStyle.css"));
+            __razor_helper_writer.Write(VirtualPathUtility.ToAbsolute("~/Content/prettyprint/TomorrowStyle.min.css"));
             break;
         default:
-            __razor_helper_writer.Write(VirtualPathUtility.ToAbsolute(String.Format("/../Content/prettyprint/{0}Style.css", codeStyle.ToString())));
+            __razor_helper_writer.Write(VirtualPathUtility.ToAbsolute(String.Format("/../Content/prettyprint/{0}Style.min.css", codeStyle.ToString())));
             break;
     }
 }
