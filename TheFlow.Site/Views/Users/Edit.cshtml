@@ -4,21 +4,26 @@
     ViewBag.Title = string.Format("{0} - Edit - {1}", Model.DisplayName, TheFlow.Site.Settings.SiteName);
 }
 
+@section AsyncScripts
+{
+    ,
+    "parsley" : "@Url.Content("~/scripts/parsley.js")",
+    "markdown.converter" : "@Url.Content("~/scripts/pagedown/Markdown.Converter.js")",
+    "markdown.editor" : "@Url.Content("~/scripts/pagedown/Markdown.Editor.js")",
+    "markdown.sanitizer" : "@Url.Content("~/scripts/pagedown/Markdown.Sanitizer.js")",
+    "prettify" : "@Url.Content("~/scripts/prettyprint/prettify.js")",
+    "editor" : "@Url.Content("~/scripts/editor.js")"
+}
+
 @section Scripts
 {
-    <script src="~/scripts/parsley.js"></script>
-    <script src="~/scripts/pagedown/Markdown.Converter.js"></script>
-    <script src="~/scripts/pagedown/Markdown.Editor.js"></script>
-    <script src="~/scripts/pagedown/Markdown.Sanitizer.js"></script>
-    <script src="~/scripts/prettyprint/prettify.js"></script>
-    <script src="~/scripts/editor.js"></script>
     <script type="text/javascript">
         function onThemeChanged(sel) {
             $('#codeTheme').attr('href', '@Url.Content("~/Content/prettyprint/")' + sel.options[sel.selectedIndex].value + "Style.css");
             prettyPrint();
         }
 
-        loader.jqueryCallback.push(function () {
+        loader.completeCallback.push(function () {
             enableTab("wmd-input");
 
             var converter = new Markdown.getSanitizingConverter();

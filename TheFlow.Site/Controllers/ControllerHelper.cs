@@ -402,6 +402,16 @@ namespace TheFlow.Site.Controllers
         }
 
         /// <summary>
+        /// Gets the Search Engine (and user) Friendly version of the given title string by replacing non alpha-numeric characters with dashes.
+        /// </summary>
+        /// <param name="title">The string to convert to a Search Engine friendly string.</param>
+        /// <returns></returns>
+        public static string GetSeoFriendlyTitle(string title)
+        {
+            return Regex.Replace(title.ToLower().Replace(@"'", String.Empty), @"[^\w]+", "-");
+        }
+
+        /// <summary>
         /// Redirects the user to the given url based on the given request and redirect function.
         /// </summary>
         /// <param name="url">The Url of the location to redirect to.</param>
