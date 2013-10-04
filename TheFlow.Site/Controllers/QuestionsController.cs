@@ -89,7 +89,7 @@ namespace TheFlow.Site.Controllers
                     return RedirectToActionPermanent("Question", new { id = questionId, seoName = ControllerHelper.GetSeoFriendlyTitle(question.Title) });
                 }
 
-                return View(new ViewQuestionModel(question));
+                return View(question);
             }
             return ControllerHelper.RedirectBack(Request, Redirect);
         }
@@ -120,12 +120,12 @@ namespace TheFlow.Site.Controllers
                     Tag t = dataContext.Tags.FirstOrDefault(a => a.Name.Equals(tag, StringComparison.OrdinalIgnoreCase));
                     if (t == null)
                     {
-                        t = new Tag(tag, null, ControllerHelper.Authenticate(Request, dataContext));
+                        t = new Tag(tag, null, ControllerHelper.GetAuthenticatedUser(dataContext));
                     }
                     tags.Add(t);
                 }
 
-                Question q = new Question(ControllerHelper.Authenticate(Request, dataContext), question.Body, question.Title, tags);
+                Question q = new Question(ControllerHelper.GetAuthenticatedUser(dataContext), question.Body, question.Title, tags);
 
                 dataContext.Questions.Add(q);
                 dataContext.SaveChanges();
@@ -143,9 +143,9 @@ namespace TheFlow.Site.Controllers
         public ActionResult Delete([Bind(Prefix = "id")] long questionId)
         {
             Question question = dataContext.Questions.SingleOrDefault(a => a.Id == questionId);
-            if (question != null)
+            if (question != null && question.AcceptedAnswer == null)
             {
-                User user = ControllerHelper.Authenticate(Request, dataContext);
+                User user = ControllerHelper.GetAuthenticatedUser(dataContext);
                 if (user != null && user.OpenId == question.Author.OpenId)
                 {
                     dataContext.Questions.Remove(question);

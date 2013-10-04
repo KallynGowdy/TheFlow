@@ -238,6 +238,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Authentication\AuthenticationServer.cs" />
     <Compile Include="Authorization\OpenIDAuthorizeAttribute.cs" />
+    <Compile Include="Authorization\UserPermissions.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AnswersController.cs" />
     <Compile Include="Controllers\ControllerHelper.cs" />
@@ -371,6 +372,10 @@
     <Compile Include="Migrations\201309211523320_ChangedPostVotesAround.Designer.cs">
       <DependentUpon>201309211523320_ChangedPostVotesAround.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201309301940435_AddedProposedEdits.cs" />
+    <Compile Include="Migrations\201309301940435_AddedProposedEdits.Designer.cs">
+      <DependentUpon>201309301940435_AddedProposedEdits.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnswerModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
@@ -410,6 +415,7 @@
     <Content Include="Content\font-awesome\font-awesome.css" />
     <Content Include="Content\font-awesome\font-awesome.min.css" />
     <Content Include="Content\images\markdown_editor\wmd-buttons.png" />
+    <Content Include="Content\pace.css" />
     <Content Include="Content\prettyprint\DesertStyle.css" />
     <Content Include="Content\prettyprint\DoxyStyle.css" />
     <Content Include="Content\prettyprint\GithubStyle.css" />
@@ -431,6 +437,7 @@
     <Content Include="Global.asax" />
     <Content Include="Licenses\HtmlAgilityPack\Ms-PL.txt" />
     <Content Include="robots.txt" />
+    <Content Include="scripts\ajax.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\codify.js" />
@@ -482,6 +489,7 @@
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="scripts\moment.js" />
     <Content Include="scripts\moment.min.js" />
+    <Content Include="scripts\pace.min.js" />
     <Content Include="scripts\pagedown\LICENSE.txt" />
     <Content Include="scripts\pagedown\Markdown.Converter.js" />
     <Content Include="scripts\pagedown\Markdown.Editor.js" />
@@ -519,6 +527,8 @@
     <Content Include="scripts\prettyprint\lang-yaml.js" />
     <Content Include="scripts\prettyprint\prettify.js" />
     <Content Include="scripts\prettyprint\run_prettify.js" />
+    <Content Include="scripts\responsive.js" />
+    <Content Include="scripts\time.js" />
     <Content Include="scripts\uikit.js" />
     <Content Include="scripts\uikit.min.js" />
     <Content Include="scripts\zepto.js" />
@@ -640,6 +650,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201309211523320_ChangedPostVotesAround.resx">
       <DependentUpon>201309211523320_ChangedPostVotesAround.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309301940435_AddedProposedEdits.resx">
+      <DependentUpon>201309301940435_AddedProposedEdits.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

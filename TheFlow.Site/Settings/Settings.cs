@@ -41,6 +41,22 @@ namespace TheFlow.Site
                 "PostEditAcceptedReputationIncrease",
                 int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.PostEditAcceptedReputationIncrease"])
             },
+            {
+                "Permissions.UpVote",
+                int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.Permissions.UpVote"])
+            },
+            {
+                "Permissions.DownVote",
+                int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.Permissions.DownVote"])
+            },
+            {
+                "Permissions.Flag",
+                int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.Permissions.Flag"])
+            },
+            {
+                "Permissions.Edit",
+                int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.Permissions.Edit"])
+            },
         };
 
         /// <summary>
@@ -89,6 +105,56 @@ namespace TheFlow.Site
                 get
                 {
                     return (int)lookup["QuestionsPerPage"];
+                }
+            }
+        }
+
+        /// <summary>
+        /// Provides static settings for required reputation to access permissions.
+        /// </summary>
+        public static class Permissions
+        {
+            /// <summary>
+            /// Gets the minimum ammount of reputation that is required to up vote posts.
+            /// </summary>
+            public static int UpVote
+            {
+                get
+                {
+                    return (int)lookup["Permissions.UpVote"];
+                }
+            }
+
+            /// <summary>
+            /// Gets the minimum ammount of reputation that is required to down vote posts.
+            /// </summary>
+            public static int DownVote
+            {
+                get
+                {
+                    return (int)lookup["Permissions.DownVote"];
+                }
+            }
+
+            /// <summary>
+            /// Gets the minimum ammount of reputation that is required to flag posts for problems.
+            /// </summary>
+            public static int Flag
+            {
+                get
+                {
+                    return (int)lookup["Permissions.Flag"];
+                }
+            }
+
+            /// <summary>
+            /// Gets the minimum ammount of reputation that is required to instantly edit posts.
+            /// </summary>
+            public static int Edit
+            {
+                get
+                {
+                    return (int)lookup["Permissions.Edit"];
                 }
             }
         }

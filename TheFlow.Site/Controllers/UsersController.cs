@@ -93,49 +93,74 @@ namespace TheFlow
                 switch (sortingMethod)
                 {
                     case UserSortingMethod.Reputation:
-                        //Select x number of users on page y filtering reputation that was gained in the last z(sortingRange) days
                         users = dataContext.Users.Select(a => new UserModel
                         {
                             DisplayName = a.DisplayName,
-                            Age = (a.DateOfBirth.HasValue ? ((int)(EntityFunctions.DiffDays(DateTime.UtcNow, a.DateOfBirth.Value) / DateExtensions.YearInDays)) : (int?)null),
-                            Location = a.Location,
+                            DateOfBirth = a.DateOfBirth,
+                            EmailAddress = a.EmailAddress,
                             OpenId = a.OpenId,
                             DateJoined = a.DateJoined,
-                            Reputation = (((int?)a.Posts.Sum(p => (int?)p.Votes.Where(v => EntityFunctions.DiffDays(DateTime.UtcNow, v.DateVoted.Value).Value <= sortingRange).Sum(v => v.Value) ?? 0) ?? 0) + 1),
+                            Reputation = ((int?)dataContext.Votes.Where(v => v.Post.Author.OpenId == a.OpenId && EntityFunctions.DiffDays(DateTime.UtcNow, v.DateVoted) <= sortingRange).Sum(v => v.Value) ?? 0) + 1
                         }).OrderByDescending(u => u.Reputation).Skip(page * numToShow).Take(numToShow);
+
                         break;
                     case UserSortingMethod.DateJoined:
-                        users = dataContext.Users.Where(u => -EntityFunctions.DiffDays(DateTime.UtcNow, u.DateJoined) <= sortingRange).Select(a => new UserModel
-                        {
-                            DisplayName = a.DisplayName,
-                            Age = (a.DateOfBirth.HasValue ? ((int)(EntityFunctions.DiffDays(DateTime.UtcNow, a.DateOfBirth.Value) / DateExtensions.YearInDays)) : (int?)null),
-                            Location = a.Location,
-                            OpenId = a.OpenId,
-                            Reputation = a.Reputation,
-                            DateJoined = a.DateJoined
-                        }).OrderByDescending(u => u.DateJoined).Skip(page * numToShow).Take(numToShow);
+                        users = dataContext.Users.Where(u => EntityFunctions.DiffDays(DateTime.UtcNow, u.DateJoined) <= sortingRange)
+                            .OrderByDescending(u => u.DateJoined)
+                            .Skip(page * numToShow).Take(numToShow)
+                            .Select(u => new UserModel
+                            {
+                                DateOfBirth = u.DateOfBirth,
+                                DateJoined = u.DateJoined,
+                                DisplayName = u.DisplayName,
+                                OpenId = u.OpenId,
+                                FirstName = u.FirstName,
+                                LastName = u.LastName,
+                                Location = u.Location,
+                                Preferences = new PreferencesModel
+                                {
+                                    CodeTheme = u.Preferences.CodeStyle
+                                },
+                                Reputation = u.Reputation
+                            });
                         break;
                     case UserSortingMethod.Votes:
-                        users = dataContext.Users.OrderByDescending(u => dataContext.Votes.Where(v => v.Voter.OpenId == u.OpenId && EntityFunctions.DiffDays(DateTime.Now, v.DateVoted) <= sortingRange).Count()).Select(u => new UserModel
-                        {
-                            DisplayName = u.DisplayName,
-                            Age = (u.DateOfBirth.HasValue ? ((int)(EntityFunctions.DiffDays(DateTime.UtcNow, u.DateOfBirth.Value) / DateExtensions.YearInDays)) : (int?)null),
-                            Location = u.Location,
-                            OpenId = u.OpenId,
-                            Reputation = u.Reputation,
-                            DateJoined = u.DateJoined
-                        });
+                        users = dataContext.Users.OrderByDescending(u => u.Votes.Where(v => EntityFunctions.DiffDays(DateTime.UtcNow, v.DateVoted) <= sortingRange).Count())
+                            .Skip(page * numToShow).Take(numToShow)
+                            .Select(u => new UserModel
+                            {
+                                DateOfBirth = u.DateOfBirth,
+                                DateJoined = u.DateJoined,
+                                DisplayName = u.DisplayName,
+                                OpenId = u.OpenId,
+                                FirstName = u.FirstName,
+                                LastName = u.LastName,
+                                Location = u.Location,
+                                Preferences = new PreferencesModel
+                                {
+                                    CodeTheme = u.Preferences.CodeStyle
+                                },
+                                Reputation = u.Reputation
+                            });
                         break;
                     case UserSortingMethod.Edits:
-                        users = dataContext.Users.OrderByDescending(u => dataContext.Edits.Where(e => e.Editor.OpenId == u.OpenId && EntityFunctions.DiffDays(DateTime.UtcNow, e.DateChanged.Value.ToUniversalTime()) <= sortingRange).Count()).Select(a => new UserModel
-                        {
-                            DisplayName = a.DisplayName,
-                            Age = (a.DateOfBirth.HasValue ? ((int)(EntityFunctions.DiffDays(DateTime.UtcNow, a.DateOfBirth.Value) / DateExtensions.YearInDays)) : (int?)null),
-                            Location = a.Location,
-                            OpenId = a.OpenId,
-                            Reputation = a.Reputation,
-                            DateJoined = a.DateJoined
-                        });
+                        users = dataContext.Users.OrderByDescending(u => u.Edits.Where(e => e.OriginalPost.Author.OpenId != u.OpenId && EntityFunctions.DiffDays(DateTime.UtcNow, e.DateChanged) <= sortingRange).Count())
+                            .Skip(page * numToShow).Take(numToShow)
+                            .Select(u => new UserModel
+                            {
+                                DateOfBirth = u.DateOfBirth,
+                                DateJoined = u.DateJoined,
+                                DisplayName = u.DisplayName,
+                                OpenId = u.OpenId,
+                                FirstName = u.FirstName,
+                                LastName = u.LastName,
+                                Location = u.Location,
+                                Preferences = new PreferencesModel
+                                {
+                                    CodeTheme = u.Preferences.CodeStyle
+                                },
+                                Reputation = u.Reputation
+                            });
                         break;
 
                 }
@@ -148,7 +173,7 @@ namespace TheFlow
             /// <param name="userId">The Open Identifier of the user to view info on.</param>
             /// <returns></returns>
             [ValidateInput(false)]
-            public ActionResult Info(string userId = null)
+            public ActionResult Info([Bind(Prefix="id")]string userId = null)
             {
                 User u = null;
                 if (userId != null)

@@ -44,6 +44,7 @@ namespace TheFlow.Api.Entities
             this.DatePosted = DateTime.UtcNow;
             this.Edits.Add(new Edit
             {
+                Accepted = true,
                 Editor = author,
                 Body = body,
                 DateChanged = DateTime.UtcNow,
@@ -60,6 +61,7 @@ namespace TheFlow.Api.Entities
         /// <summary>
         /// Gets the current body (content) of this post.
         /// User SetBody to set the body content of the post.
+        /// The returned text is not converted or santized.
         /// </summary>
         public string Body
         {
@@ -84,13 +86,23 @@ namespace TheFlow.Api.Entities
         }
 
         /// <summary>
-        /// Gets the sanitized markdown-converted version of the body of this post.
+        /// Gets the sanitized and markdown converted version of the body of this post.
+        /// </summary>
+        public string MarkdownBody
+        {
+            get
+            {
+                return GetMarkdownBody();
+            }
+        }
+
+        /// <summary>
+        /// Gets the sanitized and markdown-converted version of the body of this post.
         /// </summary>
         /// <returns></returns>
         public string GetMarkdownBody()
         {
-            Markdown m = new Markdown(true);
-            return ControllerHelper.HtmlSanitizer.GetHtml(m.Transform(GetCurrentBody()));
+            return ControllerHelper.HtmlSanitizer.GetHtml(ControllerHelper.MarkdownConverter.Transform(GetCurrentBody()));
         }
 
         /// <summary>
@@ -103,6 +115,7 @@ namespace TheFlow.Api.Entities
             {
                 Edits.Add(new Edit
                 {
+                    Accepted = true,
                     Body = newBody,
                     DateChanged = DateTime.UtcNow,
                     Editor = editor,
@@ -113,7 +126,28 @@ namespace TheFlow.Api.Entities
         }
 
         /// <summary>
-        /// Gets the original body (content) of this post.
+        /// Creates a new proposed edit using the given body and editor based off of the previous edit.
+        /// </summary>
+        /// <param name="proposedBody"></param>
+        /// <param name="editor"></param>
+        public void ProposeEdit(string proposedBody, User editor)
+        {
+            if (proposedBody != null && editor != null)
+            {
+                Edits.Add(new Edit
+                {
+                    Accepted = false,
+                    Body = proposedBody,
+                    DateChanged = DateTime.UtcNow,
+                    Editor = editor,
+                    OriginalPost = this,
+                    PreviousVersion = Edits.OrderByDescending(a => a.DateChanged).FirstOrDefault()
+                });
+            }
+        }
+
+        /// <summary>
+        /// Gets the original body (content) of this post. The returned text is not converted or sanitized.
         /// </summary>
         [NotMapped]
         public string OriginalBody
@@ -250,14 +284,20 @@ namespace TheFlow.Api.Entities
         public abstract Expression<Func<int>> GetVoteValueExpression(Vote v);
 
         /// <summary>
-        /// Gets the current body of markdown flavored text for this post.
+        /// Gets the current body of markdown flavored text for this post. The returned text is not converted or sanitized.
         /// </summary>
         /// <returns></returns>
         public string GetCurrentBody()
         {
             if (Edits.Count > 0)
             {
-                return Edits.OrderByDescending(a => a.DateChanged.Value).First().Body;
+                Edit edit = Edits.OrderByDescending(a => a.DateChanged.Value).FirstOrDefault(e => e.Accepted);
+                if (edit == null)
+                {
+                    //get the most recent edit that was made by the author
+                    edit = Edits.OrderBy(e => e.Editor.OpenId == this.Author.OpenId).OrderByDescending(a => a.DateChanged.Value).First();
+                }
+                return edit.Body;
             }
             else
             {

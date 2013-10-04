@@ -141,24 +141,37 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
     white-space: normal;
 }
 
+.icon-ok.success {
+    font-size: 25px;
+    color: #1fe600;
+}
+
+.markdown-editor {
+    width: 100%;
+}
+
 .votes {
     font-size: 20px;
 }
 
-.btn.up-vote {
+.up-vote {
     font-size: 20px;
+    cursor: pointer;
 }
 
-.btn.down-vote {
+.down-vote {
     font-size: 20px;
+    cursor: pointer;
 }
 
-.btn.up-vote:hover {
+.up-vote:hover {
     color: #aea79f;
+    text-decoration:none;
 }
 
-.btn.down-vote:hover {
+.down-vote:hover {
     color: #aea79f;
+    text-decoration:none;
 }
 
 .post-row {

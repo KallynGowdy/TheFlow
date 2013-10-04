@@ -39,6 +39,20 @@ function enableEditor(hooks) {
     editor.run();
 }
 
+function enableEditor(hooks, postfix) {
+    var converter = new Markdown.getSanitizingConverter();
+    var editor = new Markdown.Editor(converter, postfix);
+    if (hooks) {
+        hooks(editor);
+    }
+    //refresh prettyprint when the preview is refreshed
+    editor.hooks.chain("onPreviewRefresh", function () {
+        highlightCode();
+    });
+
+    editor.run();
+}
+
 //causes all of the code in the page to be highlighted.
 function highlightCode() {
     $("pre").addClass("prettyprint");

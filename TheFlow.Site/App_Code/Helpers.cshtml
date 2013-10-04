@@ -3,7 +3,7 @@
 {
     if (user == null)
     {
-        user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);
+        user = TheFlow.Site.Controllers.ControllerHelper.GetAuthenticatedUser();
     }
     if (user != null && user.Preferences != null)
     {
@@ -35,4 +35,52 @@
             __razor_helper_writer.Write(VirtualPathUtility.ToAbsolute(String.Format("/../Content/prettyprint/{0}Style.css", codeStyle.ToString())));
             break;
     }
+}
+
+@helper DrawEditModal(long postId, string header, string content)
+{
+    <!-- Modal -->
+    <div class="modal fade" id="editPost@(postId)" tabindex="-1" role="dialog" aria-labelledby="Edit" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">@header</h4>
+                </div>
+                <form action="~/Posts/Edit" method="post">
+                    <div class="modal-body">
+                        <div id="wmd-button-bar-@(postId)" class="wmd-button-bar"></div>
+                        <textarea class="markdown-editor" id="wmd-input-@(postId)" name="Body">@content</textarea>
+                        <div class="panel panel-default editor-preview">
+                            <small id="preview-text">Preview</small>
+                            <br />
+                            <div id="wmd-preview-@(postId)"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Propose changes</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+}
+
+@helper DrawGravitar(string userEmail, int size = 80)
+{
+    byte[] hash;
+    using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+    {
+        hash = md5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(userEmail.Trim().ToLowerInvariant()));
+    }
+    System.Text.StringBuilder sb = new System.Text.StringBuilder(hash.Length * 2);
+    for(int i = 0; i < hash.Length; i++)
+    {
+        sb.Append(hash[i].ToString("X2"));   
+    }
+    @:<img src="@string.Format("http://www.gravatar.com/avatar/{0}.png?d=identicon&s={1}", sb.ToString().ToLowerInvariant(), size)" />
 }

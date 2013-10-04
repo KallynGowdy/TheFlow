@@ -19,6 +19,23 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+namespace TheFlow.Site.Controllers
+{
+    public class PostModel
+    {
+        /// <summary>
+        /// Gets or sets the body of the post.
+        /// </summary>
+        [MinLength(40)]
+        [MaxLength(64000)]
+        public string Body
+        {
+            get;
+            set;
+        }
+    }
+}
+
 namespace TheFlow.Api.Models
 {
     /// <summary>
