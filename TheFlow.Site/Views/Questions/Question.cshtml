@@ -45,7 +45,7 @@
 }
 
 @* Draws the html for the given post *@
-@helper DrawPost(TheFlow.Api.Entities.Post post, bool displayDelete, bool displayAccept, System.Web.Mvc.UrlHelper url, System.Web.Mvc.HtmlHelper html)
+@helper DrawPost(TheFlow.Api.Entities.Post post, bool displayDelete, bool displayAccept)
 {
     <div class="col-xs-12 panel panel-default">
         @if (post is TheFlow.Api.Entities.Question)
@@ -60,9 +60,9 @@
         <div class="row post-row">
             <div class="col-sm-1">
                 <div class="row text-center">
-                    <div class="col-xs-4 col-sm-12"><a data-post="@post.Id" class="up-vote"><i class="icon-arrow-up"></i></a></div>
+                    <div class="col-xs-4 col-sm-12"><a data-post="@Url.Action("UpVote", "Posts", new{id=post.Id})" class="post-back up-vote"><i class="icon-arrow-up"></i></a></div>
                     <div class="col-xs-4 col-sm-12"><strong class="votes" title="@post.UpVotes.Count() upvotes and @post.DownVotes.Count() downvotes">@post.NetVotes()</strong></div>
-                    <div class="col-xs-4 col-sm-12"><a data-post="@post.Id" class="down-vote"><i class="icon-arrow-down"></i></a></div>
+                    <div class="col-xs-4 col-sm-12"><a data-post="@Url.Action("DownVote", "Posts", new{id=post.Id})" class="post-back down-vote"><i class="icon-arrow-down"></i></a></div>
                 </div>
             </div>
             <hr class="visible-xs" />
@@ -79,11 +79,11 @@
                     <a href="#" class="btn btn-default">Flag</a>
                     @if (displayDelete)
                     {
-                        <a data-post="@url.Action("Delete", "Questions", new { id = Model.Id })" class="post-back btn btn-primary">Delete</a>
+                        <a data-post="@Url.Action("Delete", "Questions", new { id = Model.Id })" class="post-back btn btn-primary">Delete</a>
                     }
                     @if (post is TheFlow.Api.Entities.Answer && displayAccept)
                     {
-                        <a data-post="@url.Action("Accept", "Answers", new { id = post.Id })" class="post-back btn btn-success">Mark as Answer</a>
+                        <a data-post="@Url.Action("Accept", "Answers", new { id = post.Id })" class="post-back btn btn-success">Mark as Answer</a>
                     }
                 </div>
             </div>
@@ -94,7 +94,7 @@
                             @Helpers.DrawGravitar(post.Author.EmailAddress, 100)
                         </div>
                         <div class="col-xs-6 col-sm-6 text-center">
-                            <p>@html.ActionLink(post.Author.DisplayName, "Info", "Users", new { userId = post.Author.OpenId }, null)</p>
+                            <p>@Html.ActionLink(post.Author.DisplayName, "Info", "Users", new { userId = post.Author.OpenId }, null)</p>
                             <p><strong title="@post.Author.Reputation Reputation">@post.Author.Reputation</strong></p>
                             <p>@(post is TheFlow.Api.Entities.Question ? "asked" : "answered") <span title="@post.DatePosted.Value.ToUtcString()" class="time-from-now" data-time="@post.DatePosted.Value"></span></p>
                         </div>
@@ -103,7 +103,7 @@
             </div>
         </div>
         <hr />
-        @Helpers.DrawCommentSection(post, html)
+        @Helpers.DrawCommentSection(post, Html)
     </div>
 }
 
@@ -180,7 +180,7 @@
 }
 @{bool displayDelete = (user != null && Model.Author.OpenId == user.OpenId && Model.AcceptedAnswer == null);}
 <div class="row">
-    @DrawPost(Model, displayDelete, false, Url, Html)
+    @DrawPost(Model, displayDelete, false)
 
     @if (Model.Answers != null && Model.Answers.Any())
     {
@@ -191,7 +191,7 @@
             displayDelete = (user != null && user.OpenId == answer.Author.OpenId && !answer.Accepted);
             bool displayAccept = (user != null && user.OpenId == Model.Author.OpenId && Model.AcceptedAnswer == null);
         
-            @DrawPost(answer, displayDelete, displayAccept, Url, Html)        
+            @DrawPost(answer, displayDelete, displayAccept)        
         }
     }
     else
