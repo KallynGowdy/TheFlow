@@ -100,17 +100,23 @@ namespace TheFlow
                             EmailAddress = a.EmailAddress,
                             OpenId = a.OpenId,
                             DateJoined = a.DateJoined,
+                            Location = a.Location,
+                            FirstName = a.FirstName,
+                            LastName = a.LastName,
+                            Preferences = new PreferencesModel
+                            {
+                                CodeTheme = a.Preferences.CodeStyle
+                            },
                             Reputation = ((int?)dataContext.Votes.Where(v => v.Post.Author.OpenId == a.OpenId && EntityFunctions.DiffDays(DateTime.UtcNow, v.DateVoted) <= sortingRange).Sum(v => v.Value) ?? 0) + 1
                         }).OrderByDescending(u => u.Reputation).Skip(page * numToShow).Take(numToShow);
 
                         break;
                     case UserSortingMethod.DateJoined:
                         users = dataContext.Users.Where(u => EntityFunctions.DiffDays(DateTime.UtcNow, u.DateJoined) <= sortingRange)
-                            .OrderByDescending(u => u.DateJoined)
-                            .Skip(page * numToShow).Take(numToShow)
                             .Select(u => new UserModel
                             {
                                 DateOfBirth = u.DateOfBirth,
+                                EmailAddress = u.EmailAddress,
                                 DateJoined = u.DateJoined,
                                 DisplayName = u.DisplayName,
                                 OpenId = u.OpenId,
@@ -121,8 +127,8 @@ namespace TheFlow
                                 {
                                     CodeTheme = u.Preferences.CodeStyle
                                 },
-                                Reputation = u.Reputation
-                            });
+                                Reputation = (((int?)u.Posts.Sum(p => ((int?)p.Votes.Where(v => EntityFunctions.DiffDays(DateTime.UtcNow, v.DateVoted) <= sortingRange).Sum(v => v.Value)) ?? 0)) ?? 0) + 1
+                            }).OrderBy(u => u.Reputation).Skip(page * numToShow).Take(numToShow);
                         break;
                     case UserSortingMethod.Votes:
                         users = dataContext.Users.OrderByDescending(u => u.Votes.Where(v => EntityFunctions.DiffDays(DateTime.UtcNow, v.DateVoted) <= sortingRange).Count())
@@ -130,6 +136,7 @@ namespace TheFlow
                             .Select(u => new UserModel
                             {
                                 DateOfBirth = u.DateOfBirth,
+                                EmailAddress = u.EmailAddress,
                                 DateJoined = u.DateJoined,
                                 DisplayName = u.DisplayName,
                                 OpenId = u.OpenId,
@@ -144,12 +151,13 @@ namespace TheFlow
                             });
                         break;
                     case UserSortingMethod.Edits:
-                        users = dataContext.Users.OrderByDescending(u => u.Edits.Where(e => e.OriginalPost.Author.OpenId != u.OpenId && EntityFunctions.DiffDays(DateTime.UtcNow, e.DateChanged) <= sortingRange).Count())
+                        users = dataContext.Users.OrderByDescending(u => u.Edits.Where(e => e.Accepted && e.OriginalPost.Author.OpenId != u.OpenId && EntityFunctions.DiffDays(DateTime.UtcNow, e.DateChanged) <= sortingRange).Count())
                             .Skip(page * numToShow).Take(numToShow)
                             .Select(u => new UserModel
                             {
                                 DateOfBirth = u.DateOfBirth,
                                 DateJoined = u.DateJoined,
+                                EmailAddress = u.EmailAddress,
                                 DisplayName = u.DisplayName,
                                 OpenId = u.OpenId,
                                 FirstName = u.FirstName,
