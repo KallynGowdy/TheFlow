@@ -1,4 +1,104 @@
-﻿@* Gets the path to the code style stylesheet based on the current user preferences. *@
+﻿@using TheFlow.Site;
+@using System.Web.Mvc.Html;
+
+@helper DrawCommentSection(TheFlow.Api.Entities.Post post, System.Web.Mvc.HtmlHelper Html)
+{
+    <h4 class="text-left"><small>Comments</small></h4>
+    <div class="row">
+        <div class="col-sm-7">
+            @if (post.Comments.Count() > 0)
+            {
+                foreach (var comment in post.Comments)
+                {
+                <div class="row comment-container">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-xs-7">
+                                @comment..ToHtml()
+                            </div>
+                            <div class="col-xs-5">
+                                <span class="pull-right">-- <a href="~/Users/Info?userId=@comment.Author.OpenId">@comment.Author.DisplayName</a> <span class="time" data-time="@comment.DatePosted.ToUtcString()"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            }
+        </div>
+        <div class="col-sm-5">
+            <form action="~/Posts/AddComment/@post.Id" method="post" data-validate="parsley" role="form" novalidate>
+                @Html.AntiForgeryToken()
+                <textarea data-required="true" data-trigger="keyup" class="full-width" style="max-width: 100%;" id="Comment.Body" data-minlength="10" data-error-message="Please type in a comment that is at least 10 characters long." placeholder="Type your comment here" name="Body" required></textarea>
+                <button class="btn btn-default input-margin full-width" type="submit">Add Comment</button>
+            </form>
+        </div>
+    </div>
+}
+
+@* Draws the html for the given post *@
+@helper DrawPost(TheFlow.Api.Entities.Post post, bool displayDelete, bool displayAccept, System.Web.Mvc.UrlHelper url, System.Web.Mvc.HtmlHelper html)
+{
+    <div class="col-xs-12 panel panel-default">
+        @if (post is TheFlow.Api.Entities.Question)
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 style="color: #f2b21b">@(((TheFlow.Api.Entities.Question)post).Title)</h2>
+                </div>
+            </div>
+            <hr />
+        }
+        <div class="row post-row">
+            <div class="col-sm-1">
+                <div class="row text-center">
+                    <div class="col-xs-4 col-sm-12"><a data-post="@post.Id" class="up-vote"><i class="icon-arrow-up"></i></a></div>
+                    <div class="col-xs-4 col-sm-12"><strong class="votes" title="@post.UpVotes.Count() upvotes and @post.DownVotes.Count() downvotes">@post.NetVotes()</strong></div>
+                    <div class="col-xs-4 col-sm-12"><a data-post="@post.Id" class="down-vote"><i class="icon-arrow-down"></i></a></div>
+                </div>
+            </div>
+            <hr class="visible-xs" />
+            <div class="col-sm-11 post-body">
+                @(new HtmlString(post != null ? post.MarkdownBody ?? string.Empty : string.Empty))
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-xs-3 col-sm-6">
+                <div class="responsive btn-group">
+                    <a href="#" class="btn btn-default">Share</a>
+                    <a data-toggle="modal" href="#editPost@(Model.Id)" class="btn btn-default">Edit</a>
+                    <a href="#" class="btn btn-default">Flag</a>
+                    @if (displayDelete)
+                    {
+                        <a data-post="@url.Action("Delete", "Questions", new { id = Model.Id })" class="post-back btn btn-primary">Delete</a>
+                    }
+                    @if (post is TheFlow.Api.Entities.Answer && displayAccept)
+                    {
+                        <a data-post="@url.Action("Accept", "Answers", new { id = post.Id })" class="post-back btn btn-success">Mark as Answer</a>
+                    }
+                </div>
+            </div>
+            <div class="col-sm-4 col-sm-offset-2 col-xs-9 text-right">
+                <div class="panel panel-default">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 text-left">
+                            @Helpers.DrawGravitar(post.Author.EmailAddress)
+                        </div>
+                        <div class="col-xs-6 col-sm-6 text-center">
+                            <p>@html.ActionLink(post.Author.DisplayName, "Info", "Users", new { userId = post.Author.OpenId }, null) <strong>@post.Author.Reputation</strong></p>
+                            <p><span class="time-from-now" data-time="@post.DatePosted.Value"></span></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        @Helpers.DrawCommentSection(post, html)
+    </div>
+}
+
+@* Gets the path to the code style stylesheet based on the current user preferences. *@
 @helper GetCodeStylePath(TheFlow.Api.Entities.User user = null)
 {
     if (user == null)
@@ -78,9 +178,9 @@
         hash = md5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(userEmail.Trim().ToLowerInvariant()));
     }
     System.Text.StringBuilder sb = new System.Text.StringBuilder(hash.Length * 2);
-    for(int i = 0; i < hash.Length; i++)
+    for (int i = 0; i < hash.Length; i++)
     {
-        sb.Append(hash[i].ToString("X2"));   
+        sb.Append(hash[i].ToString("X2"));
     }
     @:<img src="@string.Format("http://www.gravatar.com/avatar/{0}.png?d=identicon&s={1}", sb.ToString().ToLowerInvariant(), size)" />
 }

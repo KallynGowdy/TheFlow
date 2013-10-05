@@ -26,7 +26,7 @@
                                 @comment.SanitizedBody.ToHtml()
                             </div>
                             <div class="col-xs-5">
-                                <span class="pull-right">-- <a href="~/Users/Info?userId=@comment.Author.OpenId">@comment.Author.DisplayName</a> <span class="time" data-time="@comment.DatePosted.ToUtcString()"></span></span>
+                                <span class="pull-right">-- <a href="~/Users/Info?userId=@comment.Author.OpenId">@comment.Author.DisplayName</a> <span title="@comment.DatePosted.ToString("MMM dd 'at' HH:mm") UTC" class="time" data-time="@comment.DatePosted.ToUtcString()"></span></span>
                             </div>
                         </div>
                     </div>
@@ -44,37 +44,66 @@
     </div>
 }
 
-@helper DrawCommentSection(TheFlow.Api.Entities.Post post)
+@* Draws the html for the given post *@
+@helper DrawPost(TheFlow.Api.Entities.Post post, bool displayDelete, bool displayAccept, System.Web.Mvc.UrlHelper url, System.Web.Mvc.HtmlHelper html)
 {
-    <h4 class="text-left"><small>Comments</small></h4>
-    <div class="row">
-        <div class="col-sm-7">
-            @if (Model.Comments.Count() > 0)
-            {
-                foreach (var comment in post.Comments)
-                {
-                <div class="row comment-container">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-xs-7">
-                                @comment..ToHtml()
-                            </div>
-                            <div class="col-xs-5">
-                                <span class="pull-right">-- <a href="~/Users/Info?userId=@comment.Author.OpenId">@comment.Author.DisplayName</a> <span class="time" data-time="@comment.DatePosted.ToUtcString()"></span></span>
-                            </div>
+    <div class="col-xs-12 panel panel-default">
+        @if (post is TheFlow.Api.Entities.Question)
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 style="color: #f2b21b">@(((TheFlow.Api.Entities.Question)post).Title)</h2>
+                </div>
+            </div>
+            <hr />
+        }
+        <div class="row post-row">
+            <div class="col-sm-1">
+                <div class="row text-center">
+                    <div class="col-xs-4 col-sm-12"><a data-post="@post.Id" class="up-vote"><i class="icon-arrow-up"></i></a></div>
+                    <div class="col-xs-4 col-sm-12"><strong class="votes" title="@post.UpVotes.Count() upvotes and @post.DownVotes.Count() downvotes">@post.NetVotes()</strong></div>
+                    <div class="col-xs-4 col-sm-12"><a data-post="@post.Id" class="down-vote"><i class="icon-arrow-down"></i></a></div>
+                </div>
+            </div>
+            <hr class="visible-xs" />
+            <div class="col-sm-11 post-body">
+                @(new HtmlString(post != null ? post.MarkdownBody ?? string.Empty : string.Empty))
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-xs-3 col-sm-6">
+                <div class="responsive btn-group">
+                    <a href="#" class="btn btn-default">Share</a>
+                    <a data-toggle="modal" href="#editPost@(Model.Id)" class="btn btn-default">Edit</a>
+                    <a href="#" class="btn btn-default">Flag</a>
+                    @if (displayDelete)
+                    {
+                        <a data-post="@url.Action("Delete", "Questions", new { id = Model.Id })" class="post-back btn btn-primary">Delete</a>
+                    }
+                    @if (post is TheFlow.Api.Entities.Answer && displayAccept)
+                    {
+                        <a data-post="@url.Action("Accept", "Answers", new { id = post.Id })" class="post-back btn btn-success">Mark as Answer</a>
+                    }
+                </div>
+            </div>
+            <div class="col-sm-4 col-sm-offset-2 col-xs-9 text-right">
+                <div class="panel panel-default">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 text-left">
+                            @Helpers.DrawGravitar(post.Author.EmailAddress, 100)
+                        </div>
+                        <div class="col-xs-6 col-sm-6 text-center">
+                            <p>@html.ActionLink(post.Author.DisplayName, "Info", "Users", new { userId = post.Author.OpenId }, null)</p>
+                            <p><strong title="@post.Author.Reputation Reputation">@post.Author.Reputation</strong></p>
+                            <p>@(post is TheFlow.Api.Entities.Question ? "asked" : "answered") <span title="@post.DatePosted.Value.ToUtcString()" class="time-from-now" data-time="@post.DatePosted.Value"></span></p>
                         </div>
                     </div>
                 </div>
-                }
-            }
+            </div>
         </div>
-        <div class="col-sm-5">
-            <form action="~/Posts/AddComment/@post.Id" method="post" data-validate="parsley" role="form" novalidate>
-                @Html.AntiForgeryToken()
-                <textarea data-required="true" data-trigger="keyup" class="full-width" style="max-width: 100%;" id="Comment.Body" data-minlength="10" data-error-message="Please type in a comment that is at least 10 characters long." placeholder="Type your comment here" name="Body" required></textarea>
-                <button class="btn btn-default input-margin full-width" type="submit">Add Comment</button>
-            </form>
-        </div>
+        <hr />
+        @Helpers.DrawCommentSection(post, html)
     </div>
 }
 
@@ -90,7 +119,7 @@
     @foreach (var answer in Model.Answers)
     {
         @:@Helpers.DrawEditModal(answer.Id, "Edit this answer", answer.Body)
-    }
+                    }
 }
 
 @section AsyncScripts
@@ -124,6 +153,14 @@
                 });
             });
 
+            enableTab('wmd-input-@(Model.Id)');
+            enableEditor(function (editor) {
+                editor.getConverter().hooks.chain("preConversion", function (text) {
+                    $("#Body").attr("value", text);
+                    return text;
+                });
+            }, '-@Model.Id');
+
             @foreach (var answer in Model.Answers)
             {
                <text>
@@ -143,46 +180,7 @@
 }
 @{bool displayDelete = (user != null && Model.Author.OpenId == user.OpenId && Model.AcceptedAnswer == null);}
 <div class="row">
-    <div class="col-xs-12 panel panel-default">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2 style="color: #f2b21b">@Model.Title</h2>
-            </div>
-        </div>
-        <hr />
-        <div class="row post-row">
-            <div class="col-sm-1">
-                <div class="row text-center">
-                    <div class="col-xs-4 col-sm-12"><a data-post="@Model.Id" class="up-vote"><i class="icon-arrow-up"></i></a></div>
-                    <div class="col-xs-4 col-sm-12"><strong class="votes" title="@Model.UpVotes.Count() upvotes and @Model.DownVotes.Count() downvotes">@Model.NetVotes()</strong></div>
-                    <div class="col-xs-4 col-sm-12"><a data-post="@Model.Id" class="down-vote"><i class="icon-arrow-down"></i></a></div>
-                </div>
-            </div>
-            <hr class="visible-xs" />
-            <div class="col-sm-11 post-body">
-                @Model.MarkdownBody.ToHtml()
-            </div>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="col-xs-6">
-                <div class="responsive btn-group">
-                    <a href="#" class="btn btn-default">Share</a>
-                    <a data-toggle="modal" href="#editPost@(Model.Id)" class="btn btn-default">Edit</a>
-                    <a href="#" class="btn btn-default">Flag</a>
-                    @if (displayDelete)
-                    {
-                        <a data-post="@Url.Action("Delete", "Questions", new { id = Model.Id })" class="post-back btn btn-primary">Delete</a>
-                    }
-                </div>
-            </div>
-            <div class="col-xs-6 text-right">
-                <p>Posted by @Html.ActionLink(Model.Author.DisplayName, "Info", "Users", new { userId = Model.Author.OpenId }, null) <span class="time-from-now" data-time="@Model.DatePosted.Value.ToUtcString()"></span></p>
-            </div>
-        </div>
-        <hr />
-        @DrawCommentSection(Model)
-    </div>
+    @DrawPost(Model, displayDelete, false, Url, Html)
 
     @if (Model.Answers != null && Model.Answers.Any())
     {
@@ -190,68 +188,10 @@
         <h2>Answers</h2>
         foreach (var answer in Model.Answers)
         {
-        <div class="col-xs-12 panel panel-default">
-            <div class="row post-row">
-                <div class="col-sm-1">
-                    <div class="row text-center">
-                        <div class="col-xs-4 col-sm-12"><a data-post="@answer.Id" class="up-vote"><i class="icon-arrow-up"></i></a></div>
-                        <div class="col-xs-4 col-sm-12 text-center"><strong class="votes" title="@answer.UpVotes.Count() upvotes and @answer.DownVotes.Count() downvotes">@answer.NetVotes()</strong></div>
-                        <div class="col-xs-4 col-sm-12"><a data-post="@answer.Id" class="down-vote"><i class="icon-arrow-down"></i></a></div>
-                        @if (answer.Accepted)
-                        {
-                            <div class="col-xs-4 col-sm-12">
-                                <i class="icon-ok success" title="This answer was marked as the solution to the asker's problem."></i>
-                            </div>
-                        }
-                    </div>
-                </div>
-                <hr class="visible-xs" />
-                <div class="col-sm-11 post-body" id="@answer.Id">
-                    @answer.MarkdownBody.ToHtml()
-                </div>
-            </div>
-            <hr />
-            <div class="row">
-                @{
-                        displayDelete = (user != null && user.OpenId == answer.Author.OpenId && !answer.Accepted);
-                        bool displayAccept = (user != null && user.OpenId == Model.Author.OpenId && Model.AcceptedAnswer == null);
-                }
-                <div class="col-sm-6 col-xs-3">
-                    <div class="btn-group responsive">
-                        <a href="#" class="btn btn-default">Share</a>
-                        <a data-toggle="modal" href="#editPost@(answer.Id)" class="btn btn-default">Edit</a>
-                        <a href="#" class="btn btn-default">Flag</a>
-                        @if (displayDelete)
-                        {
-                            <a data-post="@Url.Action("Delete", "Questions", new { id = Model.Id })" class="post-back btn btn-primary">Delete</a>
-                        }
-                        @if (displayAccept)
-                        {
-                            <a data-post="@Url.Action("Accept", "Answers", new { id = answer.Id })" class="post-back btn btn-success">Mark as Answer</a>
-                        }
-                    </div>
-                </div>
-                <div class="col-sm-4 col-sm-offset-2 col-xs-9 text-right">
-                    <div class="panel panel-default">
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 text-left">
-                                @Helpers.DrawGravitar(answer.Author.EmailAddress)
-                            </div>
-                            <div class="col-xs-6 col-sm-6 text-center">
-                                <p>@Html.ActionLink(answer.Author.DisplayName, "Info", "Users", new { userId = answer.Author.OpenId }, null)</p>
-                                <p><span class="time-from-now" data-time="@answer.DatePosted.Value"></span></p>
-                            </div>
-
-                        </div>
-                    </div>
-                    @*                    <p>Posted by @Html.ActionLink(answer.Author.DisplayName, "Info", "Users", new { userId = answer.Author.OpenId }, null) <span class="time-from-now" data-time="@answer.DateCreated.ToUtcString()"></span></p>
-                *@
-                </div>
-            </div>
-            <hr />
-            @DrawCommentSection(answer)
-        </div>
+            displayDelete = (user != null && user.OpenId == answer.Author.OpenId && !answer.Accepted);
+            bool displayAccept = (user != null && user.OpenId == Model.Author.OpenId && Model.AcceptedAnswer == null);
         
+            @DrawPost(answer, displayDelete, displayAccept, Url, Html)        
         }
     }
     else

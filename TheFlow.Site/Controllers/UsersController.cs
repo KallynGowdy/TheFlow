@@ -173,7 +173,7 @@ namespace TheFlow
             /// <param name="userId">The Open Identifier of the user to view info on.</param>
             /// <returns></returns>
             [ValidateInput(false)]
-            public ActionResult Info([Bind(Prefix="id")]string userId = null)
+            public ActionResult Info(string userId = null)
             {
                 User u = null;
                 if (userId != null)
