@@ -85,7 +85,7 @@ namespace TheFlow.Site.Controllers
         public ActionResult _Menu()
         {
             List<MenuItem> menu = new List<MenuItem>();
-            TheFlow.Api.Entities.User user = ControllerHelper.Authenticate(Request);
+            TheFlow.Api.Entities.User user = ControllerHelper.GetAuthenticatedUser();
             if (user == null)
             {
                 menu.Add(new MenuItem("Create Account", "~/Users/LogIn"));

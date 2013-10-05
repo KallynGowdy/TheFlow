@@ -27,7 +27,16 @@ namespace TheFlow.Api.Models
         /// <returns></returns>
         public bool IsAccepted()
         {
-            return this.Question != null && this.Question.AcceptedAnswer == this;
+            return Accepted;
+        }
+
+        /// <summary>
+        /// Gets or sets if this answer is accepted.
+        /// </summary>
+        public bool Accepted
+        {
+            get;
+            set;
         }
 
         public ViewAnswerModel()
@@ -46,6 +55,7 @@ namespace TheFlow.Api.Models
             {
                 this.Question = question;
             }
+            this.Accepted = answer.Accepted;
         }
     }
 }

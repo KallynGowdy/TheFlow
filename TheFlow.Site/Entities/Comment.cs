@@ -12,11 +12,13 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using MarkdownSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using TheFlow.Site.Controllers;
 
 namespace TheFlow.Api.Entities
 {
@@ -52,13 +54,22 @@ namespace TheFlow.Api.Entities
         }
 
         /// <summary>
-        /// Gets or sets the body of the post.
+        /// Gets or sets the body of the comment. The returned text is not converted or sanitized.
         /// </summary>
         [Required, Range(15, 500)]
         public string Body
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// Gets the markdown-converted and html sanitized version of the body from the comment.
+        /// </summary>
+        /// <returns></returns>
+        public string GetMarkdownBody()
+        {
+            return ControllerHelper.HtmlSanitizer.GetHtml(ControllerHelper.MarkdownConverter.Transform(Body));
         }
 
         /// <summary>

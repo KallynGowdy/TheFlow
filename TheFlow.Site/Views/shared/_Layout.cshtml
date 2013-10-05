@@ -76,7 +76,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="vertical-divider"></li>
-                @{TheFlow.Api.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.Authenticate(Request);}
+                @{TheFlow.Api.Entities.User user = TheFlow.Site.Controllers.ControllerHelper.GetAuthenticatedUser();}
 
                 @if (user == null)
                 {
@@ -131,6 +131,7 @@
         </div>
     </div>
 
+    @RenderSection("Modals", false)
 
     @* A form that includes an anti-forgery token that is used for ajax requests *@
     <form id="__AjaxAntiForgeryForm" style="height: 0px; width: auto; padding: 0px 0px 0px 0px; margin: 0 0 0 0;" method="post" action="#">

@@ -11,11 +11,16 @@
     </li>
 }
 
+@section AsyncScripts
+{
+    ,'responsive' : '@Url.Content("~/scripts/responsive.js")'
+}
+
 @section Scripts{
     <script type="text/javascript">
         loader.jqueryCallback.push(function () {
             $(".nav li").removeClass("active");
-            $(".nav li:eq(3)").addClass("active");
+            $(".nav li:eq(2)").addClass("active");
 
             var width = 0;
             var elements = $('.votes-views');
@@ -71,7 +76,7 @@
                     <p class="text-left question-preview">@currentBody</p>
                 </div>
                 <div class="col-sm-2 text-center">
-                    <div class="votes-views btn-group-vertical">
+                    <div class="responsive btn-group-vertical">
                         @{int votes = question.NetVotes();
                           int answers = question.Answers.Count;
                           int views = question.Views;

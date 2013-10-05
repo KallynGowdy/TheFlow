@@ -32,7 +32,7 @@
 </div>
 <hr />
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-3 text-center">
         @{string reputation = string.Format("{0:n0}", Model.Reputation);}
 
         <div class="hidden-xs">
@@ -40,6 +40,9 @@
         </div>
         <div class="visible-xs text-center">
             <h5>@reputation Reputation</h5>
+        </div>
+        <div class="text-center">
+            @Helpers.DrawGravitar(Model.EmailAddress, 160)
         </div>
     </div>
     <div class="col-sm-9 panel panel-default">

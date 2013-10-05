@@ -20,6 +20,7 @@ using System.Web.Mvc;
 using TheFlow.Api.Entities;
 using System.Data.Entity;
 using TheFlow.Site.Models;
+using TheFlow.Site.Authorization;
 
 namespace TheFlow.Site.Controllers
 {
@@ -45,6 +46,43 @@ namespace TheFlow.Site.Controllers
         }
 
         /// <summary>
+        /// Creates a new edit for the post with the given id using the given post model.
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <param name="post"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Prefix = "id")]long postId, PostModel newPost)
+        {
+            User user = ControllerHelper.GetAuthenticatedUser(dataContext);
+            if (user != null)
+            {
+                Post post = dataContext.Posts.SingleOrDefault(p => p.Id == postId);
+                if (post != null)
+                {
+                    //Make edit because the editor is the author or because the editor has that permission
+                    if (post.Author.OpenId == user.OpenId || UserPermissions.HasPermission(user, UserPermission.Edit))
+                    {
+                        post.SetBody(newPost.Body, user);
+                    }
+                    //propose edit
+                    else
+                    {
+                        post.ProposeEdit(newPost.Body, user);
+                    }
+                }
+                return ControllerHelper.RedirectBack(Request, Redirect, true);
+            }
+            else
+            {
+                return ControllerHelper.Redirect(Url.Action("LogIn", "Users"), Request, Redirect);
+            }
+        }
+
+
+        /// <summary>
         /// Adds the given comment to the post with the given post id.
         /// </summary>
         /// <param name="postId">The Id number of the post to add the comment to.</param>
@@ -57,7 +95,7 @@ namespace TheFlow.Site.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = ControllerHelper.Authenticate(Request, dataContext);
+                User user = ControllerHelper.GetAuthenticatedUser(dataContext);
                 if (user != null)
                 {
                     Post post = dataContext.Posts.SingleOrDefault(p => p.Id == postId);
@@ -87,7 +125,7 @@ namespace TheFlow.Site.Controllers
         [HttpPost]
         public ActionResult DeleteComment([Bind(Prefix = "id")] long commentId)
         {
-            User user = ControllerHelper.Authenticate(Request, dataContext);
+            User user = ControllerHelper.GetAuthenticatedUser(dataContext);
 
             if (user != null)
             {
@@ -138,7 +176,7 @@ namespace TheFlow.Site.Controllers
             Post post = dataContext.Posts.SingleOrDefault(a => a.Id == postId);
             if (post != null)
             {
-                User user = ControllerHelper.Authenticate(Request, dataContext);
+                User user = ControllerHelper.GetAuthenticatedUser(dataContext);
 
                 //Make sure that the user is not voting on their own post
                 if (user != null && post.Author.OpenId != user.OpenId)
@@ -185,7 +223,7 @@ namespace TheFlow.Site.Controllers
             Post post = dataContext.Posts.SingleOrDefault(a => a.Id == postId);
             if (post != null)
             {
-                User user = ControllerHelper.Authenticate(Request, dataContext);
+                User user = ControllerHelper.GetAuthenticatedUser(dataContext);
                 if (user != null)
                 {
                     //Find the vote from the user
@@ -219,7 +257,7 @@ namespace TheFlow.Site.Controllers
             Post post = dataContext.Posts.SingleOrDefault(a => a.Id == postId);
             if (post != null)
             {
-                User user = ControllerHelper.Authenticate(Request, dataContext);
+                User user = ControllerHelper.GetAuthenticatedUser(dataContext);
 
                 //make sure that the user is not voting on their own post
                 if (user != null && post.Author.OpenId != user.OpenId)

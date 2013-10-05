@@ -12,6 +12,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using MarkdownSharp;
 using System;
 using System.Collections.Generic;
 // Copyright 2013 Kallyn Gowdy
@@ -40,6 +41,9 @@ using TheFlow.Site.HtmlSanitization;
 
 namespace TheFlow.Site.Controllers
 {
+    /// <summary>
+    /// Provides several helper functions used primarily by mvc controllers.
+    /// </summary>
     public static class ControllerHelper
     {
         #region HtmlSanitizer
@@ -401,6 +405,19 @@ namespace TheFlow.Site.Controllers
             }
         }
 
+        private static readonly Markdown markdownConverter = new Markdown(true);
+
+        /// <summary>
+        /// Gets the Markdown that is used to convert markdown-formatted text into html.
+        /// </summary>
+        public static Markdown MarkdownConverter
+        {
+            get
+            {
+                return markdownConverter;
+            }
+        }
+
         /// <summary>
         /// Gets the Search Engine (and user) Friendly version of the given title string by replacing non alpha-numeric characters with dashes.
         /// </summary>
@@ -466,6 +483,72 @@ namespace TheFlow.Site.Controllers
                 return new JsonResult
                 {
                     Data = new { redirect = url }
+                };
+            }
+        }
+
+        /// <summary>
+        /// Redirects the user back based on the given request and redirect function.
+        /// </summary>
+        /// <param name="request">The request that was made to the controller.</param>
+        /// <param name="redirectFunction">A function that, given a redirect uri, returns an ActionResult object that redirects the user to the (given) uri.</param>
+        /// <param name="fallbackUrl">The url to redirect the user to if they cannot be redirected backwards.</param>
+        /// <param name="ajaxRedirect">Whether to return a 200 status code with a redirect value that contains the redirect information to prevent browsers from messing with the "transparent" redirect.</param>
+        /// <returns></returns>
+        public static ActionResult RedirectBack(HttpRequestBase request, Func<string, ActionResult> redirectFunction, string fallbackUrl, bool ajaxRedirect = false)
+        {
+            if (!ajaxRedirect)
+            {
+                //check for an ajax header to determine if we should redirect for ajax.
+                string ajax = request["ajax"];
+                if (ajax != null)
+                {
+                    bool use;
+                    if (bool.TryParse(ajax, out use))
+                    {
+                        ajaxRedirect = use;
+                    }
+                }
+                else
+                {
+                    ajax = request.Headers["ajax"];
+                    if (ajax != null)
+                    {
+                        bool use;
+                        if (bool.TryParse(ajax, out use))
+                        {
+                            ajaxRedirect = use;
+                        }
+                    }
+                }
+            }
+
+            if (!ajaxRedirect)
+            {
+                if (request.UrlReferrer != null)
+                {
+                    return redirectFunction(request.UrlReferrer.AbsolutePath);
+                }
+                else
+                {
+                    return redirectFunction(fallbackUrl);
+                }
+            }
+            else
+            {
+                string returnUrl;
+                if (request.UrlReferrer != null)
+                {
+                    returnUrl = request.UrlReferrer.AbsolutePath;
+                }
+                else
+                {
+                    return redirectFunction(fallbackUrl);
+                }
+                HttpContext.Current.Response.StatusCode = 200;
+                return new JsonResult
+                {
+                    Data = new { redirect = returnUrl }
                 };
             }
         }
@@ -598,7 +681,7 @@ namespace TheFlow.Site.Controllers
         /// If the user is not authenticated he/she will be redirected to their provider if the provider is supplied in the request.
         /// </summary>
         /// <returns>The currently authenticated user, or null if the user is not authenticated.</returns>
-        public static User Authenticate(HttpRequestBase request, IDbContext dataContext = null)
+        public static User GetAuthenticatedUser(IDbContext dataContext = null)
         {
             if (dataContext == null)
             {
@@ -609,23 +692,6 @@ namespace TheFlow.Site.Controllers
             {
                 User user = dataContext.Users.SingleOrDefault(a => a.OpenId == ((FormsIdentity)HttpContext.Current.User.Identity).Name);
                 return user;
-            }
-            else if (!FormsAuthentication.IsEnabled)
-            {
-                User user;
-                if (AuthenticationServer.IsAuthenticated(out user))
-                {
-                    return user;
-                }
-                else
-                {
-                    string provider = GetAuthProvider(request);
-                    if (provider != null)
-                    {
-                        AuthenticationServer.Authenticate(request, provider);
-                    }
-                    return null;
-                }
             }
             return null;
         }

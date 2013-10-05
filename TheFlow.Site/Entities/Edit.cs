@@ -40,6 +40,7 @@ namespace TheFlow.Api.Entities
         /// </summary>
         [Required]
         [MaxLength(64000)]
+        [MinLength(15)]
         public string Body
         {
             get;
@@ -80,6 +81,15 @@ namespace TheFlow.Api.Entities
         /// </summary>
         [Required]
         public Post OriginalPost
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets if the edit is accepted.
+        /// </summary>
+        public bool Accepted
         {
             get;
             set;

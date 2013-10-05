@@ -1,4 +1,5 @@
-﻿@model Tuple<TheFlow.Site.Controllers.UserSortingMethod, IEnumerable<TheFlow.Api.Models.UserModel>, int, int>
+﻿
+@model Tuple<TheFlow.Site.Controllers.UserSortingMethod, IEnumerable<TheFlow.Api.Models.UserModel>, int, int>
 
 @{
     ViewBag.Title = string.Format("Users - {0}", TheFlow.Site.Settings.SiteName);
@@ -9,7 +10,7 @@
     <script>
         loader.jqueryCallback.push(function () {
             $(".nav li").removeClass("active");
-            var elements = $(".nav li:eq(5)");
+            var elements = $(".nav li:eq(4)");
             elements.addClass("active");
         });
     </script>
@@ -48,28 +49,35 @@
     <hr />
     @foreach (var user in Model.Item2)
     {
-        <div class="col-sm-3 panel panel-default top-padding">
-            <p title="Display Name: @user.DisplayName">
-                <a href="~/Users/Info?userId=@user.OpenId">@user.DisplayName</a>
-            </p>
-            <p title="Location: @(user.Location != null ? user.Location : "Not Set")" class="full-height-line">
-                @if (user.Location != null)
-                {
-                    @:@user.Location
-                }
-            </p>
-            @if (Model.Item1 == TheFlow.Site.Controllers.UserSortingMethod.Reputation)
-            {
-                <p title="@user.Reputation Reputation"><strong>@user.Reputation</strong></p>
-            }
-            else if (Model.Item1 == TheFlow.Site.Controllers.UserSortingMethod.DateJoined)
-            {
-                <p title="@user.Reputation Gained in @((DateTime.UtcNow - user.DateJoined).Days) Days">@user.Reputation Gained in @((DateTime.UtcNow - user.DateJoined).Days) Days</p>
-            }
-            else if (Model.Item1 == TheFlow.Site.Controllers.UserSortingMethod.Edits)
-            {
+        <div class="col-sm-3 col-lg-2 panel panel-default top-padding">
+            <div class="row">
+                <div class="col-xs-6">
+                    @Helpers.DrawGravitar(user.EmailAddress)
+                </div>
+                <div class="col-xs-6">
+                    <p title="Display Name: @user.DisplayName">
+                        <a href="~/Users/Info?userId=@user.OpenId">@user.DisplayName</a>
+                    </p>
+                    <p title="Location: @(user.Location != null ? user.Location : "Not Set")" class="full-height-line">
+                        @if (user.Location != null)
+                        {
+                            @:@user.Location
+                        }
+                    </p>
+                    @if (Model.Item1 == TheFlow.Site.Controllers.UserSortingMethod.Reputation)
+                    {
+                        <p title="@user.Reputation Reputation"><strong>@user.Reputation</strong></p>
+                    }
+                    else if (Model.Item1 == TheFlow.Site.Controllers.UserSortingMethod.DateJoined)
+                    {
+                        <p title="@user.Reputation Gained in @((DateTime.UtcNow - user.DateJoined).Days) Days">@user.Reputation Gained in @((DateTime.UtcNow - user.DateJoined).Days) Days</p>
+                    }
+                    else if (Model.Item1 == TheFlow.Site.Controllers.UserSortingMethod.Edits)
+                    {
 
-            }
+                    }
+                </div>
+            </div>
         </div>
     }
 </div>
