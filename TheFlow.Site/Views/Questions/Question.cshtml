@@ -63,6 +63,10 @@
                     <div class="col-xs-4 col-sm-12"><a data-post="@Url.Action("UpVote", "Posts", new{id=post.Id})" class="post-back up-vote"><i class="icon-arrow-up"></i></a></div>
                     <div class="col-xs-4 col-sm-12"><strong class="votes" title="@post.UpVotes.Count() upvotes and @post.DownVotes.Count() downvotes">@post.NetVotes()</strong></div>
                     <div class="col-xs-4 col-sm-12"><a data-post="@Url.Action("DownVote", "Posts", new{id=post.Id})" class="post-back down-vote"><i class="icon-arrow-down"></i></a></div>
+                    @if(post is TheFlow.Api.Entities.Answer && ((TheFlow.Api.Entities.Answer)post).Accepted)
+                    {
+                        <div class="col-xs-4 col-sm-12"><i class="icon-ok success" title="This answer was marked as the solution to the asker's problem by @Model.Author.DisplayName"></i></div>
+                    }
                 </div>
             </div>
             <hr class="visible-xs" />

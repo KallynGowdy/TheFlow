@@ -1,5 +1,4 @@
-﻿
-@model Tuple<TheFlow.Site.Controllers.UserSortingMethod, IEnumerable<TheFlow.Api.Models.UserModel>, int, int>
+﻿@model Tuple<TheFlow.Site.Controllers.UserSortingMethod, IEnumerable<TheFlow.Api.Models.UserModel>, int, int>
 
 @{
     ViewBag.Title = string.Format("Users - {0}", TheFlow.Site.Settings.SiteName);
@@ -49,6 +48,8 @@
     <hr />
     @foreach (var user in Model.Item2)
     {
+        if (Model.Item1 != TheFlow.Site.Controllers.UserSortingMethod.DateJoined || (DateTime.Now - user.DateJoined).TotalDays <= Model.Item4)
+        {
         <div class="col-sm-3 col-lg-2 panel panel-default top-padding">
             <div class="row">
                 <div class="col-xs-6">
@@ -62,7 +63,7 @@
                         @if (user.Location != null)
                         {
                             @:@user.Location
-                        }
+                                                }
                     </p>
                     @if (Model.Item1 == TheFlow.Site.Controllers.UserSortingMethod.Reputation)
                     {
@@ -79,5 +80,6 @@
                 </div>
             </div>
         </div>
+        }
     }
 </div>
