@@ -27,6 +27,10 @@ namespace TheFlow.Site.Authorization
         /// Defines a permission that a user can edit a post with instant acceptance.
         /// </summary>
         Edit,
+        /// <summary>
+        /// Defines a permission that a user can comment on any post.
+        /// </summary>
+        Comment
     }
 
     /// <summary>
@@ -52,6 +56,8 @@ namespace TheFlow.Site.Authorization
                     return user.Reputation >= Settings.Permissions.Flag;
                 case UserPermission.Edit:
                     return user.Reputation >= Settings.Permissions.Edit;
+                case UserPermission.Comment:
+                    return user.Reputation >= Settings.Permissions.Comment;
             }
             return false;
         }

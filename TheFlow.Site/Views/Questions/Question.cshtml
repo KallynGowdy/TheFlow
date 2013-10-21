@@ -48,6 +48,7 @@
 @helper DrawPost(TheFlow.Api.Entities.Post post, bool displayDelete, bool displayAccept)
 {
     <div class="col-xs-12 panel panel-default">
+        <a id="@post.Id" style="display:block;position: relative; top: -80px; overflow:hidden;"></a>
         @if (post is TheFlow.Api.Entities.Question)
         {
             <div class="row">
@@ -60,10 +61,10 @@
         <div class="row post-row">
             <div class="col-sm-1">
                 <div class="row text-center">
-                    <div class="col-xs-4 col-sm-12"><a data-post="@Url.Action("UpVote", "Posts", new{id=post.Id})" class="post-back up-vote"><i class="icon-arrow-up"></i></a></div>
+                    <div class="col-xs-4 col-sm-12"><a data-post="@Url.Action("UpVote", "Posts", new { id = post.Id })" class="post-back up-vote"><i class="icon-arrow-up"></i></a></div>
                     <div class="col-xs-4 col-sm-12"><strong class="votes" title="@post.UpVotes.Count() upvotes and @post.DownVotes.Count() downvotes">@post.NetVotes()</strong></div>
-                    <div class="col-xs-4 col-sm-12"><a data-post="@Url.Action("DownVote", "Posts", new{id=post.Id})" class="post-back down-vote"><i class="icon-arrow-down"></i></a></div>
-                    @if(post is TheFlow.Api.Entities.Answer && ((TheFlow.Api.Entities.Answer)post).Accepted)
+                    <div class="col-xs-4 col-sm-12"><a data-post="@Url.Action("DownVote", "Posts", new { id = post.Id })" class="post-back down-vote"><i class="icon-arrow-down"></i></a></div>
+                    @if (post is TheFlow.Api.Entities.Answer && ((TheFlow.Api.Entities.Answer)post).Accepted)
                     {
                         <div class="col-xs-4 col-sm-12"><i class="icon-ok success" title="This answer was marked as the solution to the asker's problem by @Model.Author.DisplayName"></i></div>
                     }
@@ -78,8 +79,8 @@
         <div class="row">
             <div class="col-xs-3 col-sm-6">
                 <div class="responsive btn-group">
-                    <a href="#" class="btn btn-default">Share</a>
-                    <a data-toggle="modal" href="#editPost@(Model.Id)" class="btn btn-default">Edit</a>
+                    <a id="share@(post.Id)" class="btn btn-default" title="" data-trigger="hover" data-delay='{"show":"500", "hide":"3000"}' data-html="true" data-original-title="Share" data-container="body" data-toggle="popover" data-placement="top" data-content="Share this post using this URL: <code>@Url.RouteUrl("ShortPostRoute", new { id = post.Id }, Request.Url.Scheme)</code>">Share</a>
+                    <a href="~/Posts/Edit/@(Model.Id)" class="btn btn-default">Edit</a>
                     <a href="#" class="btn btn-default">Flag</a>
                     @if (displayDelete)
                     {
@@ -117,15 +118,6 @@
     <link rel="stylesheet" href="~/Content/font-awesome/font-awesome.css" />
 }
 
-@section Modals
-{
-    @Helpers.DrawEditModal(Model.Id, "Edit this question", Model.Body)
-    @foreach (var answer in Model.Answers)
-    {
-        @:@Helpers.DrawEditModal(answer.Id, "Edit this answer", answer.Body)
-                    }
-}
-
 @section AsyncScripts
 {
     ,'parsley' : '@Url.Content("~/scripts/parsley.js")',
@@ -157,24 +149,11 @@
                 });
             });
 
-            enableTab('wmd-input-@(Model.Id)');
-            enableEditor(function (editor) {
-                editor.getConverter().hooks.chain("preConversion", function (text) {
-                    $("#Body").attr("value", text);
-                    return text;
-                });
-            }, '-@Model.Id');
+            var postIds = [@Model.Id@foreach (var answer in Model.Answers)
+                                    {<text>,@answer.Id</text>}];
 
-            @foreach (var answer in Model.Answers)
-            {
-               <text>
-            enableTab('wmd-input-@(answer.Id)');
-            enableEditor(function (editor) {
-                editor.getConverter().hooks.chain("preConversion", function (text) {
-                    $("#Body").attr("value", text);
-                    return text;
-                });
-            }, '-@answer.Id');</text>
+            for (var i = 0; i < postIds.length; i++) {
+                $('#share' + postIds[i]).popover();
             }
 
             //tell the browser to remove the query string from the url bar
@@ -195,7 +174,7 @@
             displayDelete = (user != null && user.OpenId == answer.Author.OpenId && !answer.Accepted);
             bool displayAccept = (user != null && user.OpenId == Model.Author.OpenId && Model.AcceptedAnswer == null);
         
-            @DrawPost(answer, displayDelete, displayAccept)        
+        @DrawPost(answer, displayDelete, displayAccept)        
         }
     }
     else

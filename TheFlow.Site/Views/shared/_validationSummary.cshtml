@@ -1,7 +1,8 @@
+@using TheFlow.Site;
 @if (ViewData.ModelState.Any(x => x.Value.Errors.Any())) 
 { 
-   <div class="alert alert-error"> 
+   <div class="alert alert-danger fade in"> 
       <a class="close" data-dismiss="alert">&times;</a> 
-      @Html.ValidationSummary(true)
+      @Html.BootstrapValidation()
    </div>
 }

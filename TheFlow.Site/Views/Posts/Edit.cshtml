@@ -1,0 +1,64 @@
+﻿@model TheFlow.Api.Entities.Post
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@section AsyncScripts
+{
+    ,'parsley' : '@Url.Content("~/scripts/parsley.js")',
+    'markdownConverter' : '@Url.Content("~/scripts/pagedown/Markdown.Converter.js")',
+    'markdownSanitizer' : '@Url.Content("~/scripts/pagedown/Markdown.Sanitizer.js")',
+    'markdownEditor' : '@Url.Content("~/scripts/pagedown/Markdown.Editor.js")',
+    'prettify' : '@Url.Content("~/scripts/prettyprint/prettify.js")',
+    'editor' : '@Url.Content("~/scripts/editor.js")'    
+}
+
+@section Head
+{
+    <link href="@Helpers.GetCodeStylePath()" rel="stylesheet" />
+}
+
+@section Scripts
+{
+    <script>
+        loader.completeCallback.push(function () {
+            var converter = new Markdown.getSanitizingConverter();
+            defaultHooks(converter);
+
+            enableTab("wmd-input");
+            highlightCode();
+
+            enableEditor(function (editor) {
+                editor.getConverter().hooks.chain("preConversion", function (text) {
+                    $("#Body").attr("value", text);
+                    return text;
+                });
+            });
+        });
+    </script>
+}
+<h2>Edit</h2>
+@using (Html.BeginForm("Edit", "Posts", new { id = Model.Id }, FormMethod.Post, new { data_validate = "parsley", novalidate = "novalidate" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="postId" name="postId" value="@Model.Id.ToString()" />
+    if (Model is TheFlow.Api.Entities.Question)
+    {
+        <div>
+            <label for="Title" class="sr-only">The title for your question.</label>
+            <input class="full-width input-field" value="@(((TheFlow.Api.Entities.Question)Model).Title)" title="The title for your question" id="Title" type="text" placeholder="Title" name="Title" data-minlength="10" data-error-message="Please provide a Title with a length of at least 10" autocomplete="off" required />
+        </div>
+    }
+    <div id="body-field">
+        <div id="wmd-button-bar" class="wmd-button-bar"></div>
+        <textarea data-minlength="15" class="wmd-input" id="wmd-input" name="Body" data-error-message="Your answer must be at least 15 characters long" required>@Model.Body</textarea>
+    </div>
+    <div class="panel panel-default editor-preview">
+        <small id="preview-text">Preview</small>
+        <br />
+        <div id="wmd-preview"></div>
+    </div>
+    @*<input type="hidden" id="Body" name="Body" value="" />*@
+    <button class="btn btn-success" type="submit">Propose these changes to this post</button>
+}

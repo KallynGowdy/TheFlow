@@ -419,6 +419,44 @@ namespace TheFlow.Site.Controllers
         }
 
         /// <summary>
+        /// Gets a url that points to the question with the given id and the post with the given id.
+        /// </summary>
+        /// <param name="url">The UrlHelper that builds a url that points to the Questions Controller.</param>
+        /// <param name="questionId">The Id number of the question to get the url for.</param>
+        /// <param name="postId">The Id number of the post to point to.</param>
+        /// <returns></returns>
+        public static string GetPostUrl(this UrlHelper url, long questionId, long? postId = null)
+        {
+            if (postId.HasValue)
+            {
+                return string.Format("{0}?a={1}#{1}", url.Action("Question", "Questions", new { id = questionId }), postId.Value);
+            }
+            else
+            {
+                return url.Action("Question", "Questions", new { id = questionId });
+            }
+        }
+
+        /// <summary>
+        /// Gets a url that points to a question with the id defined in the given routeValues object.
+        /// </summary>
+        /// <param name="url">The UrlHelper that builds a url that points to the Questions Controller.</param>
+        /// <param name="routeValues">An object that at least contains an 'id' member with the Id number of the question to point to.</param>
+        /// <param name="postId">The Id number of the post(answer) to to point to.</param>
+        /// <returns></returns>
+        public static string GetPostUrl(this UrlHelper url, object routeValues, long? postId = null)
+        {
+            if (postId.HasValue)
+            {
+                return string.Format("{0}?a={1}#{1}", url.Action("Question", "Questions", routeValues), postId.Value);
+            }
+            else
+            {
+                return url.Action("Question", "Questions", routeValues);
+            }
+        }
+
+        /// <summary>
         /// Gets the Search Engine (and user) Friendly version of the given title string by replacing non alpha-numeric characters with dashes.
         /// </summary>
         /// <param name="title">The string to convert to a Search Engine friendly string.</param>
@@ -426,6 +464,45 @@ namespace TheFlow.Site.Controllers
         public static string GetSeoFriendlyTitle(string title)
         {
             return Regex.Replace(title.ToLower().Replace(@"'", String.Empty), @"[^\w]+", "-");
+        }
+
+        /// <summary>
+        /// Gets the validation error messages from the TempData object.
+        /// </summary>
+        /// <param name="tempData">The dictionary of values that is stored as temporary data preserved across requests.</param>
+        /// <returns></returns>
+        public static IEnumerable<string> GetValidationErrors(TempDataDictionary tempData)
+        {
+            if (tempData.ContainsKey("ErrorMessages"))
+            {
+                return (IEnumerable<string>)tempData["ErrorMessages"];
+            }
+            return new string[] { };
+        }
+
+        /// <summary>
+        /// Adds the given error messages to the TempData dictionary for display to the user.
+        /// </summary>
+        /// <param name="tempData"></param>
+        /// <param name="errors"></param>
+        public static void AddErrorMessages(TempDataDictionary tempData, params string[] errors)
+        {
+            List<string> messages = GetValidationErrors(tempData).ToList();
+            messages.AddRange(errors);
+            tempData["ErrorMessages"] = messages;
+        }
+
+        /// <summary>
+        /// Gets the error messages from the temporary data and sets them as errors in the given ModelStateDictionary.
+        /// </summary>
+        /// <param name="tempData">The object that contains temporary data that is preserved across requests.</param>
+        /// <param name="state">The current model state that we should add the errors to.</param>
+        public static void SetErrorMessages(TempDataDictionary tempData, ModelStateDictionary state)
+        {
+            foreach (string error in GetValidationErrors(tempData))
+            {
+                state.AddModelError("", error);
+            }
         }
 
         /// <summary>

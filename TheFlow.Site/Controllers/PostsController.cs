@@ -48,8 +48,8 @@ namespace TheFlow.Site.Controllers
         /// <summary>
         /// Creates a new edit for the post with the given id using the given post model.
         /// </summary>
-        /// <param name="postId"></param>
-        /// <param name="post"></param>
+        /// <param name="postId">The Id number of the post to edit.</param>
+        /// <param name="post">The model of the post with the proposed changes.</param>
         /// <returns></returns>
         [HttpPost]
         [Authorize]
@@ -96,7 +96,7 @@ namespace TheFlow.Site.Controllers
             if (ModelState.IsValid)
             {
                 User user = ControllerHelper.GetAuthenticatedUser(dataContext);
-                if (user != null)
+                if (user != null && UserPermissions.HasPermission(user, UserPermission.Comment))
                 {
                     Post post = dataContext.Posts.SingleOrDefault(p => p.Id == postId);
                     if (post != null)
@@ -110,6 +110,15 @@ namespace TheFlow.Site.Controllers
                         });
                         dataContext.SaveChanges();
                     }
+                }
+                else if (user == null)
+                {
+                    return ControllerHelper.Redirect(Url.Action("LogIn", "Users"), Request, Redirect);
+                }
+                //Show validation error that user does not have the required permissions.
+                else
+                {
+                    ControllerHelper.AddErrorMessages(TempData, string.Format("You do not have enough reputation to add a comment to this post. (You need at least {0} reputation to post comments)", Settings.Permissions.Comment));
                 }
             }
             return ControllerHelper.RedirectBack(Request, Redirect, true);
@@ -151,17 +160,72 @@ namespace TheFlow.Site.Controllers
             {
                 if (post is Question)
                 {
-                    return ControllerHelper.Redirect(Url.Action("Question", "Questions", new { id = postId }), Request, Redirect);
+                    return ControllerHelper.Redirect(Url.GetPostUrl(postId), Request, Redirect);
                 }
                 else
                 {
-                    //Redirect 
-                    return ControllerHelper.Redirect(string.Format("{0}#{1}", Url.Action("Question", "Questions", new { id = ((Answer)post).Question.Id }), postId.ToString()), Request, Redirect);
+                    return ControllerHelper.Redirect(Url.GetPostUrl(((Answer)post).Question.Id, postId), Request, Redirect);
                 }
             }
             else
             {
-                return ControllerHelper.RedirectBack(Request, Redirect, true);
+                return ControllerHelper.RedirectBack(Request, Redirect, Url.Action("Index","Questions"));
+            }
+        }
+
+        /// <summary>
+        /// Serves the page that provides an edit dialog for the given post id.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize]
+        public ActionResult Edit([Bind(Prefix="id")]long postId)
+        {
+            Post post = dataContext.Posts.SingleOrDefault(a => a.Id == postId);
+            if (post != null)
+            {
+                return View(post);
+            }
+            else
+            {
+                return ControllerHelper.RedirectBack(Request, Redirect, Url.Action("Index", "Posts", new { id = postId }));
+            }
+        }
+
+        /// <summary>
+        /// Proposes or makes changes to the post with the given id based on the posted model.
+        /// </summary>
+        /// <param name="postId">The Id number of the post to edit.</param>
+        /// <param name="proposedEdit">The model with the information to create a new edit with.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize]
+        public ActionResult Edit([Bind(Prefix = "id")]long postId, EditPostModel proposedEdit)
+        {
+            User user = ControllerHelper.GetAuthenticatedUser(this.dataContext);
+            if (user != null && ModelState.IsValid)
+            {
+                Post post = dataContext.Posts.SingleOrDefault(a => a.Id == postId);
+                if (UserPermissions.HasPermission(user, UserPermission.Edit))
+                {
+                    post.SetBody(proposedEdit.Body, user);
+
+                    //Edit the title if they have the permissions.
+                    if (post is Question && !string.IsNullOrWhiteSpace(proposedEdit.Title) && proposedEdit.Title.Length >= 15)
+                    {
+                        ((Question)post).Title = proposedEdit.Title;
+                    }
+                }
+                else
+                {
+                    post.ProposeEdit(proposedEdit.Body, user);
+                }
+                dataContext.SaveChanges();
+                return ControllerHelper.RedirectBack(Request, Redirect, Url.Action("Index", "Posts", new { id = postId }));
+            }
+            else
+            {
+                return RedirectToAction("Edit");
             }
         }
 
@@ -179,7 +243,7 @@ namespace TheFlow.Site.Controllers
                 User user = ControllerHelper.GetAuthenticatedUser(dataContext);
 
                 //Make sure that the user is not voting on their own post
-                if (user != null && post.Author.OpenId != user.OpenId)
+                if (user != null && post.Author.OpenId != user.OpenId && UserPermissions.HasPermission(user, UserPermission.UpVote))
                 {
                     //Make sure that the user has not voted on the post yet
                     if (post.Votes.All(a => a.Voter.OpenId != user.OpenId))
@@ -209,7 +273,6 @@ namespace TheFlow.Site.Controllers
                 }
             }
             return Index(postId);
-            //return ControllerHelper.RedirectBack(Request, Redirect, true);
         }
 
         /// <summary>
@@ -260,7 +323,7 @@ namespace TheFlow.Site.Controllers
                 User user = ControllerHelper.GetAuthenticatedUser(dataContext);
 
                 //make sure that the user is not voting on their own post
-                if (user != null && post.Author.OpenId != user.OpenId)
+                if (user != null && post.Author.OpenId != user.OpenId && UserPermissions.HasPermission(user, UserPermission.DownVote))
                 {
                     //Make sure that the user has not voted on the post yet
                     if (post.DownVotes.All(a => a.Voter.OpenId != user.OpenId))

@@ -379,6 +379,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnswerModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
+    <Compile Include="Models\EditPostModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\PreferencesModel.cs" />
@@ -565,6 +566,7 @@
     <Content Include="Views\Questions\Question.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Posts\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\parsley\" />

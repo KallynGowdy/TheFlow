@@ -57,6 +57,10 @@ namespace TheFlow.Site
                 "Permissions.Edit",
                 int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.Permissions.Edit"])
             },
+            {
+                "Permissions.Comment",
+                int.Parse(ConfigurationManager.AppSettings["TheFlow.Site.Permissions.Comment"])
+            },
         };
 
         /// <summary>
@@ -155,6 +159,17 @@ namespace TheFlow.Site
                 get
                 {
                     return (int)lookup["Permissions.Edit"];
+                }
+            }
+
+            /// <summary>
+            /// Gets the minimum ammoun of reputation that is required to comment on any post.
+            /// </summary>
+            public static int Comment
+            {
+                get
+                {
+                    return (int)lookup["Permissions.Comment"];
                 }
             }
         }

@@ -74,11 +74,12 @@ namespace TheFlow.Site.Controllers
         /// <param name="questionId">The Id number of the question to view.</param>
         /// <param name="addView">Whether to add a view to the question.</param>
         /// <returns></returns>
-        public ActionResult Question([Bind(Prefix = "id")] long questionId, string seoName, bool addView = false)
+        public ActionResult Question([Bind(Prefix = "id")] long questionId, string seoName, bool addView = false, [Bind(Prefix = "a")]long? answer = null)
         {
             Question question = dataContext.Questions.Include(a => a.Author).FirstOrDefault(q => q.Id == questionId);
             if (question != null)
             {
+                ControllerHelper.SetErrorMessages(TempData, ModelState);
                 if (addView)
                 {
                     question.Views += 1;
@@ -86,7 +87,8 @@ namespace TheFlow.Site.Controllers
                 }
                 if (seoName != ControllerHelper.GetSeoFriendlyTitle(question.Title))
                 {
-                    return RedirectToActionPermanent("Question", new { id = questionId, seoName = ControllerHelper.GetSeoFriendlyTitle(question.Title) });
+                    string url = Url.GetPostUrl(new { id = questionId, seoName = ControllerHelper.GetSeoFriendlyTitle(question.Title) }, answer);
+                    return RedirectPermanent(url);
                 }
 
                 return View(question);

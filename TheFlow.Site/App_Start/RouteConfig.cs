@@ -30,7 +30,14 @@ namespace TheFlow.Site
             routes.MapRoute(
                 name: "QuestionRoute",
                 url: "Questions/{id}/{seoName}",
-                defaults: new { controller = "Questions", action = "Question", seoName="" },
+                defaults: new { controller = "Questions", action = "Question", seoName = "" },
+                constraints: new { id = @"^\d+$" }
+            );
+
+            routes.MapRoute(
+                name: "ShortPostRoute",
+                url: "p/{id}",
+                defaults: new { controller = "Posts", action = "Index" },
                 constraints: new { id = @"^\d+$" }
             );
 

@@ -108,7 +108,11 @@
                         <p class="visible-sm text-center Copyright"></p>
                     </div>
                     <div class="col-xs-4">
+<<<<<<< Updated upstream
+                        <p class="text-center">This Version: <a href="https://github.com/KallynGowdy/TheFlow/commit/83e8c38a6ee8d556959e5b480e56c95374ff30f7">83e8c38a6e</a></p>
+=======
                         <p class="text-center">This Version: <a href="https://github.com/KallynGowdy/TheFlow/commit/7e0f3b67a24dbfd3af52d28f6275db3cd32d5d5b">7e0f3b67a24</a></p>
+>>>>>>> Stashed changes
                     </div>
                     <div class="col-xs-4">
                         <p class="hidden-sm text-right Time"></p>
