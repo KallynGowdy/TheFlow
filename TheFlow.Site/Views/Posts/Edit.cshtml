@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
+    var user = TheFlow.Api.Authentication.AuthenticationServer.GetFormsAuthenticatedUser();
 }
 
 @section AsyncScripts
@@ -59,6 +60,5 @@
         <br />
         <div id="wmd-preview"></div>
     </div>
-    @*<input type="hidden" id="Body" name="Body" value="" />*@
-    <button class="btn btn-success" type="submit">Propose these changes to this post</button>
+    <button class="btn btn-success" type="submit">@if(user != null && user.OpenId == Model.Author.OpenId){<text>Edit this post</text>}else{<text>Propose these changes to this post</text>}</button>
 }

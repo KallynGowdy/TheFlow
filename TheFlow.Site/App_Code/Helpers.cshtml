@@ -98,6 +98,28 @@
     </div>
 }
 
+@* Draws the given diffs as html *@
+@helper DrawDiff(IEnumerable<DiffMatchPatch.Diff> diffs)
+{
+    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+    foreach(DiffMatchPatch.Diff diff in diffs)
+    {
+        switch(diff.operation)
+        {
+            case DiffMatchPatch.Operation.DELETE:
+                sb.AppendFormat("<del>{0}</del>", diff.text);
+                break;
+            case DiffMatchPatch.Operation.EQUAL:
+                sb.AppendFormat("<span>{0}</span>", diff.text);
+                break;
+            case DiffMatchPatch.Operation.INSERT:
+                sb.AppendFormat("<ins>{0}</ins>", diff.text);
+                break;   
+        }
+    }
+    __razor_helper_writer.Write(sb.ToString().ToHtml());
+}
+
 @* Gets the path to the code style stylesheet based on the current user preferences. *@
 @helper GetCodeStylePath(TheFlow.Api.Entities.User user = null)
 {

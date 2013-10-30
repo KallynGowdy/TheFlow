@@ -12,7 +12,9 @@
         loader.jqueryCallback.push(function () {
             $(".nav li").removeClass("active");
             $(".nav li:eq(1)").addClass("active");
+        });
 
+        loader.completeCallback.push(function () {
             $('#sidebar').affix({
                 offset: {
                     top: 90

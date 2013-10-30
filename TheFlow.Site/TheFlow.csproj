@@ -248,6 +248,7 @@
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DateExtension.cs" />
+    <Compile Include="Diffs\DiffMatchPatch.cs" />
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Context.cs" />
@@ -567,6 +568,7 @@
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Posts\Edit.cshtml" />
+    <Content Include="Views\Posts\EditHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\parsley\" />

@@ -419,6 +419,18 @@ namespace TheFlow.Site.Controllers
         }
 
         /// <summary>
+        /// Removes markdown from the given string and returns the plain text version.
+        /// </summary>
+        /// <param name="markdown">The string to remove the markdown from.</param>
+        /// <returns></returns>
+        public static string RemoveMarkdown(string markdown)
+        {
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            doc.LoadHtml(MarkdownConverter.Transform(markdown));
+            return doc.DocumentNode.InnerText;
+        }
+
+        /// <summary>
         /// Gets a url that points to the question with the given id and the post with the given id.
         /// </summary>
         /// <param name="url">The UrlHelper that builds a url that points to the Questions Controller.</param>

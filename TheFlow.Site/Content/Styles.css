@@ -116,6 +116,46 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
     padding: 4px;
 }
 
+ins {
+    background-color: #89E8BD;
+    color: black;
+    text-decoration: none;
+}
+
+del {
+    background-color: pink;
+}
+
+.color-green {
+    color: #89E8BD;
+}
+
+.color-pink {
+    color: pink;
+}
+
+.legend-panel {
+    padding: 7px;
+}
+
+@media (max-width: 768px) {
+    .affix {
+        position: initial;
+    }
+}
+
+.affix {
+    position: fixed;
+}
+
+.affix-bottom {
+    position: absolute;
+}
+
+.affix-top {
+    position: static;
+}
+
 .comment-container {
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
@@ -150,7 +190,7 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
     width: 100%;
     max-width: 100%;
     min-width: 100%;
-    min-height:10em;
+    min-height: 10em;
 }
 
 .votes {
@@ -169,12 +209,12 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
 
 .up-vote:hover {
     color: #aea79f;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .down-vote:hover {
     color: #aea79f;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .post-row {

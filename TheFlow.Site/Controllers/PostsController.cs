@@ -21,6 +21,7 @@ using TheFlow.Api.Entities;
 using System.Data.Entity;
 using TheFlow.Site.Models;
 using TheFlow.Site.Authorization;
+using DiffMatchPatch;
 
 namespace TheFlow.Site.Controllers
 {
@@ -51,35 +52,35 @@ namespace TheFlow.Site.Controllers
         /// <param name="postId">The Id number of the post to edit.</param>
         /// <param name="post">The model of the post with the proposed changes.</param>
         /// <returns></returns>
-        [HttpPost]
-        [Authorize]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Prefix = "id")]long postId, PostModel newPost)
-        {
-            User user = ControllerHelper.GetAuthenticatedUser(dataContext);
-            if (user != null)
-            {
-                Post post = dataContext.Posts.SingleOrDefault(p => p.Id == postId);
-                if (post != null)
-                {
-                    //Make edit because the editor is the author or because the editor has that permission
-                    if (post.Author.OpenId == user.OpenId || UserPermissions.HasPermission(user, UserPermission.Edit))
-                    {
-                        post.SetBody(newPost.Body, user);
-                    }
-                    //propose edit
-                    else
-                    {
-                        post.ProposeEdit(newPost.Body, user);
-                    }
-                }
-                return ControllerHelper.RedirectBack(Request, Redirect, true);
-            }
-            else
-            {
-                return ControllerHelper.Redirect(Url.Action("LogIn", "Users"), Request, Redirect);
-            }
-        }
+        //[HttpPost]
+        //[Authorize]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Prefix = "id")]long postId, PostModel newPost)
+        //{
+        //    User user = ControllerHelper.GetAuthenticatedUser(dataContext);
+        //    if (user != null)
+        //    {
+        //        Post post = dataContext.Posts.SingleOrDefault(p => p.Id == postId);
+        //        if (post != null)
+        //        {
+        //            //Make edit because the editor is the author or because the editor has that permission
+        //            if (post.Author.OpenId == user.OpenId || UserPermissions.HasPermission(user, UserPermission.Edit))
+        //            {
+        //                post.SetBody(newPost.Body, user);
+        //            }
+        //            //propose edit
+        //            else
+        //            {
+        //                post.ProposeEdit(newPost.Body, user);
+        //            }
+        //        }
+        //        return ControllerHelper.RedirectBack(Request, Redirect, true);
+        //    }
+        //    else
+        //    {
+        //        return ControllerHelper.Redirect(Url.Action("LogIn", "Users"), Request, Redirect);
+        //    }
+        //}
 
 
         /// <summary>
@@ -174,6 +175,41 @@ namespace TheFlow.Site.Controllers
         }
 
         /// <summary>
+        /// Serves the page that shows the history of edits for this post.
+        /// </summary>
+        /// <param name="postId">The Id number of the post to show the edits for.</param>
+        /// <returns></returns>
+        public ActionResult EditHistory([Bind(Prefix = "id")]long postId)
+        {
+            diff_match_patch diffGenerator = new diff_match_patch();
+            Post post = dataContext.Posts.SingleOrDefault(p => p.Id == postId);
+            if (post != null)
+            {
+                Edit[] postEdits = post.Edits.OrderBy(p => p.Accepted).OrderBy(p => p.DateChanged).ToArray();
+                List<Diff>[] postDiffs = new List<Diff>[postEdits.Length];
+
+                //calculate the differences from nothing(string.Empty) to the last accepted edit.
+                for(int i = 0; i < postEdits.Length; i++)
+                {
+                    if(i <= 0)
+                    {
+                        List<Diff> diffs = diffGenerator.diff_main(string.Empty, postEdits[i].Body);
+                        diffGenerator.diff_cleanupSemantic(diffs);
+                        postDiffs[i] = diffs;
+                    }
+                    else
+                    {
+                        List<Diff> diffs = diffGenerator.diff_main(postEdits[i - 1].Body, postEdits[i].Body);
+                        diffGenerator.diff_cleanupSemantic(diffs);
+                        postDiffs[i] = diffs;
+                    }
+                }
+                return View(new Tuple<long, Edit[], List<Diff>[]>(postId, postEdits, postDiffs));
+            }
+            return ControllerHelper.RedirectBack(Request, Redirect, Url.Action("Index", "Questions"));
+        }
+
+        /// <summary>
         /// Serves the page that provides an edit dialog for the given post id.
         /// </summary>
         /// <returns></returns>
@@ -200,13 +236,14 @@ namespace TheFlow.Site.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Prefix = "id")]long postId, EditPostModel proposedEdit)
         {
             User user = ControllerHelper.GetAuthenticatedUser(this.dataContext);
             if (user != null && ModelState.IsValid)
             {
                 Post post = dataContext.Posts.SingleOrDefault(a => a.Id == postId);
-                if (UserPermissions.HasPermission(user, UserPermission.Edit))
+                if (UserPermissions.HasPermission(user, UserPermission.Edit) || user.OpenId == post.Author.OpenId)
                 {
                     post.SetBody(proposedEdit.Body, user);
 
