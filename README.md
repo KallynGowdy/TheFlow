@@ -18,8 +18,7 @@ An open source question and answer site inspired by [Stackoverflow](http://www.s
 	- Syntax Highlighting using [Google Code Prettify](https://code.google.com/p/google-code-prettify/)
 		- Fully User customizable themes (with optional presets)
 	- Implemented with [PageDown](https://code.google.com/p/pagedown/) and [MarkdownSharp](https://code.google.com/p/markdownsharp/)
-- (Possible) presentation support with [impress.js](http://bartaz.github.io/impress.js/#/bored "Impress.js")
-	- Not even close to being implemented yet
+-  Edit History Diffs using [Diff\_Match\_Patch](https://code.google.com/p/google-diff-match-patch/ "Diff_Match_Patch")
 
 ##Open ID##
 - Easy to implement with [DotNetOpenAuth](https://github.com/DotNetOpenAuth/DotNetOpenAuth)
